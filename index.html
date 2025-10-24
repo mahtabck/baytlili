@@ -28,12 +28,11 @@
       --accent:#a88e6a;
     }
 
-    /* ====== Brand font (upload to /assets as BaytLili.ttf or change below) ====== */
+    /* ===== Brand font (upload to /assets/ as BaytLili.ttf or .otf) ===== */
     @font-face{
       font-family:'BaytLili';
-      src:
-        url('assets/BaytLili.ttf') format('truetype'),
-        url('assets/BaytLili.otf') format('opentype');
+      src: url('assets/BaytLili.ttf') format('truetype'),
+           url('assets/BaytLili.otf') format('opentype');
       font-display:swap;
     }
 
@@ -48,30 +47,27 @@
       background: var(--bg);
     }
 
-    /* FULL-PAGE BACKGROUND IMAGE */
+    /* FULL-PAGE BACKGROUND IMAGE | show upper 25% */
     body::before{
       content:"";
       position:fixed; inset:0;
-      background:
-        /* fallback JPG, change to .png if needed */
-        url('assets/bgpic.png') center / cover no-repeat fixed;
+      background: url('assets/bgpic.png') center 25% / cover no-repeat fixed;
       z-index:-2;
     }
-    /* subtle veil for legibility (tweak 0–0.18 as you like) */
+    /* soft veil for legibility */
     body::after{
       content:"";
       position:fixed; inset:0;
-      background: rgba(255,255,255,0.10);
-      z-index:-1;
-      pointer-events:none;
+      background: rgba(255,255,255,0.08);
+      z-index:-1; pointer-events:none;
     }
 
     img{max-width:100%;display:block;height:auto}
     a{color:inherit;text-decoration:none}
-    .container{width:min(1100px,92vw);margin-inline:auto}
+    .container{width:min(1200px, 92vw);margin-inline:auto}
     .pad{padding: clamp(32px,5vw,80px) 0}
 
-    /* ====== Header (more elegant) ====== */
+    /* ===== Header (elegant) ===== */
     header{
       position:sticky; top:0; z-index:50;
       backdrop-filter: saturate(140%) blur(10px);
@@ -82,18 +78,15 @@
       display:flex; align-items:center; justify-content:space-between; gap:16px;
       padding:14px 0;
     }
-    .brand{
-      display:flex; align-items:center; gap:10px;
-    }
+    .brand{display:flex; align-items:center; gap:10px}
+    .brand img{height:38px}
     .brand span{
-      font-family:'BaytLili', 'Playfair Display', serif;  /* header text in brand font */
+      font-family:'BaytLili','Playfair Display',serif; /* header text in your font */
       font-size:1.1rem; letter-spacing:0.12em; font-variant: small-caps;
     }
-    .brand img{height:38px}
     .menu{display:flex; align-items:center; gap:18px}
     .menu a{
-      position:relative; padding:6px 2px; font-size:0.98rem;
-      letter-spacing:.04em;
+      position:relative; padding:6px 2px; font-size:0.98rem; letter-spacing:.04em;
     }
     .menu a::after{
       content:""; position:absolute; left:0; right:0; bottom:-4px; height:1px;
@@ -101,27 +94,24 @@
     }
     .menu a:hover::after{background: var(--accent)}
 
-    .cta{
-      display:inline-flex; align-items:center; gap:.6em;
-      border:1px solid var(--line); padding:.55em .9em; border-radius:999px;
-      background: color-mix(in srgb, var(--bg-2) 80%, white);
+    /* ===== Hero (text only, right-aligned) ===== */
+    .hero{display:block}
+    .hero .text{
+      display:flex; flex-direction:column; gap:16px;
+      text-align:right; align-items:flex-end;
+      margin-left:auto; /* push to the right */
+      max-width: 700px;
     }
-    .cta:hover{border-color:var(--accent)}
-
-    /* ====== Hero ====== */
-    .hero{
-      display:grid; grid-template-columns:1.1fr .9fr;
-      gap: clamp(18px,3vw,28px); align-items:stretch
-    }
-    .hero .text{display:flex; flex-direction:column; justify-content:center; gap:16px}
     .eyebrow{letter-spacing:.18em; text-transform:uppercase; color:var(--muted); font-size:.85rem}
-    h1{font-size:clamp(32px,5.4vw,58px); line-height:1.1; margin:0; font-weight:600; font-family:'BaytLili','Playfair Display',serif}
+    h1{
+      font-size:clamp(32px, 5.4vw, 58px);
+      line-height:1.1; margin:0; font-weight:600;
+      font-family:'BaytLili','Playfair Display',serif;
+    }
     .lede{color:var(--muted); font-size:clamp(15px,1.4vw,18px)}
-    .hero-card{border:1px solid var(--line); border-radius:22px; overflow:hidden; background:color-mix(in srgb, var(--bg-2) 84%, transparent)}
-    .hero-card img{aspect-ratio:4/5; object-fit:cover; width:100%}
 
-    /* Icon buttons row in hero */
-    .icon-row{display:flex; align-items:center; gap:12px; flex-wrap:wrap}
+    /* Icon buttons row */
+    .icon-row{display:flex; align-items:center; gap:12px; flex-wrap:wrap; justify-content:flex-end}
     .icon-btn{
       display:inline-flex; align-items:center; justify-content:center;
       width:46px; height:46px; border-radius:999px;
@@ -131,33 +121,46 @@
 
     /* Sections */
     section + section{border-top:1px solid color-mix(in srgb, var(--line) 70%, transparent)}
-    h2{font-size:clamp(24px,3.5vw,36px); line-height:1.2; margin:0 0 12px; font-weight:600; font-family:'BaytLili','Playfair Display',serif}
+    h2{
+      font-size:clamp(24px,3.5vw,36px); line-height:1.2; margin:0 0 12px; font-weight:600;
+      font-family:'BaytLili','Playfair Display',serif
+    }
     p{margin:0 0 12px}
-    .grid{display:grid; gap:16px}
-    .grid.cols-3{grid-template-columns:repeat(3,1fr)}
-    .card{border:1px solid var(--line); border-radius:18px; overflow:hidden; background: color-mix(in srgb, var(--bg-2) 86%, white)}
-    .card .cap{padding:14px; border-top:1px solid var(--line); font-size:.95rem; color:var(--muted)}
-    .kicker{margin-top:10px; color:var(--muted)}
 
-    /* Gallery */
-    .gallery img{aspect-ratio:4/5; object-fit:cover}
+    /* Features strip */
+    .strip{display:grid; grid-template-columns:repeat(4,1fr); gap:12px; margin-top:6px}
+    .pill{border:1px solid var(--line); border-radius:999px; padding:.6em 1em; text-align:center; background: color-mix(in srgb, var(--bg-2) 86%, white)}
 
-    /* Feature strip */
-    .strip{display:grid; grid-template-columns:repeat(4,1fr); gap:16px; margin-top:16px}
-    .pill{border:1px solid var(--line); border-radius:999px; padding:.7em 1em; text-align:center; background: color-mix(in srgb, var(--bg-2) 86%, white)}
+    /* Gallery — smaller so 3 fit in one row */
+    .gallery-row{display:flex; gap:12px; justify-content:space-between}
+    .card.small{flex:0 0 31%; border:1px solid var(--line); border-radius:14px; overflow:hidden; background: color-mix(in srgb, var(--bg-2) 86%, white)}
+    .card.small img{aspect-ratio:4/5; object-fit:cover}
+    .card .cap{padding:10px 12px; border-top:1px solid var(--line); font-size:.93rem; color:var(--muted)}
+
+    /* Logos grid */
+    .logos{display:grid; grid-template-columns:repeat(5,1fr); gap:12px}
+    .logo{
+      border:1px solid var(--line); border-radius:14px; background: color-mix(in srgb, var(--bg-2) 86%, white);
+      min-height:90px; display:flex; align-items:center; justify-content:center; padding:14px; position:relative;
+    }
+    .logo img{max-height:42px; width:auto}
+    /* If image missing, show the brand name text */
+    .logo.noimg{font-weight:600; color:var(--muted); font-family:'Playfair Display',serif}
 
     /* Footer */
     footer{border-top:1px solid color-mix(in srgb, var(--line) 70%, transparent); padding:32px 0; color:var(--muted); background: color-mix(in srgb, var(--bg) 70%, transparent)}
 
     /* Responsive */
-    @media (max-width:900px){
-      .hero{grid-template-columns:1fr}
+    @media (max-width: 900px){
       .strip{grid-template-columns:repeat(2,1fr)}
-      .grid.cols-3{grid-template-columns:1fr 1fr}
+      .gallery-row{flex-direction:column}
+      .card.small{flex:1 1 auto}
+      .logos{grid-template-columns:repeat(2,1fr)}
+      .hero .text{max-width:none}
     }
     @media (max-width:560px){
-      .grid.cols-3{grid-template-columns:1fr}
       .icon-btn{width:44px; height:44px}
+      .logos{grid-template-columns:1fr 1fr}
     }
   </style>
 </head>
@@ -170,17 +173,17 @@
         <span>BAYT LILI</span>
       </div>
 
-      <!-- Elegant menu -->
+      <!-- Elegant menu: all text links, Contact no bubble -->
       <nav class="menu" aria-label="Primary">
         <a href="#about">About</a>
         <a href="#gallery">Gallery</a>
         <a href="#work">Work</a>
-        <a class="cta" href="#contact">Contact</a>
+        <a href="#contact">Contact</a>
       </nav>
     </div>
   </header>
 
-  <!-- Hero -->
+  <!-- Hero: text only, right-aligned -->
   <main class="container pad hero" id="home">
     <div class="text">
       <div class="eyebrow">Boutique Villa — Filming • Photoshoots • Stays</div>
@@ -191,7 +194,6 @@
       <div class="icon-row" aria-label="Quick links">
         <!-- Instagram -->
         <a class="icon-btn" href="https://instagram.com/baytlili" target="_blank" rel="noopener" aria-label="Bayt Lili on Instagram" title="Instagram">
-          <!-- Simple Instagram glyph -->
           <svg width="22" height="22" viewBox="0 0 24 24" fill="none" aria-hidden="true">
             <rect x="3" y="3" width="18" height="18" rx="5" stroke="#222" />
             <circle cx="12" cy="12" r="4.2" stroke="#222" />
@@ -201,28 +203,20 @@
 
         <!-- Gallery (scroll to gallery) -->
         <a class="icon-btn" href="#gallery" aria-label="View Gallery" title="Gallery">
-          <!-- Camera icon -->
           <svg width="22" height="22" viewBox="0 0 24 24" fill="none" aria-hidden="true">
             <path d="M4 8.5a2.5 2.5 0 0 1 2.5-2.5h2l1.2-1.6A1 1 0 0 1 10.9 4h2.2a1 1 0 0 1 .8.4L15.1 6h2.4A2.5 2.5 0 0 1 20 8.5V17a3 3 0 0 1-3 3H7a3 3 0 0 1-3-3V8.5Z" stroke="#222"/>
             <circle cx="12" cy="13.2" r="4" stroke="#222"/>
           </svg>
         </a>
 
-        <!-- Airbnb -->
+        <!-- Airbnb (Bélo) -->
         <a class="icon-btn" href="https://airbnb.com/h/baytlili" target="_blank" rel="noopener" aria-label="Bayt Lili on Airbnb" title="Airbnb">
-          <!-- Minimal 'loop A' style icon -->
-          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" aria-hidden="true">
-            <path d="M12 6.5c2.8 4.6 6.2 10.2 6.2 12.1a4.2 4.2 0 1 1-8.4 0c0-1.9 3.4-7.5 6.2-12.1C14.8 5.7 13.5 5 12 5s-2.8.7-4.2 1.5C10.6 11 14 16.6 14 18.5a2 2 0 0 1-4 0c0-1.9 3.4-7.5 6.2-12.1" stroke="#222" stroke-linecap="round"/>
+          <!-- Airbnb Bélo symbol (cleaner path) -->
+          <svg width="22" height="22" viewBox="0 0 256 256" fill="none" aria-hidden="true">
+            <path d="M128 53c-18 0-34 10-41 26-13 28-41 77-41 103 0 28 23 51 51 51s51-23 51-51c0-26-28-75-41-103-7-16-23-26-41-26zM97 182a31 31 0 1 0 62 0 31 31 0 0 0-62 0z" stroke="#222" stroke-width="12" stroke-linecap="round" stroke-linejoin="round"/>
           </svg>
         </a>
       </div>
-
-      <p class="kicker">Designed by Mahtab & Gregorio.</p>
-    </div>
-
-    <div class="hero-card">
-      <!-- Replace with your hero photo if desired -->
-      <img src="assets/hero.png" alt="Bayt Lili Villa in Dubai"/>
     </div>
   </main>
 
@@ -231,7 +225,7 @@
     <div class="container">
       <h2>About the Space</h2>
 
-      <!-- Features moved ABOVE the description -->
+      <!-- Features above description -->
       <div class="strip">
         <div class="pill">Non-gated · Easy access</div>
         <div class="pill">Ground-floor load-in</div>
@@ -251,19 +245,18 @@
   <section id="gallery" class="pad">
     <div class="container">
       <h2>Gallery</h2>
-      <p class="kicker">A glimpse inside Bayt Lili — a warm, natural, editorial space.</p>
-      <div class="grid cols-3 gallery" style="margin-top:14px">
-        <div class="card">
+      <div class="gallery-row" style="margin-top:14px">
+        <div class="card small">
           <img src="assets/1.png" alt="Sunlit living room with neutral palette" loading="lazy" />
           <div class="cap">Living area</div>
         </div>
-        <div class="card">
+        <div class="card small">
           <img src="assets/2.png" alt="Minimal dining setup with natural light" loading="lazy" />
           <div class="cap">Dining</div>
         </div>
-        <div class="card">
-          <img src="assets/5.png" alt="Outdoor courtyard with Mediterranean feel" loading="lazy" />
-          <div class="cap">Courtyard</div>
+        <div class="card small">
+          <img src="assets/5.png" alt="Lush garden with Mediterranean feel" loading="lazy" />
+          <div class="cap">Garden</div>
         </div>
       </div>
     </div>
@@ -273,11 +266,23 @@
   <section id="work" class="pad">
     <div class="container">
       <h2>Selected Work</h2>
-      <p class="kicker">Brands that have filmed or photographed at Bayt Lili.</p>
-      <div class="grid cols-3" style="margin-top:14px">
-        <div class="card" style="padding:24px;display:flex;align-items:center;justify-content:center;min-height:110px">Indomie KSA</div>
-        <div class="card" style="padding:24px;display:flex;align-items:center;justify-content:center;min-height:110px">—</div>
-        <div class="card" style="padding:24px;display:flex;align-items:center;justify-content:center;min-height:110px">—</div>
+      <div class="logos" style="margin-top:14px">
+        <!-- Upload logos to /assets/logos/ with these filenames; text shows if missing -->
+        <div class="logo" data-name="Sephora">
+          <img src="assets/logos/sephora.png" alt="Sephora" onerror="this.closest('.logo').classList.add('noimg'); this.remove();" />
+        </div>
+        <div class="logo" data-name="The Body Shop">
+          <img src="assets/logos/body-shop.png" alt="The Body Shop" onerror="this.closest('.logo').classList.add('noimg'); this.remove();" />
+        </div>
+        <div class="logo" data-name="Brands For Less">
+          <img src="assets/logos/brands-for-less.png" alt="Brands For Less" onerror="this.closest('.logo').classList.add('noimg'); this.remove();" />
+        </div>
+        <div class="logo" data-name="Fuel Up">
+          <img src="assets/logos/fuel-up.png" alt="Fuel Up" onerror="this.closest('.logo').classList.add('noimg'); this.remove();" />
+        </div>
+        <div class="logo" data-name="Kcal">
+          <img src="assets/logos/kcal.png" alt="Kcal" onerror="this.closest('.logo').classList.add('noimg'); this.remove();" />
+        </div>
       </div>
     </div>
   </section>
@@ -287,9 +292,10 @@
     <div class="container">
       <h2>Book Bayt Lili</h2>
       <p>For filming, photoshoots, or stays, reach out via Instagram. We typically respond the same day.</p>
-      <div style="display:flex;gap:10px;flex-wrap:wrap;margin-top:6px">
-        <a class="cta" href="https://instagram.com/baytlili" target="_blank" rel="noopener" aria-label="Message Bayt Lili on Instagram">Message on Instagram</a>
-        <a class="cta" href="mailto:hello@baytlili.com" aria-label="Email Bayt Lili">Email us</a>
+      <div style="display:flex;gap:14px;flex-wrap:wrap;margin-top:8px">
+        <a href="https://instagram.com/baytlili" target="_blank" rel="noopener" aria-label="Message on Instagram">Instagram</a>
+        <span>·</span>
+        <a href="mailto:hello@baytlili.com" aria-label="Email Bayt Lili">hello@baytlili.com</a>
       </div>
       <p class="kicker" style="margin-top:10px">Location: Dubai, UAE · Non-gated · No permit needed for entry.</p>
     </div>
