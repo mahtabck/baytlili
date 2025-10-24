@@ -4,19 +4,19 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Bayt Lili — Boutique Villa in Dubai for Filming & Stays</title>
-  <meta name="description" content="Bayt Lili is a private boutique villa in Dubai designed for filming, photoshoots, and intimate stays. Warm Mediterranean minimalism, easy access, non‑gated.">
+  <meta name="description" content="Bayt Lili is a private boutique villa in Dubai designed for filming, photoshoots, and intimate stays. Warm Mediterranean minimalism, easy access, non-gated.">
   <meta name="robots" content="index,follow">
-  
+
   <!-- Open Graph / Social -->
   <meta property="og:title" content="Bayt Lili — Boutique Villa in Dubai for Filming & Stays">
   <meta property="og:description" content="Warm neutral tones, Mediterranean minimalism, easy access. Book Bayt Lili for your next shoot or stay.">
   <meta property="og:type" content="website">
   <meta property="og:url" content="https://baytlili.com/">
-  <meta property="og:image" content="/assets/og-cover.jpg"> <!-- Replace with your cover image path -->
+  <meta property="og:image" content="/assets/og-cover.jpg">
   <meta name="twitter:card" content="summary_large_image">
-  
-  <!-- Favicons (optional) -->
-  <!-- <link rel="icon" href="/assets/favicon.ico"> -->
+
+  <!-- Brand Font -->
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@500;600&display=swap" rel="stylesheet">
 
   <style>
     :root {
@@ -28,20 +28,36 @@
       --accent: #a88e6a; /* soft sand */
     }
 
-    /* Modern CSS reset */
     *,*::before,*::after{box-sizing:border-box}
-    body{margin:0;font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, "Helvetica Neue", Arial, "Noto Sans", "Apple Color Emoji","Segoe UI Emoji";line-height:1.6;color:var(--text);background:var(--bg)}
+    body{
+      margin:0;
+      font-family:'Playfair Display', serif;
+      line-height:1.6;
+      color:var(--text);
+      background:var(--bg);
+    }
     img{max-width:100%;display:block;height:auto}
     a{color:inherit;text-decoration:none}
     .container{width:min(1100px, 92vw);margin-inline:auto}
     .pad{padding: clamp(32px, 5vw, 80px) 0}
 
     /* Header */
-    header{position:sticky;top:0;backdrop-filter:saturate(140%) blur(8px);background:color-mix(in srgb, var(--bg) 80%, white);border-bottom:1px solid var(--line);z-index:50}
+    header{
+      position:sticky;top:0;
+      backdrop-filter:saturate(140%) blur(8px);
+      background:color-mix(in srgb, var(--bg) 80%, white);
+      border-bottom:1px solid var(--line);
+      z-index:50
+    }
     .nav{display:flex;align-items:center;justify-content:space-between;gap:16px;padding:14px 0}
-    .brand{font-variant:small-caps;letter-spacing:0.12em}
-    .brand b{font-weight:700}
-    .cta{display:inline-flex;align-items:center;gap:.6em;border:1px solid var(--line);padding:.65em 1em;border-radius:999px;background:var(--bg-2)}
+    .brand{display:flex;align-items:center;gap:8px;font-variant:small-caps;letter-spacing:0.12em}
+    .brand span{font-weight:600;font-size:1.1rem}
+    .cta{
+      display:inline-flex;align-items:center;gap:.6em;
+      border:1px solid var(--line);
+      padding:.65em 1em;border-radius:999px;
+      background:var(--bg-2);
+    }
     .cta:hover{border-color:var(--accent)}
 
     /* Hero */
@@ -57,12 +73,10 @@
     section + section{border-top:1px solid var(--line)}
     h2{font-size:clamp(24px,3.5vw,36px);line-height:1.2;margin:0 0 12px;font-weight:600}
     p{margin:0 0 12px}
-
     .grid{display:grid;gap:16px}
     .grid.cols-3{grid-template-columns:repeat(3,1fr)}
     .card{border:1px solid var(--line);border-radius:18px;overflow:hidden;background:var(--bg-2)}
     .card .cap{padding:14px;border-top:1px solid var(--line);font-size:.95rem;color:var(--muted)}
-
     .kicker{margin-top:10px;color:var(--muted)}
 
     /* Gallery */
@@ -91,8 +105,9 @@
   <header>
     <div class="container nav">
       <div class="brand">
-        <img src="assets/bllogo.png" alt="Bayt Lili logo" style="height:38px;vertical-align:middle;margin-right:8px;" />
+        <img src="assets/bllogo.png" alt="Bayt Lili logo" style="height:38px;vertical-align:middle;" />
         <span>Bayt Lili</span>
+      </div>
       <nav>
         <a class="cta" href="#contact" aria-label="Contact Bayt Lili">Contact</a>
       </nav>
@@ -104,7 +119,7 @@
     <div class="text">
       <div class="eyebrow">Boutique Villa — Filming • Photoshoots • Stays</div>
       <h1>Bayt Lili — A Private Villa in Dubai for Filming & Stays</h1>
-      <p class="lede">Warm neutral tones, Mediterranean minimalism, and soft natural light. Non‑gated with easy access — ideal for crews and content teams.</p>
+      <p class="lede">Warm neutral tones, Mediterranean minimalism, and soft natural light. Non-gated with easy access — ideal for crews and content teams.</p>
       <div style="display:flex;gap:10px;flex-wrap:wrap">
         <a class="cta" href="https://instagram.com/baytlili" target="_blank" rel="noopener" aria-label="Open Bayt Lili on Instagram">View Instagram</a>
         <a class="cta" href="#gallery">View Gallery</a>
@@ -112,7 +127,6 @@
       <p class="kicker">Designed by Mahtab & Gregorio.</p>
     </div>
     <div class="hero-card">
-      <!-- Replace this image with your hero photo: /assets/hero.jpg -->
       <img src="assets/hero.png" alt="Bayt Lili Villa in Dubai"/>
     </div>
   </main>
@@ -123,8 +137,8 @@
       <h2>About the Space</h2>
       <p>Bayt Lili is a privately designed villa with an editorial, minimal aesthetic. Natural textures, soft light, and curated details make it a versatile backdrop for commercials, fashion, and lifestyle shoots — as well as intimate stays.</p>
       <div class="strip" style="margin-top:16px">
-        <div class="pill">Non‑gated · Easy access</div>
-        <div class="pill">Ground‑floor load‑in</div>
+        <div class="pill">Non-gated · Easy access</div>
+        <div class="pill">Ground-floor load-in</div>
         <div class="pill">Multiple vignettes</div>
         <div class="pill">Quiet neighborhood</div>
       </div>
@@ -135,9 +149,8 @@
   <section id="gallery" class="pad">
     <div class="container">
       <h2>Gallery</h2>
-      <p class="kicker">Replace the placeholders below with your own photos for a cohesive look.</p>
+      <p class="kicker">A glimpse inside Bayt Lili — a warm, natural, editorial space.</p>
       <div class="grid cols-3 gallery" style="margin-top:14px">
-        <!-- Replace each src with your own images placed in /assets -->
         <div class="card">
           <img src="assets/1.png" alt="Sunlit living room with neutral palette" loading="lazy" />
           <div class="cap">Living area</div>
@@ -176,7 +189,7 @@
         <a class="cta" href="https://instagram.com/baytlili" target="_blank" rel="noopener" aria-label="Message Bayt Lili on Instagram">Message on Instagram</a>
         <a class="cta" href="mailto:hello@baytlili.com" aria-label="Email Bayt Lili">Email us</a>
       </div>
-      <p class="kicker" style="margin-top:10px">Location: Dubai, UAE · Non‑gated · No permit needed for entry.</p>
+      <p class="kicker" style="margin-top:10px">Location: Dubai, UAE · Non-gated · No permit needed for entry.</p>
     </div>
   </section>
 
