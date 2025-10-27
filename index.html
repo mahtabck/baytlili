@@ -11,7 +11,7 @@
   <link rel="icon" type="image/png" href="assets/favicon.png" />
   <link rel="apple-touch-icon" href="assets/favicon.png" />
 
-  <!-- Open Graph / Social -->
+  <!-- Social -->
   <meta property="og:title" content="Bayt Lili — Boutique Villa in Dubai for Filming & Stays">
   <meta property="og:description" content="Warm neutral tones, Mediterranean minimalism, easy access. Book Bayt Lili for your next shoot or stay.">
   <meta property="og:type" content="website">
@@ -52,18 +52,19 @@
       background: var(--bg);
     }
 
-    /* FULL-PAGE BACKGROUND IMAGE | show upper 25% */
+    /* FULL-PAGE BACKGROUND IMAGE */
     body::before{
       content:"";
       position:fixed; inset:0;
+      /* desktop default (focus upper 25%) */
       background: url('assets/bgpic.png') center 25% / cover no-repeat fixed;
       z-index:-2;
     }
-    /* Darker overlay for readability */
+    /* Overlay for readability */
     body::after{
       content:"";
       position:fixed; inset:0;
-      background: rgba(0,0,0,0.22); /* tweak 0.18–0.28 as you like */
+      background: rgba(0,0,0,0.22);
       z-index:-1; pointer-events:none;
     }
 
@@ -72,7 +73,7 @@
     .container{width:min(1200px, 92vw);margin-inline:auto}
     .pad{padding: clamp(32px,5vw,80px) 0}
 
-    /* ===== Header (elegant, readable) ===== */
+    /* ===== Header ===== */
     header{
       position:sticky; top:0; z-index:50;
       backdrop-filter: saturate(140%) blur(10px);
@@ -87,14 +88,16 @@
     .brand{display:flex; align-items:center; gap:10px}
     .brand img{height:38px}
     .brand span{
-      font-family:'BaytLili','Playfair Display',serif; /* header text in your font */
+      font-family:'BaytLili','Playfair Display',serif;
       font-size:1.1rem; letter-spacing:0.12em; font-variant: small-caps; color:#fff;
       text-shadow: 0 2px 6px rgba(0,0,0,0.35);
+      white-space:nowrap; /* keep on one line */
     }
     .menu{display:flex; align-items:center; gap:20px}
     .menu a{
       position:relative; padding:6px 2px; font-size:0.98rem; letter-spacing:.04em; color:#fff;
       text-shadow: 0 2px 6px rgba(0,0,0,0.35);
+      white-space:nowrap;
     }
     .menu a::after{
       content:""; position:absolute; left:0; right:0; bottom:-4px; height:1px;
@@ -102,12 +105,12 @@
     }
     .menu a:hover::after{background: rgba(255,255,255,0.7)}
 
-    /* ===== Hero (text only, right-aligned, WHITE text) ===== */
+    /* ===== Hero (text only, right-aligned, white text) ===== */
     .hero{display:block}
     .hero .text{
       display:flex; flex-direction:column; gap:16px;
       text-align:right; align-items:flex-end;
-      margin-left:auto; /* push to the right */
+      margin-left:auto;
       max-width: 720px;
     }
     .eyebrow{
@@ -115,6 +118,7 @@
       text-shadow: 0 2px 6px rgba(0,0,0,0.35);
     }
     h1{
+      /* Force into TWO lines on desktop via a manual break */
       font-size:clamp(36px, 6vw, 62px);
       line-height:1.08; margin:0; font-weight:600;
       font-family:'BaytLili','Playfair Display',serif;
@@ -136,7 +140,7 @@
     }
     .icon-btn:hover{border-color:#fff}
 
-    /* Sections (white headers and better contrast) */
+    /* Sections */
     section + section{border-top:1px solid rgba(255,255,255,0.25)}
     h2{
       font-size:clamp(24px,3.5vw,36px); line-height:1.2; margin:0 0 12px; font-weight:600;
@@ -183,17 +187,44 @@
     }
     footer a{color:#fff}
 
-    /* Responsive */
-    @media (max-width: 900px){
-      .strip{grid-template-columns:repeat(2,1fr)}
-      .gallery-row{flex-direction:column}
-      .card.small{flex:1 1 auto}
-      .logos{grid-template-columns:repeat(2,1fr)}
-      .hero .text{max-width:none}
+    /* ===== Responsive rules ===== */
+
+    /* 💻 Desktop (>= 900px) */
+    @media (min-width: 900px){
+      /* keep desktop background focus near the top */
+      body::before{ background-position: center 25%; }
+      .hero .text{ text-align:right; align-items:flex-end; max-width:720px; }
+
+      /* Force two lines: we control width so the single <br> makes exactly two lines */
+      .hero .text h1{ max-width: 700px; }
+
+      /* Gallery: row layout, logos 5 across */
+      .gallery-row { flex-direction: row; }
+      .card.small { flex: 0 0 31%; }
+      .logos { grid-template-columns: repeat(5, 1fr); }
     }
-    @media (max-width:560px){
-      .icon-btn{width:44px; height:44px}
-      .logos{grid-template-columns:1fr 1fr}
+
+    /* 📱 Mobile (< 900px) */
+    @media (max-width: 899.98px){
+      /* Brand must stay on one line on mobile */
+      .brand span{ white-space:nowrap; font-size:1rem; letter-spacing:0.10em; }
+
+      /* Center hero text on mobile for readability */
+      .hero .text{ text-align:center; align-items:center; max-width:none; }
+
+      /* Background: show LOWER slice so the pool is visible */
+      body::before{ background-position: center 60%; } /* adjust 50–70% as needed */
+
+      /* Soften heading size on small screens */
+      h1{ font-size: clamp(28px, 8.5vw, 42px); line-height:1.12; }
+
+      /* Icon buttons slightly smaller */
+      .icon-btn{ width:42px; height:42px; }
+
+      /* Gallery stacks; logos 2 across */
+      .gallery-row{ flex-direction:column; }
+      .card.small{ flex: 1 1 auto; }
+      .logos{ grid-template-columns: repeat(2, 1fr); }
     }
   </style>
 </head>
@@ -206,21 +237,23 @@
         <span>BAYT LILI</span>
       </div>
 
-      <!-- Elegant menu: all text links, Contact no bubble -->
+      <!-- Menu without 'Work' -->
       <nav class="menu" aria-label="Primary">
         <a href="#about">About</a>
         <a href="#gallery">Gallery</a>
-        <a href="#work">Work</a>
         <a href="#contact">Contact</a>
       </nav>
     </div>
   </header>
 
-  <!-- Hero: text only, right-aligned -->
+  <!-- Hero: text only -->
   <main class="container pad hero" id="home">
     <div class="text">
       <div class="eyebrow">Boutique Villa — Filming • Photoshoots • Stays</div>
-      <h1>Bayt Lili — A Private Villa in Dubai for Filming & Stays</h1>
+
+      <!-- Force two lines on desktop via a single <br> -->
+      <h1>Bayt Lili — A Private Villa<br>in Dubai for Filming & Stays</h1>
+
       <p class="lede">Warm neutral tones, Mediterranean minimalism, and soft natural light. Non-gated with easy access — ideal for crews and content teams.</p>
 
       <!-- Clickable logos (Instagram / Gallery / Airbnb) -->
@@ -294,8 +327,8 @@
     </div>
   </section>
 
-  <!-- Clients / Work -->
-  <section id="work" class="pad">
+  <!-- Selected Clients (logos) -->
+  <section id="clients" class="pad">
     <div class="container">
       <h2>Selected Work</h2>
       <div class="logos" style="margin-top:14px">
