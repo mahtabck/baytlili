@@ -26,6 +26,10 @@
     :root{
       --text:#ffffff;
       --muted:#ededed;
+      --line: rgba(255,255,255,.35);
+      --pill-bg: rgba(255,255,255,.10);
+      --btn-bg: #ffffff;
+      --btn-text: #1f1f1f;
     }
 
     /* Brand font (optional) */
@@ -107,23 +111,18 @@
       font-size:clamp(40px,5.2vw,72px);
       line-height:1.06;
       letter-spacing:.08em;
-      white-space:nowrap; /* one line on desktop when possible */
+      white-space:nowrap;
     }
-
-    /* Eyebrow NOW BELOW the title (larger & bolder for visibility) */
     .eyebrow{
-      order:2;
       color:#fff;
       letter-spacing:.22em;
       text-transform:uppercase;
       font-weight:600;
-      font-size:clamp(14px,1.2vw,20px); /* bigger than before */
+      font-size:clamp(14px,1.2vw,20px);
       text-shadow:0 3px 8px rgba(0,0,0,.45);
     }
 
-    /* Icon row BELOW the eyebrow */
     .icon-row{
-      order:3;
       display:flex;align-items:center;gap:12px;flex-wrap:wrap;justify-content:flex-end
     }
     .icon-btn{
@@ -132,6 +131,15 @@
       background:rgba(255,255,255,.95);
       display:flex;align-items:center;justify-content:center;
     }
+
+    .book-btn{
+      display:inline-block; margin-top:8px;
+      background:var(--btn-bg); color:var(--btn-text);
+      border-radius:999px; padding:.7em 1.1em;
+      text-decoration:none; font-weight:600; letter-spacing:.02em;
+      border:1px solid rgba(0,0,0,.1);
+    }
+    .book-btn:hover{opacity:.9}
 
     section+section{border-top:1px solid rgba(255,255,255,.25)}
     h2{
@@ -142,12 +150,12 @@
     }
     p{margin:0 0 12px; color:#ededed}
 
-    /* Features */
+    /* Features (YOUR NEW TEXT) */
     .strip{display:grid; grid-template-columns:repeat(4,1fr); gap:12px; margin-top:6px}
     .pill{
-      border:1px solid rgba(255,255,255,.35);
+      border:1px solid var(--line);
       border-radius:999px; padding:.6em 1em; text-align:center;
-      background:rgba(255,255,255,.10);
+      background:var(--pill-bg);
       color:#fff; text-shadow:0 2px 6px rgba(0,0,0,.25);
       backdrop-filter:blur(3px);
     }
@@ -164,7 +172,7 @@
     .card.small img{aspect-ratio:4/5; object-fit:cover}
     .card .cap{padding:10px 12px; border-top:1px solid rgba(255,255,255,.25); font-size:.93rem; color:#fff}
 
-    /* Logos grid */
+    /* Logos */
     .logos{display:grid; grid-template-columns:repeat(5,1fr); gap:12px}
     .logo{
       border:1px solid rgba(255,255,255,.30); border-radius:14px;
@@ -221,6 +229,7 @@
       <nav class="menu" aria-label="Primary">
         <a href="#about">About</a>
         <a href="#gallery">Gallery</a>
+        <a href="booking.html">Booking</a>
         <a href="#contact">Contact</a>
       </nav>
     </div>
@@ -229,36 +238,18 @@
   <!-- Hero -->
   <main class="container pad hero" id="home">
     <div class="text">
-      <!-- 1) HERO TITLE -->
+      <!-- Title -->
       <h1 class="hero-title">BAYT LILI</h1>
-
-      <!-- 2) Eyebrow (moved BELOW the title & larger) -->
+      <!-- Descriptor BELOW the title -->
       <div class="eyebrow">Boutique Villa • Filming • Photoshoots • Stays</div>
-
-      <!-- 3) Icons BELOW eyebrow -->
+      <!-- Icons BELOW descriptor -->
       <div class="icon-row" aria-label="Quick links">
-        <!-- Instagram -->
-        <a class="icon-btn" href="https://instagram.com/baytlili" target="_blank" rel="noopener" aria-label="Bayt Lili on Instagram" title="Instagram">
-          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" aria-hidden="true">
-            <rect x="3" y="3" width="18" height="18" rx="5" stroke="#222" />
-            <circle cx="12" cy="12" r="4.2" stroke="#222" />
-            <circle cx="17.4" cy="6.6" r="1.1" fill="#222" />
-          </svg>
-        </a>
-        <!-- Gallery -->
-        <a class="icon-btn" href="#gallery" aria-label="View Gallery" title="Gallery">
-          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" aria-hidden="true">
-            <path d="M4 8.5a2.5 2.5 0 0 1 2.5-2.5h2l1.2-1.6A1 1 0 0 1 10.9 4h2.2a1 1 0 0 1 .8.4L15.1 6h2.4A2.5 2.5 0 0 1 20 8.5V17a3 3 0 0 1-3 3H7a3 3 0 0 1-3-3V8.5Z" stroke="#222"/>
-            <circle cx="12" cy="13.2" r="4" stroke="#222"/>
-          </svg>
-        </a>
-        <!-- Airbnb (Bélo) -->
-        <a class="icon-btn" href="https://airbnb.com/h/baytlili" target="_blank" rel="noopener" aria-label="Bayt Lili on Airbnb" title="Airbnb">
-          <svg width="22" height="22" viewBox="0 0 256 256" fill="none" aria-hidden="true">
-            <path d="M128 38c-16 0-31 9-38 24-13 27-53 95-53 120 0 29 24 53 53 53s53-24 53-53c0-25-40-93-53-120-7-15-22-24-38-24zM90 182a38 38 0 1 0 76 0 38 38 0 0 0-76 0z" stroke="#222" stroke-width="12" stroke-linecap="round" stroke-linejoin="round"/>
-          </svg>
-        </a>
+        <a class="icon-btn" href="https://instagram.com/baytlili" target="_blank" rel="noopener" aria-label="Instagram" title="Instagram">📷</a>
+        <a class="icon-btn" href="#gallery" aria-label="Gallery" title="Gallery">🖼️</a>
+        <a class="icon-btn" href="https://airbnb.com/h/baytlili" target="_blank" rel="noopener" aria-label="Airbnb" title="Airbnb">🏡</a>
       </div>
+      <!-- Book Now button (to internal page, not email) -->
+      <a class="book-btn" href="booking.html" aria-label="Go to booking form">Book Now</a>
     </div>
   </main>
 
@@ -266,12 +257,14 @@
   <section id="about" class="pad">
     <div class="container">
       <h2>About the Space</h2>
+      <!-- YOUR NEW BUBBLES -->
       <div class="strip">
-        <div class="pill">Non-gated · Easy access</div>
-        <div class="pill">Ground-floor load-in</div>
-        <div class="pill">Multiple vignettes</div>
-        <div class="pill">Quiet neighborhood</div>
+        <div class="pill">Exclusive Booking</div>
+        <div class="pill">Easy Team Access</div>
+        <div class="pill">Warm Neutral Style</div>
+        <div class="pill">Lush Garden & Pool</div>
       </div>
+
       <p style="margin-top:14px">
         Bayt Lili is a privately designed villa with an editorial, minimal aesthetic. Natural textures, soft light, and curated details make it a versatile backdrop for commercials, fashion, and lifestyle shoots — as well as intimate stays.
       </p>
@@ -327,11 +320,11 @@
   <section id="contact" class="pad">
     <div class="container">
       <h2>Book Bayt Lili</h2>
-      <p>For filming, photoshoots, or stays, reach out via Instagram. We typically respond the same day.</p>
+      <p>For filming, photoshoots, or stays, reach out via Instagram or use our booking form.</p>
       <div style="display:flex;gap:14px;flex-wrap:wrap;margin-top:8px; color:#fff">
         <a href="https://instagram.com/baytlili" target="_blank" rel="noopener" aria-label="Message on Instagram">Instagram</a>
         <span>·</span>
-        <a href="mailto:hello@baytlili.com" aria-label="Email Bayt Lili">hello@baytlili.com</a>
+        <a href="booking.html" aria-label="Open booking form">Booking Form</a>
       </div>
       <p class="kicker" style="margin-top:10px; color:#eaeaea">Location: Dubai, UAE · Non-gated · No permit needed for entry.</p>
     </div>
