@@ -1,0 +1,232 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <title>Book Bayt Lili</title>
+  <meta name="description" content="Book Bayt Lili for filming, photoshoots, or stays. Submit your request or message us on WhatsApp.">
+  <link rel="icon" type="image/png" href="assets/favicon.png"/>
+
+  <style>
+    :root{
+      --text:#fff; --muted:#eaeaea;
+      --line: rgba(255,255,255,.30);
+      --card: rgba(255,255,255,.10);
+      --btn: #ffffff; --btnText:#1f1f1f;
+      --accent:#a88e6a;
+    }
+    @font-face{
+      font-family:'BaytLili';
+      src: url('assets/BaytLili.ttf') format('truetype'),
+           url('assets/BaytLili.otf') format('opentype');
+      font-display:swap;
+    }
+    *,*::before,*::after{box-sizing:border-box}
+    html,body{height:100%}
+    body{
+      margin:0; color:var(--text);
+      font-family:'Playfair Display', serif; line-height:1.5;
+      -webkit-font-smoothing:antialiased; -moz-osx-font-smoothing:grayscale;
+      background:#000;
+    }
+    /* Background reuse */
+    body::before{
+      content:""; position:fixed; inset:0;
+      background:url('assets/bgpic.png') center 35%/cover no-repeat fixed; z-index:-2;
+    }
+    body::after{
+      content:""; position:fixed; inset:0;
+      background:rgba(0,0,0,.40); z-index:-1;
+    }
+
+    .container{width:min(900px,92vw); margin:0 auto; padding:clamp(24px,5vw,48px) 0}
+    header .top{display:flex; align-items:center; justify-content:space-between; gap:12px}
+    .brand{display:flex; align-items:center; gap:10px; font-family:'BaytLili','Playfair Display',serif; letter-spacing:.12em; font-variant:small-caps}
+    .brand img{height:34px}
+
+    a{color:#fff; text-decoration:none}
+    .back{opacity:.9}
+    .back:hover{opacity:1; text-decoration:underline}
+
+    h1{
+      font-family:'BaytLili','Playfair Display',serif;
+      margin:18px 0 8px; font-size:clamp(26px,4.4vw,40px);
+      text-shadow:0 3px 10px rgba(0,0,0,.35);
+    }
+    p.lede{color:var(--muted); margin:0 0 18px}
+
+    .card{
+      background:var(--card); border:1px solid var(--line);
+      border-radius:16px; padding:18px; backdrop-filter:blur(4px);
+    }
+    form{display:grid; grid-template-columns:1fr 1fr; gap:14px}
+    .full{grid-column:1 / -1}
+    label{font-size:.95rem; opacity:.95}
+    input, select, textarea{
+      width:100%; padding:12px 12px; margin-top:6px;
+      border-radius:10px; border:1px solid var(--line);
+      background:rgba(255,255,255,.92); color:#111; font-size:16px;
+    }
+    textarea{min-height:120px; resize:vertical}
+
+    .actions{display:flex; gap:10px; flex-wrap:wrap; margin-top:10px}
+    .btn{
+      display:inline-flex; align-items:center; justify-content:center; gap:.5em;
+      padding:.75em 1.1em; border-radius:999px; border:1px solid rgba(0,0,0,.08);
+      background:#fff; color:#111; font-weight:600; letter-spacing:.02em;
+      cursor:pointer; text-decoration:none;
+    }
+    .btn.secondary{background:transparent; color:#fff; border:1px solid var(--line)}
+    .btn:hover{opacity:.92}
+
+    footer{margin-top:24px; color:#dcdcdc; font-size:.95rem}
+  </style>
+</head>
+<body>
+  <div class="container">
+    <header class="top">
+      <a class="back" href="index.html" aria-label="Back to home">← Back</a>
+      <div class="brand">
+        <img src="assets/bllogo.png" alt="Bayt Lili"/>
+        BAYT LILI
+      </div>
+    </header>
+
+    <h1>Booking Request</h1>
+    <p class="lede">Send us your details below or message us on WhatsApp. We typically reply the same day.</p>
+
+    <div class="card">
+      <form id="bookingForm">
+        <div>
+          <label>Full name
+            <input type="text" name="name" required placeholder="Your name"/>
+          </label>
+        </div>
+        <div>
+          <label>Company / Brand
+            <input type="text" name="company" placeholder="Optional"/>
+          </label>
+        </div>
+        <div>
+          <label>Email
+            <input type="email" name="email" placeholder="name@email.com"/>
+          </label>
+        </div>
+        <div>
+          <label>Phone (with country code)
+            <input type="tel" name="phone" placeholder="+9715XXXXXXXX"/>
+          </label>
+        </div>
+
+        <div>
+          <label>Preferred date(s)
+            <input type="text" name="dates" placeholder="e.g., 12–13 Nov or flexible"/>
+          </label>
+        </div>
+        <div>
+          <label>Purpose
+            <select name="purpose">
+              <option value="Filming">Filming</option>
+              <option value="Photoshoot">Photoshoot</option>
+              <option value="Stay">Stay</option>
+              <option value="Other">Other</option>
+            </select>
+          </label>
+        </div>
+
+        <div>
+          <label>Crew size / Guests
+            <input type="number" name="crew" min="1" placeholder="e.g., 8"/>
+          </label>
+        </div>
+        <div>
+          <label>Hours (if shoot)
+            <input type="text" name="hours" placeholder="e.g., 6 hours"/>
+          </label>
+        </div>
+
+        <div class="full">
+          <label>Notes / requirements
+            <textarea name="notes" placeholder="Tell us about timings, rooms you need, load-in, etc."></textarea>
+          </label>
+        </div>
+
+        <div class="actions full">
+          <button type="button" class="btn" id="whatsappBtn">Open WhatsApp</button>
+          <button type="button" class="btn secondary" id="copyBtn">Copy Details</button>
+        </div>
+      </form>
+    </div>
+
+    <footer>
+      Prefer Instagram? DM us at <a href="https://instagram.com/baytlili" target="_blank" rel="noopener">@baytlili</a>.
+    </footer>
+  </div>
+
+  <script>
+    // TODO: Replace with your WhatsApp number in international format (no plus):
+    // UAE example: 9715XXXXXXXXX
+    const WHATSAPP_NUMBER = '971501589628'; // <-- EDIT THIS
+
+    function buildMessage(fields){
+      return [
+        'Booking Request — Bayt Lili',
+        '',
+        `Name: ${fields.name || '-'}`,
+        `Company: ${fields.company || '-'}`,
+        `Email: ${fields.email || '-'}`,
+        `Phone: ${fields.phone || '-'}`,
+        `Preferred dates: ${fields.dates || '-'}`,
+        `Purpose: ${fields.purpose || '-'}`,
+        `Crew/Guests: ${fields.crew || '-'}`,
+        `Hours: ${fields.hours || '-'}`,
+        '',
+        `Notes: ${fields.notes || '-'}`,
+      ].join('\n');
+    }
+
+    function getFields(){
+      const f = document.getElementById('bookingForm');
+      return {
+        name: f.name.value.trim(),
+        company: f.company.value.trim(),
+        email: f.email.value.trim(),
+        phone: f.phone.value.trim(),
+        dates: f.dates.value.trim(),
+        purpose: f.purpose.value,
+        crew: f.crew.value.trim(),
+        hours: f.hours.value.trim(),
+        notes: f.notes.value.trim(),
+      };
+    }
+
+    document.getElementById('whatsappBtn').addEventListener('click', () => {
+      const data = getFields();
+      const msg = encodeURIComponent(buildMessage(data));
+      if(!WHATSAPP_NUMBER || WHATSAPP_NUMBER.includes('X')){
+        alert('Please set your WhatsApp number in booking.html (WHATSAPP_NUMBER).');
+        return;
+      }
+      // Use wa.me direct link
+      const url = `https://wa.me/${WHATSAPP_NUMBER}?text=${msg}`;
+      window.open(url, '_blank');
+    });
+
+    document.getElementById('copyBtn').addEventListener('click', async () => {
+      const data = getFields();
+      const msg = buildMessage(data);
+      try{
+        await navigator.clipboard.writeText(msg);
+        alert('Booking details copied to clipboard. You can paste into WhatsApp, Instagram, or email.');
+      }catch(e){
+        // Fallback: create a temporary textarea
+        const ta = document.createElement('textarea');
+        ta.value = msg; document.body.appendChild(ta);
+        ta.select(); document.execCommand('copy');
+        ta.remove();
+        alert('Booking details copied.');
+      }
+    });
+  </script>
+</body>
+</html>
