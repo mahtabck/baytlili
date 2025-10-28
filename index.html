@@ -7,7 +7,7 @@
   <meta name="description" content="Bayt Lili is a private boutique villa in Dubai designed for filming, photoshoots, and intimate stays. Warm Mediterranean minimalism, easy access, non-gated.">
   <meta name="robots" content="index,follow">
 
-  <!-- Favicon / App Icons -->
+  <!-- Favicon / Tab Icon -->
   <link rel="icon" type="image/png" href="assets/favicon.png" />
   <link rel="apple-touch-icon" href="assets/favicon.png" />
 
@@ -24,16 +24,11 @@
 
   <style>
     :root{
-      --bg: #f6f3ee;
-      --bg-2:#fbf9f6;
-      --text:#2a2a2a;
-      --muted:#6d6a66;
-      --line:#e6e0d8;
-      --accent:#a88e6a;
-      --white:#ffffff;
+      --text:#ffffff;
+      --muted:#eaeaea;
     }
 
-    /* ===== Brand font (upload to /assets/ as BaytLili.ttf or .otf) ===== */
+    /* Brand font (optional) */
     @font-face{
       font-family:'BaytLili';
       src: url('assets/BaytLili.ttf') format('truetype'),
@@ -41,203 +36,185 @@
       font-display:swap;
     }
 
-    /* Reset + base */
+    /* Base */
     *,*::before,*::after{box-sizing:border-box}
     html,body{height:100%}
     body{
       margin:0;
       color:var(--text);
-      line-height:1.6;
-      font-family: 'Playfair Display', serif; /* body fallback */
-      background: var(--bg);
+      line-height:1.45;
+      font-family:'Playfair Display', serif;
+      -webkit-font-smoothing:antialiased;
+      -moz-osx-font-smoothing:grayscale;
     }
 
-    /* FULL-PAGE BACKGROUND IMAGE */
+    /* Background image (upper 25% on desktop) */
     body::before{
       content:"";
       position:fixed; inset:0;
-      /* desktop default (focus upper 25%) */
-      background: url('assets/bgpic.png') center 25% / cover no-repeat fixed;
+      background:url('assets/bgpic.png') center 25%/cover no-repeat fixed;
       z-index:-2;
     }
-    /* Overlay for readability */
+    /* Legibility veil */
     body::after{
       content:"";
       position:fixed; inset:0;
-      background: rgba(0,0,0,0.22);
+      background:rgba(0,0,0,0.24);
       z-index:-1; pointer-events:none;
     }
 
-    img{max-width:100%;display:block;height:auto}
-    a{color:inherit;text-decoration:none}
-    .container{width:min(1200px, 92vw);margin-inline:auto}
-    .pad{padding: clamp(32px,5vw,80px) 0}
+    .container{width:min(1200px,92vw);margin-inline:auto}
+    .pad{padding:clamp(28px,5vw,80px) 0}
 
-    /* ===== Header ===== */
+    /* Header */
     header{
       position:sticky; top:0; z-index:50;
-      backdrop-filter: saturate(140%) blur(10px);
-      background: rgba(0,0,0,0.15);
+      background:rgba(0,0,0,0.18);
+      backdrop-filter:blur(10px);
       border-bottom:1px solid rgba(255,255,255,0.2);
-      color:#fff;
     }
-    .nav{
-      display:flex; align-items:center; justify-content:space-between; gap:16px;
-      padding:14px 0;
-    }
-    .brand{display:flex; align-items:center; gap:10px}
-    .brand img{height:38px}
-    .brand span{
+    .nav{display:flex;align-items:center;justify-content:space-between;gap:16px;padding:12px 0}
+    .brand{
+      display:flex;align-items:center;gap:10px;color:#fff;
       font-family:'BaytLili','Playfair Display',serif;
-      font-size:1.1rem; letter-spacing:0.12em; font-variant: small-caps; color:#fff;
-      text-shadow: 0 2px 6px rgba(0,0,0,0.35);
-      white-space:nowrap; /* keep on one line */
+      letter-spacing:.12em;font-variant:small-caps;white-space:nowrap;
+      text-shadow:0 2px 6px rgba(0,0,0,.35);
     }
-    .menu{display:flex; align-items:center; gap:20px}
+    .brand img{height:38px}
+    .menu{display:flex;align-items:center;gap:20px}
     .menu a{
-      position:relative; padding:6px 2px; font-size:0.98rem; letter-spacing:.04em; color:#fff;
-      text-shadow: 0 2px 6px rgba(0,0,0,0.35);
-      white-space:nowrap;
+      color:#fff;text-decoration:none;white-space:nowrap;
+      text-shadow:0 2px 6px rgba(0,0,0,.35);
+      font-size:1rem; position:relative; padding:6px 2px;
     }
     .menu a::after{
       content:""; position:absolute; left:0; right:0; bottom:-4px; height:1px;
-      background: transparent; transition:background .2s ease;
+      background:transparent; transition:background .2s ease;
     }
-    .menu a:hover::after{background: rgba(255,255,255,0.7)}
+    .menu a:hover::after{background:rgba(255,255,255,.7)}
 
-    /* ===== Hero (text only, right-aligned, white text) ===== */
-    .hero{display:block}
+    /* Hero (text only) */
     .hero .text{
       display:flex; flex-direction:column; gap:16px;
-      text-align:right; align-items:flex-end;
-      margin-left:auto;
-      max-width: 720px;
+      text-align:right; align-items:flex-end; margin-left:auto;
+      max-width:920px; /* allow room for two balanced lines */
     }
     .eyebrow{
       color:#fff; letter-spacing:.18em; text-transform:uppercase; font-size:.9rem;
-      text-shadow: 0 2px 6px rgba(0,0,0,0.35);
+      text-shadow:0 2px 6px rgba(0,0,0,.35);
     }
-    h1{
-      /* Force into TWO lines on desktop via a manual break */
-      font-size:clamp(36px, 6vw, 62px);
-      line-height:1.08; margin:0; font-weight:600;
-      font-family:'BaytLili','Playfair Display',serif;
+    .hero-title{
+      margin:0;
       color:#fff;
-      text-shadow: 0 3px 10px rgba(0,0,0,0.35);
+      font-family:'BaytLili','Playfair Display',serif;
+      font-weight:600;
+      text-shadow:0 3px 10px rgba(0,0,0,.35);
+      /* Desktop sizing tuned to yield exactly 2 lines with balancing */
+      font-size:clamp(34px,4.4vw,52px);
+      line-height:1.12;
+      max-width:880px;
+      text-wrap:balance; /* modern browsers (incl. Safari 17+) */
     }
     .lede{
-      color:#fff; font-size:clamp(16px,1.6vw,19px);
-      text-shadow: 0 2px 8px rgba(0,0,0,0.35);
+      color:var(--muted);
+      font-size:clamp(16px,1.5vw,20px);
+      text-shadow:0 2px 8px rgba(0,0,0,.35);
+      max-width:760px;
     }
 
-    /* Icon buttons row */
-    .icon-row{display:flex; align-items:center; gap:12px; flex-wrap:wrap; justify-content:flex-end}
+    /* Quick-links icons */
+    .icon-row{display:flex;align-items:center;gap:12px;flex-wrap:wrap;justify-content:flex-end}
     .icon-btn{
-      display:inline-flex; align-items:center; justify-content:center;
-      width:46px; height:46px; border-radius:999px;
-      border:1px solid rgba(255,255,255,0.65);
-      background: rgba(255,255,255,0.9);
+      width:46px;height:46px;border-radius:50%;
+      border:1px solid rgba(255,255,255,.65);
+      background:rgba(255,255,255,.95);
+      display:flex;align-items:center;justify-content:center;
     }
-    .icon-btn:hover{border-color:#fff}
 
-    /* Sections */
-    section + section{border-top:1px solid rgba(255,255,255,0.25)}
+    section+section{border-top:1px solid rgba(255,255,255,.25)}
     h2{
-      font-size:clamp(24px,3.5vw,36px); line-height:1.2; margin:0 0 12px; font-weight:600;
-      font-family:'BaytLili','Playfair Display',serif; color:#fff;
-      text-shadow: 0 2px 8px rgba(0,0,0,0.35);
+      font-family:'BaytLili','Playfair Display',serif;
+      font-size:clamp(24px,3.5vw,36px);
+      margin:0 0 12px;
+      text-shadow:0 2px 8px rgba(0,0,0,.35);
     }
-    p{margin:0 0 12px; color:#f2f2f2}
+    p{margin:0 0 12px; color:#ededed}
 
-    /* Features strip */
+    /* Features */
     .strip{display:grid; grid-template-columns:repeat(4,1fr); gap:12px; margin-top:6px}
     .pill{
-      border:1px solid rgba(255,255,255,0.35);
+      border:1px solid rgba(255,255,255,.35);
       border-radius:999px; padding:.6em 1em; text-align:center;
-      background: rgba(255,255,255,0.10);
-      color:#fff; text-shadow: 0 2px 6px rgba(0,0,0,0.25);
-      backdrop-filter: blur(3px);
+      background:rgba(255,255,255,.10);
+      color:#fff; text-shadow:0 2px 6px rgba(0,0,0,.25);
+      backdrop-filter:blur(3px);
     }
 
-    /* Gallery — three in one row */
+    /* Gallery */
     .gallery-row{display:flex; gap:12px; justify-content:space-between}
     .card.small{
-      flex:0 0 31%; border:1px solid rgba(255,255,255,0.30);
-      border-radius:14px; overflow:hidden; background: rgba(255,255,255,0.10);
-      backdrop-filter: blur(3px);
+      flex:0 0 31%;
+      border:1px solid rgba(255,255,255,.30);
+      border-radius:14px; overflow:hidden;
+      background:rgba(255,255,255,.10);
+      backdrop-filter:blur(3px);
     }
     .card.small img{aspect-ratio:4/5; object-fit:cover}
-    .card .cap{padding:10px 12px; border-top:1px solid rgba(255,255,255,0.25); font-size:.93rem; color:#fff}
+    .card .cap{padding:10px 12px; border-top:1px solid rgba(255,255,255,.25); font-size:.93rem; color:#fff}
 
     /* Logos grid */
     .logos{display:grid; grid-template-columns:repeat(5,1fr); gap:12px}
     .logo{
-      border:1px solid rgba(255,255,255,0.30); border-radius:14px;
-      background: rgba(255,255,255,0.10);
-      min-height:90px; display:flex; align-items:center; justify-content:center; padding:14px; position:relative;
-      backdrop-filter: blur(3px);
+      border:1px solid rgba(255,255,255,.30); border-radius:14px;
+      background:rgba(255,255,255,.10);
+      min-height:90px; display:flex; align-items:center; justify-content:center; padding:14px;
+      backdrop-filter:blur(3px);
     }
-    .logo img{max-height:42px; width:auto; filter: drop-shadow(0 2px 6px rgba(0,0,0,0.25))}
+    .logo img{max-height:42px; width:auto; filter:drop-shadow(0 2px 6px rgba(0,0,0,.25))}
     .logo.noimg{font-weight:600; color:#fff}
 
-    /* Footer */
     footer{
-      border-top:1px solid rgba(255,255,255,0.25);
-      padding:32px 0; color:#e9e9e9; background: rgba(0,0,0,0.18);
+      border-top:1px solid rgba(255,255,255,.25);
+      padding:32px 0; color:#e9e9e9; background:rgba(0,0,0,.18); text-align:center;
     }
     footer a{color:#fff}
 
-    /* ===== Responsive rules ===== */
-
-    /* 💻 Desktop (>= 900px) */
-    @media (min-width: 900px){
-      /* keep desktop background focus near the top */
-      body::before{ background-position: center 25%; }
-      .hero .text{ text-align:right; align-items:flex-end; max-width:720px; }
-
-      /* Force two lines: we control width so the single <br> makes exactly two lines */
-      .hero .text h1{ max-width: 700px; }
-
-      /* Gallery: row layout, logos 5 across */
-      .gallery-row { flex-direction: row; }
-      .card.small { flex: 0 0 31%; }
-      .logos { grid-template-columns: repeat(5, 1fr); }
+    /* Desktop rules (>=900px) */
+    @media (min-width:900px){
+      .hero .text{ text-align:right; align-items:flex-end; }
+      body::before{ background-position:center 25%; }
+      /* The two-line fit is achieved by these combined values: */
+      .hero-title{ font-size:clamp(34px,4.4vw,52px); max-width:880px; }
+      .gallery-row{ flex-direction:row; }
+      .card.small{ flex:0 0 31%; }
+      .logos{ grid-template-columns:repeat(5,1fr); }
     }
 
-    /* 📱 Mobile (< 900px) */
-    @media (max-width: 899.98px){
-      /* Brand must stay on one line on mobile */
-      .brand span{ white-space:nowrap; font-size:1rem; letter-spacing:0.10em; }
-
-      /* Center hero text on mobile for readability */
+    /* Mobile rules (<900px) */
+    @media (max-width:899.98px){
+      .brand{ font-size:1rem; letter-spacing:.10em; white-space:nowrap; }
       .hero .text{ text-align:center; align-items:center; max-width:none; }
-
-      /* Background: show LOWER slice so the pool is visible */
-      body::before{ background-position: center 60%; } /* adjust 50–70% as needed */
-
-      /* Soften heading size on small screens */
-      h1{ font-size: clamp(28px, 8.5vw, 42px); line-height:1.12; }
-
-      /* Icon buttons slightly smaller */
+      /* show a lower slice so pool is visible */
+      body::before{ background-position:center 68%; }
+      .hero-title{
+        font-size:clamp(26px,7.2vw,38px);
+        max-width:100%;
+      }
       .icon-btn{ width:42px; height:42px; }
-
-      /* Gallery stacks; logos 2 across */
       .gallery-row{ flex-direction:column; }
-      .card.small{ flex: 1 1 auto; }
-      .logos{ grid-template-columns: repeat(2, 1fr); }
+      .logos{ grid-template-columns:repeat(2,1fr); }
     }
   </style>
 </head>
 <body>
+
   <!-- Header -->
   <header>
     <div class="container nav">
       <div class="brand">
         <img src="assets/bllogo.png" alt="Bayt Lili logo" />
-        <span>BAYT LILI</span>
+        BAYT LILI
       </div>
-
-      <!-- Menu without 'Work' -->
       <nav class="menu" aria-label="Primary">
         <a href="#about">About</a>
         <a href="#gallery">Gallery</a>
@@ -246,17 +223,13 @@
     </div>
   </header>
 
-  <!-- Hero: text only -->
+  <!-- Hero -->
   <main class="container pad hero" id="home">
     <div class="text">
       <div class="eyebrow">Boutique Villa — Filming • Photoshoots • Stays</div>
-
-      <!-- Force two lines on desktop via a single <br> -->
-      <h1>Bayt Lili — A Private Villa<br>in Dubai for Filming & Stays</h1>
-
+      <h1 class="hero-title">Bayt Lili — A Private Villa in Dubai for Filming & Stays</h1>
       <p class="lede">Warm neutral tones, Mediterranean minimalism, and soft natural light. Non-gated with easy access — ideal for crews and content teams.</p>
 
-      <!-- Clickable logos (Instagram / Gallery / Airbnb) -->
       <div class="icon-row" aria-label="Quick links">
         <!-- Instagram -->
         <a class="icon-btn" href="https://instagram.com/baytlili" target="_blank" rel="noopener" aria-label="Bayt Lili on Instagram" title="Instagram">
@@ -266,15 +239,13 @@
             <circle cx="17.4" cy="6.6" r="1.1" fill="#222" />
           </svg>
         </a>
-
-        <!-- Gallery (scroll to gallery) -->
+        <!-- Gallery -->
         <a class="icon-btn" href="#gallery" aria-label="View Gallery" title="Gallery">
           <svg width="22" height="22" viewBox="0 0 24 24" fill="none" aria-hidden="true">
             <path d="M4 8.5a2.5 2.5 0 0 1 2.5-2.5h2l1.2-1.6A1 1 0 0 1 10.9 4h2.2a1 1 0 0 1 .8.4L15.1 6h2.4A2.5 2.5 0 0 1 20 8.5V17a3 3 0 0 1-3 3H7a3 3 0 0 1-3-3V8.5Z" stroke="#222"/>
             <circle cx="12" cy="13.2" r="4" stroke="#222"/>
           </svg>
         </a>
-
         <!-- Airbnb (Bélo) -->
         <a class="icon-btn" href="https://airbnb.com/h/baytlili" target="_blank" rel="noopener" aria-label="Bayt Lili on Airbnb" title="Airbnb">
           <svg width="22" height="22" viewBox="0 0 256 256" fill="none" aria-hidden="true">
@@ -289,19 +260,14 @@
   <section id="about" class="pad">
     <div class="container">
       <h2>About the Space</h2>
-
-      <!-- Features above description -->
       <div class="strip">
         <div class="pill">Non-gated · Easy access</div>
         <div class="pill">Ground-floor load-in</div>
         <div class="pill">Multiple vignettes</div>
         <div class="pill">Quiet neighborhood</div>
       </div>
-
       <p style="margin-top:14px">
-        Bayt Lili is a privately designed villa with an editorial, minimal aesthetic.
-        Natural textures, soft light, and curated details make it a versatile backdrop for commercials,
-        fashion, and lifestyle shoots — as well as intimate stays.
+        Bayt Lili is a privately designed villa with an editorial, minimal aesthetic. Natural textures, soft light, and curated details make it a versatile backdrop for commercials, fashion, and lifestyle shoots — as well as intimate stays.
       </p>
     </div>
   </section>
@@ -327,12 +293,12 @@
     </div>
   </section>
 
-  <!-- Selected Clients (logos) -->
+  <!-- Selected Work (logos) -->
   <section id="clients" class="pad">
     <div class="container">
       <h2>Selected Work</h2>
       <div class="logos" style="margin-top:14px">
-        <!-- Upload logos to /assets/logos/ with these filenames; text shows if missing -->
+        <!-- Upload these into /assets/logos/; fallback shows text if missing -->
         <div class="logo" data-name="Sephora">
           <img src="assets/logos/sephora.png" alt="Sephora" onerror="this.closest('.logo').classList.add('noimg'); this.remove();" />
         </div>
@@ -368,10 +334,7 @@
 
   <!-- Footer -->
   <footer>
-    <div class="container" style="display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap">
-      <div>© <span id="y"></span> Bayt Lili. All rights reserved.</div>
-      <div>Instagram: <a href="https://instagram.com/baytlili" target="_blank" rel="noopener">@baytlili</a></div>
-    </div>
+    © <span id="y"></span> Bayt Lili. All rights reserved. · <a href="https://instagram.com/baytlili" target="_blank" rel="noopener">@baytlili</a>
   </footer>
 
   <script>
