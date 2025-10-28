@@ -28,7 +28,7 @@
       --muted:#eaeaea;
     }
 
-    /* Brand font (optional) */
+    /* Brand font (optional: upload BaytLili.ttf/.otf to /assets) */
     @font-face{
       font-family:'BaytLili';
       src: url('assets/BaytLili.ttf') format('truetype'),
@@ -97,7 +97,7 @@
     .hero .text{
       display:flex; flex-direction:column; gap:16px;
       text-align:right; align-items:flex-end; margin-left:auto;
-      max-width:920px; /* allow room for two balanced lines */
+      max-width:920px;
     }
     .eyebrow{
       color:#fff; letter-spacing:.18em; text-transform:uppercase; font-size:.9rem;
@@ -107,19 +107,12 @@
       margin:0;
       color:#fff;
       font-family:'BaytLili','Playfair Display',serif;
-      font-weight:600;
+      font-weight:700;
       text-shadow:0 3px 10px rgba(0,0,0,.35);
-      /* Desktop sizing tuned to yield exactly 2 lines with balancing */
-      font-size:clamp(34px,4.4vw,52px);
-      line-height:1.12;
-      max-width:880px;
-      text-wrap:balance; /* modern browsers (incl. Safari 17+) */
-    }
-    .lede{
-      color:var(--muted);
-      font-size:clamp(16px,1.5vw,20px);
-      text-shadow:0 2px 8px rgba(0,0,0,.35);
-      max-width:760px;
+      font-size:clamp(40px,5.4vw,72px); /* larger single-word brand */
+      line-height:1.06;
+      letter-spacing:.08em;
+      white-space:nowrap; /* keep it on one line on desktop */
     }
 
     /* Quick-links icons */
@@ -179,26 +172,24 @@
     }
     footer a{color:#fff}
 
-    /* Desktop rules (>=900px) */
+    /* Desktop (>=900px) */
     @media (min-width:900px){
       .hero .text{ text-align:right; align-items:flex-end; }
       body::before{ background-position:center 25%; }
-      /* The two-line fit is achieved by these combined values: */
-      .hero-title{ font-size:clamp(34px,4.4vw,52px); max-width:880px; }
       .gallery-row{ flex-direction:row; }
       .card.small{ flex:0 0 31%; }
       .logos{ grid-template-columns:repeat(5,1fr); }
     }
 
-    /* Mobile rules (<900px) */
+    /* Mobile (<900px) */
     @media (max-width:899.98px){
       .brand{ font-size:1rem; letter-spacing:.10em; white-space:nowrap; }
       .hero .text{ text-align:center; align-items:center; max-width:none; }
       /* show a lower slice so pool is visible */
       body::before{ background-position:center 68%; }
       .hero-title{
-        font-size:clamp(26px,7.2vw,38px);
-        max-width:100%;
+        font-size:clamp(34px,11vw,56px);
+        white-space:normal; /* allow wrap on small screens */
       }
       .icon-btn{ width:42px; height:42px; }
       .gallery-row{ flex-direction:column; }
@@ -226,10 +217,10 @@
   <!-- Hero -->
   <main class="container pad hero" id="home">
     <div class="text">
-      <div class="eyebrow">Boutique Villa — Filming • Photoshoots • Stays</div>
-      <h1 class="hero-title">Bayt Lili — A Private Villa in Dubai for Filming & Stays</h1>
-      <p class="lede">Warm neutral tones, Mediterranean minimalism, and soft natural light. Non-gated with easy access — ideal for crews and content teams.</p>
+      <!-- 1) Eyebrow -->
+      <div class="eyebrow">Boutique Villa • Filming • Photoshoots • Stays</div>
 
+      <!-- 2) MOVED HERE: Icon buttons (exactly same style, now right below eyebrow) -->
       <div class="icon-row" aria-label="Quick links">
         <!-- Instagram -->
         <a class="icon-btn" href="https://instagram.com/baytlili" target="_blank" rel="noopener" aria-label="Bayt Lili on Instagram" title="Instagram">
@@ -249,10 +240,15 @@
         <!-- Airbnb (Bélo) -->
         <a class="icon-btn" href="https://airbnb.com/h/baytlili" target="_blank" rel="noopener" aria-label="Bayt Lili on Airbnb" title="Airbnb">
           <svg width="22" height="22" viewBox="0 0 256 256" fill="none" aria-hidden="true">
-            <path d="M128 38c-16 0-31 9-38 24-13 27-53 95-53 120 0 29 24 53 53 53s53-24 53-53c0-25-40-93-53-120-7-15-22-24-38-24zM90 182a38 38 0 1 0 76 0 38 38 0 0 0-76 0z" stroke="#222" stroke-width="12" stroke-linecap="round" stroke-linejoin="round"/>
+            <path d="M128 38c-16 0-31 9-38 24-13 27-53 95-53 120 0 29 24 53 24 53 0 0 29 0 29 0 0 0 0 0 0 0 0-25 40-93 53-120 7-15 22-24 38-24" stroke="#222" stroke-width="12" stroke-linecap="round" stroke-linejoin="round"/>
           </svg>
         </a>
       </div>
+
+      <!-- 3) HERO TITLE: just BAYT LILI in brand font -->
+      <h1 class="hero-title">BAYT LILI</h1>
+
+      <!-- (Removed the descriptive lede as requested) -->
     </div>
   </main>
 
@@ -298,7 +294,6 @@
     <div class="container">
       <h2>Selected Work</h2>
       <div class="logos" style="margin-top:14px">
-        <!-- Upload these into /assets/logos/; fallback shows text if missing -->
         <div class="logo" data-name="Sephora">
           <img src="assets/logos/sephora.png" alt="Sephora" onerror="this.closest('.logo').classList.add('noimg'); this.remove();" />
         </div>
