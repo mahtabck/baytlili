@@ -19,16 +19,16 @@
   <meta property="og:image" content="/assets/og-cover.jpg">
   <meta name="twitter:card" content="summary_large_image">
 
-  <!-- Elegant fallback font if custom isn't present -->
-  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@500;600&display=swap" rel="stylesheet">
+  <!-- Fallback font -->
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@500;600;700&display=swap" rel="stylesheet">
 
   <style>
     :root{
       --text:#ffffff;
-      --muted:#eaeaea;
+      --muted:#ededed;
     }
 
-    /* Brand font (optional: upload BaytLili.ttf/.otf to /assets) */
+    /* Brand font (optional) */
     @font-face{
       font-family:'BaytLili';
       src: url('assets/BaytLili.ttf') format('truetype'),
@@ -48,14 +48,13 @@
       -moz-osx-font-smoothing:grayscale;
     }
 
-    /* Background image (upper 25% on desktop) */
+    /* Background */
     body::before{
       content:"";
       position:fixed; inset:0;
       background:url('assets/bgpic.png') center 25%/cover no-repeat fixed;
       z-index:-2;
     }
-    /* Legibility veil */
     body::after{
       content:"";
       position:fixed; inset:0;
@@ -93,15 +92,11 @@
     }
     .menu a:hover::after{background:rgba(255,255,255,.7)}
 
-    /* Hero (text only) */
+    /* Hero */
     .hero .text{
       display:flex; flex-direction:column; gap:16px;
       text-align:right; align-items:flex-end; margin-left:auto;
       max-width:920px;
-    }
-    .eyebrow{
-      color:#fff; letter-spacing:.18em; text-transform:uppercase; font-size:.9rem;
-      text-shadow:0 2px 6px rgba(0,0,0,.35);
     }
     .hero-title{
       margin:0;
@@ -109,14 +104,28 @@
       font-family:'BaytLili','Playfair Display',serif;
       font-weight:700;
       text-shadow:0 3px 10px rgba(0,0,0,.35);
-      font-size:clamp(40px,5.4vw,72px); /* larger single-word brand */
+      font-size:clamp(40px,5.2vw,72px);
       line-height:1.06;
       letter-spacing:.08em;
-      white-space:nowrap; /* keep it on one line on desktop */
+      white-space:nowrap; /* one line on desktop when possible */
     }
 
-    /* Quick-links icons */
-    .icon-row{display:flex;align-items:center;gap:12px;flex-wrap:wrap;justify-content:flex-end}
+    /* Eyebrow NOW BELOW the title (larger & bolder for visibility) */
+    .eyebrow{
+      order:2;
+      color:#fff;
+      letter-spacing:.22em;
+      text-transform:uppercase;
+      font-weight:600;
+      font-size:clamp(14px,1.2vw,20px); /* bigger than before */
+      text-shadow:0 3px 8px rgba(0,0,0,.45);
+    }
+
+    /* Icon row BELOW the eyebrow */
+    .icon-row{
+      order:3;
+      display:flex;align-items:center;gap:12px;flex-wrap:wrap;justify-content:flex-end
+    }
     .icon-btn{
       width:46px;height:46px;border-radius:50%;
       border:1px solid rgba(255,255,255,.65);
@@ -172,7 +181,7 @@
     }
     footer a{color:#fff}
 
-    /* Desktop (>=900px) */
+    /* Desktop >= 900px */
     @media (min-width:900px){
       .hero .text{ text-align:right; align-items:flex-end; }
       body::before{ background-position:center 25%; }
@@ -181,15 +190,18 @@
       .logos{ grid-template-columns:repeat(5,1fr); }
     }
 
-    /* Mobile (<900px) */
+    /* Mobile < 900px */
     @media (max-width:899.98px){
       .brand{ font-size:1rem; letter-spacing:.10em; white-space:nowrap; }
       .hero .text{ text-align:center; align-items:center; max-width:none; }
-      /* show a lower slice so pool is visible */
-      body::before{ background-position:center 68%; }
+      body::before{ background-position:center 68%; } /* show more pool */
       .hero-title{
         font-size:clamp(34px,11vw,56px);
-        white-space:normal; /* allow wrap on small screens */
+        white-space:normal;
+      }
+      .eyebrow{
+        font-size:clamp(14px,3.6vw,18px);
+        letter-spacing:.2em;
       }
       .icon-btn{ width:42px; height:42px; }
       .gallery-row{ flex-direction:column; }
@@ -217,10 +229,13 @@
   <!-- Hero -->
   <main class="container pad hero" id="home">
     <div class="text">
-      <!-- 1) Eyebrow -->
+      <!-- 1) HERO TITLE -->
+      <h1 class="hero-title">BAYT LILI</h1>
+
+      <!-- 2) Eyebrow (moved BELOW the title & larger) -->
       <div class="eyebrow">Boutique Villa • Filming • Photoshoots • Stays</div>
 
-      <!-- 2) MOVED HERE: Icon buttons (exactly same style, now right below eyebrow) -->
+      <!-- 3) Icons BELOW eyebrow -->
       <div class="icon-row" aria-label="Quick links">
         <!-- Instagram -->
         <a class="icon-btn" href="https://instagram.com/baytlili" target="_blank" rel="noopener" aria-label="Bayt Lili on Instagram" title="Instagram">
@@ -240,15 +255,10 @@
         <!-- Airbnb (Bélo) -->
         <a class="icon-btn" href="https://airbnb.com/h/baytlili" target="_blank" rel="noopener" aria-label="Bayt Lili on Airbnb" title="Airbnb">
           <svg width="22" height="22" viewBox="0 0 256 256" fill="none" aria-hidden="true">
-            <path d="M128 38c-16 0-31 9-38 24-13 27-53 95-53 120 0 29 24 53 24 53 0 0 29 0 29 0 0 0 0 0 0 0 0-25 40-93 53-120 7-15 22-24 38-24" stroke="#222" stroke-width="12" stroke-linecap="round" stroke-linejoin="round"/>
+            <path d="M128 38c-16 0-31 9-38 24-13 27-53 95-53 120 0 29 24 53 53 53s53-24 53-53c0-25-40-93-53-120-7-15-22-24-38-24zM90 182a38 38 0 1 0 76 0 38 38 0 0 0-76 0z" stroke="#222" stroke-width="12" stroke-linecap="round" stroke-linejoin="round"/>
           </svg>
         </a>
       </div>
-
-      <!-- 3) HERO TITLE: just BAYT LILI in brand font -->
-      <h1 class="hero-title">BAYT LILI</h1>
-
-      <!-- (Removed the descriptive lede as requested) -->
     </div>
   </main>
 
@@ -289,7 +299,7 @@
     </div>
   </section>
 
-  <!-- Selected Work (logos) -->
+  <!-- Selected Work -->
   <section id="clients" class="pad">
     <div class="container">
       <h2>Selected Work</h2>
