@@ -13,6 +13,7 @@
       --line: rgba(255,255,255,.30);
       --card: rgba(255,255,255,.10);
       --btn: #ffffff; --btnText:#1f1f1f;
+      --price-bg:#fff; --price-text:#1b1b1b; --price-border:rgba(0,0,0,.08);
     }
     @font-face{
       font-family:'BaytLili';
@@ -28,19 +29,19 @@
       -webkit-font-smoothing:antialiased; -moz-osx-font-smoothing:grayscale;
       background:#000;
     }
-    /* Background reuse */
+    /* Lighter background */
     body::before{
       content:""; position:fixed; inset:0;
-      background:url('assets/bgpic.png') center 35%/cover no-repeat fixed; z-index:-2;
+      background:url('assets/lightbg.png') center 35%/cover no-repeat fixed; z-index:-2;
     }
     body::after{
       content:""; position:fixed; inset:0;
-      background:rgba(0,0,0,.40); z-index:-1;
+      background:rgba(0,0,0,.28); z-index:-1;
     }
 
     .container{width:min(900px,92vw); margin:0 auto; padding:clamp(24px,5vw,48px) 0}
     header .top{display:flex; align-items:center; justify-content:space-between; gap:12px}
-    .brand{display:flex; align-items:center; gap:10px; font-family:'BaytLili','Playfair Display',serif; letter-spacing:.12em; font-variant:small-caps}
+    .brand{display:flex; align-items:center; gap:10px; font-family:'BaytLili','Playfair Display',serif; letter-spacing:.12em; font-variant:small-caps; color:#fff; text-decoration:none}
     .brand img{height:34px}
     a{color:#fff; text-decoration:none}
     .back{opacity:.9}
@@ -67,7 +68,38 @@
     }
     textarea{min-height:120px; resize:vertical}
 
-    .actions{display:flex; gap:10px; flex-wrap:wrap; margin-top:10px}
+    .row{display:flex; gap:10px; align-items:center}
+    .radio{
+      display:inline-flex; gap:8px; align-items:center;
+      padding:10px 12px; border:1px solid var(--line); border-radius:999px;
+      background:rgba(255,255,255,.10); cursor:pointer; user-select:none;
+    }
+    .radio input{accent-color:#fff; width:18px; height:18px}
+
+    .day{
+      display:grid; grid-template-columns: 1.2fr .9fr .9fr auto; gap:10px; align-items:end;
+      margin-top:6px;
+    }
+    .day button.rem{
+      background:transparent; color:#fff; border:1px solid var(--line); border-radius:10px; padding:.65em .8em; cursor:pointer;
+    }
+
+    .add-more{margin-top:6px}
+    .add-more button{
+      background:#fff; color:#111; border:1px solid rgba(0,0,0,.08);
+      border-radius:999px; padding:.6em 1em; cursor:pointer; font-weight:600;
+    }
+
+    .price-card{
+      grid-column:1/-1;
+      background:var(--price-bg); color:var(--price-text);
+      border:1px solid var(--price-border); border-radius:14px;
+      padding:14px 16px; margin-top:6px;
+      box-shadow:0 6px 24px rgba(0,0,0,.12);
+    }
+    .price-card small{color:#555}
+
+    .actions{display:flex; gap:10px; flex-wrap:wrap; margin-top:12px}
     .btn{
       display:inline-flex; align-items:center; justify-content:center; gap:.5em;
       padding:.75em 1.1em; border-radius:999px; border:1px solid rgba(0,0,0,.08);
@@ -84,89 +116,80 @@
   <div class="container">
     <header class="top">
       <a class="back" href="index.html" aria-label="Back to home">← Back</a>
-      <div class="brand">
+      <a class="brand" href="index.html" aria-label="Bayt Lili — Home">
         <img src="assets/bllogo.png" alt="Bayt Lili"/>
         BAYT LILI
-      </div>
+      </a>
     </header>
 
     <h1>Booking Request</h1>
-    <p class="lede">Send us your details below or message us on WhatsApp. We typically reply the same day.</p>
+    <p class="lede">Tell us a bit about your booking. We typically reply the same day.</p>
 
     <div class="card">
       <form id="bookingForm">
-        <div>
+        <!-- START VIEW: First row only -->
+        <div class="full">
           <label>Full name
             <input type="text" name="name" required placeholder="Your name"/>
           </label>
         </div>
-        <div>
-          <label>Company / Brand
-            <input type="text" name="company" placeholder="Optional"/>
-          </label>
-        </div>
+
         <div>
           <label>Email
-            <input type="email" name="email" placeholder="name@email.com"/>
+            <input type="email" name="email" required placeholder="name@email.com"/>
           </label>
         </div>
         <div>
           <label>Phone (with country code)
-            <input type="tel" name="phone" placeholder="+9715XXXXXXXX"/>
-          </label>
-        </div>
-
-        <div>
-          <label>Preferred date(s)
-            <input type="text" name="dates" placeholder="e.g., 12–13 Nov or flexible"/>
-          </label>
-        </div>
-        <div>
-          <label>Purpose
-            <select name="purpose">
-              <option value="Filming">Filming</option>
-              <option value="Photoshoot">Photoshoot</option>
-              <option value="Stay">Stay</option>
-              <option value="Other">Other</option>
-            </select>
-          </label>
-        </div>
-
-        <div>
-          <label>Crew size / Guests
-            <input type="number" name="crew" min="1" placeholder="e.g., 8"/>
-          </label>
-        </div>
-        <div>
-          <label>Hours
-            <select name="hours">
-              <option value="6 hours">6 hours</option>
-              <option value="12 hours">12 hours</option>
-            </select>
-          </label>
-        </div>
-
-        <div>
-          <label>From
-            <input type="time" name="time_from" />
-          </label>
-        </div>
-        <div>
-          <label>To
-            <input type="time" name="time_to" />
+            <input type="tel" name="phone" required placeholder="+9715XXXXXXXX"/>
           </label>
         </div>
 
         <div class="full">
-          <label>Notes / requirements
-            <textarea name="notes" placeholder="Tell us about timings, rooms you need, load-in, etc."></textarea>
-          </label>
+          <div class="row" role="radiogroup" aria-label="Purpose">
+            <label class="radio"><input type="radio" name="purpose" value="Filming" required> Filming / Shoot</label>
+            <label class="radio"><input type="radio" name="purpose" value="Stay" required> Stay</label>
+          </div>
         </div>
 
-        <!-- Actions -->
-        <div class="actions full">
-          <button type="button" class="btn" id="requestNow">Request Booking Now</button>
-          <a class="btn secondary" id="whatsappDirect" href="#" target="_blank" rel="noopener">WhatsApp Us Instead</a>
+        <!-- FILMING SECTION (hidden by default) -->
+        <div id="filmFields" class="full" style="display:none">
+          <div class="full">
+            <label>Company / Brand (required for shoots)
+              <input type="text" name="company" placeholder="Company or brand"/>
+            </label>
+          </div>
+
+          <!-- Days list -->
+          <div id="daysWrap" class="full">
+            <!-- One day row template will be added by JS on first select -->
+          </div>
+
+          <div class="add-more">
+            <button type="button" id="addDayBtn">+ Add another day</button>
+          </div>
+
+          <!-- PRICE CARD (white, above buttons) -->
+          <div id="priceCard" class="price-card" style="display:none">
+            <div id="priceSummary" style="font-weight:700">Estimated Total: AED 0</div>
+            <small id="priceNotes">Rate: AED 350/hr. Minimum charge: 6 hours (AED 2100) per day.</small>
+          </div>
+        </div>
+
+        <!-- STAY SECTION (hidden by default) -->
+        <div id="stayFields" class="full" style="display:none">
+          <p class="lede">For stays, please contact us directly.</p>
+        </div>
+
+        <!-- ACTION BUTTONS -->
+        <div class="actions full" id="buttonsRow" style="display:none">
+          <button type="button" class="btn" id="requestBooking">Request Booking</button>
+          <a class="btn secondary" id="whatsappDirect" href="#" target="_blank" rel="noopener">WhatsApp Us</a>
+        </div>
+
+        <div class="actions full" id="stayButtons" style="display:none">
+          <a class="btn secondary" id="whatsappStay" href="#" target="_blank" rel="noopener">WhatsApp Us</a>
+          <a class="btn" id="airbnbBtn" href="https://www.airbnb.ae/hosting/listings/editor/1010972686934184319/view-your-space" target="_blank" rel="noopener">View on Airbnb</a>
         </div>
       </form>
     </div>
@@ -179,64 +202,302 @@
   <script>
     // EDIT THIS to your WhatsApp number (international format, NO +)
     const WHATSAPP_NUMBER = '9715XXXXXXXXX';
+    const RATE_PER_HOUR = 350;
+    const MIN_HOURS_PER_DAY = 6;
+    const DAY_MIN_CHARGE = RATE_PER_HOUR * MIN_HOURS_PER_DAY; // 2100
 
-    function buildMessage(fields){
+    const form = document.getElementById('bookingForm');
+    const filmFields = document.getElementById('filmFields');
+    const stayFields = document.getElementById('stayFields');
+    const buttonsRow = document.getElementById('buttonsRow');
+    const stayButtons = document.getElementById('stayButtons');
+    const daysWrap = document.getElementById('daysWrap');
+    const addDayBtn = document.getElementById('addDayBtn');
+    const priceCard = document.getElementById('priceCard');
+    const priceSummary = document.getElementById('priceSummary');
+
+    // INITIAL: only name/email/phone/purpose visible
+    function resetVisibility(){
+      filmFields.style.display = 'none';
+      stayFields.style.display = 'none';
+      buttonsRow.style.display = 'none';
+      stayButtons.style.display = 'none';
+      priceCard.style.display = 'none';
+    }
+    resetVisibility();
+
+    // Purpose handling
+    form.addEventListener('change', (e) => {
+      if(e.target.name === 'purpose'){
+        const purpose = e.target.value;
+        if(purpose === 'Filming'){
+          // Show filming fields
+          stayFields.style.display = 'none';
+          stayButtons.style.display = 'none';
+          filmFields.style.display = '';
+          buttonsRow.style.display = '';
+          priceCard.style.display = '';
+          ensureAtLeastOneDay();
+          updatePrice();
+        }else if(purpose === 'Stay'){
+          // Show only stay options
+          filmFields.style.display = 'none';
+          buttonsRow.style.display = 'none';
+          priceCard.style.display = 'none';
+          stayFields.style.display = '';
+          stayButtons.style.display = '';
+        }
+      }
+    });
+
+    // Days logic
+    function makeDayRow(){
+      const row = document.createElement('div');
+      row.className = 'day';
+      row.innerHTML = `
+        <label>Date
+          <input type="date" name="day_date" required>
+        </label>
+        <label>From
+          <input type="time" name="day_from" required>
+        </label>
+        <label>To
+          <input type="time" name="day_to" required>
+        </label>
+        <button type="button" class="rem" aria-label="Remove day">Remove</button>
+      `;
+      row.querySelector('.rem').addEventListener('click', () => {
+        row.remove();
+        updatePrice();
+        if(daysWrap.children.length === 0){
+          // keep at least one if filming selected
+          ensureAtLeastOneDay();
+        }
+      });
+      ['day_date','day_from','day_to'].forEach(n=>{
+        row.querySelector(`[name=${n}]`).addEventListener('change', updatePrice);
+        row.querySelector(`[name=${n}]`).addEventListener('input', updatePrice);
+      });
+      return row;
+    }
+
+    function ensureAtLeastOneDay(){
+      if(daysWrap.children.length === 0){
+        daysWrap.appendChild(makeDayRow());
+      }
+    }
+
+    addDayBtn.addEventListener('click', () => {
+      daysWrap.appendChild(makeDayRow());
+      updatePrice();
+    });
+
+    // Price calc (per-day min 6h)
+    function parseTime(t){ // "HH:MM" -> minutes
+      if(!t) return null;
+      const [h,m] = t.split(':').map(Number);
+      return h*60 + (m||0);
+    }
+
+    function computeHours(from, to){
+      const a = parseTime(from);
+      const b = parseTime(to);
+      if(a==null || b==null) return 0;
+      let diff = (b - a)/60;
+      if(diff < 0) diff += 24; // allow crossing midnight if needed
+      return Math.max(0, diff);
+    }
+
+    function updatePrice(){
+      const purpose = (new FormData(form)).get('purpose');
+      if(purpose !== 'Filming'){
+        priceCard.style.display = 'none';
+        return;
+      }
+      priceCard.style.display = '';
+
+      let totalHours = 0;
+      let totalPrice = 0;
+
+      [...daysWrap.children].forEach((row, idx) => {
+        const from = row.querySelector('[name=day_from]').value;
+        const to = row.querySelector('[name=day_to]').value;
+        const hrs = computeHours(from, to);
+
+        // enforce per-day minimum 6h
+        const billable = Math.max(hrs, MIN_HOURS_PER_DAY);
+        totalHours += hrs;
+        totalPrice += billable * RATE_PER_HOUR;
+      });
+
+      const minNotice = `Rate: AED ${RATE_PER_HOUR}/hr. Minimum charge: ${MIN_HOURS_PER_DAY} hours (AED ${DAY_MIN_CHARGE}) per day.`;
+      const lines = [
+        `Estimated Total: AED ${isFinite(totalPrice) ? Math.round(totalPrice) : 0}`,
+        `Total Selected Hours: ${isFinite(totalHours) ? totalHours.toFixed(2) : '0'}`
+      ];
+      priceSummary.textContent = lines[0] + ' — ' + lines[1];
+      document.getElementById('priceNotes').textContent = minNotice;
+    }
+
+    // Build WhatsApp message
+    function buildMessageFilming(){
+      const fd = new FormData(form);
+      const name = fd.get('name')||'-';
+      const email = fd.get('email')||'-';
+      const phone = fd.get('phone')||'-';
+      const company = fd.get('company')||'-';
+
+      let dayLines = [];
+      [...daysWrap.children].forEach((row, i) => {
+        const date = row.querySelector('[name=day_date]').value || '-';
+        const from = row.querySelector('[name=day_from]').value || '-';
+        const to = row.querySelector('[name=day_to]').value || '-';
+        const hrs = computeHours(from,to);
+        const billHrs = Math.max(hrs, MIN_HOURS_PER_DAY);
+        const price = billHrs * RATE_PER_HOUR;
+        dayLines.push(`Day ${i+1}: ${date} — ${from} to ${to} (hrs: ${hrs.toFixed(2)}, billable: ${billHrs.toFixed(2)}, AED ${Math.round(price)})`);
+      });
+
+      // Total estimate
+      let totalPrice = 0;
+      [...daysWrap.children].forEach((row) => {
+        const from = row.querySelector('[name=day_from]').value || '';
+        const to = row.querySelector('[name=day_to]').value || '';
+        const hrs = computeHours(from,to);
+        const billHrs = Math.max(hrs, MIN_HOURS_PER_DAY);
+        totalPrice += billHrs * RATE_PER_HOUR;
+      });
+
+      const header = 'Booking Request — Filming / Shoot';
       return [
-        'Booking Request — Bayt Lili',
+        header,
         '',
-        `Name: ${fields.name || '-'}`,
-        `Company: ${fields.company || '-'}`,
-        `Email: ${fields.email || '-'}`,
-        `Phone: ${fields.phone || '-'}`,
-        `Preferred dates: ${fields.dates || '-'}`,
-        `Purpose: ${fields.purpose || '-'}`,
-        `Crew/Guests: ${fields.crew || '-'}`,
-        `Hours: ${fields.hours || '-'}`,
-        `Time: ${fields.time_from || '-'} to ${fields.time_to || '-'}`,
+        `Name: ${name}`,
+        `Company: ${company}`,
+        `Email: ${email}`,
+        `Phone: ${phone}`,
         '',
-        `Notes: ${fields.notes || '-'}`,
+        ...dayLines,
+        '',
+        `Estimated Total: AED ${Math.round(totalPrice)} (Rate AED ${RATE_PER_HOUR}/hr; ${MIN_HOURS_PER_DAY}h minimum per day)`
       ].join('\n');
     }
 
-    function getFields(){
-      const f = document.getElementById('bookingForm');
-      return {
-        name: f.name.value.trim(),
-        company: f.company.value.trim(),
-        email: f.email.value.trim(),
-        phone: f.phone.value.trim(),
-        dates: f.dates.value.trim(),
-        purpose: f.purpose.value,
-        crew: f.crew.value.trim(),
-        hours: f.hours.value,
-        time_from: f.time_from.value,
-        time_to: f.time_to.value,
-        notes: f.notes.value.trim(),
-      };
+    // Buttons
+    const requestBookingBtn = document.getElementById('requestBooking');
+    const whatsappDirect = document.getElementById('whatsappDirect');
+    const whatsappStay = document.getElementById('whatsappStay');
+
+    if(requestBookingBtn){
+      requestBookingBtn.addEventListener('click', () => {
+        const fd = new FormData(form);
+        const purpose = fd.get('purpose');
+        if(!WHATSAPP_NUMBER || WHATSAPP_NUMBER.includes('X')){
+          alert('Please set your WhatsApp number in booking.html (WHATSAPP_NUMBER).');
+          return;
+        }
+        let msg = '';
+        if(purpose === 'Filming'){
+          // validate company + at least 1 day with min 6h
+          const company = fd.get('company')?.trim();
+          if(!company){
+            alert('Please enter your Company / Brand for shoots.');
+            return;
+          }
+          if(daysWrap.children.length === 0){
+            alert('Please add at least one day.');
+            return;
+          }
+          // validate each day min 6h
+          for(const row of daysWrap.children){
+            const from = row.querySelector('[name=day_from]').value;
+            const to = row.querySelector('[name=day_to]').value;
+            const hrs = computeHours(from,to);
+            if(hrs < MIN_HOURS_PER_DAY){
+              alert('Each shoot day must be at least 6 hours.');
+              return;
+            }
+          }
+          msg = buildMessageFilming();
+        } else {
+          // Stay path (unlikely here since Request Booking is hidden for Stay)
+          msg = 'Booking Request — Stay';
+        }
+        const url = `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(msg)}`;
+        window.open(url, '_blank');
+        // Store email for your records (client-side)
+        const email = fd.get('email') || '';
+        storeEmail(email);
+      });
     }
 
-    // Request Booking Now → send form content to WhatsApp message
-    document.getElementById('requestNow').addEventListener('click', () => {
-      const data = getFields();
-      if(!WHATSAPP_NUMBER || WHATSAPP_NUMBER.includes('X')){
-        alert('Please set your WhatsApp number in booking.html (WHATSAPP_NUMBER).');
-        return;
+    if(whatsappDirect){
+      whatsappDirect.addEventListener('click', (e) => {
+        e.preventDefault();
+        if(!WHATSAPP_NUMBER || WHATSAPP_NUMBER.includes('X')){
+          alert('Please set your WhatsApp number in booking.html (WHATSAPP_NUMBER).');
+          return;
+        }
+        const url = `https://wa.me/${WHATSAPP_NUMBER}`;
+        window.open(url, '_blank');
+      });
+    }
+
+    if(whatsappStay){
+      whatsappStay.addEventListener('click', (e) => {
+        e.preventDefault();
+        if(!WHATSAPP_NUMBER || WHATSAPP_NUMBER.includes('X')){
+          alert('Please set your WhatsApp number in booking.html (WHATSAPP_NUMBER).');
+          return;
+        }
+        const url = `https://wa.me/${WHATSAPP_NUMBER}`;
+        window.open(url, '_blank');
+      });
+    }
+
+    // Show correct sections once purpose chosen
+    form.addEventListener('change', (e) => {
+      if(e.target.name === 'purpose'){
+        const p = e.target.value;
+        if(p === 'Filming'){
+          // show filming controls + buttons
+          buttonsRow.style.display = '';
+        } else {
+          // show stay buttons only
+          buttonsRow.style.display = 'none';
+        }
       }
-      const msg = encodeURIComponent(buildMessage(data));
-      const url = `https://wa.me/${WHATSAPP_NUMBER}?text=${msg}`;
-      window.open(url, '_blank');
     });
 
-    // WhatsApp Us Instead → blank chat
-    const direct = document.getElementById('whatsappDirect');
-    direct.addEventListener('click', (e) => {
-      e.preventDefault();
-      if(!WHATSAPP_NUMBER || WHATSAPP_NUMBER.includes('X')){
-        alert('Please set your WhatsApp number in booking.html (WHATSAPP_NUMBER).');
-        return;
+    // Seed first day when filming chosen initially
+    function seedFirstDayIfNeeded(){
+      const p = (new FormData(form)).get('purpose');
+      if(p === 'Filming' && daysWrap.children.length === 0){
+        daysWrap.appendChild(makeDayRow());
       }
-      window.open(`https://wa.me/${WHATSAPP_NUMBER}`, '_blank');
-    });
+    }
+
+    // Local storage of emails
+    function storeEmail(email){
+      try{
+        if(!email) return;
+        const key = 'baytlili_emails';
+        const current = JSON.parse(localStorage.getItem(key) || '[]');
+        if(!current.includes(email)) current.push(email);
+        localStorage.setItem(key, JSON.stringify(current));
+      }catch(e){}
+    }
+
+    // On load: wire Airbnb & WA links for stay
+    (function init(){
+      const purposeInputs = form.querySelectorAll('input[name=purpose]');
+      purposeInputs.forEach(r => r.addEventListener('change', seedFirstDayIfNeeded));
+      // Set stay buttons WA link
+      const w1 = document.getElementById('whatsappDirect');
+      const w2 = document.getElementById('whatsappStay');
+      if(w1 && WHATSAPP_NUMBER && !WHATSAPP_NUMBER.includes('X')) w1.href = `https://wa.me/${WHATSAPP_NUMBER}`;
+      if(w2 && WHATSAPP_NUMBER && !WHATSAPP_NUMBER.includes('X')) w2.href = `https://wa.me/${WHATSAPP_NUMBER}`;
+    })();
   </script>
 </body>
 </html>
