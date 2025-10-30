@@ -30,6 +30,8 @@
       --pill-bg: rgba(255,255,255,.10);
       --btn-bg: #ffffff;
       --btn-text: #1f1f1f;
+      --card-bg: rgba(0,0,0,.24);
+      --card-stroke: rgba(255,255,255,.28);
     }
 
     /* Brand font (optional) */
@@ -130,7 +132,9 @@
       border:1px solid rgba(255,255,255,.65);
       background:rgba(255,255,255,.95);
       display:flex;align-items:center;justify-content:center;
+      overflow:hidden;
     }
+    .icon-img{width:22px;height:22px;display:block}
 
     .book-btn{
       display:inline-block; margin-top:8px;
@@ -150,7 +154,7 @@
     }
     p{margin:0 0 12px; color:#ededed}
 
-    /* Features (YOUR NEW TEXT) */
+    /* Features (updated texts) */
     .strip{display:grid; grid-template-columns:repeat(4,1fr); gap:12px; margin-top:6px}
     .pill{
       border:1px solid var(--line);
@@ -160,7 +164,17 @@
       backdrop-filter:blur(3px);
     }
 
-    /* Gallery */
+    /* Readable card behind the paragraph */
+    .about-card{
+      margin-top:14px;
+      background:var(--card-bg);
+      border:1px solid var(--card-stroke);
+      border-radius:16px;
+      padding:14px 16px;
+      backdrop-filter: blur(4px);
+    }
+
+    /* Gallery — fixed sizing/crop */
     .gallery-row{display:flex; gap:12px; justify-content:space-between}
     .card.small{
       flex:0 0 31%;
@@ -168,9 +182,20 @@
       border-radius:14px; overflow:hidden;
       background:rgba(255,255,255,.10);
       backdrop-filter:blur(3px);
+      aspect-ratio: 4 / 5;               /* ensures consistent tile shape */
+      display:flex;
     }
-    .card.small img{aspect-ratio:4/5; object-fit:cover}
-    .card .cap{padding:10px 12px; border-top:1px solid rgba(255,255,255,.25); font-size:.93rem; color:#fff}
+    .card.small img{
+      width:100%; height:100%;
+      object-fit: cover;                  /* crop nicely, no elongation */
+      object-position: center;
+      display:block;
+    }
+    .card .cap{
+      padding:10px 12px;
+      border-top:1px solid rgba(255,255,255,.25);
+      font-size:.93rem; color:#fff
+    }
 
     /* Logos */
     .logos{display:grid; grid-template-columns:repeat(5,1fr); gap:12px}
@@ -238,17 +263,19 @@
   <!-- Hero -->
   <main class="container pad hero" id="home">
     <div class="text">
-      <!-- Title -->
       <h1 class="hero-title">BAYT LILI</h1>
-      <!-- Descriptor BELOW the title -->
       <div class="eyebrow">Boutique Villa • Filming • Photoshoots • Stays</div>
-      <!-- Icons BELOW descriptor -->
+
+      <!-- Your own icons: place images in /assets/icons/ -->
       <div class="icon-row" aria-label="Quick links">
-        <a class="icon-btn" href="https://instagram.com/baytlili" target="_blank" rel="noopener" aria-label="Instagram" title="Instagram">📷</a>
-        <a class="icon-btn" href="#gallery" aria-label="Gallery" title="Gallery">🖼️</a>
-        <a class="icon-btn" href="https://airbnb.com/h/baytlili" target="_blank" rel="noopener" aria-label="Airbnb" title="Airbnb">🏡</a>
+        <a class="icon-btn" href="https://instagram.com/baytlili" target="_blank" rel="noopener" aria-label="Instagram" title="Instagram">
+          <img class="icon-img" src="assets/icons/instagram.png" alt="Instagram">
+        </a>
+        <a class="icon-btn" href="https://wa.me/9715XXXXXXXXX" target="_blank" rel="noopener" aria-label="WhatsApp" title="WhatsApp">
+          <img class="icon-img" src="assets/icons/whatsapp.png" alt="WhatsApp">
+        </a>
       </div>
-      <!-- Book Now button (to internal page, not email) -->
+
       <a class="book-btn" href="booking.html" aria-label="Go to booking form">Book Now</a>
     </div>
   </main>
@@ -257,7 +284,7 @@
   <section id="about" class="pad">
     <div class="container">
       <h2>About the Space</h2>
-      <!-- YOUR NEW BUBBLES -->
+
       <div class="strip">
         <div class="pill">Exclusive Booking</div>
         <div class="pill">Easy Team Access</div>
@@ -265,9 +292,10 @@
         <div class="pill">Lush Garden & Pool</div>
       </div>
 
-      <p style="margin-top:14px">
+      <!-- Readable card -->
+      <div class="about-card">
         Bayt Lili is a privately designed villa with an editorial, minimal aesthetic. Natural textures, soft light, and curated details make it a versatile backdrop for commercials, fashion, and lifestyle shoots — as well as intimate stays.
-      </p>
+      </div>
     </div>
   </section>
 
@@ -278,15 +306,12 @@
       <div class="gallery-row" style="margin-top:14px">
         <div class="card small">
           <img src="assets/1.png" alt="Sunlit living room with neutral palette" loading="lazy" />
-          <div class="cap">Living area</div>
         </div>
         <div class="card small">
           <img src="assets/2.png" alt="Minimal dining setup with natural light" loading="lazy" />
-          <div class="cap">Dining</div>
         </div>
         <div class="card small">
           <img src="assets/5.png" alt="Lush garden with Mediterranean feel" loading="lazy" />
-          <div class="cap">Garden</div>
         </div>
       </div>
     </div>
