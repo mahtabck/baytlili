@@ -13,7 +13,6 @@
       --line: rgba(255,255,255,.30);
       --card: rgba(255,255,255,.10);
       --btn: #ffffff; --btnText:#1f1f1f;
-      --accent:#a88e6a;
     }
     @font-face{
       font-family:'BaytLili';
@@ -43,7 +42,6 @@
     header .top{display:flex; align-items:center; justify-content:space-between; gap:12px}
     .brand{display:flex; align-items:center; gap:10px; font-family:'BaytLili','Playfair Display',serif; letter-spacing:.12em; font-variant:small-caps}
     .brand img{height:34px}
-
     a{color:#fff; text-decoration:none}
     .back{opacity:.9}
     .back:hover{opacity:1; text-decoration:underline}
@@ -140,8 +138,22 @@
           </label>
         </div>
         <div>
-          <label>Hours (if shoot)
-            <input type="text" name="hours" placeholder="e.g., 6 hours"/>
+          <label>Hours
+            <select name="hours">
+              <option value="6 hours">6 hours</option>
+              <option value="12 hours">12 hours</option>
+            </select>
+          </label>
+        </div>
+
+        <div>
+          <label>From
+            <input type="time" name="time_from" />
+          </label>
+        </div>
+        <div>
+          <label>To
+            <input type="time" name="time_to" />
           </label>
         </div>
 
@@ -151,9 +163,10 @@
           </label>
         </div>
 
+        <!-- Actions -->
         <div class="actions full">
-          <button type="button" class="btn" id="whatsappBtn">Open WhatsApp</button>
-          <button type="button" class="btn secondary" id="copyBtn">Copy Details</button>
+          <button type="button" class="btn" id="requestNow">Request Booking Now</button>
+          <a class="btn secondary" id="whatsappDirect" href="#" target="_blank" rel="noopener">WhatsApp Us Instead</a>
         </div>
       </form>
     </div>
@@ -164,9 +177,8 @@
   </div>
 
   <script>
-    // TODO: Replace with your WhatsApp number in international format (no plus):
-    // UAE example: 9715XXXXXXXXX
-    const WHATSAPP_NUMBER = '971501589628'; // <-- EDIT THIS
+    // EDIT THIS to your WhatsApp number (international format, NO +)
+    const WHATSAPP_NUMBER = '9715XXXXXXXXX';
 
     function buildMessage(fields){
       return [
@@ -180,6 +192,7 @@
         `Purpose: ${fields.purpose || '-'}`,
         `Crew/Guests: ${fields.crew || '-'}`,
         `Hours: ${fields.hours || '-'}`,
+        `Time: ${fields.time_from || '-'} to ${fields.time_to || '-'}`,
         '',
         `Notes: ${fields.notes || '-'}`,
       ].join('\n');
@@ -195,37 +208,34 @@
         dates: f.dates.value.trim(),
         purpose: f.purpose.value,
         crew: f.crew.value.trim(),
-        hours: f.hours.value.trim(),
+        hours: f.hours.value,
+        time_from: f.time_from.value,
+        time_to: f.time_to.value,
         notes: f.notes.value.trim(),
       };
     }
 
-    document.getElementById('whatsappBtn').addEventListener('click', () => {
+    // Request Booking Now → send form content to WhatsApp message
+    document.getElementById('requestNow').addEventListener('click', () => {
       const data = getFields();
-      const msg = encodeURIComponent(buildMessage(data));
       if(!WHATSAPP_NUMBER || WHATSAPP_NUMBER.includes('X')){
         alert('Please set your WhatsApp number in booking.html (WHATSAPP_NUMBER).');
         return;
       }
-      // Use wa.me direct link
+      const msg = encodeURIComponent(buildMessage(data));
       const url = `https://wa.me/${WHATSAPP_NUMBER}?text=${msg}`;
       window.open(url, '_blank');
     });
 
-    document.getElementById('copyBtn').addEventListener('click', async () => {
-      const data = getFields();
-      const msg = buildMessage(data);
-      try{
-        await navigator.clipboard.writeText(msg);
-        alert('Booking details copied to clipboard. You can paste into WhatsApp, Instagram, or email.');
-      }catch(e){
-        // Fallback: create a temporary textarea
-        const ta = document.createElement('textarea');
-        ta.value = msg; document.body.appendChild(ta);
-        ta.select(); document.execCommand('copy');
-        ta.remove();
-        alert('Booking details copied.');
+    // WhatsApp Us Instead → blank chat
+    const direct = document.getElementById('whatsappDirect');
+    direct.addEventListener('click', (e) => {
+      e.preventDefault();
+      if(!WHATSAPP_NUMBER || WHATSAPP_NUMBER.includes('X')){
+        alert('Please set your WhatsApp number in booking.html (WHATSAPP_NUMBER).');
+        return;
       }
+      window.open(`https://wa.me/${WHATSAPP_NUMBER}`, '_blank');
     });
   </script>
 </body>
