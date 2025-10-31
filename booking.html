@@ -201,7 +201,7 @@
 
   <script>
     // EDIT THIS to your WhatsApp number (international format, NO +)
-    const WHATSAPP_NUMBER = '9715XXXXXXXXX';
+    const WHATSAPP_NUMBER = '971501589628';
     const RATE_PER_HOUR = 350;
     const MIN_HOURS_PER_DAY = 6;
     const DAY_MIN_CHARGE = RATE_PER_HOUR * MIN_HOURS_PER_DAY; // 2100
@@ -499,5 +499,68 @@
       if(w2 && WHATSAPP_NUMBER && !WHATSAPP_NUMBER.includes('X')) w2.href = `https://wa.me/${WHATSAPP_NUMBER}`;
     })();
   </script>
+  <script>
+  (function () {
+    const form = document.getElementById('booking-form');
+    const statusEl = document.getElementById('form-status');
+    const submitBtn = document.getElementById('request-booking');
+
+    // 👇 Paste your Apps Script Web App URL here
+    const SHEETS_ENDPOINT = 'https://script.google.com/macros/s/AKfycbzP17hb9riNcRnWQ06dinxrqwII6CYjH247SV6xCnhd9bJV6nVBVANkVRA0QZA70OII/exec';
+
+    form.addEventListener('submit', async (e) => {
+      e.preventDefault();
+
+      const name = document.getElementById('name');
+      const email = document.getElementById('email');
+      const inquiry = document.getElementById('inquiry');
+
+      if (!name.value.trim() || !email.value.trim()) {
+        statusEl.textContent = 'Please fill in Name and Email to continue.';
+        statusEl.style.color = 'crimson';
+        name.focus();
+        return;
+      }
+      if (!inquiry.value) {
+        statusEl.textContent = 'Please choose an Inquiry Type.';
+        statusEl.style.color = 'crimson';
+        inquiry.focus();
+        return;
+      }
+
+      submitBtn.disabled = true;
+      submitBtn.textContent = 'Sending…';
+      statusEl.textContent = '';
+
+      const params = new URLSearchParams();
+      params.set('name', name.value.trim());
+      params.set('email', email.value.trim());
+      params.set('phone', (document.getElementById('phone').value || '').trim());
+      params.set('inquiry', inquiry.value);
+      params.set('message', (document.getElementById('message').value || '').trim());
+      params.set('pageUrl', window.location.href);
+      params.set('userAgent', navigator.userAgent);
+
+      try {
+        await fetch(SHEETS_ENDPOINT, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/x-www-form-urlencoded;charset=UTF-8' },
+          body: params.toString()
+        });
+
+        form.reset();
+        statusEl.textContent =
+          'Thank you! Your request has been received. We’ll get back to you shortly.';
+        statusEl.style.color = 'green';
+      } catch (err) {
+        statusEl.textContent = 'Network error. Please try again.';
+        statusEl.style.color = 'crimson';
+      } finally {
+        submitBtn.disabled = false;
+        submitBtn.textContent = 'Request Booking';
+      }
+    });
+  })();
+</script>
 </body>
 </html>
