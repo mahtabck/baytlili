@@ -6,75 +6,26 @@
   <title>Rates — Bayt Lili</title>
   <meta name="description" content="Bayt Lili pricing for filming, photoshoots, and stays.">
   <link rel="icon" type="image/png" href="assets/favicon.png"/>
-
   <style>
-    :root{
-      --text:#fff; --muted:#eaeaea;
-      --line: rgba(255,255,255,.30);
-      --card: rgba(255,255,255,.10);
-    }
-    @font-face{
-      font-family:'BaytLili';
-      src: url('assets/BaytLili.ttf') format('truetype'),
-           url('assets/BaytLili.otf') format('opentype');
-      font-display:swap;
-    }
-    *,*::before,*::after{box-sizing:border-box}
-    html,body{height:100%}
-    body{
-      margin:0; color:var(--text);
-      font-family:'Playfair Display', serif; line-height:1.5;
-      -webkit-font-smoothing:antialiased; -moz-osx-font-smoothing:grayscale;
-      background:#000;
-    }
-    /* Lighter background */
-    body::before{
-      content:""; position:fixed; inset:0;
-      background:url('assets/lightbg.png') center 35%/cover no-repeat fixed; z-index:-2;
-    }
-    body::after{
-      content:""; position:fixed; inset:0;
-      background:rgba(0,0,0,.28); z-index:-1;
-    }
-
-    .container{width:min(900px,92vw); margin:0 auto; padding:clamp(24px,5vw,48px) 0}
-    header .top{display:flex; align-items:center; justify-content:space-between; gap:12px}
-    .brand{display:flex; align-items:center; gap:10px; font-family:'BaytLili','Playfair Display',serif; letter-spacing:.12em; font-variant:small-caps; color:#fff; text-decoration:none}
-    .brand img{height:34px}
-    a{color:#fff; text-decoration:none}
-    .back{opacity:.9}
-    .back:hover{opacity:1; text-decoration:underline}
-
-    h1{
-      font-family:'BaytLili','Playfair Display',serif;
-      margin:18px 0 8px; font-size:clamp(26px,4.4vw,40px);
-      text-shadow:0 3px 10px rgba(0,0,0,.35);
-    }
-    p.lede{color:var(--muted); margin:0 0 18px}
-
-    .card{
-      background:var(--card); border:1px solid var(--line);
-      border-radius:16px; padding:18px; backdrop-filter:blur(4px);
-      margin-bottom:14px;
-    }
-
-    .rate{
-      display:flex; justify-content:space-between; align-items:baseline; gap:12px;
-      border-bottom:1px dashed rgba(255,255,255,.25); padding-bottom:10px; margin-bottom:10px;
-    }
-    .rate:last-child{border-bottom:none; padding-bottom:0; margin-bottom:0}
-    .rate .title{font-weight:700; font-size:1.1rem}
-    .rate .value{font-size:1.05rem}
-
-    .actions{display:flex; gap:10px; flex-wrap:wrap; margin-top:12px}
-    .btn{
-      display:inline-flex; align-items:center; justify-content:center; gap:.5em;
-      padding:.75em 1.1em; border-radius:999px; border:1px solid rgba(0,0,0,.08);
-      background:#fff; color:#111; font-weight:600; letter-spacing:.02em;
-      cursor:pointer; text-decoration:none;
-    }
-    .btn.secondary{background:transparent; color:#fff; border:1px solid var(--line)}
-    .btn:hover{opacity:.92}
+    :root{--text:#fff;--muted:#eaeaea;--line:rgba(255,255,255,.30);--card:rgba(255,255,255,.10)}
+    @font-face{font-family:'BaytLili';src:url('assets/BaytLili.ttf') format('truetype'),url('assets/BaytLili.otf') format('opentype');font-display:swap}
+    *,*::before,*::after{box-sizing:border-box} html,body{height:100%}
+    body{margin:0;color:var(--text);font-family:'Playfair Display',serif;line-height:1.5;background:#000;-webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:grayscale}
+    body::before{content:"";position:fixed;inset:0;background:url('assets/lightbg.png') center 35%/cover no-repeat fixed;z-index:-2}
+    body::after{content:"";position:fixed;inset:0;background:rgba(0,0,0,.28);z-index:-1}
+    .container{width:min(900px,92vw);margin:0 auto;padding:clamp(24px,5vw,48px) 0}
+    header .top{display:flex;align-items:center;justify-content:space-between;gap:12px}
+    .brand{display:flex;align-items:center;gap:10px;font-family:'BaytLili','Playfair Display',serif;letter-spacing:.12em;font-variant:small-caps;color:#fff;text-decoration:none}
+    .brand img{height:34px} a{color:#fff;text-decoration:none}.back{opacity:.9}.back:hover{opacity:1;text-decoration:underline}
+    h1{font-family:'BaytLili','Playfair Display',serif;margin:18px 0 8px;font-size:clamp(26px,4.4vw,40px);text-shadow:0 3px 10px rgba(0,0,0,.35)}
+    p.lede{color:var(--muted);margin:0 0 18px}
+    .card{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:18px;backdrop-filter:blur(4px);margin-bottom:14px}
+    .rate{display:flex;justify-content:space-between;align-items:baseline;gap:12px;border-bottom:1px dashed rgba(255,255,255,.25);padding-bottom:10px;margin-bottom:10px}
+    .rate:last-child{border-bottom:none;padding-bottom:0;margin-bottom:0}
+    .rate .title{font-weight:700;font-size:1.1rem}.rate .value{font-size:1.05rem}
+    .actions{display:flex;gap:10px;flex-wrap:wrap;margin-top:12px}
+    .btn{display:inline-flex;align-items:center;justify-content:center;gap:.5em;padding:.75em 1.1em;border-radius:999px;border:1px solid rgba(0,0,0,.08);background:#fff;color:#111;font-weight:600;letter-spacing:.02em;cursor:pointer;text-decoration:none}
+    .btn.secondary{background:transparent;color:#fff;border:1px solid var(--line)} .btn:hover{opacity:.92}
   </style>
 </head>
 <body>
@@ -82,36 +33,27 @@
     <header class="top">
       <a class="back" href="index.html" aria-label="Back to home">← Back</a>
       <a class="brand" href="index.html" aria-label="Bayt Lili — Home">
-        <img src="assets/bllogo.png" alt="Bayt Lili"/>
-        BAYT LILI
+        <img src="assets/bllogo.png" alt="Bayt Lili"/> BAYT LILI
       </a>
     </header>
 
     <h1>Rates</h1>
     <p class="lede">Transparent, simple pricing. For custom requests, please contact us.</p>
 
+    <!-- Filming / Photoshoot -->
     <div class="card">
-      <div class="rate">
-        <div class="title">Filming / Photoshoot</div>
-        <div class="value">AED 350 per hour</div>
-      </div>
-      <div class="rate">
-        <div class="title">Minimum charge</div>
-        <div class="value">6 hours (AED 2100) per day</div>
-      </div>
-      <div class="rate">
-        <div class="title">Overtime</div>
-        <div class="value">Billed at AED 350/hr</div>
-      </div>
+      <div class="rate"><div class="title">Filming / Photoshoot</div><div class="value">AED 350 per hour</div></div>
+      <div class="rate"><div class="title">Minimum charge</div><div class="value">6 hours (AED 2100) per day</div></div>
+      <div class="rate"><div class="title">Refundable Deposit</div><div class="value">AED 5000</div></div>
+      <div class="rate"><div class="title">Overtime</div><div class="value">Billed at AED 350/hr</div></div>
+      <div class="actions"><a class="btn secondary" href="booking.html">Request Booking</a></div>
     </div>
 
+    <!-- Stays -->
     <div class="card">
-      <div class="rate">
-        <div class="title">Stays</div>
-        <div class="value">Please check Airbnb for seasonal rates</div>
-      </div>
+      <div class="rate"><div class="title">Stays</div><div class="value">Please check Airbnb for seasonal rates</div></div>
       <div class="actions">
-        <a class="btn" href="https://www.airbnb.ae/hosting/listings/editor/1010972686934184319/view-your-space" target="_blank" rel="noopener">View on Airbnb</a>
+        <a class="btn" href="https://www.airbnb.com/rooms/1010972686934184319" target="_blank" rel="noopener">View on Airbnb</a>
         <a class="btn secondary" href="booking.html">Request Booking</a>
       </div>
     </div>
