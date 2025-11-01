@@ -14,6 +14,7 @@
       --card: rgba(255,255,255,.10);
       --btn:#ffffff; --btnText:#1f1f1f;
       --price-bg:#fff; --price-text:#1b1b1b; --price-border:rgba(0,0,0,.08);
+      --control-h: 44px; /* unified control height */
     }
     @font-face{
       font-family:'BaytLili';
@@ -38,7 +39,7 @@
       background:rgba(0,0,0,.28); z-index:-1;
     }
 
-    /* Header/nav (same style as index) */
+    /* Header/nav (same as index) */
     header{
       position:sticky; top:0; z-index:50;
       background:rgba(0,0,0,0.18);
@@ -79,25 +80,41 @@
       background:var(--card); border:1px solid var(--line);
       border-radius:16px; padding:18px; backdrop-filter:blur(4px);
     }
+
+    /* Form grid */
     form{display:grid; grid-template-columns:1fr 1fr; gap:14px}
     .full{grid-column:1 / -1}
     label{font-size:.95rem; opacity:.95}
+
+    /* Controls — unified look/height */
     input, select, textarea{
       width:100%; padding:12px 12px; margin-top:6px;
       border-radius:10px; border:1px solid var(--line);
       background:rgba(255,255,255,.92); color:#111; font-size:16px;
       font-family:'Playfair Display', serif;
+      height:var(--control-h);
     }
-    textarea{min-height:120px; resize:vertical}
+    textarea{min-height:120px; height:auto; resize:vertical}
+
+    /* Make native date input match select height */
+    input[type="date"]{
+      -webkit-appearance:none; appearance:none;
+      line-height:calc(var(--control-h) - 2px);
+      padding-top:0; padding-bottom:0;
+    }
+    /* Normalize select height on some browsers */
+    select{ line-height:calc(var(--control-h) - 2px); }
 
     .row{display:flex; gap:10px; align-items:center; flex-wrap:wrap}
     .radio{
       display:inline-flex; gap:8px; align-items:center;
       padding:10px 12px; border:1px solid var(--line); border-radius:999px;
       background:rgba(255,255,255,.10); user-select:none;
+      height:var(--control-h);
     }
     .radio input{accent-color:#fff; width:18px; height:18px}
 
+    /* Filming day rows */
     .day{
       display:grid; grid-template-columns: 1.2fr .9fr .9fr auto; gap:10px; align-items:end;
       margin-top:6px;
@@ -105,6 +122,7 @@
     .day button.rem{
       background:transparent; color:#fff; border:1px solid var(--line); border-radius:10px; padding:.65em .8em; cursor:pointer;
       font-family:'Playfair Display', serif;
+      height:var(--control-h);
     }
 
     .add-more{margin-top:6px}
@@ -112,6 +130,7 @@
       background:#fff; color:#111; border:1px solid rgba(0,0,0,.08);
       border-radius:999px; padding:.6em 1em; cursor:pointer; font-weight:600;
       font-family:'Playfair Display', serif;
+      height:var(--control-h);
     }
 
     .price-card{
@@ -129,12 +148,18 @@
       padding:.75em 1.1em; border-radius:999px; border:1px solid rgba(0,0,0,.08);
       background:#fff; color:#111; font-weight:600; letter-spacing:.02em;
       cursor:pointer; text-decoration:none;
-      font-family:'Playfair Display', serif; /* ✅ same font for <a> and <button> */
+      font-family:'Playfair Display', serif; /* same font for <a> and <button> */
+      height:var(--control-h);
     }
     .btn.secondary{background:transparent; color:#fff; border:1px solid var(--line)}
     .btn:hover{opacity:.92}
 
     #form-status{margin-top:8px;font-size:.95rem}
+
+    /* New: place Purpose radios to the RIGHT of Phone on the same row */
+    .purpose-cell{
+      display:flex; justify-content:flex-end; align-items:center; gap:10px;
+    }
   </style>
 </head>
 <body>
@@ -159,7 +184,7 @@
     <p class="lede">Tell us about your booking. We reply the same day.</p>
 
     <div class="card">
-      <!-- ✅ One form only -->
+      <!-- One form only -->
       <form id="booking-form">
         <div>
           <label for="name">Full name *</label>
@@ -171,14 +196,15 @@
           <input id="email" name="email" type="email" required placeholder="name@email.com"/>
         </div>
 
+        <!-- Phone on the LEFT... -->
         <div>
           <label for="phone">Phone (with country code) *</label>
           <input id="phone" name="phone" type="tel" required placeholder="+9715XXXXXXXX"/>
         </div>
 
-        <div class="full">
+        <!-- ...Purpose on the RIGHT, same row -->
+        <div class="purpose-cell">
           <div class="row" role="radiogroup" aria-label="Purpose">
-            <!-- Radios are NOT locked -->
             <label class="radio"><input type="radio" name="purpose" value="Filming"> Filming / Shoot</label>
             <label class="radio"><input type="radio" name="purpose" value="Stay"> Stay</label>
           </div>
@@ -250,7 +276,7 @@
     const priceCard = document.getElementById('priceCard');
     const priceSummary = document.getElementById('priceSummary');
 
-    // Purpose change (radios not locked)
+    // Purpose change (radios always selectable)
     form.addEventListener('change', (e) => {
       if (e.target.name === 'purpose') {
         if (e.target.value === 'Filming') {
@@ -271,7 +297,7 @@
       }
     });
 
-    // ---------- Time options (15-min increments) ----------
+    // ---------- Time options (15-min increments via <select>) ----------
     function buildTimeOptions(){
       const opts = ['<option value="" disabled selected>Select time</option>'];
       for (let m=0; m<24*60; m+=15){
@@ -284,7 +310,7 @@
     }
     const TIME_OPTIONS_HTML = buildTimeOptions();
 
-    // Day rows with <select> pickers
+    // Day rows with selects
     function makeDayRow(){
       const row = document.createElement('div');
       row.className = 'day';
@@ -347,7 +373,7 @@
       document.getElementById('priceNotes').textContent = `Rate: AED ${RATE_PER_HOUR}/hr. Minimum: ${MIN_HOURS_PER_DAY} hours (AED ${DAY_MIN_CHARGE}) per day. Refundable deposit: AED 5000.`;
     }
 
-    // WhatsApp buttons — same font via .btn
+    // WhatsApp buttons
     function openWA(msg){
       window.open(`https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(msg||'Hello Bayt Lili')}`,'_blank');
     }
@@ -382,7 +408,7 @@
       ].join('\n');
     }
 
-    // ---------- Submit (all fields must be filled) ----------
+    // Submit (all fields must be filled)
     form.addEventListener('submit', async (e) => {
       e.preventDefault();
 
@@ -392,7 +418,6 @@
       const phone   = (fd.get('phone')||'').trim();
       const purpose = fd.get('purpose');
 
-      // Universal required fields
       if (!name || !email || !phone) {
         statusEl.textContent = 'Please fill in Name, Email, and Phone.';
         statusEl.style.color = 'crimson';
@@ -404,7 +429,6 @@
         return;
       }
 
-      // Filming-specific required fields
       let messageToLog = 'Booking Request — Stay';
       if (purpose === 'Filming') {
         const company = (fd.get('company')||'').trim();
@@ -418,7 +442,6 @@
           statusEl.style.color = 'crimson';
           return;
         }
-        // Validate each day
         for (const row of daysWrap.children) {
           const from = row.querySelector('[name=day_from]').value;
           const to   = row.querySelector('[name=day_to]').value;
@@ -438,7 +461,6 @@
         messageToLog = buildMessageFilming();
       }
 
-      // Build payload for Sheets
       const params = new URLSearchParams();
       params.set('name', name);
       params.set('email', email);
@@ -461,7 +483,7 @@
         });
 
         form.reset();
-        // Reset UI sections
+        // Reset sections
         filmFields.style.display = 'none';
         filmButtons.style.display = 'none';
         priceCard.style.display = 'none';
@@ -480,15 +502,11 @@
     });
 
     // Seed a first day when Filming is chosen initially
-    function seedFirstDayIfNeeded(){
-      const p = (new FormData(form)).get('purpose');
-      if(p === 'Filming' && daysWrap.children.length === 0){
+    function ensureAtLeastOneDay(){
+      if(daysWrap.children.length === 0){
         daysWrap.appendChild(makeDayRow());
       }
     }
-    form.addEventListener('change', (e) => {
-      if (e.target.name === 'purpose') seedFirstDayIfNeeded();
-    });
   </script>
 </body>
 </html>
