@@ -6,55 +6,160 @@
   <title>Book Bayt Lili</title>
   <meta name="description" content="Book Bayt Lili for filming, photoshoots, or stays. Submit your request or message us on WhatsApp.">
   <link rel="icon" type="image/png" href="assets/favicon.png"/>
+
   <style>
-    :root{--text:#fff;--muted:#eaeaea;--line:rgba(255,255,255,.30);--card:rgba(255,255,255,.10);--btn:#ffffff;--btnText:#1f1f1f;--price-bg:#fff;--price-text:#1b1b1b;--price-border:rgba(0,0,0,.08)}
-    @font-face{font-family:'BaytLili';src:url('assets/BaytLili.ttf') format('truetype'),url('assets/BaytLili.otf') format('opentype');font-display:swap}
-    *,*::before,*::after{box-sizing:border-box} html,body{height:100%}
-    body{margin:0;color:var(--text);font-family:'Playfair Display',serif;line-height:1.5;background:#000;-webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:grayscale}
-    body::before{content:"";position:fixed;inset:0;background:url('assets/lightbg.png') center 35%/cover no-repeat fixed;z-index:-2}
-    body::after{content:"";position:fixed;inset:0;background:rgba(0,0,0,.28);z-index:-1}
-    .container{width:min(900px,92vw);margin:0 auto;padding:clamp(24px,5vw,48px) 0}
-    header .top{display:flex;align-items:center;justify-content:space-between;gap:12px}
-    .brand{display:flex;align-items:center;gap:10px;font-family:'BaytLili','Playfair Display',serif;letter-spacing:.12em;font-variant:small-caps;color:#fff;text-decoration:none}
-    .brand img{height:34px} a{color:#fff;text-decoration:none}.back{opacity:.9}.back:hover{opacity:1;text-decoration:underline}
-    h1{font-family:'BaytLili','Playfair Display',serif;margin:18px 0 8px;font-size:clamp(26px,4.4vw,40px);text-shadow:0 3px 10px rgba(0,0,0,.35)}
-    p.lede{color:var(--muted);margin:0 0 18px}
-    .card{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:18px;backdrop-filter:blur(4px)}
-    form{display:grid;grid-template-columns:1fr 1fr;gap:14px}
-    .full{grid-column:1/-1}
-    label{font-size:.95rem;opacity:.95}
-    input,select,textarea{width:100%;padding:12px 12px;margin-top:6px;border-radius:10px;border:1px solid var(--line);background:rgba(255,255,255,.92);color:#111;font-size:16px}
-    textarea{min-height:120px;resize:vertical}
-    .row{display:flex;gap:10px;align-items:center}
-    .radio{display:inline-flex;gap:8px;align-items:center;padding:10px 12px;border:1px solid var(--line);border-radius:999px;background:rgba(255,255,255,.10);cursor:pointer;user-select:none}
-    .radio input{accent-color:#fff;width:18px;height:18px}
-    .day{display:grid;grid-template-columns:1.2fr .9fr .9fr auto;gap:10px;align-items:end;margin-top:6px}
-    .day button.rem{background:transparent;color:#fff;border:1px solid var(--line);border-radius:10px;padding:.65em .8em;cursor:pointer}
+    :root{
+      --text:#fff; --muted:#eaeaea;
+      --line: rgba(255,255,255,.30);
+      --card: rgba(255,255,255,.10);
+      --btn:#ffffff; --btnText:#1f1f1f;
+      --price-bg:#fff; --price-text:#1b1b1b; --price-border:rgba(0,0,0,.08);
+    }
+    @font-face{
+      font-family:'BaytLili';
+      src: url('assets/BaytLili.ttf') format('truetype'),
+           url('assets/BaytLili.otf') format('opentype');
+      font-display:swap;
+    }
+    *,*::before,*::after{box-sizing:border-box}
+    html,body{height:100%}
+    body{
+      margin:0; color:var(--text);
+      font-family:'Playfair Display', serif; line-height:1.5;
+      -webkit-font-smoothing:antialiased; -moz-osx-font-smoothing:grayscale;
+      background:#000;
+    }
+    body::before{
+      content:""; position:fixed; inset:0;
+      background:url('assets/lightbg.png') center 35%/cover no-repeat fixed; z-index:-2;
+    }
+    body::after{
+      content:""; position:fixed; inset:0;
+      background:rgba(0,0,0,.28); z-index:-1;
+    }
+
+    /* Header/nav (same style as index) */
+    header{
+      position:sticky; top:0; z-index:50;
+      background:rgba(0,0,0,0.18);
+      backdrop-filter:blur(10px);
+      border-bottom:1px solid rgba(255,255,255,0.2);
+    }
+    .nav{display:flex;align-items:center;justify-content:space-between;gap:16px;padding:12px 0}
+    .brand{
+      display:flex;align-items:center;gap:10px;color:#fff;
+      font-family:'BaytLili','Playfair Display',serif;
+      letter-spacing:.12em;font-variant:small-caps;white-space:nowrap;
+      text-decoration:none;
+      text-shadow:0 2px 6px rgba(0,0,0,.35);
+    }
+    .brand img{height:34px}
+    .menu{display:flex;align-items:center;gap:20px}
+    .menu a{
+      color:#fff;text-decoration:none;white-space:nowrap;
+      text-shadow:0 2px 6px rgba(0,0,0,.35);
+      font-size:1rem; position:relative; padding:6px 2px;
+    }
+    .menu a::after{
+      content:""; position:absolute; left:0; right:0; bottom:-4px; height:1px;
+      background:transparent; transition:background .2s ease;
+    }
+    .menu a:hover::after{background:rgba(255,255,255,.7)}
+
+    .container{width:min(900px,92vw); margin:0 auto; padding:clamp(24px,5vw,48px) 0}
+
+    h1{
+      font-family:'BaytLili','Playfair Display',serif;
+      margin:18px 0 8px; font-size:clamp(26px,4.4vw,40px);
+      text-shadow:0 3px 10px rgba(0,0,0,.35);
+    }
+    p.lede{color:var(--muted); margin:0 0 18px}
+
+    .card{
+      background:var(--card); border:1px solid var(--line);
+      border-radius:16px; padding:18px; backdrop-filter:blur(4px);
+    }
+    form{display:grid; grid-template-columns:1fr 1fr; gap:14px}
+    .full{grid-column:1 / -1}
+    label{font-size:.95rem; opacity:.95}
+    input, select, textarea{
+      width:100%; padding:12px 12px; margin-top:6px;
+      border-radius:10px; border:1px solid var(--line);
+      background:rgba(255,255,255,.92); color:#111; font-size:16px;
+      font-family:'Playfair Display', serif;
+    }
+    textarea{min-height:120px; resize:vertical}
+
+    .row{display:flex; gap:10px; align-items:center; flex-wrap:wrap}
+    .radio{
+      display:inline-flex; gap:8px; align-items:center;
+      padding:10px 12px; border:1px solid var(--line); border-radius:999px;
+      background:rgba(255,255,255,.10); user-select:none;
+    }
+    .radio input{accent-color:#fff; width:18px; height:18px}
+
+    .day{
+      display:grid; grid-template-columns: 1.2fr .9fr .9fr auto; gap:10px; align-items:end;
+      margin-top:6px;
+    }
+    .day button.rem{
+      background:transparent; color:#fff; border:1px solid var(--line); border-radius:10px; padding:.65em .8em; cursor:pointer;
+      font-family:'Playfair Display', serif;
+    }
+
     .add-more{margin-top:6px}
-    .add-more button{background:#fff;color:#111;border:1px solid rgba(0,0,0,.08);border-radius:999px;padding:.6em 1em;cursor:pointer;font-weight:600}
-    .price-card{grid-column:1/-1;background:var(--price-bg);color:var(--price-text);border:1px solid var(--price-border);border-radius:14px;padding:14px 16px;margin-top:6px;box-shadow:0 6px 24px rgba(0,0,0,.12)}
+    .add-more button{
+      background:#fff; color:#111; border:1px solid rgba(0,0,0,.08);
+      border-radius:999px; padding:.6em 1em; cursor:pointer; font-weight:600;
+      font-family:'Playfair Display', serif;
+    }
+
+    .price-card{
+      grid-column:1/-1;
+      background:var(--price-bg); color:var(--price-text);
+      border:1px solid var(--price-border); border-radius:14px;
+      padding:14px 16px; margin-top:6px;
+      box-shadow:0 6px 24px rgba(0,0,0,.12);
+    }
     .price-card small{color:#555}
-    .actions{display:flex;gap:10px;flex-wrap:wrap;margin-top:12px}
-    .btn{display:inline-flex;align-items:center;justify-content:center;gap:.5em;padding:.75em 1.1em;border-radius:999px;border:1px solid rgba(0,0,0,.08);background:#fff;color:#111;font-weight:600;letter-spacing:.02em;cursor:pointer;text-decoration:none}
-    .btn.secondary{background:transparent;color:#fff;border:1px solid var(--line)}
+
+    .actions{display:flex; gap:10px; flex-wrap:wrap; margin-top:12px}
+    .btn{
+      display:inline-flex; align-items:center; justify-content:center; gap:.5em;
+      padding:.75em 1.1em; border-radius:999px; border:1px solid rgba(0,0,0,.08);
+      background:#fff; color:#111; font-weight:600; letter-spacing:.02em;
+      cursor:pointer; text-decoration:none;
+      font-family:'Playfair Display', serif; /* ✅ same font for <a> and <button> */
+    }
+    .btn.secondary{background:transparent; color:#fff; border:1px solid var(--line)}
     .btn:hover{opacity:.92}
+
     #form-status{margin-top:8px;font-size:.95rem}
   </style>
 </head>
 <body>
-  <div class="container">
-    <header class="top">
-      <a class="back" href="index.html" aria-label="Back to home">← Back</a>
+
+  <!-- Header / Nav -->
+  <header>
+    <div class="container nav">
       <a class="brand" href="index.html" aria-label="Bayt Lili — Home">
         <img src="assets/bllogo.png" alt="Bayt Lili"/> BAYT LILI
       </a>
-    </header>
+      <nav class="menu" aria-label="Primary">
+        <a href="index.html#gallery">Gallery</a>
+        <a href="rates.html">Rates</a>
+        <a href="booking.html">Booking</a>
+        <a href="index.html#contact">Contact</a>
+      </nav>
+    </div>
+  </header>
 
+  <div class="container">
     <h1>Booking Request</h1>
     <p class="lede">Tell us about your booking. We reply the same day.</p>
 
     <div class="card">
-      <!-- ✅ This is the ONLY form, with the IDs your script uses -->
+      <!-- ✅ One form only -->
       <form id="booking-form">
         <div>
           <label for="name">Full name *</label>
@@ -67,16 +172,16 @@
         </div>
 
         <div>
-          <label for="phone">Phone (with country code)</label>
-          <input id="phone" name="phone" type="tel" placeholder="+9715XXXXXXXX"/>
+          <label for="phone">Phone (with country code) *</label>
+          <input id="phone" name="phone" type="tel" required placeholder="+9715XXXXXXXX"/>
         </div>
 
         <div class="full">
           <div class="row" role="radiogroup" aria-label="Purpose">
-            <label class="radio"><input type="radio" name="purpose" value="Filming" id="purpose-filming" disabled> Filming / Shoot</label>
-            <label class="radio"><input type="radio" name="purpose" value="Stay" id="purpose-stay" disabled> Stay</label>
+            <!-- Radios are NOT locked -->
+            <label class="radio"><input type="radio" name="purpose" value="Filming"> Filming / Shoot</label>
+            <label class="radio"><input type="radio" name="purpose" value="Stay"> Stay</label>
           </div>
-          <small style="opacity:.9">Fill in your Name & Email to choose.</small>
         </div>
 
         <!-- FILMING SECTION -->
@@ -86,9 +191,14 @@
             <input id="company" name="company" type="text" placeholder="Company or brand"/>
           </div>
 
+          <!-- Days list -->
           <div id="daysWrap" class="full"></div>
-          <div class="add-more"><button type="button" id="addDayBtn">+ Add another day</button></div>
 
+          <div class="add-more">
+            <button type="button" id="addDayBtn">+ Add another day</button>
+          </div>
+
+          <!-- PRICE CARD -->
           <div id="priceCard" class="price-card" style="display:none">
             <div id="priceSummary" style="font-weight:700">Estimated Total: AED 0</div>
             <small id="priceNotes">Rate: AED 350/hr. Minimum: 6 hours (AED 2100) per day. Refundable deposit: AED 5000.</small>
@@ -115,16 +225,18 @@
       </form>
     </div>
 
-    <footer>Prefer Instagram? DM us at <a href="https://instagram.com/baytlili" target="_blank" rel="noopener">@baytlili</a>.</footer>
+    <footer style="margin-top:24px; color:#dcdcdc; font-size:.95rem">
+      Prefer Instagram? DM us at <a href="https://instagram.com/baytlili" target="_blank" rel="noopener">@baytlili</a>.
+    </footer>
   </div>
 
   <script>
     // ---------- Config ----------
     const WHATSAPP_NUMBER = '971501589628';
     const SHEETS_ENDPOINT = 'https://script.google.com/macros/s/AKfycbzP17hb9riNcRnWQ06dinxrqwII6CYjH247SV6xCnhd9bJV6nVBVANkVRA0QZA70OII/exec';
-    const RATE_PER_HOUR = 350;       // change to 300 if needed
+    const RATE_PER_HOUR = 350;      // change to 300 if needed
     const MIN_HOURS_PER_DAY = 6;
-    const DAY_MIN_CHARGE = RATE_PER_HOUR * MIN_HOURS_PER_DAY; // 2100 at 350/hr
+    const DAY_MIN_CHARGE = RATE_PER_HOUR * MIN_HOURS_PER_DAY;
 
     // ---------- Elements ----------
     const form = document.getElementById('booking-form');
@@ -137,22 +249,8 @@
     const addDayBtn = document.getElementById('addDayBtn');
     const priceCard = document.getElementById('priceCard');
     const priceSummary = document.getElementById('priceSummary');
-    const purposeFilming = document.getElementById('purpose-filming');
-    const purposeStay = document.getElementById('purpose-stay');
 
-    // Enable purpose choices only after name+email
-    function togglePurposeEnabled() {
-      const nameOk = document.getElementById('name').value.trim().length > 0;
-      const emailOk = document.getElementById('email').value.trim().length > 0;
-      const enable = nameOk && emailOk;
-      purposeFilming.disabled = !enable;
-      purposeStay.disabled = !enable;
-    }
-    document.getElementById('name').addEventListener('input', togglePurposeEnabled);
-    document.getElementById('email').addEventListener('input', togglePurposeEnabled);
-    togglePurposeEnabled();
-
-    // Purpose change
+    // Purpose change (radios not locked)
     form.addEventListener('change', (e) => {
       if (e.target.name === 'purpose') {
         if (e.target.value === 'Filming') {
@@ -173,7 +271,20 @@
       }
     });
 
-    // Day rows
+    // ---------- Time options (15-min increments) ----------
+    function buildTimeOptions(){
+      const opts = ['<option value="" disabled selected>Select time</option>'];
+      for (let m=0; m<24*60; m+=15){
+        const hh = String(Math.floor(m/60)).padStart(2,'0');
+        const mm = String(m%60).padStart(2,'0');
+        const label = `${hh}:${mm}`;
+        opts.push(`<option value="${label}">${label}</option>`);
+      }
+      return opts.join('');
+    }
+    const TIME_OPTIONS_HTML = buildTimeOptions();
+
+    // Day rows with <select> pickers
     function makeDayRow(){
       const row = document.createElement('div');
       row.className = 'day';
@@ -182,10 +293,10 @@
           <input type="date" name="day_date" required>
         </label>
         <label>From
-          <input type="time" name="day_from" required step="900">
+          <select name="day_from" required>${TIME_OPTIONS_HTML}</select>
         </label>
         <label>To
-          <input type="time" name="day_to" required step="900">
+          <select name="day_to" required>${TIME_OPTIONS_HTML}</select>
         </label>
         <button type="button" class="rem" aria-label="Remove day">Remove</button>
       `;
@@ -194,91 +305,153 @@
         updatePrice();
         if (daysWrap.children.length === 0) ensureAtLeastOneDay();
       });
-      ['day_date','day_from','day_to'].forEach(n=>{
-        row.querySelector(`[name=${n}]`).addEventListener('change', updatePrice);
-        row.querySelector(`[name=${n}]`).addEventListener('input', updatePrice);
-      });
+      row.querySelector('[name=day_from]').addEventListener('change', updatePrice);
+      row.querySelector('[name=day_to]').addEventListener('change', updatePrice);
+      row.querySelector('[name=day_date]').addEventListener('change', updatePrice);
       return row;
     }
-    function ensureAtLeastOneDay(){ if (daysWrap.children.length === 0) daysWrap.appendChild(makeDayRow()); }
-    if (addDayBtn) addDayBtn.addEventListener('click', () => { daysWrap.appendChild(makeDayRow()); updatePrice(); });
 
+    function ensureAtLeastOneDay(){
+      if(daysWrap.children.length === 0){
+        daysWrap.appendChild(makeDayRow());
+      }
+    }
+
+    if(addDayBtn){
+      addDayBtn.addEventListener('click', () => {
+        daysWrap.appendChild(makeDayRow());
+        updatePrice();
+      });
+    }
+
+    // Price calculation
     function parseTime(t){ if(!t) return null; const [h,m]=t.split(':').map(Number); return h*60+(m||0); }
-    function computeHours(from,to){ const a=parseTime(from), b=parseTime(to); if(a==null||b==null) return 0; let d=(b-a)/60; if(d<0)d+=24; return Math.max(0,d); }
+    function computeHours(from,to){ const a=parseTime(from), b=parseTime(to); if(a==null||b==null) return 0; let diff=(b-a)/60; if(diff<0) diff+=24; return Math.max(0,diff); }
 
     function updatePrice(){
       const purpose = (new FormData(form)).get('purpose');
-      if (purpose !== 'Filming') { priceCard.style.display='none'; return; }
+      if(purpose !== 'Filming'){ priceCard.style.display='none'; return; }
       priceCard.style.display='';
       let totalHours = 0, totalPrice = 0;
-      [...daysWrap.children].forEach(row=>{
-        const from=row.querySelector('[name=day_from]').value;
-        const to=row.querySelector('[name=day_to]').value;
-        const hrs=computeHours(from,to);
-        const billable=Math.max(hrs, MIN_HOURS_PER_DAY);
+
+      [...daysWrap.children].forEach(row => {
+        const from = row.querySelector('[name=day_from]').value;
+        const to = row.querySelector('[name=day_to]').value;
+        const hrs = computeHours(from, to);
+        const billable = Math.max(hrs, MIN_HOURS_PER_DAY);
         totalHours += hrs;
         totalPrice += billable * RATE_PER_HOUR;
       });
+
       priceSummary.textContent = `Estimated Total: AED ${isFinite(totalPrice)?Math.round(totalPrice):0} — Total Selected Hours: ${isFinite(totalHours)?totalHours.toFixed(2):'0'}`;
       document.getElementById('priceNotes').textContent = `Rate: AED ${RATE_PER_HOUR}/hr. Minimum: ${MIN_HOURS_PER_DAY} hours (AED ${DAY_MIN_CHARGE}) per day. Refundable deposit: AED 5000.`;
     }
 
-    // WhatsApp buttons
-    function openWA(msg){ window.open(`https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(msg||'Hello Bayt Lili')}`,'_blank'); }
+    // WhatsApp buttons — same font via .btn
+    function openWA(msg){
+      window.open(`https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(msg||'Hello Bayt Lili')}`,'_blank');
+    }
     document.getElementById('whatsappDirect').addEventListener('click', (e)=>{ e.preventDefault(); openWA('Hello Bayt Lili — I’d like to inquire about filming availability.'); });
-    document.getElementById('whatsappStay').addEventListener('click', (e)=>{ e.preventDefault(); openWA('Hello Bayt Lili — I’m interested in a stay.'); });
+    document.getElementById('whatsappStay').addEventListener('click',   (e)=>{ e.preventDefault(); openWA('Hello Bayt Lili — I’m interested in a stay.'); });
 
-    // Build a concise message for logs/WA (not used for submission)
+    // Build concise summary for the message we log in the sheet
     function buildMessageFilming(){
       const fd = new FormData(form);
-      const name = fd.get('name')||'-', email=fd.get('email')||'-', phone=fd.get('phone')||'-', company=(fd.get('company')||'-');
+      const name = fd.get('name')||'-';
+      const email = fd.get('email')||'-';
+      const phone = fd.get('phone')||'-';
+      const company = fd.get('company')||'-';
+
       let total = 0, dayLines=[];
       [...daysWrap.children].forEach((row,i)=>{
-        const date=row.querySelector('[name=day_date]').value||'-';
-        const from=row.querySelector('[name=day_from]').value||'-';
-        const to=row.querySelector('[name=day_to]').value||'-';
-        const hrs=computeHours(from,to), billHrs=Math.max(hrs,MIN_HOURS_PER_DAY), price=billHrs*RATE_PER_HOUR;
-        total+=price; dayLines.push(`Day ${i+1}: ${date} — ${from}-${to} (hrs ${hrs.toFixed(2)}, billable ${billHrs.toFixed(2)}, AED ${Math.round(price)})`);
+        const date = row.querySelector('[name=day_date]').value || '-';
+        const from = row.querySelector('[name=day_from]').value || '-';
+        const to   = row.querySelector('[name=day_to]').value || '-';
+        const hrs  = computeHours(from,to);
+        const bill = Math.max(hrs, MIN_HOURS_PER_DAY);
+        const price = bill * RATE_PER_HOUR;
+        total += price;
+        dayLines.push(`Day ${i+1}: ${date} — ${from}-${to} (hrs ${hrs.toFixed(2)}, billable ${bill.toFixed(2)}, AED ${Math.round(price)})`);
       });
-      return ['Booking Request — Filming',`Name: ${name}`,`Company: ${company}`,`Email: ${email}`,`Phone: ${phone}`,'',...dayLines,'',`Estimated Total: AED ${Math.round(total)} (rate AED ${RATE_PER_HOUR}/hr; ${MIN_HOURS_PER_DAY}h min/day)`].join('\n');
+
+      return [
+        'Booking Request — Filming',
+        `Name: ${name}`, `Company: ${company}`, `Email: ${email}`, `Phone: ${phone}`,
+        '', ...dayLines, '',
+        `Estimated Total: AED ${Math.round(total)} (rate AED ${RATE_PER_HOUR}/hr; ${MIN_HOURS_PER_DAY}h min/day)`
+      ].join('\n');
     }
 
-    // ---------- SUBMIT to Google Sheets (silent) ----------
+    // ---------- Submit (all fields must be filled) ----------
     form.addEventListener('submit', async (e) => {
       e.preventDefault();
-      const name = document.getElementById('name');
-      const email = document.getElementById('email');
-      const purpose = (new FormData(form)).get('purpose');
 
-      // Required validations
-      if (!name.value.trim() || !email.value.trim()) {
-        statusEl.textContent = 'Please fill in Name and Email to continue.'; statusEl.style.color = 'crimson'; name.focus(); return;
+      const fd = new FormData(form);
+      const name    = (fd.get('name')||'').trim();
+      const email   = (fd.get('email')||'').trim();
+      const phone   = (fd.get('phone')||'').trim();
+      const purpose = fd.get('purpose');
+
+      // Universal required fields
+      if (!name || !email || !phone) {
+        statusEl.textContent = 'Please fill in Name, Email, and Phone.';
+        statusEl.style.color = 'crimson';
+        return;
       }
-      if (!purpose) { statusEl.textContent = 'Please choose Filming or Stay.'; statusEl.style.color = 'crimson'; return; }
+      if (!purpose) {
+        statusEl.textContent = 'Please choose Filming or Stay.';
+        statusEl.style.color = 'crimson';
+        return;
+      }
 
-      // If Filming, require company and at least one 6h day
+      // Filming-specific required fields
+      let messageToLog = 'Booking Request — Stay';
       if (purpose === 'Filming') {
-        const company = document.getElementById('company').value.trim();
-        if (!company) { statusEl.textContent = 'Please enter your Company / Brand for shoots.'; statusEl.style.color = 'crimson'; return; }
-        if (daysWrap.children.length === 0) { statusEl.textContent = 'Please add at least one day.'; statusEl.style.color = 'crimson'; return; }
-        for (const row of daysWrap.children) {
-          const hrs = computeHours(row.querySelector('[name=day_from]').value, row.querySelector('[name=day_to]').value);
-          if (hrs < MIN_HOURS_PER_DAY) { statusEl.textContent = 'Each shoot day must be at least 6 hours.'; statusEl.style.color = 'crimson'; return; }
+        const company = (fd.get('company')||'').trim();
+        if (!company) {
+          statusEl.textContent = 'Please enter your Company / Brand for shoots.';
+          statusEl.style.color = 'crimson';
+          return;
         }
+        if (daysWrap.children.length === 0) {
+          statusEl.textContent = 'Please add at least one day.';
+          statusEl.style.color = 'crimson';
+          return;
+        }
+        // Validate each day
+        for (const row of daysWrap.children) {
+          const from = row.querySelector('[name=day_from]').value;
+          const to   = row.querySelector('[name=day_to]').value;
+          const date = row.querySelector('[name=day_date]').value;
+          if (!date || !from || !to) {
+            statusEl.textContent = 'Please complete date and time for each day.';
+            statusEl.style.color = 'crimson';
+            return;
+          }
+          const hrs = computeHours(from,to);
+          if (hrs < MIN_HOURS_PER_DAY) {
+            statusEl.textContent = 'Each shoot day must be at least 6 hours.';
+            statusEl.style.color = 'crimson';
+            return;
+          }
+        }
+        messageToLog = buildMessageFilming();
       }
 
       // Build payload for Sheets
       const params = new URLSearchParams();
-      params.set('name', name.value.trim());
-      params.set('email', email.value.trim());
-      params.set('phone', (document.getElementById('phone').value || '').trim());
+      params.set('name', name);
+      params.set('email', email);
+      params.set('phone', phone);
       params.set('inquiry', purpose === 'Filming' ? 'Filming / Shoot' : 'Stay');
-      params.set('message', purpose === 'Filming' ? buildMessageFilming() : 'Booking Request — Stay');
+      params.set('message', messageToLog);
       params.set('pageUrl', window.location.href);
       params.set('userAgent', navigator.userAgent);
 
       const submitBtn = document.getElementById('request-booking');
-      submitBtn.disabled = true; submitBtn.textContent = 'Sending…'; statusEl.textContent = '';
+      submitBtn.disabled = true;
+      submitBtn.textContent = 'Sending…';
+      statusEl.textContent = '';
 
       try {
         await fetch(SHEETS_ENDPOINT, {
@@ -286,20 +459,35 @@
           headers: { 'Content-Type': 'application/x-www-form-urlencoded;charset=UTF-8' },
           body: params.toString()
         });
+
         form.reset();
-        togglePurposeEnabled();
+        // Reset UI sections
         filmFields.style.display = 'none';
         filmButtons.style.display = 'none';
         priceCard.style.display = 'none';
         stayFields.style.display = 'none';
         stayButtons.style.display = 'none';
+
         statusEl.textContent = 'Thank you! Your request has been received. We’ll get back to you shortly.';
         statusEl.style.color = 'limegreen';
       } catch (err) {
-        statusEl.textContent = 'Network error. Please try again.'; statusEl.style.color = 'crimson';
+        statusEl.textContent = 'Network error. Please try again.';
+        statusEl.style.color = 'crimson';
       } finally {
-        submitBtn.disabled = false; submitBtn.textContent = 'Request Booking';
+        submitBtn.disabled = false;
+        submitBtn.textContent = 'Request Booking';
       }
+    });
+
+    // Seed a first day when Filming is chosen initially
+    function seedFirstDayIfNeeded(){
+      const p = (new FormData(form)).get('purpose');
+      if(p === 'Filming' && daysWrap.children.length === 0){
+        daysWrap.appendChild(makeDayRow());
+      }
+    }
+    form.addEventListener('change', (e) => {
+      if (e.target.name === 'purpose') seedFirstDayIfNeeded();
     });
   </script>
 </body>
