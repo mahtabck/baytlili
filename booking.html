@@ -12,9 +12,10 @@
       --text:#fff; --muted:#eaeaea;
       --line: rgba(255,255,255,.30);
       --card: rgba(255,255,255,.10);
-      --btn:#ffffff; --btnText:#1f1f1f;
       --price-bg:#fff; --price-text:#1b1b1b; --price-border:rgba(0,0,0,.08);
-      --control-h: 44px; /* unified control height */
+      --control-h: 44px;
+      --btn-font-size: 16px;
+      --header-h: 64px;
     }
     @font-face{
       font-family:'BaytLili';
@@ -29,6 +30,7 @@
       font-family:'Playfair Display', serif; line-height:1.5;
       -webkit-font-smoothing:antialiased; -moz-osx-font-smoothing:grayscale;
       background:#000;
+      scroll-behavior:smooth;
     }
     body::before{
       content:""; position:fixed; inset:0;
@@ -39,20 +41,19 @@
       background:rgba(0,0,0,.28); z-index:-1;
     }
 
-    /* Header/nav (same as index) */
+    /* Header/nav (sticky & never overlaps content) */
     header{
       position:sticky; top:0; z-index:50;
       background:rgba(0,0,0,0.18);
       backdrop-filter:blur(10px);
       border-bottom:1px solid rgba(255,255,255,0.2);
     }
-    .nav{display:flex;align-items:center;justify-content:space-between;gap:16px;padding:12px 0}
+    .nav{display:flex;align-items:center;justify-content:space-between;gap:16px;padding:12px 0; min-height:var(--header-h)}
     .brand{
       display:flex;align-items:center;gap:10px;color:#fff;
       font-family:'BaytLili','Playfair Display',serif;
       letter-spacing:.12em;font-variant:small-caps;white-space:nowrap;
-      text-decoration:none;
-      text-shadow:0 2px 6px rgba(0,0,0,.35);
+      text-decoration:none; text-shadow:0 2px 6px rgba(0,0,0,.35);
     }
     .brand img{height:34px}
     .menu{display:flex;align-items:center;gap:20px}
@@ -61,18 +62,15 @@
       text-shadow:0 2px 6px rgba(0,0,0,.35);
       font-size:1rem; position:relative; padding:6px 2px;
     }
-    .menu a::after{
-      content:""; position:absolute; left:0; right:0; bottom:-4px; height:1px;
-      background:transparent; transition:background .2s ease;
-    }
+    .menu a::after{content:""; position:absolute; left:0; right:0; bottom:-4px; height:1px; background:transparent; transition:background .2s ease}
     .menu a:hover::after{background:rgba(255,255,255,.7)}
 
     .container{width:min(900px,92vw); margin:0 auto; padding:clamp(24px,5vw,48px) 0}
-
     h1{
       font-family:'BaytLili','Playfair Display',serif;
       margin:18px 0 8px; font-size:clamp(26px,4.4vw,40px);
       text-shadow:0 3px 10px rgba(0,0,0,.35);
+      scroll-margin-top: calc(var(--header-h) + 12px);
     }
     p.lede{color:var(--muted); margin:0 0 18px}
 
@@ -84,7 +82,7 @@
     /* Form grid */
     form{display:grid; grid-template-columns:1fr 1fr; gap:14px}
     .full{grid-column:1 / -1}
-    label{font-size:.95rem; opacity:.95}
+    label{font-size:.95rem; opacity:.95; display:block}
 
     /* Controls — unified look/height */
     input, select, textarea{
@@ -95,71 +93,69 @@
       height:var(--control-h);
     }
     textarea{min-height:120px; height:auto; resize:vertical}
-
-    /* Make native date input match select height */
-    input[type="date"]{
-      -webkit-appearance:none; appearance:none;
-      line-height:calc(var(--control-h) - 2px);
-      padding-top:0; padding-bottom:0;
-    }
-    /* Normalize select height on some browsers */
+    input[type="date"]{-webkit-appearance:none; appearance:none; line-height:calc(var(--control-h) - 2px); padding-top:0; padding-bottom:0}
     select{ line-height:calc(var(--control-h) - 2px); }
 
     .row{display:flex; gap:10px; align-items:center; flex-wrap:wrap}
     .radio{
       display:inline-flex; gap:8px; align-items:center;
       padding:10px 12px; border:1px solid var(--line); border-radius:999px;
-      background:rgba(255,255,255,.10); user-select:none;
-      height:var(--control-h);
+      background:rgba(255,255,255,.10); user-select:none; height:var(--control-h);
     }
     .radio input{accent-color:#fff; width:18px; height:18px}
 
-    /* Filming day rows */
     .day{
-      display:grid; grid-template-columns: 1.2fr .9fr .9fr auto; gap:10px; align-items:end;
-      margin-top:6px;
+      display:grid; grid-template-columns: 1.2fr .9fr .9fr auto; gap:10px; align-items:end; margin-top:6px;
     }
     .day button.rem{
       background:transparent; color:#fff; border:1px solid var(--line); border-radius:10px; padding:.65em .8em; cursor:pointer;
-      font-family:'Playfair Display', serif;
-      height:var(--control-h);
+      font-family:'Playfair Display', serif; height:var(--control-h);
     }
 
     .add-more{margin-top:6px}
     .add-more button{
-      background:#fff; color:#111; border:1px solid rgba(0,0,0,.08);
+      background:transparent; color:#fff; border:1px solid var(--line);
       border-radius:999px; padding:.6em 1em; cursor:pointer; font-weight:600;
-      font-family:'Playfair Display', serif;
-      height:var(--control-h);
+      font-family:'Playfair Display', serif; height:var(--control-h);
     }
 
     .price-card{
-      grid-column:1/-1;
-      background:var(--price-bg); color:var(--price-text);
+      grid-column:1/-1; background:var(--price-bg); color:var(--price-text);
       border:1px solid var(--price-border); border-radius:14px;
-      padding:14px 16px; margin-top:6px;
-      box-shadow:0 6px 24px rgba(0,0,0,.12);
+      padding:14px 16px; margin-top:6px; box-shadow:0 6px 24px rgba(0,0,0,.12);
     }
     .price-card small{color:#555}
 
     .actions{display:flex; gap:10px; flex-wrap:wrap; margin-top:12px}
     .btn{
       display:inline-flex; align-items:center; justify-content:center; gap:.5em;
-      padding:.75em 1.1em; border-radius:999px; border:1px solid rgba(0,0,0,.08);
-      background:#fff; color:#111; font-weight:600; letter-spacing:.02em;
-      cursor:pointer; text-decoration:none;
-      font-family:'Playfair Display', serif; /* same font for <a> and <button> */
-      height:var(--control-h);
+      padding:.75em 1.1em; border-radius:999px; border:1px solid var(--line);
+      background:transparent; color:#fff; font-weight:600; letter-spacing:.02em;
+      cursor:pointer; text-decoration:none; font-family:'Playfair Display', serif;
+      height:var(--control-h); font-size:var(--btn-font-size);
     }
-    .btn.secondary{background:transparent; color:#fff; border:1px solid var(--line)}
-    .btn:hover{opacity:.92}
 
     #form-status{margin-top:8px;font-size:.95rem}
 
-    /* New: place Purpose radios to the RIGHT of Phone on the same row */
-    .purpose-cell{
-      display:flex; justify-content:flex-end; align-items:center; gap:10px;
+    /* ---------- First-step gate overlay ---------- */
+    .gate{
+      position:fixed; inset:0; z-index:60; display:flex; align-items:center; justify-content:center;
+      background:rgba(0,0,0,.55); backdrop-filter:blur(6px);
     }
+    .gate-card{
+      width:min(720px,92vw); background:rgba(255,255,255,.1);
+      border:1px solid var(--line); border-radius:18px; padding:20px; text-align:center;
+    }
+    .gate h2{margin:0 0 10px; font-family:'BaytLili','Playfair Display',serif}
+    .gate p{margin:0 0 16px; color:#eaeaea}
+    .gate-options{display:grid; grid-template-columns:1fr 1fr; gap:12px}
+    .gate-btn{
+      padding:18px 16px; border-radius:14px; border:1px solid var(--line);
+      background:transparent; color:#fff; cursor:pointer; font-weight:700; letter-spacing:.02em;
+      font-family:'Playfair Display', serif; font-size:18px;
+    }
+    .gate-btn:hover{opacity:.92}
+    @media (max-width:700px){ .gate-options{grid-template-columns:1fr} }
   </style>
 </head>
 <body>
@@ -179,12 +175,23 @@
     </div>
   </header>
 
+  <!-- First-step gate -->
+  <div class="gate" id="gate">
+    <div class="gate-card">
+      <h2>What are you looking for?</h2>
+      <p>Select one to continue.</p>
+      <div class="gate-options">
+        <button class="gate-btn" data-choice="Filming">Filming / Photoshoot</button>
+        <button class="gate-btn" data-choice="Stay">Stay</button>
+      </div>
+    </div>
+  </div>
+
   <div class="container">
     <h1>Booking Request</h1>
     <p class="lede">Tell us about your booking. We reply the same day.</p>
 
     <div class="card">
-      <!-- One form only -->
       <form id="booking-form">
         <div>
           <label for="name">Full name *</label>
@@ -196,14 +203,13 @@
           <input id="email" name="email" type="email" required placeholder="name@email.com"/>
         </div>
 
-        <!-- Phone on the LEFT... -->
         <div>
           <label for="phone">Phone (with country code) *</label>
           <input id="phone" name="phone" type="tel" required placeholder="+9715XXXXXXXX"/>
         </div>
 
-        <!-- ...Purpose on the RIGHT, same row -->
-        <div class="purpose-cell">
+        <div class="full">
+          <label for="purpose">Purpose of booking *</label>
           <div class="row" role="radiogroup" aria-label="Purpose">
             <label class="radio"><input type="radio" name="purpose" value="Filming"> Filming / Shoot</label>
             <label class="radio"><input type="radio" name="purpose" value="Stay"> Stay</label>
@@ -217,14 +223,12 @@
             <input id="company" name="company" type="text" placeholder="Company or brand"/>
           </div>
 
-          <!-- Days list -->
           <div id="daysWrap" class="full"></div>
 
           <div class="add-more">
             <button type="button" id="addDayBtn">+ Add another day</button>
           </div>
 
-          <!-- PRICE CARD -->
           <div id="priceCard" class="price-card" style="display:none">
             <div id="priceSummary" style="font-weight:700">Estimated Total: AED 0</div>
             <small id="priceNotes">Rate: AED 350/hr. Minimum: 6 hours (AED 2100) per day. Refundable deposit: AED 5000.</small>
@@ -239,11 +243,11 @@
         <!-- ACTION BUTTONS -->
         <div class="actions full" id="filmButtons" style="display:none">
           <button type="submit" class="btn" id="request-booking">Request Booking</button>
-          <a class="btn secondary" id="whatsappDirect" href="#" target="_blank" rel="noopener">WhatsApp Us</a>
+          <a class="btn" id="whatsappDirect" href="#" target="_blank" rel="noopener">WhatsApp Us</a>
         </div>
 
         <div class="actions full" id="stayButtons" style="display:none">
-          <a class="btn secondary" id="whatsappStay" href="#" target="_blank" rel="noopener">WhatsApp Us</a>
+          <a class="btn" id="whatsappStay" href="#" target="_blank" rel="noopener">WhatsApp Us</a>
           <a class="btn" id="airbnbBtn" href="https://www.airbnb.com/rooms/1010972686934184319" target="_blank" rel="noopener">View on Airbnb</a>
         </div>
 
@@ -260,11 +264,12 @@
     // ---------- Config ----------
     const WHATSAPP_NUMBER = '971501589628';
     const SHEETS_ENDPOINT = 'https://script.google.com/macros/s/AKfycbzP17hb9riNcRnWQ06dinxrqwII6CYjH247SV6xCnhd9bJV6nVBVANkVRA0QZA70OII/exec';
-    const RATE_PER_HOUR = 350;      // change to 300 if needed
+    const RATE_PER_HOUR = 350;      // set 300 if you prefer
     const MIN_HOURS_PER_DAY = 6;
     const DAY_MIN_CHARGE = RATE_PER_HOUR * MIN_HOURS_PER_DAY;
 
     // ---------- Elements ----------
+    const gate = document.getElementById('gate');
     const form = document.getElementById('booking-form');
     const statusEl = document.getElementById('form-status');
     const filmFields = document.getElementById('filmFields');
@@ -272,32 +277,49 @@
     const filmButtons = document.getElementById('filmButtons');
     const stayButtons = document.getElementById('stayButtons');
     const daysWrap = document.getElementById('daysWrap');
-    const addDayBtn = document.getElementById('addDayBtn');
     const priceCard = document.getElementById('priceCard');
     const priceSummary = document.getElementById('priceSummary');
 
-    // Purpose change (radios always selectable)
+    // Gate behavior
+    gate.querySelectorAll('.gate-btn').forEach(btn=>{
+      btn.addEventListener('click', ()=>{
+        const choice = btn.dataset.choice; // "Filming" or "Stay"
+        // set radio & trigger change view
+        const radio = form.querySelector(`input[name="purpose"][value="${choice}"]`);
+        if (radio) {
+          radio.checked = true;
+          updateView(choice);
+        }
+        gate.style.display = 'none';
+      });
+    });
+
+    function updateView(purpose){
+      if (purpose === 'Filming') {
+        stayFields.style.display = 'none';
+        stayButtons.style.display = 'none';
+        filmFields.style.display = '';
+        filmButtons.style.display = '';
+        priceCard.style.display = '';
+        ensureAtLeastOneDay();
+        updatePrice();
+      } else {
+        filmFields.style.display = 'none';
+        filmButtons.style.display = 'none';
+        priceCard.style.display = 'none';
+        stayFields.style.display = '';
+        stayButtons.style.display = '';
+      }
+    }
+
+    // Hook radio change too (in case user flips choice later)
     form.addEventListener('change', (e) => {
       if (e.target.name === 'purpose') {
-        if (e.target.value === 'Filming') {
-          stayFields.style.display = 'none';
-          stayButtons.style.display = 'none';
-          filmFields.style.display = '';
-          filmButtons.style.display = '';
-          priceCard.style.display = '';
-          ensureAtLeastOneDay();
-          updatePrice();
-        } else {
-          filmFields.style.display = 'none';
-          filmButtons.style.display = 'none';
-          priceCard.style.display = 'none';
-          stayFields.style.display = '';
-          stayButtons.style.display = '';
-        }
+        updateView(e.target.value);
       }
     });
 
-    // ---------- Time options (15-min increments via <select>) ----------
+    // ---------- Time options (15-min increments) ----------
     function buildTimeOptions(){
       const opts = ['<option value="" disabled selected>Select time</option>'];
       for (let m=0; m<24*60; m+=15){
@@ -310,26 +332,20 @@
     }
     const TIME_OPTIONS_HTML = buildTimeOptions();
 
-    // Day rows with selects
+    function parseTime(t){ if(!t) return null; const [h,m]=t.split(':').map(Number); return h*60+(m||0); }
+    function computeHours(from,to){ const a=parseTime(from), b=parseTime(to); if(a==null||b==null) return 0; let diff=(b-a)/60; if(diff<0) diff+=24; return Math.max(0,diff); }
+
     function makeDayRow(){
       const row = document.createElement('div');
       row.className = 'day';
       row.innerHTML = `
-        <label>Date
-          <input type="date" name="day_date" required>
-        </label>
-        <label>From
-          <select name="day_from" required>${TIME_OPTIONS_HTML}</select>
-        </label>
-        <label>To
-          <select name="day_to" required>${TIME_OPTIONS_HTML}</select>
-        </label>
+        <label>Date <input type="date" name="day_date" required></label>
+        <label>From <select name="day_from" required>${TIME_OPTIONS_HTML}</select></label>
+        <label>To   <select name="day_to" required>${TIME_OPTIONS_HTML}</select></label>
         <button type="button" class="rem" aria-label="Remove day">Remove</button>
       `;
       row.querySelector('.rem').addEventListener('click', () => {
-        row.remove();
-        updatePrice();
-        if (daysWrap.children.length === 0) ensureAtLeastOneDay();
+        row.remove(); updatePrice(); if (daysWrap.children.length === 0) ensureAtLeastOneDay();
       });
       row.querySelector('[name=day_from]').addEventListener('change', updatePrice);
       row.querySelector('[name=day_to]').addEventListener('change', updatePrice);
@@ -342,17 +358,6 @@
         daysWrap.appendChild(makeDayRow());
       }
     }
-
-    if(addDayBtn){
-      addDayBtn.addEventListener('click', () => {
-        daysWrap.appendChild(makeDayRow());
-        updatePrice();
-      });
-    }
-
-    // Price calculation
-    function parseTime(t){ if(!t) return null; const [h,m]=t.split(':').map(Number); return h*60+(m||0); }
-    function computeHours(from,to){ const a=parseTime(from), b=parseTime(to); if(a==null||b==null) return 0; let diff=(b-a)/60; if(diff<0) diff+=24; return Math.max(0,diff); }
 
     function updatePrice(){
       const purpose = (new FormData(form)).get('purpose');
@@ -373,14 +378,12 @@
       document.getElementById('priceNotes').textContent = `Rate: AED ${RATE_PER_HOUR}/hr. Minimum: ${MIN_HOURS_PER_DAY} hours (AED ${DAY_MIN_CHARGE}) per day. Refundable deposit: AED 5000.`;
     }
 
-    // WhatsApp buttons
     function openWA(msg){
       window.open(`https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(msg||'Hello Bayt Lili')}`,'_blank');
     }
     document.getElementById('whatsappDirect').addEventListener('click', (e)=>{ e.preventDefault(); openWA('Hello Bayt Lili — I’d like to inquire about filming availability.'); });
     document.getElementById('whatsappStay').addEventListener('click',   (e)=>{ e.preventDefault(); openWA('Hello Bayt Lili — I’m interested in a stay.'); });
 
-    // Build concise summary for the message we log in the sheet
     function buildMessageFilming(){
       const fd = new FormData(form);
       const name = fd.get('name')||'-';
@@ -408,7 +411,7 @@
       ].join('\n');
     }
 
-    // Submit (all fields must be filled)
+    // Submit
     form.addEventListener('submit', async (e) => {
       e.preventDefault();
 
@@ -483,7 +486,7 @@
         });
 
         form.reset();
-        // Reset sections
+        // hide sections again
         filmFields.style.display = 'none';
         filmButtons.style.display = 'none';
         priceCard.style.display = 'none';
@@ -500,13 +503,6 @@
         submitBtn.textContent = 'Request Booking';
       }
     });
-
-    // Seed a first day when Filming is chosen initially
-    function ensureAtLeastOneDay(){
-      if(daysWrap.children.length === 0){
-        daysWrap.appendChild(makeDayRow());
-      }
-    }
   </script>
 </body>
 </html>
