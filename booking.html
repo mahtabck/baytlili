@@ -29,8 +29,7 @@
       margin:0; color:var(--text);
       font-family:'Playfair Display', serif; line-height:1.5;
       -webkit-font-smoothing:antialiased; -moz-osx-font-smoothing:grayscale;
-      background:#000;
-      scroll-behavior:smooth;
+      background:#000; scroll-behavior:smooth;
     }
     body::before{
       content:""; position:fixed; inset:0;
@@ -41,11 +40,10 @@
       background:rgba(0,0,0,.28); z-index:-1;
     }
 
-    /* Header/nav (sticky & never overlaps content) */
+    /* Header/nav (sticky, solid background so no overlap ghosting) */
     header{
       position:sticky; top:0; z-index:50;
-      background:rgba(0,0,0,0.18);
-      backdrop-filter:blur(10px);
+      background:#000000f0; /* opaque */
       border-bottom:1px solid rgba(255,255,255,0.2);
     }
     .nav{display:flex;align-items:center;justify-content:space-between;gap:16px;padding:12px 0; min-height:var(--header-h)}
@@ -53,13 +51,12 @@
       display:flex;align-items:center;gap:10px;color:#fff;
       font-family:'BaytLili','Playfair Display',serif;
       letter-spacing:.12em;font-variant:small-caps;white-space:nowrap;
-      text-decoration:none; text-shadow:0 2px 6px rgba(0,0,0,.35);
+      text-decoration:none;
     }
     .brand img{height:34px}
     .menu{display:flex;align-items:center;gap:20px}
     .menu a{
       color:#fff;text-decoration:none;white-space:nowrap;
-      text-shadow:0 2px 6px rgba(0,0,0,.35);
       font-size:1rem; position:relative; padding:6px 2px;
     }
     .menu a::after{content:""; position:absolute; left:0; right:0; bottom:-4px; height:1px; background:transparent; transition:background .2s ease}
@@ -69,14 +66,13 @@
     h1{
       font-family:'BaytLili','Playfair Display',serif;
       margin:18px 0 8px; font-size:clamp(26px,4.4vw,40px);
-      text-shadow:0 3px 10px rgba(0,0,0,.35);
       scroll-margin-top: calc(var(--header-h) + 12px);
     }
     p.lede{color:var(--muted); margin:0 0 18px}
 
     .card{
       background:var(--card); border:1px solid var(--line);
-      border-radius:16px; padding:18px; backdrop-filter:blur(4px);
+      border-radius:16px; padding:18px;
     }
 
     /* Form grid */
@@ -84,7 +80,7 @@
     .full{grid-column:1 / -1}
     label{font-size:.95rem; opacity:.95; display:block}
 
-    /* Controls — unified look/height */
+    /* Controls */
     input, select, textarea{
       width:100%; padding:12px 12px; margin-top:6px;
       border-radius:10px; border:1px solid var(--line);
@@ -95,15 +91,14 @@
     textarea{min-height:120px; height:auto; resize:vertical}
     input[type="date"]{-webkit-appearance:none; appearance:none; line-height:calc(var(--control-h) - 2px); padding-top:0; padding-bottom:0}
     select{ line-height:calc(var(--control-h) - 2px); }
-
     .row{display:flex; gap:10px; align-items:center; flex-wrap:wrap}
     .radio{
       display:inline-flex; gap:8px; align-items:center;
       padding:10px 12px; border:1px solid var(--line); border-radius:999px;
       background:rgba(255,255,255,.10); user-select:none; height:var(--control-h);
     }
-    .radio input{accent-color:#fff; width:18px; height:18px}
 
+    /* Filming day rows */
     .day{
       display:grid; grid-template-columns: 1.2fr .9fr .9fr auto; gap:10px; align-items:end; margin-top:6px;
     }
@@ -122,7 +117,7 @@
     .price-card{
       grid-column:1/-1; background:var(--price-bg); color:var(--price-text);
       border:1px solid var(--price-border); border-radius:14px;
-      padding:14px 16px; margin-top:6px; box-shadow:0 6px 24px rgba(0,0,0,.12);
+      padding:14px 16px; margin-top:6px;
     }
     .price-card small{color:#555}
 
@@ -137,13 +132,13 @@
 
     #form-status{margin-top:8px;font-size:.95rem}
 
-    /* ---------- First-step gate overlay ---------- */
+    /* ---------- First-step gate (fully opaque & hides page) ---------- */
     .gate{
-      position:fixed; inset:0; z-index:60; display:flex; align-items:center; justify-content:center;
-      background:rgba(0,0,0,.55); backdrop-filter:blur(6px);
+      position:fixed; inset:0; z-index:100; display:flex; align-items:center; justify-content:center;
+      background:#000; /* opaque so nothing shows behind */
     }
     .gate-card{
-      width:min(720px,92vw); background:rgba(255,255,255,.1);
+      width:min(720px,92vw); background:rgba(255,255,255,.08);
       border:1px solid var(--line); border-radius:18px; padding:20px; text-align:center;
     }
     .gate h2{margin:0 0 10px; font-family:'BaytLili','Playfair Display',serif}
@@ -156,26 +151,30 @@
     }
     .gate-btn:hover{opacity:.92}
     @media (max-width:700px){ .gate-options{grid-template-columns:1fr} }
+
+    /* Initially hide the main container until choice is made */
+    .hidden{ display:none !important; }
   </style>
 </head>
 <body>
 
-  <!-- Header / Nav -->
+  <!-- Header -->
   <header>
     <div class="container nav">
       <a class="brand" href="index.html" aria-label="Bayt Lili — Home">
         <img src="assets/bllogo.png" alt="Bayt Lili"/> BAYT LILI
       </a>
       <nav class="menu" aria-label="Primary">
+        <a href="index.html">Home</a>
+        <a href="booking.html">Booking</a>
         <a href="index.html#gallery">Gallery</a>
         <a href="rates.html">Rates</a>
-        <a href="booking.html">Booking</a>
         <a href="index.html#contact">Contact</a>
       </nav>
     </div>
   </header>
 
-  <!-- First-step gate -->
+  <!-- Gate -->
   <div class="gate" id="gate">
     <div class="gate-card">
       <h2>What are you looking for?</h2>
@@ -187,171 +186,176 @@
     </div>
   </div>
 
-  <div class="container">
+  <div class="container hidden" id="main">
     <h1>Booking Request</h1>
     <p class="lede">Tell us about your booking. We reply the same day.</p>
 
-    <div class="card">
+    <div class="card" id="filmingCard" style="display:none">
       <form id="booking-form">
+        <!-- Row 1: Full name + Company/Brand -->
         <div>
           <label for="name">Full name *</label>
           <input id="name" name="name" type="text" required placeholder="Your name"/>
         </div>
+        <div>
+          <label for="company">Company / Brand *</label>
+          <input id="company" name="company" type="text" placeholder="Company or brand"/>
+        </div>
 
+        <!-- Row 2: Email + Phone -->
         <div>
           <label for="email">Email *</label>
           <input id="email" name="email" type="email" required placeholder="name@email.com"/>
         </div>
-
         <div>
           <label for="phone">Phone (with country code) *</label>
           <input id="phone" name="phone" type="tel" required placeholder="+9715XXXXXXXX"/>
         </div>
 
-        <div class="full">
-          <label for="purpose">Purpose of booking *</label>
-          <div class="row" role="radiogroup" aria-label="Purpose">
-            <label class="radio"><input type="radio" name="purpose" value="Filming"> Filming / Shoot</label>
-            <label class="radio"><input type="radio" name="purpose" value="Stay"> Stay</label>
-          </div>
+        <!-- Hidden purpose (set by gate) -->
+        <input type="hidden" id="purpose" name="purpose" value="">
+
+        <!-- Days list -->
+        <div id="daysWrap" class="full"></div>
+
+        <div class="add-more">
+          <button type="button" id="addDayBtn">+ Add another day</button>
         </div>
 
-        <!-- FILMING SECTION -->
-        <div id="filmFields" class="full" style="display:none">
-          <div class="full">
-            <label for="company">Company / Brand (required for shoots)</label>
-            <input id="company" name="company" type="text" placeholder="Company or brand"/>
-          </div>
-
-          <div id="daysWrap" class="full"></div>
-
-          <div class="add-more">
-            <button type="button" id="addDayBtn">+ Add another day</button>
-          </div>
-
-          <div id="priceCard" class="price-card" style="display:none">
-            <div id="priceSummary" style="font-weight:700">Estimated Total: AED 0</div>
-            <small id="priceNotes">Rate: AED 350/hr. Minimum: 6 hours (AED 2100) per day. Refundable deposit: AED 5000.</small>
-          </div>
-        </div>
-
-        <!-- STAY SECTION -->
-        <div id="stayFields" class="full" style="display:none">
-          <p class="lede">For stays, please book on Airbnb or message us on WhatsApp.</p>
+        <!-- PRICE CARD -->
+        <div id="priceCard" class="price-card" style="display:none">
+          <div id="priceSummary" style="font-weight:700">Estimated Total: AED 0</div>
+          <small id="priceNotes">Rate: AED 350/hr. Minimum: 6 hours (AED 2100) per day. Refundable deposit: AED 5000.</small>
         </div>
 
         <!-- ACTION BUTTONS -->
-        <div class="actions full" id="filmButtons" style="display:none">
+        <div class="actions full" id="filmButtons" style="display:flex">
           <button type="submit" class="btn" id="request-booking">Request Booking</button>
           <a class="btn" id="whatsappDirect" href="#" target="_blank" rel="noopener">WhatsApp Us</a>
-        </div>
-
-        <div class="actions full" id="stayButtons" style="display:none">
-          <a class="btn" id="whatsappStay" href="#" target="_blank" rel="noopener">WhatsApp Us</a>
-          <a class="btn" id="airbnbBtn" href="https://www.airbnb.com/rooms/1010972686934184319" target="_blank" rel="noopener">View on Airbnb</a>
         </div>
 
         <p id="form-status" role="status"></p>
       </form>
     </div>
 
-    <footer style="margin-top:24px; color:#dcdcdc; font-size:.95rem">
-      Prefer Instagram? DM us at <a href="https://instagram.com/baytlili" target="_blank" rel="noopener">@baytlili</a>.
-    </footer>
+    <!-- STAY -->
+    <div class="card" id="stayCard" style="display:none">
+      <p class="lede">For stays, please check seasonal rates and book directly on Airbnb or message us on WhatsApp.</p>
+      <div class="actions">
+        <a class="btn" id="whatsappStay" href="#" target="_blank" rel="noopener">WhatsApp Us</a>
+        <a class="btn" id="airbnbBtn" href="https://www.airbnb.com/rooms/1010972686934184319" target="_blank" rel="noopener">View on Airbnb</a>
+      </div>
+    </div>
+
   </div>
 
   <script>
     // ---------- Config ----------
     const WHATSAPP_NUMBER = '971501589628';
     const SHEETS_ENDPOINT = 'https://script.google.com/macros/s/AKfycbzP17hb9riNcRnWQ06dinxrqwII6CYjH247SV6xCnhd9bJV6nVBVANkVRA0QZA70OII/exec';
-    const RATE_PER_HOUR = 350;      // set 300 if you prefer
+    const RATE_PER_HOUR = 350;      // change to 300 if you prefer
     const MIN_HOURS_PER_DAY = 6;
     const DAY_MIN_CHARGE = RATE_PER_HOUR * MIN_HOURS_PER_DAY;
 
     // ---------- Elements ----------
     const gate = document.getElementById('gate');
+    const main = document.getElementById('main');
+
+    const filmingCard = document.getElementById('filmingCard');
+    const stayCard = document.getElementById('stayCard');
+
     const form = document.getElementById('booking-form');
     const statusEl = document.getElementById('form-status');
-    const filmFields = document.getElementById('filmFields');
-    const stayFields = document.getElementById('stayFields');
-    const filmButtons = document.getElementById('filmButtons');
-    const stayButtons = document.getElementById('stayButtons');
-    const daysWrap = document.getElementById('daysWrap');
-    const priceCard = document.getElementById('priceCard');
-    const priceSummary = document.getElementById('priceSummary');
 
-    // Gate behavior
+    // Gate behavior: fully hides content until choice
     gate.querySelectorAll('.gate-btn').forEach(btn=>{
       btn.addEventListener('click', ()=>{
         const choice = btn.dataset.choice; // "Filming" or "Stay"
-        // set radio & trigger change view
-        const radio = form.querySelector(`input[name="purpose"][value="${choice}"]`);
-        if (radio) {
-          radio.checked = true;
-          updateView(choice);
-        }
+        document.getElementById('purpose').value = choice;
+        main.classList.remove('hidden');
         gate.style.display = 'none';
+
+        if (choice === 'Filming') {
+          filmingCard.style.display = '';
+          stayCard.style.display = 'none';
+          ensureAtLeastOneDay();
+          updatePrice();
+        } else {
+          filmingCard.style.display = 'none';
+          stayCard.style.display = '';
+        }
       });
     });
 
-    function updateView(purpose){
-      if (purpose === 'Filming') {
-        stayFields.style.display = 'none';
-        stayButtons.style.display = 'none';
-        filmFields.style.display = '';
-        filmButtons.style.display = '';
-        priceCard.style.display = '';
-        ensureAtLeastOneDay();
-        updatePrice();
-      } else {
-        filmFields.style.display = 'none';
-        filmButtons.style.display = 'none';
-        priceCard.style.display = 'none';
-        stayFields.style.display = '';
-        stayButtons.style.display = '';
-      }
-    }
-
-    // Hook radio change too (in case user flips choice later)
-    form.addEventListener('change', (e) => {
-      if (e.target.name === 'purpose') {
-        updateView(e.target.value);
-      }
-    });
-
     // ---------- Time options (15-min increments) ----------
-    function buildTimeOptions(){
-      const opts = ['<option value="" disabled selected>Select time</option>'];
+    function buildTimeOptions(minMinutesExclusive = -1, selectedVal = ''){
+      const opts = ['<option value="" disabled>Select time</option>'];
       for (let m=0; m<24*60; m+=15){
+        if (m <= minMinutesExclusive) continue;
         const hh = String(Math.floor(m/60)).padStart(2,'0');
         const mm = String(m%60).padStart(2,'0');
         const label = `${hh}:${mm}`;
-        opts.push(`<option value="${label}">${label}</option>`);
+        const sel = (label === selectedVal) ? ' selected' : '';
+        opts.push(`<option value="${label}"${sel}>${label}</option>`);
       }
       return opts.join('');
     }
-    const TIME_OPTIONS_HTML = buildTimeOptions();
 
     function parseTime(t){ if(!t) return null; const [h,m]=t.split(':').map(Number); return h*60+(m||0); }
-    function computeHours(from,to){ const a=parseTime(from), b=parseTime(to); if(a==null||b==null) return 0; let diff=(b-a)/60; if(diff<0) diff+=24; return Math.max(0,diff); }
+    function computeHours(from,to){
+      const a=parseTime(from), b=parseTime(to);
+      if(a==null||b==null) return 0;
+      let diff=(b-a)/60;
+      if (diff < 0) return 0; // disallow earlier end
+      return Math.max(0, diff);
+    }
 
+    const daysWrap = document.getElementById('daysWrap');
     function makeDayRow(){
       const row = document.createElement('div');
       row.className = 'day';
       row.innerHTML = `
         <label>Date <input type="date" name="day_date" required></label>
-        <label>From <select name="day_from" required>${TIME_OPTIONS_HTML}</select></label>
-        <label>To   <select name="day_to" required>${TIME_OPTIONS_HTML}</select></label>
+        <label>From <select name="day_from" required></select></label>
+        <label>To   <select name="day_to" required></select></label>
         <button type="button" class="rem" aria-label="Remove day">Remove</button>
       `;
-      row.querySelector('.rem').addEventListener('click', () => {
-        row.remove(); updatePrice(); if (daysWrap.children.length === 0) ensureAtLeastOneDay();
+
+      const selFrom = row.querySelector('[name=day_from]');
+      const selTo   = row.querySelector('[name=day_to]');
+
+      // Initial options: all times for From; To disabled until From picked
+      selFrom.innerHTML = buildTimeOptions(-1);
+      selTo.innerHTML   = buildTimeOptions(-1); // will be rebuilt after From
+
+      selFrom.addEventListener('change', ()=>{
+        const fromVal = selFrom.value;
+        const min = parseTime(fromVal);
+        // Rebuild To to only allow times after From
+        const currentTo = selTo.value;
+        selTo.innerHTML = buildTimeOptions(min, '');
+        // Auto-select the first valid To if none
+        const firstOption = selTo.querySelector('option[value]:not([value=""])');
+        if (firstOption) selTo.value = firstOption.value;
+        updatePrice();
       });
-      row.querySelector('[name=day_from]').addEventListener('change', updatePrice);
-      row.querySelector('[name=day_to]').addEventListener('change', updatePrice);
+
+      selTo.addEventListener('change', updatePrice);
       row.querySelector('[name=day_date]').addEventListener('change', updatePrice);
+
+      row.querySelector('.rem').addEventListener('click', () => {
+        row.remove();
+        updatePrice();
+        // keep at least one day present only when submitting (rule enforced on submit)
+      });
+
       return row;
     }
+
+    document.getElementById('addDayBtn').addEventListener('click', () => {
+      daysWrap.appendChild(makeDayRow());
+      updatePrice();
+    });
 
     function ensureAtLeastOneDay(){
       if(daysWrap.children.length === 0){
@@ -360,11 +364,7 @@
     }
 
     function updatePrice(){
-      const purpose = (new FormData(form)).get('purpose');
-      if(purpose !== 'Filming'){ priceCard.style.display='none'; return; }
-      priceCard.style.display='';
       let totalHours = 0, totalPrice = 0;
-
       [...daysWrap.children].forEach(row => {
         const from = row.querySelector('[name=day_from]').value;
         const to = row.querySelector('[name=day_to]').value;
@@ -373,23 +373,26 @@
         totalHours += hrs;
         totalPrice += billable * RATE_PER_HOUR;
       });
-
-      priceSummary.textContent = `Estimated Total: AED ${isFinite(totalPrice)?Math.round(totalPrice):0} — Total Selected Hours: ${isFinite(totalHours)?totalHours.toFixed(2):'0'}`;
-      document.getElementById('priceNotes').textContent = `Rate: AED ${RATE_PER_HOUR}/hr. Minimum: ${MIN_HOURS_PER_DAY} hours (AED ${DAY_MIN_CHARGE}) per day. Refundable deposit: AED 5000.`;
+      document.getElementById('priceCard').style.display = daysWrap.children.length ? '' : 'none';
+      document.getElementById('priceSummary').textContent =
+        `Estimated Total: AED ${isFinite(totalPrice)?Math.round(totalPrice):0} — Total Selected Hours: ${isFinite(totalHours)?totalHours.toFixed(2):'0'}`;
+      document.getElementById('priceNotes').textContent =
+        `Rate: AED ${RATE_PER_HOUR}/hr. Minimum: ${MIN_HOURS_PER_DAY} hours (AED ${DAY_MIN_CHARGE}) per day. Refundable deposit: AED 5000.`;
     }
 
+    // WhatsApp (no validation required)
     function openWA(msg){
       window.open(`https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(msg||'Hello Bayt Lili')}`,'_blank');
     }
     document.getElementById('whatsappDirect').addEventListener('click', (e)=>{ e.preventDefault(); openWA('Hello Bayt Lili — I’d like to inquire about filming availability.'); });
     document.getElementById('whatsappStay').addEventListener('click',   (e)=>{ e.preventDefault(); openWA('Hello Bayt Lili — I’m interested in a stay.'); });
 
+    // Build concise summary for the sheet
     function buildMessageFilming(){
-      const fd = new FormData(form);
-      const name = fd.get('name')||'-';
-      const email = fd.get('email')||'-';
-      const phone = fd.get('phone')||'-';
-      const company = fd.get('company')||'-';
+      const name = (document.getElementById('name').value||'-');
+      const email = (document.getElementById('email').value||'-');
+      const phone = (document.getElementById('phone').value||'-');
+      const company = (document.getElementById('company').value||'-');
 
       let total = 0, dayLines=[];
       [...daysWrap.children].forEach((row,i)=>{
@@ -411,65 +414,56 @@
       ].join('\n');
     }
 
-    // Submit
+    // Submit: require all fields + at least one valid day for Filming
     form.addEventListener('submit', async (e) => {
       e.preventDefault();
 
-      const fd = new FormData(form);
-      const name    = (fd.get('name')||'').trim();
-      const email   = (fd.get('email')||'').trim();
-      const phone   = (fd.get('phone')||'').trim();
-      const purpose = fd.get('purpose');
+      const purpose = document.getElementById('purpose').value;
+      if (purpose !== 'Filming') return; // only filming has a submit flow
+
+      const name    = (document.getElementById('name').value||'').trim();
+      const email   = (document.getElementById('email').value||'').trim();
+      const phone   = (document.getElementById('phone').value||'').trim();
+      const company = (document.getElementById('company').value||'').trim();
 
       if (!name || !email || !phone) {
         statusEl.textContent = 'Please fill in Name, Email, and Phone.';
         statusEl.style.color = 'crimson';
         return;
       }
-      if (!purpose) {
-        statusEl.textContent = 'Please choose Filming or Stay.';
+      if (!company) {
+        statusEl.textContent = 'Please enter your Company / Brand.';
         statusEl.style.color = 'crimson';
         return;
       }
-
-      let messageToLog = 'Booking Request — Stay';
-      if (purpose === 'Filming') {
-        const company = (fd.get('company')||'').trim();
-        if (!company) {
-          statusEl.textContent = 'Please enter your Company / Brand for shoots.';
+      if (daysWrap.children.length === 0) {
+        statusEl.textContent = 'Please add at least one day.';
+        statusEl.style.color = 'crimson';
+        return;
+      }
+      for (const row of daysWrap.children) {
+        const from = row.querySelector('[name=day_from]').value;
+        const to   = row.querySelector('[name=day_to]').value;
+        const date = row.querySelector('[name=day_date]').value;
+        if (!date || !from || !to) {
+          statusEl.textContent = 'Please complete date and time for each day.';
           statusEl.style.color = 'crimson';
           return;
         }
-        if (daysWrap.children.length === 0) {
-          statusEl.textContent = 'Please add at least one day.';
+        const hrs = computeHours(from,to);
+        if (hrs < MIN_HOURS_PER_DAY) {
+          statusEl.textContent = 'Each shoot day must be at least 6 hours.';
           statusEl.style.color = 'crimson';
           return;
         }
-        for (const row of daysWrap.children) {
-          const from = row.querySelector('[name=day_from]').value;
-          const to   = row.querySelector('[name=day_to]').value;
-          const date = row.querySelector('[name=day_date]').value;
-          if (!date || !from || !to) {
-            statusEl.textContent = 'Please complete date and time for each day.';
-            statusEl.style.color = 'crimson';
-            return;
-          }
-          const hrs = computeHours(from,to);
-          if (hrs < MIN_HOURS_PER_DAY) {
-            statusEl.textContent = 'Each shoot day must be at least 6 hours.';
-            statusEl.style.color = 'crimson';
-            return;
-          }
-        }
-        messageToLog = buildMessageFilming();
       }
 
       const params = new URLSearchParams();
       params.set('name', name);
       params.set('email', email);
       params.set('phone', phone);
-      params.set('inquiry', purpose === 'Filming' ? 'Filming / Shoot' : 'Stay');
-      params.set('message', messageToLog);
+      params.set('inquiry', 'Filming / Shoot');
+      params.set('message', buildMessageFilming());
       params.set('pageUrl', window.location.href);
       params.set('userAgent', navigator.userAgent);
 
@@ -486,13 +480,8 @@
         });
 
         form.reset();
-        // hide sections again
-        filmFields.style.display = 'none';
-        filmButtons.style.display = 'none';
-        priceCard.style.display = 'none';
-        stayFields.style.display = 'none';
-        stayButtons.style.display = 'none';
-
+        daysWrap.innerHTML = '';
+        document.getElementById('priceCard').style.display = 'none';
         statusEl.textContent = 'Thank you! Your request has been received. We’ll get back to you shortly.';
         statusEl.style.color = 'limegreen';
       } catch (err) {
@@ -503,6 +492,10 @@
         submitBtn.textContent = 'Request Booking';
       }
     });
+
+    // Wire WA links
+    document.getElementById('whatsappStay').href   = `https://wa.me/${WHATSAPP_NUMBER}`;
+    document.getElementById('whatsappDirect').href = `https://wa.me/${WHATSAPP_NUMBER}`;
   </script>
 </body>
 </html>
