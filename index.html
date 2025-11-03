@@ -19,12 +19,16 @@
 
   <!-- Fonts -->
   <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@500;600;700&display=swap" rel="stylesheet">
+
   <style>
     :root{
       --text:#ffffff; --muted:#ededed; --line: rgba(255,255,255,.42);
-      --panel-bg:#0b0b0bd9; --panel-stroke: rgba(255,255,255,.14);
+      --panel-bg: rgba(11,11,11,.58);        /* ✅ lighter / more see-through */
+      --panel-stroke: rgba(255,255,255,.14);
       --header-h: 64px;
       --btn-border: rgba(255,255,255,.7);
+      --control-h: 36px;                     /* ✅ thinner controls */
+      --radius: 10px;
     }
     @font-face{
       font-family:'BaytLili';
@@ -101,38 +105,38 @@
     .cta{
       margin-top:10px;
       width:min(960px, 100%);
-      background:var(--panel-bg);
+      background:var(--panel-bg);          /* ✅ more transparent */
       border:1px solid var(--panel-stroke);
       border-radius:18px;
-      padding:14px;
+      padding:12px;
     }
     .cta-head{
       font-weight:700; text-align:left; display:flex; justify-content:space-between; align-items:center; gap:10px;
     }
-    .cta-sub{color:#dcdcdc; font-weight:500; font-size:.98rem}
     .cta-grid{
-      margin-top:10px;
-      display:grid; gap:10px;
+      margin-top:8px;
+      display:grid; gap:8px;
       grid-template-columns: 1.2fr .9fr .9fr auto auto;
       align-items:end;
     }
     .cta label{font-size:.95rem; opacity:.95; display:block; text-align:left}
-    .cta input, .cta select, .cta button, .cta a.btn{
-      width:100%; padding:10px 12px; margin-top:4px;
-      border-radius:12px; border:1px solid var(--panel-stroke);
-      background:rgba(255,255,255,.96); color:#111; font-size:16px;
-      font-family:'Playfair Display', serif; height:42px;
+    .control{
+      width:100%; padding:7px 10px; margin-top:4px;      /* ✅ thinner padding */
+      border-radius:var(--radius); border:1px solid var(--panel-stroke);
+      background:rgba(255,255,255,.96); color:#111; font-size:15px;
+      font-family:'Playfair Display', serif; height:var(--control-h); /* ✅ 36px tall */
     }
     .btn{
       display:inline-flex; align-items:center; justify-content:center; gap:.5em;
       font-weight:700; letter-spacing:.02em; text-decoration:none;
-      border:1px solid var(--btn-border); background:transparent; color:#fff; height:42px;
+      border:1px solid var(--btn-border); background:transparent; color:#fff; height:var(--control-h);
+      padding:0 14px; border-radius:var(--radius);
     }
     .btn:hover{opacity:.92}
     .btn.secondary{border-color:rgba(255,255,255,.45)}
     @media (max-width:1000px){
       .cta-grid{ grid-template-columns:1fr 1fr; }
-      .cta-grid .span2{ grid-column:1 / -1; }
+      .span2{ grid-column:1 / -1; }
     }
 
     /* Sections */
@@ -173,7 +177,6 @@
       .brand{ font-size:1rem; letter-spacing:.10em; white-space:nowrap }
       body::before{ background-position:center 68% }
       .hero-title{ font-size:clamp(34px,11vw,56px); white-space:normal }
-      .eyebrow{ font-size:clamp(14px,3.6vw,18px); letter-spacing:.2em }
       .gallery-row{ flex-direction:column }
       .logos{ grid-template-columns:repeat(2,1fr) }
     }
@@ -207,19 +210,16 @@
 
       <!-- Single action area -->
       <div class="cta">
-        <div class="cta-head">
-          <div>Looking for your next filming location?</div>
-          <div class="cta-sub">Get an instant estimate or chat with us.</div>
-        </div>
+        <div class="cta-head">Looking for your next filming location?</div>
         <div class="cta-grid">
-          <label class="span1">Date (optional)
-            <input type="date" id="qbDate">
+          <label>Date
+            <input type="date" id="qbDate" class="control">
           </label>
           <label>From
-            <select id="qbFrom"></select>
+            <select id="qbFrom" class="control"></select>
           </label>
           <label>To
-            <select id="qbTo"></select>
+            <select id="qbTo" class="control"></select>
           </label>
           <a id="qbQuote" class="btn" href="#">Get Quote</a>
           <a id="qbWA" class="btn secondary" href="#" target="_blank" rel="noopener">WhatsApp</a>
@@ -359,13 +359,19 @@
     // Quote → send to booking.html with params
     document.getElementById('qbQuote').addEventListener('click', (e)=>{
       e.preventDefault();
-      const qs = new URLSearchParams();
       const d = document.getElementById('qbDate').value || '';
       const f = selFrom.value || '';
       const t = selTo.value || '';
-      if(d) qs.set('date', d);
-      if(f) qs.set('from', f);
-      if(t) qs.set('to', t);
+
+      // ✅ Require all three
+      if(!d || !f || !t){
+        alert('Please select Date, From, and To.');
+        return;
+      }
+      const qs = new URLSearchParams();
+      qs.set('date', d);
+      qs.set('from', f);
+      qs.set('to', t);
       qs.set('p','Filming');
       window.location.href = `booking.html?${qs.toString()}`;
     });
@@ -380,4 +386,3 @@
   </script>
 </body>
 </html>
-
