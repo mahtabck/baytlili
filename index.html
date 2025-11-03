@@ -19,7 +19,7 @@
   <style>
     :root{
       --text:#ffffff; --muted:#ededed; --line: rgba(255,255,255,.42);
-      --card-bg: rgba(0,0,0,.24); --card-stroke: rgba(255,255,255,.28);
+      --panel-bg:#0b0b0bcc; --panel-stroke: rgba(255,255,255,.14);
       --header-h: 64px;
     }
     @font-face{
@@ -49,10 +49,10 @@
     .container{width:min(1200px,92vw);margin-inline:auto}
     .pad{padding:clamp(28px,5vw,80px) 0}
 
-    /* Sticky Header (opaque to avoid overlap visuals) */
+    /* Sticky Header (opaque so it never shows content through) */
     header{
       position:sticky; top:0; z-index:50;
-      background:#000000f0; /* opaque */
+      background:#000000f0;
       border-bottom:1px solid rgba(255,255,255,0.2);
       min-height:var(--header-h);
     }
@@ -72,23 +72,33 @@
     .menu a::after{content:""; position:absolute; left:0; right:0; bottom:-4px; height:1px; background:transparent; transition:background .2s ease}
     .menu a:hover::after{background:rgba(255,255,255,.7)}
 
-    /* Hero */
-    .hero .text{ display:flex; flex-direction:column; gap:16px; text-align:right; align-items:flex-end; margin-left:auto; max-width:920px; }
+    /* HERO — perfectly centered vertically + horizontally */
+    .hero{
+      min-height:calc(100vh - var(--header-h));
+      display:flex; align-items:center; justify-content:center;
+    }
+    .hero .text{
+      display:flex; flex-direction:column; gap:16px;
+      text-align:center; align-items:center; margin:0 auto;
+      max-width:920px;
+    }
     .hero-title{
       margin:0; color:#fff; font-family:'BaytLili','Playfair Display',serif; font-weight:700;
-      text-shadow:0 3px 10px rgba(0,0,0,.35); font-size:clamp(40px,5.2vw,72px); line-height:1.06; letter-spacing:.08em; white-space:nowrap;
+      text-shadow:0 3px 10px rgba(0,0,0,.35);
+      font-size:clamp(40px,5.6vw,92px); line-height:1.02; letter-spacing:.08em;
     }
     .eyebrow{
       color:#fff; letter-spacing:.22em; text-transform:uppercase; font-weight:600;
-      font-size:clamp(14px,1.2vw,20px);
+      font-size:clamp(14px,1.2vw,22px);
+      text-shadow:0 3px 8px rgba(0,0,0,.45);
     }
 
-    /* Wider Book button (desktop) */
+    /* Wider Book button */
     .book-btn{
       display:inline-block; margin-top:8px;
       background:transparent; color:#fff; border:1px solid rgba(255,255,255,.7);
-      border-radius:999px; padding:1.1em 3.2em; /* wider */
-      text-decoration:none; font-weight:700; letter-spacing:.03em; font-size:1.15rem;
+      border-radius:999px; padding:1.2em 3.6em; /* wider */
+      text-decoration:none; font-weight:700; letter-spacing:.03em; font-size:1.25rem;
     }
     .book-btn:hover{ box-shadow:0 0 25px rgba(255,255,255,.18); }
 
@@ -101,29 +111,39 @@
     }
     p{margin:0 0 12px; color:#ededed}
 
-    /* Features — one big bubble with circular layout */
-    .features-wrap{
-      display:flex; justify-content:center; margin-top:18px;
+    /* FEATURES PANEL — like your screenshot */
+    .panel{
+      margin-top:18px; background:var(--panel-bg);
+      border:1px solid var(--panel-stroke);
+      border-radius:18px; padding:16px;
     }
-    .features-circle{
-      position:relative; width:min(560px,92vw); height:min(560px,92vw);
-      border:1px solid rgba(255,255,255,.28);
-      background:rgba(255,255,255,.08); border-radius:50%;
-      backdrop-filter:blur(4px);
+    .panel .panel-head{
+      display:flex; align-items:center; justify-content:space-between; gap:10px;
+      font-weight:700; color:#fff; font-size:1.1rem;
     }
-    .feat{
-      position:absolute; transform:translate(-50%,-50%);
-      display:inline-flex; align-items:center; gap:10px;
-      padding:10px 12px; border-radius:999px;
-      background:rgba(0,0,0,.28); border:1px solid rgba(255,255,255,.3);
-      font-weight:700; white-space:nowrap;
+    .panel hr{
+      border:0; border-top:1px solid var(--panel-stroke); margin:12px 0 10px;
     }
-    .feat .dot{width:8px; height:8px; border-radius:50%; border:2px solid rgba(255,255,255,.85)}
-    /* Positions (top, right, bottom, left around the circle) */
-    .feat.top    {left:50%; top:8%;}
-    .feat.right  {left:92%; top:50%;}
-    .feat.bottom {left:50%; top:92%;}
-    .feat.left   {left:8%;  top:50%;}
+    .feature-grid{
+      display:grid; gap:14px 22px;
+      grid-template-columns:repeat(2,1fr);
+    }
+    @media (min-width:900px){
+      .feature-grid{ grid-template-columns:repeat(3,1fr); }
+    }
+    .feature-item{
+      display:flex; align-items:center; gap:10px;
+      color:#fff;
+    }
+    .i{
+      width:28px; height:28px; border-radius:8px;
+      border:1px solid var(--panel-stroke);
+      display:flex; align-items:center; justify-content:center;
+      background:rgba(255,255,255,.06);
+      overflow:hidden;
+    }
+    .i svg{ width:18px; height:18px; opacity:.9 }
+    .label{font-weight:600}
 
     /* Gallery */
     .gallery-row{display:flex; gap:12px; justify-content:space-between}
@@ -136,7 +156,9 @@
       aspect-ratio: 4 / 5;
       display:flex;
     }
-    .card.small img{ width:100%; height:100%; object-fit:cover; object-position:center; display:block; }
+    .card.small img{
+      width:100%; height:100%; object-fit:cover; object-position:center; display:block;
+    }
 
     /* Logos */
     .logos{display:grid; grid-template-columns:repeat(5,1fr); gap:12px}
@@ -156,7 +178,6 @@
 
     /* Desktop >= 900px */
     @media (min-width:900px){
-      .hero .text{ text-align:right; align-items:flex-end; }
       body::before{ background-position:center 25%; }
       .gallery-row{ flex-direction:row; }
       .card.small{ flex:0 0 31%; }
@@ -166,15 +187,12 @@
     /* Mobile < 900px */
     @media (max-width:899.98px){
       .brand{ font-size:1rem; letter-spacing:.10em; white-space:nowrap; }
-      .hero .text{ text-align:center; align-items:center; max-width:none; }
       body::before{ background-position:center 68%; }
       .hero-title{ font-size:clamp(34px,11vw,56px); white-space:normal; }
       .eyebrow{ font-size:clamp(14px,3.6vw,18px); letter-spacing:.2em; }
       .gallery-row{ flex-direction:column; }
       .logos{ grid-template-columns:repeat(2,1fr); }
       .book-btn{ width:100%; text-align:center; }
-      /* tighten circle for mobile */
-      .features-circle{ width:min(420px,92vw); height:min(420px,92vw); }
     }
   </style>
 </head>
@@ -197,29 +215,156 @@
     </div>
   </header>
 
-  <!-- Hero -->
-  <main class="container pad hero" id="home">
+  <!-- Hero (centered) -->
+  <main class="container hero" id="home">
     <div class="text">
       <h1 class="hero-title">BAYT LILI</h1>
-      <div class="eyebrow">Boutique Villa • Filming • Photoshoots • Stays</div>
+      <div class="eyebrow">BOUTIQUE VILLA • FILMING • PHOTOSHOOTS • STAYS</div>
       <a class="book-btn" href="booking.html" aria-label="Go to booking form">Book Now</a>
     </div>
   </main>
 
-  <!-- Features in a single big bubble -->
+  <!-- Features panel -->
   <section id="about" class="pad">
     <div class="container">
-      <div class="features-wrap">
-        <div class="features-circle">
-          <div class="feat top"><span class="dot"></span>Exclusive booking</div>
-          <div class="feat right"><span class="dot"></span>Easy team access</div>
-          <div class="feat bottom"><span class="dot"></span>Warm neutral style</div>
-          <div class="feat left"><span class="dot"></span>Lush garden & pool</div>
+      <div class="panel">
+        <div class="panel-head">Features</div>
+        <hr>
+        <div class="feature-grid">
+          <!-- Use simple inline SVG line-icons (placeholders that look clean) -->
+          <div class="feature-item">
+            <span class="i">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6">
+                <rect x="3" y="10" width="18" height="9" rx="2"></rect><path d="M7 10V7a5 5 0 0 1 10 0v3"></path>
+              </svg>
+            </span>
+            <span class="label">Bedrooms</span>
+          </div>
+          <div class="feature-item">
+            <span class="i">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6">
+                <path d="M4 20c4-8 12-8 16 0M8 14c1-3 7-3 8 0"></path>
+              </svg>
+            </span>
+            <span class="label">Garden</span>
+          </div>
+          <div class="feature-item">
+            <span class="i">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6">
+                <path d="M4 10h16v8a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2v-8Z"></path><path d="M8 10V6h8v4"></path>
+              </svg>
+            </span>
+            <span class="label">Balcony</span>
+          </div>
+          <div class="feature-item">
+            <span class="i">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6">
+                <rect x="5" y="4" width="6" height="16" rx="1"></rect><rect x="13" y="7" width="6" height="13" rx="1"></rect>
+              </svg>
+            </span>
+            <span class="label">Dressing Room</span>
+          </div>
+          <div class="feature-item">
+            <span class="i">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6">
+                <path d="M3 6h18M6 6v12M18 6v12M3 18h18"></path>
+              </svg>
+            </span>
+            <span class="label">Curtains</span>
+          </div>
+          <div class="feature-item">
+            <span class="i">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6">
+                <path d="M6 20V4m12 16V4M4 6h16M4 18h16"></path>
+              </svg>
+            </span>
+            <span class="label">Elevator</span>
+          </div>
+          <div class="feature-item">
+            <span class="i">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6">
+                <circle cx="12" cy="12" r="7"></circle><path d="M5 9c3-6 11-6 14 0"></path>
+              </svg>
+            </span>
+            <span class="label">Golf View</span>
+          </div>
+          <div class="feature-item">
+            <span class="i">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6">
+                <rect x="3" y="10" width="18" height="8" rx="2"></rect><path d="M7 10V7h10v3"></path>
+              </svg>
+            </span>
+            <span class="label">Kitchen Island</span>
+          </div>
+          <div class="feature-item">
+            <span class="i">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6">
+                <rect x="4" y="8" width="16" height="8" rx="2"></rect><path d="M9 8V6h6v2"></path>
+              </svg>
+            </span>
+            <span class="label">Large Living Spaces</span>
+          </div>
+          <div class="feature-item">
+            <span class="i">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6">
+                <rect x="6" y="3" width="12" height="18" rx="2"></rect><path d="M9 8h6M9 12h6"></path>
+              </svg>
+            </span>
+            <span class="label">Walk-In Closet</span>
+          </div>
+          <div class="feature-item">
+            <span class="i">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6">
+                <rect x="3" y="5" width="18" height="14" rx="1"></rect><path d="M12 5v14"></path>
+              </svg>
+            </span>
+            <span class="label">Window Walls</span>
+          </div>
+          <div class="feature-item">
+            <span class="i">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6">
+                <circle cx="12" cy="7" r="2"></circle><path d="M12 9v8"></path>
+              </svg>
+            </span>
+            <span class="label">Bathrooms</span>
+          </div>
+          <div class="feature-item">
+            <span class="i">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6">
+                <rect x="4" y="8" width="16" height="8" rx="2"></rect><path d="M8 8v-2h8v2"></path>
+              </svg>
+            </span>
+            <span class="label">Dining Area</span>
+          </div>
+          <div class="feature-item">
+            <span class="i">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6">
+                <rect x="6" y="4" width="12" height="16" rx="2"></rect><path d="M9 8h6M9 12h6M9 16h6"></path>
+              </svg>
+            </span>
+            <span class="label">Full-Length Mirror</span>
+          </div>
         </div>
       </div>
 
-      <div class="about-card" style="margin-top:18px">
-        Bayt Lili is a privately designed villa with an editorial, minimal aesthetic. Natural textures, soft light, and curated details make it a versatile backdrop for commercials, fashion, and lifestyle shoots — as well as intimate stays.
+      <div class="panel" style="margin-top:14px">
+        <div class="panel-head">Amenities</div>
+        <hr>
+        <div class="feature-grid">
+          <div class="feature-item"><span class="i"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><rect x="5" y="9" width="14" height="8" rx="2"></rect></svg></span><span class="label">Chairs</span></div>
+          <div class="feature-item"><span class="i"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><rect x="4" y="10" width="16" height="6" rx="3"></rect></svg></span><span class="label">Sofa</span></div>
+          <div class="feature-item"><span class="i"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><rect x="4" y="6" width="16" height="10" rx="1"></rect><path d="M8 18h8"></path></svg></span><span class="label">TV</span></div>
+          <div class="feature-item"><span class="i"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M4 12h16"></path><path d="M6 8h12M6 16h12"></path></svg></span><span class="label">Air Conditioning</span></div>
+          <div class="feature-item"><span class="i"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M4 6h16v12H4z"></path><path d="M8 10h8M8 14h8"></path></svg></span><span class="label">Wi-Fi</span></div>
+        </div>
+      </div>
+
+      <div class="panel" style="margin-top:14px">
+        <div class="panel-head">About</div>
+        <hr>
+        <p style="margin:0">
+          Bayt Lili is a privately designed villa with an editorial, minimal aesthetic. Natural textures, soft light, and curated details make it a versatile backdrop for commercials, fashion, and lifestyle shoots — as well as intimate stays.
+        </p>
       </div>
     </div>
   </section>
