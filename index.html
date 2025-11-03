@@ -8,19 +8,23 @@
   <meta name="robots" content="index,follow">
   <link rel="icon" type="image/png" href="assets/favicon.png" />
   <link rel="apple-touch-icon" href="assets/favicon.png" />
+
+  <!-- Social -->
   <meta property="og:title" content="Bayt Lili — Boutique Villa in Dubai for Filming & Stays">
   <meta property="og:description" content="Warm neutral tones, Mediterranean minimalism, easy access. Book Bayt Lili for your next shoot or stay.">
   <meta property="og:type" content="website">
   <meta property="og:url" content="https://baytlili.com/">
   <meta property="og:image" content="/assets/og-cover.jpg">
   <meta name="twitter:card" content="summary_large_image">
-  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@500;600;700&display=swap" rel="stylesheet">
 
+  <!-- Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@500;600;700&display=swap" rel="stylesheet">
   <style>
     :root{
       --text:#ffffff; --muted:#ededed; --line: rgba(255,255,255,.42);
-      --panel-bg:#0b0b0bcc; --panel-stroke: rgba(255,255,255,.14);
+      --panel-bg:#0b0b0bd9; --panel-stroke: rgba(255,255,255,.14);
       --header-h: 64px;
+      --btn-border: rgba(255,255,255,.7);
     }
     @font-face{
       font-family:'BaytLili';
@@ -36,7 +40,7 @@
       scroll-behavior:smooth;
     }
 
-    /* Background */
+    /* Background image + veil */
     body::before{
       content:""; position:fixed; inset:0;
       background:url('assets/bgpic.png') center 25%/cover no-repeat fixed; z-index:-2;
@@ -49,7 +53,7 @@
     .container{width:min(1200px,92vw);margin-inline:auto}
     .pad{padding:clamp(24px,4.5vw,64px) 0}
 
-    /* Sticky Header (opaque, non-overlapping) */
+    /* Sticky opaque header (no overlap) */
     header{
       position:sticky; top:0; z-index:50;
       background:#000000f0;
@@ -67,22 +71,20 @@
     .brand img{height:38px}
     .menu{display:flex;align-items:center;gap:20px}
     .menu a{
-      color:#fff;text-decoration:none;white-space:nowrap;
-      font-size:1rem; position:relative; padding:6px 2px;
+      color:#fff;text-decoration:none;white-space:nowrap;font-size:1rem; position:relative; padding:6px 2px;
     }
     .menu a::after{content:""; position:absolute; left:0; right:0; bottom:-4px; height:1px; background:transparent; transition:background .2s ease}
     .menu a:hover::after{background:rgba(255,255,255,.7)}
 
-    /* HERO — centered, Quick Booking inside hero directly under button */
+    /* HERO */
     .hero{
       min-height:calc(100vh - var(--header-h));
       display:flex; align-items:center; justify-content:center;
-      padding:0; /* no bottom gap */
+      padding:0;
     }
     .hero .text{
-      display:flex; flex-direction:column; gap:10px;
-      text-align:center; align-items:center; margin:0 auto;
-      max-width:980px;
+      display:flex; flex-direction:column; gap:12px;
+      text-align:center; align-items:center; margin:0 auto; max-width:980px;
     }
     .hero-title{
       margin:0; color:#fff; font-family:'BaytLili','Playfair Display',serif; font-weight:700;
@@ -94,53 +96,46 @@
       font-size:clamp(14px,1.2vw,22px);
       text-shadow:0 3px 8px rgba(0,0,0,.45);
     }
-    .book-btn{
-      display:inline-block; margin-top:4px;
-      background:transparent; color:#fff; border:1px solid rgba(255,255,255,.7);
-      border-radius:999px; padding:1.05em 3.2em;
-      text-decoration:none; font-weight:700; letter-spacing:.03em; font-size:1.18rem;
-    }
-    .book-btn:hover{ box-shadow:0 0 25px rgba(255,255,255,.18); }
 
-    /* Panel + Quick Booking */
-    .panel{
+    /* CTA card in hero (single action area) */
+    .cta{
+      margin-top:10px;
+      width:min(960px, 100%);
       background:var(--panel-bg);
       border:1px solid var(--panel-stroke);
       border-radius:18px;
+      padding:14px;
     }
-    .panel .panel-head{
-      display:flex; align-items:center; justify-content:space-between; gap:10px;
-      font-weight:700; color:#fff; font-size:1.02rem;
+    .cta-head{
+      font-weight:700; text-align:left; display:flex; justify-content:space-between; align-items:center; gap:10px;
     }
-    .panel hr{border:0; border-top:1px solid var(--panel-stroke); margin:8px 0}
-
-    .quick-panel{
-      margin-top:6px;     /* immediate under Book Now */
-      width:min(900px, 100%);
-      padding:12px;
-    }
-    .quick{
+    .cta-sub{color:#dcdcdc; font-weight:500; font-size:.98rem}
+    .cta-grid{
+      margin-top:10px;
       display:grid; gap:10px;
-      grid-template-columns: 1.1fr .9fr .9fr auto;
+      grid-template-columns: 1.2fr .9fr .9fr auto auto;
       align-items:end;
     }
-    .quick label{font-size:.95rem; opacity:.95; display:block; text-align:left}
-    .quick input, .quick select, .quick button{
+    .cta label{font-size:.95rem; opacity:.95; display:block; text-align:left}
+    .cta input, .cta select, .cta button, .cta a.btn{
       width:100%; padding:10px 12px; margin-top:4px;
       border-radius:12px; border:1px solid var(--panel-stroke);
       background:rgba(255,255,255,.96); color:#111; font-size:16px;
       font-family:'Playfair Display', serif; height:42px;
     }
-    .quick button{
-      background:transparent; color:#fff; border:1px solid rgba(255,255,255,.6);
-      height:42px; cursor:pointer; font-weight:700;
+    .btn{
+      display:inline-flex; align-items:center; justify-content:center; gap:.5em;
+      font-weight:700; letter-spacing:.02em; text-decoration:none;
+      border:1px solid var(--btn-border); background:transparent; color:#fff; height:42px;
     }
-    .quick button:hover{opacity:.92}
-    @media (max-width:900px){
-      .quick{ grid-template-columns:1fr; }
+    .btn:hover{opacity:.92}
+    .btn.secondary{border-color:rgba(255,255,255,.45)}
+    @media (max-width:1000px){
+      .cta-grid{ grid-template-columns:1fr 1fr; }
+      .cta-grid .span2{ grid-column:1 / -1; }
     }
 
-    /* Section headings */
+    /* Sections */
     section+section{border-top:1px solid rgba(255,255,255,.18)}
     h2{
       font-family:'BaytLili','Playfair Display',serif;
@@ -150,68 +145,39 @@
     }
     p{margin:0 0 12px; color:#ededed}
 
-    /* Features — flexible pills */
-    .feature-grid{
-      display:grid; gap:10px 12px;
-      grid-template-columns:repeat(auto-fit, minmax(220px, 1fr));
-    }
-    .feature-item{
-      display:flex; align-items:center; gap:10px; color:#fff;
-      padding:10px 12px; border:1px solid var(--panel-stroke);
-      border-radius:14px; background:rgba(255,255,255,.06);
-    }
-    .i{
-      width:28px; height:28px; border-radius:8px;
-      border:1px solid var(--panel-stroke);
-      display:flex; align-items:center; justify-content:center;
-      background:rgba(255,255,255,.08);
-      flex:0 0 28px;
-    }
+    /* Features */
+    .panel{ background:var(--panel-bg); border:1px solid var(--panel-stroke); border-radius:18px; }
+    .panel-head{display:flex;align-items:center;justify-content:space-between;gap:10px;font-weight:700;color:#fff;font-size:1.02rem}
+    .panel hr{border:0;border-top:1px solid var(--panel-stroke);margin:8px 0}
+    .feature-grid{ display:grid; gap:10px 12px; grid-template-columns:repeat(auto-fit, minmax(220px, 1fr)) }
+    .feature-item{ display:flex; align-items:center; gap:10px; color:#fff; padding:10px 12px; border:1px solid var(--panel-stroke); border-radius:14px; background:rgba(255,255,255,.06) }
+    .i{ width:28px; height:28px; border-radius:8px; border:1px solid var(--panel-stroke); display:flex; align-items:center; justify-content:center; background:rgba(255,255,255,.08); flex:0 0 28px }
     .i svg{ width:18px; height:18px; opacity:.9 }
     .label{font-weight:700; letter-spacing:.01em}
 
     /* Gallery */
     .gallery-row{display:flex; gap:12px; justify-content:space-between}
-    .card.small{
-      flex:0 0 31%;
-      border:1px solid rgba(255,255,255,.30);
-      border-radius:14px; overflow:hidden;
-      background:rgba(255,255,255,.10);
-      backdrop-filter:blur(3px);
-      aspect-ratio: 4 / 5;
-      display:flex;
-    }
-    .card.small img{ width:100%; height:100%; object-fit:cover; object-position:center; display:block; }
+    .card.small{ flex:0 0 31%; border:1px solid rgba(255,255,255,.30); border-radius:14px; overflow:hidden; background:rgba(255,255,255,.10); backdrop-filter:blur(3px); aspect-ratio: 4 / 5; display:flex }
+    .card.small img{ width:100%; height:100%; object-fit:cover; object-position:center; display:block }
 
     /* Logos */
     .logos{display:grid; grid-template-columns:repeat(5,1fr); gap:12px}
-    .logo{
-      border:1px solid rgba(255,255,255,.30); border-radius:14px;
-      background:rgba(255,255,255,.10);
-      min-height:90px; display:flex; align-items:center; justify-content:center; padding:14px;
-      backdrop-filter:blur(3px);
-    }
+    .logo{ border:1px solid rgba(255,255,255,.30); border-radius:14px; background:rgba(255,255,255,.10); min-height:90px; display:flex; align-items:center; justify-content:center; padding:14px; backdrop-filter:blur(3px) }
     .logo img{max-height:42px; width:auto}
 
-    footer{
-      border-top:1px solid rgba(255,255,255,.25);
-      padding:24px 0; color:#e9e9e9; background:rgba(0,0,0,.18); text-align:center;
-    }
+    footer{ border-top:1px solid rgba(255,255,255,.25); padding:24px 0; color:#e9e9e9; background:rgba(0,0,0,.18); text-align:center }
     footer a{color:#fff}
 
-    /* Mobile tweaks */
+    /* Mobile image position */
     @media (max-width:899.98px){
-      .brand{ font-size:1rem; letter-spacing:.10em; white-space:nowrap; }
-      body::before{ background-position:center 68%; }
-      .hero-title{ font-size:clamp(34px,11vw,56px); white-space:normal; }
-      .eyebrow{ font-size:clamp(14px,3.6vw,18px); letter-spacing:.2em; }
-      .gallery-row{ flex-direction:column; }
-      .logos{ grid-template-columns:repeat(2,1fr); }
-      .book-btn{ width:100%; text-align:center; }
+      .brand{ font-size:1rem; letter-spacing:.10em; white-space:nowrap }
+      body::before{ background-position:center 68% }
+      .hero-title{ font-size:clamp(34px,11vw,56px); white-space:normal }
+      .eyebrow{ font-size:clamp(14px,3.6vw,18px); letter-spacing:.2em }
+      .gallery-row{ flex-direction:column }
+      .logos{ grid-template-columns:repeat(2,1fr) }
     }
-    @media (min-width:900px){
-      body::before{ background-position:center 25%; }
-    }
+    @media (min-width:900px){ body::before{ background-position:center 25% } }
   </style>
 </head>
 <body>
@@ -233,19 +199,20 @@
     </div>
   </header>
 
-  <!-- Hero with Quick Booking inside -->
+  <!-- HERO with a single, clear CTA -->
   <main class="container hero" id="home">
     <div class="text">
       <h1 class="hero-title">BAYT LILI</h1>
       <div class="eyebrow">BOUTIQUE VILLA • FILMING • PHOTOSHOOTS • STAYS</div>
-      <a class="book-btn" href="booking.html" aria-label="Go to booking form">Book Now</a>
 
-      <!-- Quick Booking sits immediately under Book Now -->
-      <div class="panel quick-panel">
-        <div class="panel-head">Quick Booking</div>
-        <hr>
-        <div class="quick">
-          <label>Date
+      <!-- Single action area -->
+      <div class="cta">
+        <div class="cta-head">
+          <div>Looking for your next filming location?</div>
+          <div class="cta-sub">Get an instant estimate or chat with us.</div>
+        </div>
+        <div class="cta-grid">
+          <label class="span1">Date (optional)
             <input type="date" id="qbDate">
           </label>
           <label>From
@@ -254,7 +221,8 @@
           <label>To
             <select id="qbTo"></select>
           </label>
-          <button id="qbSearch" type="button">Search</button>
+          <a id="qbQuote" class="btn" href="#">Get Quote</a>
+          <a id="qbWA" class="btn secondary" href="#" target="_blank" rel="noopener">WhatsApp</a>
         </div>
       </div>
     </div>
@@ -268,58 +236,39 @@
         <hr>
         <div class="feature-grid">
           <div class="feature-item">
-            <span class="i">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M4 20V4m16 16V4M4 10h16M4 14h16"></path></svg>
-            </span>
+            <span class="i"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M4 20V4m16 16V4M4 10h16M4 14h16"></path></svg></span>
             <span class="label">Non-gated</span>
           </div>
           <div class="feature-item">
-            <span class="i">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><circle cx="12" cy="12" r="8"></circle><path d="M9 12l2 2 4-4"></path></svg>
-            </span>
+            <span class="i"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><circle cx="12" cy="12" r="8"></circle><path d="M9 12l2 2 4-4"></path></svg></span>
             <span class="label">No permits required</span>
           </div>
           <div class="feature-item">
-            <span class="i">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M12 3l3.3 6.7 7.4 1.1-5.3 5.2 1.3 7.3-6.7-3.5-6.7 3.5 1.3-7.3L1.3 10.8l7.4-1.1L12 3z"></path></svg>
-            </span>
+            <span class="i"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M12 3l3.3 6.7 7.4 1.1-5.3 5.2 1.3 7.3-6.7-3.5-6.7 3.5 1.3-7.3L1.3 10.8l7.4-1.1L12 3z"></path></svg></span>
             <span class="label">Exclusive booking</span>
           </div>
           <div class="feature-item">
-            <span class="i">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><rect x="4" y="4" width="16" height="16" rx="2"></rect><path d="M12 4v16M9 8h2M13 8h2"></path></svg>
-            </span>
+            <span class="i"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><rect x="4" y="4" width="16" height="16" rx="2"></rect><path d="M12 4v16M9 8h2M13 8h2"></path></svg></span>
             <span class="label">Dressing room</span>
           </div>
           <div class="feature-item">
-            <span class="i">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M12 13a5 5 0 1 0-5-5 5 5 0 0 0 5 5z"></path><path d="M12 13v7M7 20h10"></path></svg>
-            </span>
+            <span class="i"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M12 13a5 5 0 1 0-5-5 5 5 0 0 0 5 5z"></path><path d="M12 13v7M7 20h10"></path></svg></span>
             <span class="label">Back yard</span>
           </div>
           <div class="feature-item">
-            <span class="i">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M4 12c6-8 12-8 16 0-6 8-12 8-16 0z"></path></svg>
-            </span>
+            <span class="i"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M4 12c6-8 12-8 16 0-6 8-12 8-16 0z"></path></svg></span>
             <span class="label">Front yard</span>
           </div>
           <div class="feature-item">
-            <span class="i">
-              <!-- flexible grid icon -->
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M4 7h16M7 4v16M17 4v16M4 17h16"></path></svg>
-            </span>
+            <span class="i"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M4 7h16M7 4v16M17 4v16M4 17h16"></path></svg></span>
             <span class="label">Flexibility in design</span>
           </div>
           <div class="feature-item">
-            <span class="i">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M3 16c2-2 4-2 6 0s4 2 6 0 4-2 6 0"></path></svg>
-            </span>
+            <span class="i"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M3 16c2-2 4-2 6 0s4 2 6 0 4-2 6 0"></path></svg></span>
             <span class="label">Dipping pool</span>
           </div>
           <div class="feature-item">
-            <span class="i">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><rect x="3" y="8" width="18" height="10" rx="2"></rect><path d="M8 8V6h8v2"></path></svg>
-            </span>
+            <span class="i"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><rect x="3" y="8" width="18" height="10" rx="2"></rect><path d="M8 8V6h8v2"></path></svg></span>
             <span class="label">Chef’s kitchen island</span>
           </div>
         </div>
@@ -382,11 +331,13 @@
   <script>
     document.getElementById('y').textContent = new Date().getFullYear();
 
-    // ----- Quick Booking controls -----
+    // --------- Config
+    const WHATSAPP_NUMBER = '971501589628'; // no +
+    // --------- Build time selects (15-min steps). Ensure "To" is after "From".
     const selFrom = document.getElementById('qbFrom');
     const selTo   = document.getElementById('qbTo');
     function buildTimes(minExclusive = -1, selected=''){
-      const out = ['<option value="" disabled>Select time</option>'];
+      const out = ['<option value="">Select</option>'];
       for(let m=0;m<24*60;m+=15){
         if(m<=minExclusive) continue;
         const hh = String(Math.floor(m/60)).padStart(2,'0');
@@ -398,7 +349,6 @@
     }
     selFrom.innerHTML = buildTimes(-1);
     selTo.innerHTML   = buildTimes(-1);
-
     selFrom.addEventListener('change', ()=>{
       const min = selFrom.value ? (parseInt(selFrom.value.slice(0,2))*60 + parseInt(selFrom.value.slice(3))) : -1;
       selTo.innerHTML = buildTimes(min);
@@ -406,17 +356,28 @@
       if(firstValid) selTo.value = firstValid.value;
     });
 
-    document.getElementById('qbSearch').addEventListener('click', ()=>{
+    // Quote → send to booking.html with params
+    document.getElementById('qbQuote').addEventListener('click', (e)=>{
+      e.preventDefault();
+      const qs = new URLSearchParams();
       const d = document.getElementById('qbDate').value || '';
       const f = selFrom.value || '';
       const t = selTo.value || '';
-      const qs = new URLSearchParams();
       if(d) qs.set('date', d);
       if(f) qs.set('from', f);
       if(t) qs.set('to', t);
       qs.set('p','Filming');
       window.location.href = `booking.html?${qs.toString()}`;
     });
+
+    // WhatsApp CTA
+    const wa = document.getElementById('qbWA');
+    if(WHATSAPP_NUMBER && !WHATSAPP_NUMBER.includes('X')){
+      wa.href = `https://wa.me/${WHATSAPP_NUMBER}`;
+    } else {
+      wa.addEventListener('click', (e)=>{ e.preventDefault(); alert('Set your WhatsApp number in index.html'); });
+    }
   </script>
 </body>
 </html>
+
