@@ -23,12 +23,12 @@
   <style>
     :root{
       --text:#ffffff; --muted:#ededed; --line: rgba(255,255,255,.42);
-      --panel-bg: rgba(11,11,11,.58);        /* ✅ lighter / more see-through */
+      --panel-bg: rgba(11,11,11,.58);          /* semi-transparent */
       --panel-stroke: rgba(255,255,255,.14);
       --header-h: 64px;
       --btn-border: rgba(255,255,255,.7);
-      --control-h: 36px;                     /* ✅ thinner controls */
-      --radius: 10px;
+      --control-h: 30px;                       /* ✅ shorter controls */
+      --radius: 8px;
     }
     @font-face{
       font-family:'BaytLili';
@@ -101,42 +101,37 @@
       text-shadow:0 3px 8px rgba(0,0,0,.45);
     }
 
-    /* CTA card in hero (single action area) */
+    /* CTA card (only controls, no headline) */
     .cta{
-      margin-top:10px;
-      width:min(960px, 100%);
-      background:var(--panel-bg);          /* ✅ more transparent */
+      margin-top:8px;
+      width:min(900px, 100%);
+      background:var(--panel-bg);
       border:1px solid var(--panel-stroke);
-      border-radius:18px;
-      padding:12px;
-    }
-    .cta-head{
-      font-weight:700; text-align:left; display:flex; justify-content:space-between; align-items:center; gap:10px;
+      border-radius:14px;
+      padding:10px;
     }
     .cta-grid{
-      margin-top:8px;
       display:grid; gap:8px;
       grid-template-columns: 1.2fr .9fr .9fr auto auto;
       align-items:end;
     }
-    .cta label{font-size:.95rem; opacity:.95; display:block; text-align:left}
+    .cta label{font-size:.9rem; opacity:.95; display:block; text-align:left}
     .control{
-      width:100%; padding:7px 10px; margin-top:4px;      /* ✅ thinner padding */
+      width:100%; padding:4px 8px; margin-top:4px;        /* ✅ tighter padding */
       border-radius:var(--radius); border:1px solid var(--panel-stroke);
-      background:rgba(255,255,255,.96); color:#111; font-size:15px;
-      font-family:'Playfair Display', serif; height:var(--control-h); /* ✅ 36px tall */
+      background:rgba(255,255,255,.96); color:#111; font-size:14px;
+      font-family:'Playfair Display', serif; height:var(--control-h); /* 30px */
     }
     .btn{
       display:inline-flex; align-items:center; justify-content:center; gap:.5em;
       font-weight:700; letter-spacing:.02em; text-decoration:none;
       border:1px solid var(--btn-border); background:transparent; color:#fff; height:var(--control-h);
-      padding:0 14px; border-radius:var(--radius);
+      padding:0 12px; border-radius:var(--radius); font-size:14px;
     }
-    .btn:hover{opacity:.92}
     .btn.secondary{border-color:rgba(255,255,255,.45)}
+    .btn:hover{opacity:.92}
     @media (max-width:1000px){
       .cta-grid{ grid-template-columns:1fr 1fr; }
-      .span2{ grid-column:1 / -1; }
     }
 
     /* Sections */
@@ -202,15 +197,13 @@
     </div>
   </header>
 
-  <!-- HERO with a single, clear CTA -->
+  <!-- HERO with compact controls (no headline) -->
   <main class="container hero" id="home">
     <div class="text">
       <h1 class="hero-title">BAYT LILI</h1>
       <div class="eyebrow">BOUTIQUE VILLA • FILMING • PHOTOSHOOTS • STAYS</div>
 
-      <!-- Single action area -->
       <div class="cta">
-        <div class="cta-head">Looking for your next filming location?</div>
         <div class="cta-grid">
           <label>Date
             <input type="date" id="qbDate" class="control">
@@ -356,14 +349,12 @@
       if(firstValid) selTo.value = firstValid.value;
     });
 
-    // Quote → send to booking.html with params
+    // Quote → send to booking.html with params (require all fields)
     document.getElementById('qbQuote').addEventListener('click', (e)=>{
       e.preventDefault();
       const d = document.getElementById('qbDate').value || '';
       const f = selFrom.value || '';
       const t = selTo.value || '';
-
-      // ✅ Require all three
       if(!d || !f || !t){
         alert('Please select Date, From, and To.');
         return;
