@@ -211,4 +211,221 @@
       body::before{ background-position:center 68%; }
       .hero-title{ font-size:clamp(34px,11vw,56px); white-space:normal; }
       .eyebrow{ font-size:clamp(14px,3.6vw,18px); letter-spacing:.2em; }
-      .gallery-row{ flex-direction:column;
+      .gallery-row{ flex-direction:column; }
+      .logos{ grid-template-columns:repeat(2,1fr); }
+      .book-btn{ width:100%; text-align:center; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Header -->
+  <header>
+    <div class="container nav">
+      <a href="index.html" class="brand" aria-label="Bayt Lili — Home">
+        <img src="assets/bllogo.png" alt="Bayt Lili logo" />
+        BAYT LILI
+      </a>
+      <nav class="menu" aria-label="Primary">
+        <a href="index.html">Home</a>
+        <a href="booking.html">Booking</a>
+        <a href="#gallery">Gallery</a>
+        <a href="rates.html">Rates</a>
+        <a href="#contact">Contact</a>
+      </nav>
+    </div>
+  </header>
+
+  <!-- Hero (centered) -->
+  <main class="container hero" id="home">
+    <div class="text">
+      <h1 class="hero-title">BAYT LILI</h1>
+      <div class="eyebrow">BOUTIQUE VILLA • FILMING • PHOTOSHOOTS • STAYS</div>
+      <a class="book-btn" href="booking.html" aria-label="Go to booking form">Book Now</a>
+    </div>
+  </main>
+
+  <!-- Quick Booking (one line) -->
+  <section class="pad" id="quick">
+    <div class="container">
+      <div class="panel">
+        <div class="panel-head">Quick Booking</div>
+        <hr>
+        <div class="quick">
+          <label>Date
+            <input type="date" id="qbDate">
+          </label>
+          <label>From
+            <select id="qbFrom"></select>
+          </label>
+          <label>To
+            <select id="qbTo"></select>
+          </label>
+          <button id="qbSearch" type="button">Search</button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Features -->
+  <section id="about" class="pad">
+    <div class="container">
+      <div class="panel">
+        <div class="panel-head">Features</div>
+        <hr>
+        <div class="feature-grid">
+          <div class="feature-item">
+            <span class="i">
+              <!-- gate icon -->
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M4 20V4m16 16V4M4 10h16M4 14h16"></path></svg>
+            </span>
+            <span class="label">Non-gated</span>
+          </div>
+          <div class="feature-item">
+            <span class="i">
+              <!-- check/badge -->
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><circle cx="12" cy="12" r="8"></circle><path d="M9 12l2 2 4-4"></path></svg>
+            </span>
+            <span class="label">No permits required</span>
+          </div>
+          <div class="feature-item">
+            <span class="i">
+              <!-- star -->
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M12 3l3.3 6.7 7.4 1.1-5.3 5.2 1.3 7.3-6.7-3.5-6.7 3.5 1.3-7.3L1.3 10.8l7.4-1.1L12 3z"></path></svg>
+            </span>
+            <span class="label">Exclusive booking</span>
+          </div>
+          <div class="feature-item">
+            <span class="i">
+              <!-- wardrobe -->
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><rect x="4" y="4" width="16" height="16" rx="2"></rect><path d="M12 4v16M9 8h2M13 8h2"></path></svg>
+            </span>
+            <span class="label">Dressing room</span>
+          </div>
+          <div class="feature-item">
+            <span class="i">
+              <!-- tree/backyard -->
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M12 13a5 5 0 1 0-5-5 5 5 0 0 0 5 5z"></path><path d="M12 13v7M7 20h10"></path></svg>
+            </span>
+            <span class="label">Back yard</span>
+          </div>
+          <div class="feature-item">
+            <span class="i">
+              <!-- leaf/front yard -->
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M4 12c6-8 12-8 16 0-6 8-12 8-16 0z"></path></svg>
+            </span>
+            <span class="label">Front yard</span>
+          </div>
+          <div class="feature-item">
+            <span class="i">
+              <!-- pool -->
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M3 16c2-2 4-2 6 0s4 2 6 0 4-2 6 0"></path></svg>
+            </span>
+            <span class="label">Dipping pool</span>
+          </div>
+          <div class="feature-item">
+            <span class="i">
+              <!-- kitchen island -->
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><rect x="3" y="8" width="18" height="10" rx="2"></rect><path d="M8 8V6h8v2"></path></svg>
+            </span>
+            <span class="label">Chef’s kitchen island</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="panel" style="margin-top:14px">
+        <div class="panel-head">About</div>
+        <hr>
+        <p style="margin:0">
+          Bayt Lili is a privately designed villa with an editorial, minimal aesthetic. Natural textures, soft light, and curated details make it a versatile backdrop for commercials, fashion, and lifestyle shoots — as well as intimate stays.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Gallery -->
+  <section id="gallery" class="pad">
+    <div class="container">
+      <h2>Gallery</h2>
+      <div class="gallery-row" style="margin-top:14px">
+        <div class="card small"><img src="assets/1.png" alt="Sunlit living room" loading="lazy" /></div>
+        <div class="card small"><img src="assets/2.png" alt="Minimal dining" loading="lazy" /></div>
+        <div class="card small"><img src="assets/5.png" alt="Lush garden" loading="lazy" /></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Selected Work -->
+  <section id="clients" class="pad">
+    <div class="container">
+      <h2>Selected Work</h2>
+      <div class="logos" style="margin-top:14px">
+        <div class="logo" data-name="Sephora"><img src="assets/logos/sephora.png" alt="Sephora"/></div>
+        <div class="logo" data-name="The Body Shop"><img src="assets/logos/body-shop.png" alt="The Body Shop"/></div>
+        <div class="logo" data-name="Brands For Less"><img src="assets/logos/brands-for-less.png" alt="Brands For Less"/></div>
+        <div class="logo" data-name="Fuel Up"><img src="assets/logos/fuel-up.png" alt="Fuel Up"/></div>
+        <div class="logo" data-name="Kcal"><img src="assets/logos/kcal.png" alt="Kcal"/></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Contact -->
+  <section id="contact" class="pad">
+    <div class="container">
+      <h2>Book Bayt Lili</h2>
+      <p>For filming, photoshoots, or stays, use our booking form or reach out via Instagram.</p>
+      <div style="display:flex;gap:14px;flex-wrap:wrap;margin-top:8px; color:#fff">
+        <a href="https://instagram.com/baytlili" target="_blank" rel="noopener" aria-label="Message on Instagram">Instagram</a>
+        <span>·</span>
+        <a href="booking.html" aria-label="Open booking form">Booking Form</a>
+      </div>
+      <p class="kicker" style="margin-top:10px; color:#eaeaea">Location: Dubai, UAE · Non-gated · No permit needed for entry.</p>
+    </div>
+  </section>
+
+  <footer>
+    © <span id="y"></span> Bayt Lili. All rights reserved. · <a href="https://instagram.com/baytlili" target="_blank" rel="noopener">@baytlili</a>
+  </footer>
+
+  <script>
+    document.getElementById('y').textContent = new Date().getFullYear();
+
+    // ----- Quick Booking controls -----
+    const selFrom = document.getElementById('qbFrom');
+    const selTo   = document.getElementById('qbTo');
+    function buildTimes(minExclusive = -1, selected=''){
+      const out = ['<option value="" disabled>Select time</option>'];
+      for(let m=0;m<24*60;m+=15){
+        if(m<=minExclusive) continue;
+        const hh = String(Math.floor(m/60)).padStart(2,'0');
+        const mm = String(m%60).padStart(2,'0');
+        const val = `${hh}:${mm}`;
+        out.push(`<option value="${val}"${val===selected?' selected':''}>${val}</option>`);
+      }
+      return out.join('');
+    }
+    selFrom.innerHTML = buildTimes(-1);
+    selTo.innerHTML   = buildTimes(-1);
+
+    selFrom.addEventListener('change', ()=>{
+      const min = selFrom.value ? (parseInt(selFrom.value.slice(0,2))*60 + parseInt(selFrom.value.slice(3))) : -1;
+      selTo.innerHTML = buildTimes(min);
+      const firstValid = selTo.querySelector('option[value]:not([value=""])');
+      if(firstValid) selTo.value = firstValid.value;
+    });
+
+    document.getElementById('qbSearch').addEventListener('click', ()=>{
+      const d = document.getElementById('qbDate').value || '';
+      const f = selFrom.value || '';
+      const t = selTo.value || '';
+      // pass to booking page as query params; p=Filming to preselect filming path
+      const qs = new URLSearchParams();
+      if(d) qs.set('date', d);
+      if(f) qs.set('from', f);
+      if(t) qs.set('to', t);
+      qs.set('p','Filming');
+      window.location.href = `booking.html?${qs.toString()}`;
+    });
+  </script>
+</body>
+</html>
