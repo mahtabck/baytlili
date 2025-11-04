@@ -17,8 +17,8 @@
   <meta property="og:image" content="/assets/og-cover.jpg">
   <meta name="twitter:card" content="summary_large_image">
 
-  <!-- Fonts -->
-  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700;800&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <!-- Fonts: Headings keep Playfair; UI uses Plus Jakarta Sans (elegant, legible) -->
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700;800&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
 
   <style>
     :root{
@@ -29,12 +29,12 @@
       --panel-stroke: rgba(255,255,255,.14);
       --header-h: 56px;
       --btn-border: rgba(255,255,255,.7);
-      --control-h: 34px;           /* a touch taller for legibility */
+      --control-h: 34px;
       --radius: 10px;
       --warm-white: #f8f3ec;
       --cta-w: 900px;
-      --rate: 300;                 /* AED per hour */
-      --min-hours: 6;              /* Minimum billable hours */
+      --rate: 300;       /* AED per hour */
+      --min-hours: 6;    /* minimum billable hours */
     }
 
     @font-face{
@@ -50,7 +50,7 @@
       margin:0;
       color:var(--text);
       line-height:1.45;
-      font-family:'Playfair Display', serif; /* headings only; UI uses Inter below */
+      font-family:'Playfair Display', serif; /* headings; UI elements override below */
       -webkit-font-smoothing:antialiased;
       -moz-osx-font-smoothing:grayscale;
       scroll-behavior:smooth;
@@ -92,11 +92,12 @@
       text-decoration:none;
     }
     .brand img{height:34px}
+
     .menu{display:flex;align-items:center;gap:20px}
     .menu a{
-      color:#fff;text-decoration:none;white-space:nowrap;font-size:1rem; position:relative; padding:6px 2px;
-      font-family:'Inter', system-ui, -apple-system, Segoe UI, Roboto, sans-serif;
-      font-weight:600;
+      color:#fff;text-decoration:none;white-space:nowrap; position:relative; padding:6px 2px;
+      font-family:'Plus Jakarta Sans',system-ui,-apple-system,Segoe UI,Roboto,sans-serif;
+      font-weight:600; font-size:.98rem; letter-spacing:.02em;
     }
     .menu a::after{content:""; position:absolute; left:0; right:0; bottom:-4px; height:1px; background:transparent; transition:background .2s ease}
     .menu a:hover::after{background:rgba(255,255,255,.7)}
@@ -112,7 +113,10 @@
       width:min(35vw, 300px);
       background:#000000f2; border:1px solid rgba(255,255,255,.2); border-radius:10px; overflow:hidden
     }
-    .mobile-menu a{ display:block; padding:12px 14px; color:#fff; text-decoration:none; border-bottom:1px solid rgba(255,255,255,.08); font-family:'Inter',system-ui,sans-serif; font-weight:600 }
+    .mobile-menu a{
+      display:block; padding:12px 14px; color:#fff; text-decoration:none; border-bottom:1px solid rgba(255,255,255,.08);
+      font-family:'Plus Jakarta Sans',system-ui,sans-serif; font-weight:600
+    }
     .mobile-menu a:last-child{ border-bottom:none }
 
     /* HERO */
@@ -129,11 +133,11 @@
       font-weight:800; font-size:clamp(15px,1.8vw,25px); text-shadow:0 4px 10px rgba(0,0,0,.65);
     }
 
-    /* CTA (uses Inter for max legibility) */
+    /* CTA (UI uses Plus Jakarta Sans) */
     .cta{
       margin-top:8px; width:min(var(--cta-w), 100%);
       background:var(--panel-bg); border:1px solid var(--panel-stroke); border-radius:14px; padding:12px; overflow:hidden;
-      font-family:'Inter', system-ui, -apple-system, Segoe UI, Roboto, sans-serif;
+      font-family:'Plus Jakarta Sans',system-ui,-apple-system,Segoe UI,Roboto,sans-serif;
     }
     .cta-grid{
       display:grid; gap:10px;
@@ -142,22 +146,23 @@
     }
     .cta label{
       font-size:.95rem; opacity:.98; display:block; text-align:left; min-width:0; font-weight:600;
+      letter-spacing:.01em;
     }
     .control{
-      width:100%; max-width:100%; padding:8px 10px; margin-top:6px;
+      width:100%; max-width:100%; padding:8px 12px; margin-top:6px;
       border-radius:var(--radius); border:1px solid var(--panel-stroke);
       background:rgba(255,255,255,.98); color:#111; font-size:15px;
-      font-family:'Inter', system-ui, -apple-system, Segoe UI, Roboto, sans-serif;
+      font-family:'Plus Jakarta Sans',system-ui,-apple-system,Segoe UI,Roboto,sans-serif;
       height:var(--control-h); box-sizing:border-box;
     }
     .control[type="date"]{ -webkit-appearance:none; appearance:none; } /* iOS overflow fix */
 
     .btn{
-      display:inline-flex; align-items:center; justify-content:center; gap:.5em;
-      font-weight:700; letter-spacing:.02em; text-decoration:none;
+      display:inline-flex; align-items:center; justify-content:center; gap:.55em;
+      font-weight:700; letter-spacing:.015em; text-decoration:none;
       border:1px solid var(--btn-border); background:transparent; color:#fff; height:var(--control-h);
-      padding:0 14px; border-radius:var(--radius); font-size:15px;
-      font-family:'Inter', system-ui, -apple-system, Segoe UI, Roboto, sans-serif;
+      padding:0 16px; border-radius:var(--radius); font-size:15px;
+      font-family:'Plus Jakarta Sans',system-ui,-apple-system,Segoe UI,Roboto,sans-serif;
     }
     .btn.secondary{border-color:rgba(255,255,255,.45)}
     .btn:hover{opacity:.92}
@@ -183,7 +188,7 @@
     .feature-grid{ display:grid; gap:10px 12px; grid-template-columns:repeat(auto-fit, minmax(220px, 1fr)) }
     .feature-item{ display:flex; align-items:center; gap:10px; color:#fff; padding:10px 12px; border:1px solid var(--panel-stroke); border-radius:14px; background:rgba(255,255,255,.06) }
     .icon{ width:22px; height:22px; display:inline-flex; align-items:center; justify-content:center; }
-    .label{font-weight:700; letter-spacing:.01em; font-family:'Inter',system-ui,sans-serif}
+    .label{font-weight:700; letter-spacing:.01em; font-family:'Plus Jakarta Sans',system-ui,sans-serif}
 
     /* Gallery */
     .gallery-row{display:flex; gap:12px; justify-content:space-between}
@@ -223,7 +228,7 @@
       .is-touch .logos{ grid-template-columns:repeat(2,1fr) }
     }
 
-    /* ===== Quote Modal (uses Inter) ===== */
+    /* ===== Quote Modal (uses Plus Jakarta Sans) ===== */
     .modal-backdrop{
       position:fixed; inset:0; background:rgba(0,0,0,.55);
       display:none; align-items:center; justify-content:center; z-index:70;
@@ -232,7 +237,7 @@
       width:min(560px, 92vw); background:rgba(20,20,20,.96);
       border:1px solid rgba(255,255,255,.18); border-radius:16px; padding:18px;
       box-shadow:0 30px 80px rgba(0,0,0,.5);
-      font-family:'Inter', system-ui, -apple-system, Segoe UI, Roboto, sans-serif;
+      font-family:'Plus Jakarta Sans',system-ui,-apple-system,Segoe UI,Roboto,sans-serif;
     }
     .modal h3{ margin:0 0 8px; font-size:1.3rem; font-family:'Playfair Display',serif; }
     .modal p{ margin:6px 0; color:#f1f1f1 }
@@ -561,8 +566,8 @@
       return isNaN(v) ? fallback : v;
     }
     function formatHours(mins){
-      const hours = Math.round((mins/60) * 4)/4; // 0.25 hr steps
-      return hours;
+      const h = Math.round((mins/60) * 4)/4; // 0.25 hr steps
+      return h;
     }
     function hoursLabel(h){
       return (Math.round(h*100)/100).toString().replace(/\.00?$/,'') + ' hr' + (h===1?'':'s');
@@ -571,7 +576,7 @@
       return new Intl.NumberFormat('en-AE', { style:'currency', currency:'AED', maximumFractionDigits:2 }).format(amount);
     }
 
-    // ----- Get Instant Quote (shows modal with min-hours logic) -----
+    // ----- Get Instant Quote (min-hours logic) -----
     document.getElementById('qbQuote').addEventListener('click', (e)=>{
       e.preventDefault();
       const params = collectQBParams(false);
@@ -581,8 +586,8 @@
       const minHours = cssNumber('--min-hours', 6);
       const fMin = minutes(params.from);
       const tMin = minutes(params.to);
-      const selectedH = formatHours(tMin - fMin);          // actual selected
-      const billableH = Math.max(selectedH, minHours);     // enforce minimum
+      const selectedH = formatHours(tMin - fMin);
+      const billableH = Math.max(selectedH, minHours);
       const total = billableH * rate;
 
       quoteBody.innerHTML = `
@@ -594,18 +599,15 @@
         <div class="row"><span>Billable Hours</span><span>${hoursLabel(billableH)}</span></div>
         <div class="row total"><span>Total (@ AED ${rate}/hr)</span><span>${formatAED(total)}</span></div>
       `;
-
-      // Show note only if minimum applies
       minNote.style.display = (selectedH < minHours) ? 'block' : 'none';
 
-      // Proceed link with prefill (date optional)
       const qs = new URLSearchParams(params);
       quoteProceed.href = `booking.html?${qs.toString()}`;
 
       openModal();
     });
 
-    // ----- Request to Book (navigates, prefilled; date optional) -----
+    // ----- Request to Book (prefilled; date optional) -----
     document.getElementById('qbBook').addEventListener('click', (e)=>{
       e.preventDefault();
       const params = collectQBParams(false);
@@ -615,13 +617,12 @@
       window.location.href = `booking.html?${qs.toString()}`;
     });
 
-    // ----- WhatsApp quick link placeholder (kept if needed later) -----
+    // WhatsApp quick link placeholder (kept for future)
     const WHATSAPP_NUMBER = '971501589628';
-    const wa = document.getElementById('qbWA'); // not visible now, for future reuse
+    const wa = document.getElementById('qbWA');
     if(wa && WHATSAPP_NUMBER && !WHATSAPP_NUMBER.includes('X')){
       wa.href = `https://wa.me/${WHATSAPP_NUMBER}`;
     }
   </script>
 </body>
 </html>
-
