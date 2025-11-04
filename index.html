@@ -55,7 +55,7 @@
     }
 
     /* ===== DESKTOP (default) ===== */
-    /* Background image + veil — keep cover, shift down a bit to show pool */
+    /* Background image + veil — keep cover, shift down a bit (30%) to show more pool */
     body::before{
       content:"";
       position:fixed;
@@ -414,17 +414,56 @@
     // Footer year
     document.getElementById('y').textContent = new Date().getFullYear();
 
-    // ----- Mobile menu: clone desktop links -----
+    // ----- Mobile menu -----
     (function(){
       const btn = document.querySelector('.hamburger');
       const mobile = document.getElementById('mobileMenu');
       const desktop = document.querySelector('.menu');
+
+      function closeMenu(){
+        if(mobile.style.display === 'block'){
+          mobile.style.display = 'none';
+          btn.setAttribute('aria-expanded', 'false');
+        }
+      }
+
+      function openMenu(){
+        mobile.style.display = 'block';
+        btn.setAttribute('aria-expanded', 'true');
+      }
+
       if(btn && mobile && desktop){
-        mobile.innerHTML = desktop.innerHTML; // copy links
-        btn.addEventListener('click', ()=>{
+        // Clone desktop links into mobile menu
+        mobile.innerHTML = desktop.innerHTML;
+
+        // Toggle on button click
+        btn.addEventListener('click', (e)=>{
+          e.stopPropagation();
           const open = mobile.style.display === 'block';
-          mobile.style.display = open ? 'none' : 'block';
-          btn.setAttribute('aria-expanded', String(!open));
+          if(open){ closeMenu(); } else { openMenu(); }
+        });
+
+        // Close when clicking any mobile link
+        mobile.addEventListener('click', (e)=>{
+          const target = e.target;
+          if(target.tagName === 'A'){ closeMenu(); }
+        });
+
+        // Close when clicking outside
+        document.addEventListener('click', (e)=>{
+          const withinHeader = e.target.closest('header');
+          const withinMenu = e.target.closest('#mobileMenu');
+          if(!withinHeader && !withinMenu){ closeMenu(); }
+        });
+
+        // Close on Escape key
+        document.addEventListener('keydown', (e)=>{
+          if(e.key === 'Escape'){ closeMenu(); }
+        });
+
+        // Close if resizing above mobile breakpoint
+        window.addEventListener('resize', ()=>{
+          if(window.innerWidth > 900){ closeMenu(); }
         });
       }
     })();
