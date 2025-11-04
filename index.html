@@ -54,12 +54,14 @@
       scroll-behavior:smooth;
     }
 
-    /* Background image + veil (desktop defaults preserved) */
+    /* ===== DESKTOP (default) ===== */
+    /* Background image + veil */
     body::before{
       content:"";
       position:fixed;
       inset:0;
-      background:url('assets/bgpic.png') center 25%/cover no-repeat fixed;
+      /* Shifted a bit down so the pool shows more on desktop */
+      background:url('assets/bgpic.png') center 45%/cover no-repeat fixed;
       z-index:-2;
     }
     body::after{
@@ -74,7 +76,7 @@
     .container{width:min(1200px,92vw);margin-inline:auto}
     .pad{padding:clamp(24px,4.5vw,64px) 0}
 
-    /* Header (desktop preserved) */
+    /* Header */
     header{
       position:sticky; top:0; z-index:50;
       background:#000000f0;
@@ -97,10 +99,16 @@
     .menu a::after{content:""; position:absolute; left:0; right:0; bottom:-4px; height:1px; background:transparent; transition:background .2s ease}
     .menu a:hover::after{background:rgba(255,255,255,.7)}
 
-    /* Mobile hamburger pieces (hidden on desktop) */
-    .hamburger{ display:none; background:transparent; border:1px solid rgba(255,255,255,.35); height:36px; width:44px; border-radius:8px; align-items:center; justify-content:center; gap:4px; }
+    /* Hamburger (hidden on desktop, used on mobile) */
+    .hamburger{
+      display:none; background:transparent; border:1px solid rgba(255,255,255,.35);
+      height:36px; width:44px; border-radius:8px; align-items:center; justify-content:center; gap:4px;
+    }
     .hamburger span{ display:block; width:20px; height:2px; background:#fff }
-    .mobile-menu{ display:none; position:absolute; top:calc(var(--header-h)); left:12px; right:12px; background:#000000f2; border:1px solid rgba(255,255,255,.2); border-radius:10px; overflow:hidden }
+    .mobile-menu{
+      display:none; position:absolute; top:calc(var(--header-h)); left:12px; right:12px;
+      background:#000000f2; border:1px solid rgba(255,255,255,.2); border-radius:10px; overflow:hidden
+    }
     .mobile-menu a{ display:block; padding:12px 14px; color:#fff; text-decoration:none; border-bottom:1px solid rgba(255,255,255,.08) }
     .mobile-menu a:last-child{ border-bottom:none }
 
@@ -201,12 +209,12 @@
     footer{ border-top:1px solid rgba(255,255,255,.25); padding:24px 0; color:#e9e9e9; background:rgba(0,0,0,.18); text-align:center }
     footer a{color:#fff}
 
-    /* ---------- MOBILE ONLY (≤ 900px) ---------- */
+    /* ===== MOBILE-ONLY (≤900px) – desktop stays untouched ===== */
     @media (max-width:899.98px){
-      /* Mobile hero: zoom OUT without touching desktop */
+      /* Mobile hero: zoom OUT & avoid iOS fixed issues */
       body::before{
         background-position: center top !important;
-        background-size: auto 100% !important;  /* show full height; less zoomed */
+        background-size: auto 100% !important;  /* show full height, less zoomed */
         background-repeat: no-repeat !important;
         background-attachment: scroll !important; /* iOS-friendly */
       }
