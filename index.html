@@ -47,41 +47,34 @@
     *,*::before,*::after{box-sizing:border-box}
     html,body{height:100%}
     body{
-      margin:0;
-      color:var(--text);
-      line-height:1.45;
-      font-family:'Playfair Display', serif; /* headings default */
-      -webkit-font-smoothing:antialiased;
-      -moz-osx-font-smoothing:grayscale;
+      margin:0; color:var(--text); line-height:1.45;
+      font-family:'Playfair Display', serif;
+      -webkit-font-smoothing:antialiased; -moz-osx-font-smoothing:grayscale;
       scroll-behavior:smooth;
     }
 
-    /* Background (desktop) */
+    /* Desktop background */
     body::before{
-      content:"";
-      position:fixed; inset:0;
+      content:""; position:fixed; inset:0;
       background:url('assets/bgpic.png') center 30%/cover no-repeat fixed;
       z-index:-2;
     }
-    body::after{
-      content:""; position:fixed; inset:0;
-      background:rgba(0,0,0,0.24); z-index:-1; pointer-events:none;
-    }
+    body::after{ content:""; position:fixed; inset:0; background:rgba(0,0,0,0.24); z-index:-1; pointer-events:none; }
 
     .container{width:min(1200px,92vw);margin-inline:auto}
     .pad{padding:clamp(24px,4.5vw,64px) 0}
 
     /* Header */
     header{
-      position:sticky; top:0; z-index:50;
-      background:#000000f0; border-bottom:1px solid rgba(255,255,255,0.2);
-      min-height:var(--header-h); backdrop-filter:saturate(1.1) blur(6px);
+      position:sticky; top:0; z-index:50; background:#000000f0;
+      border-bottom:1px solid rgba(255,255,255,0.2); min-height:var(--header-h);
+      backdrop-filter:saturate(1.1) blur(6px);
     }
     .nav{display:flex;align-items:center;justify-content:space-between;gap:16px;padding:8px 0}
     .brand{
       display:flex;align-items:center;gap:10px;color:#fff;
-      font-family:'BaytLili','Playfair Display',serif;
-      letter-spacing:.12em;font-variant:small-caps;white-space:nowrap;text-decoration:none;
+      font-family:'BaytLili','Playfair Display',serif; letter-spacing:.12em;font-variant:small-caps;white-space:nowrap;
+      text-decoration:none;
     }
     .brand img{height:34px}
 
@@ -89,7 +82,7 @@
     .menu a{
       color:#fff;text-decoration:none;white-space:nowrap; position:relative; padding:6px 2px;
       font-family:'Plus Jakarta Sans',system-ui,-apple-system,Segoe UI,Roboto,sans-serif;
-      font-weight:600; font-size:.98rem; letter-spacing:.02em;
+      font-weight:600; font-size:.95rem; letter-spacing:.02em;
     }
     .menu a::after{content:""; position:absolute; left:0; right:0; bottom:-4px; height:1px; background:transparent; transition:background .2s ease}
     .menu a:hover::after{background:rgba(255,255,255,.7)}
@@ -114,47 +107,51 @@
       text-shadow:0 3px 10px rgba(0,0,0,.35); font-size:clamp(40px,5.6vw,92px); line-height:1.02; letter-spacing:.08em;
     }
     .eyebrow-wrap{ width:min(var(--cta-w), 100%); margin-inline:auto; }
-    .eyebrow{
-      color:var(--warm-white); letter-spacing:.18em; text-transform:uppercase;
-      font-weight:800; font-size:clamp(15px,1.8vw,25px); text-shadow:0 4px 10px rgba(0,0,0,.65);
-    }
+    .eyebrow{ color:var(--warm-white); letter-spacing:.18em; text-transform:uppercase; font-weight:800; font-size:clamp(15px,1.8vw,25px); text-shadow:0 4px 10px rgba(0,0,0,.65); }
 
-    /* ===== QUICK BOOKING (mixed fonts) ===== */
-    .cta{
-      margin-top:8px; width:min(var(--cta-w), 100%);
-      background:var(--panel-bg); border:1px solid var(--panel-stroke); border-radius:14px; padding:12px; overflow:hidden;
-    }
+    /* QUICK BOOKING */
+    .cta{ margin-top:8px; width:min(var(--cta-w), 100%); background:var(--panel-bg); border:1px solid var(--panel-stroke); border-radius:14px; padding:12px; overflow:hidden; }
     .cta-grid{
       display:grid; gap:10px;
-      grid-template-columns: 1fr 1fr 1fr 1fr auto auto; /* Phone, Date, From, To, buttons */
-      align-items:end; grid-auto-rows:auto;
+      grid-template-columns: 1fr 1fr 1fr 1fr auto auto;
+      grid-template-areas: "phone date from to quote book";
+      align-items:end;
     }
-    /* Titles/labels in SERIF */
+    /* labels (serif) */
     .cta label{
-      font-family:'Playfair Display',serif;  /* ← serif for titles */
-      font-size:.98rem; letter-spacing:.01em; opacity:.98; display:block; text-align:left; min-width:0; font-weight:700;
+      font-family:'Playfair Display',serif; font-size:.96rem; font-weight:700;
+      letter-spacing:.01em; opacity:.98; display:block; text-align:left; min-width:0;
+      white-space:nowrap; /* prevent Phone Number from breaking */
     }
-    /* Inputs/selects/buttons in Plus Jakarta Sans */
+    /* controls/buttons (Plus Jakarta Sans) */
     .control{
       width:100%; max-width:100%; padding:8px 12px; margin-top:6px;
       border-radius:var(--radius); border:1px solid var(--panel-stroke);
       background:rgba(255,255,255,.98); color:#111; font-size:15px;
-      font-family:'Plus Jakarta Sans',system-ui,-apple-system,Segoe UI,Roboto,sans-serif; /* ← sans for fields */
-      height:var(--control-h); box-sizing:border-box;
+      font-family:'Plus Jakarta Sans',system-ui,-apple-system,Segoe UI,Roboto,sans-serif;
+      height:var(--control-h);
     }
     .control[type="date"]{ -webkit-appearance:none; appearance:none; }
 
     .btn{
-      display:inline-flex; align-items:center; justify-content:center; gap:.55em;
-      font-weight:700; letter-spacing:.015em; text-decoration:none;
+      display:inline-flex; align-items:center; justify-content:center; gap:.45em;
+      font-weight:700; letter-spacing:.015em; text-decoration:none; white-space:nowrap;
       border:1px solid var(--btn-border); background:transparent; color:#fff; height:var(--control-h);
-      padding:0 16px; border-radius:var(--radius); font-size:15px;
-      font-family:'Plus Jakarta Sans',system-ui,-apple-system,Segoe UI,Roboto,sans-serif; /* ← sans for buttons */
+      padding:0 12px; border-radius:var(--radius); font-size:14px; /* smaller text */
+      font-family:'Plus Jakarta Sans',system-ui,-apple-system,Segoe UI,Roboto,sans-serif;
     }
     .btn.secondary{border-color:rgba(255,255,255,.45)}
     .btn:hover{opacity:.92}
 
-    /* Floating WhatsApp */
+    /* map grid items to areas */
+    .field.phone{ grid-area: phone; }
+    .field.date{ grid-area: date; }
+    .field.from{ grid-area: from; }
+    .field.to{ grid-area: to; }
+    .btn.quote{ grid-area: quote; }
+    .btn.book{ grid-area: book; }
+
+    /* FLOATING WHATSAPP */
     .wa-float{
       position:fixed; right:16px; bottom:16px; width:56px; height:56px; border-radius:50%;
       background:#25D366; display:flex; align-items:center; justify-content:center;
@@ -162,12 +159,11 @@
     }
     .wa-float svg{ width:28px; height:28px; fill:#fff; display:block }
 
-    /* Sections */
+    /* Sections & features */
     section+section{border-top:1px solid rgba(255,255,255,.18)}
     h2{ font-family:'BaytLili','Playfair Display',serif; font-size:clamp(24px,3.5vw,36px); margin:0 0 12px; scroll-margin-top: calc(var(--header-h) + 12px); }
     p{margin:0 0 12px; color:#ededed}
 
-    /* Features */
     .panel{ background:var(--panel-bg); border:1px solid var(--panel-stroke); border-radius:18px; }
     .panel-head{display:flex;align-items:center;justify-content:space-between;gap:10px;font-weight:700;color:#fff;font-size:1.02rem}
     .panel hr{border:0;border-top:1px solid var(--panel-stroke);margin:8px 0}
@@ -176,12 +172,10 @@
     .icon{ width:22px; height:22px; display:inline-flex; align-items:center; justify-content:center; }
     .label{font-weight:700; letter-spacing:.01em; font-family:'Plus Jakarta Sans',system-ui,sans-serif}
 
-    /* Gallery */
     .gallery-row{display:flex; gap:12px; justify-content:space-between}
     .card.small{ flex:0 0 31%; border:1px solid rgba(255,255,255,.30); border-radius:14px; overflow:hidden; background:rgba(255,255,255,.10); backdrop-filter:blur(3px); aspect-ratio: 4 / 5; display:flex }
     .card.small img{ width:100%; height:100%; object-fit:cover; object-position:center; display:block }
 
-    /* Logos */
     .logos{display:grid; grid-template-columns:repeat(5,1fr); gap:12px}
     .logo{ border:1px solid rgba(255,255,255,.30); border-radius:14px; background:rgba(255,255,255,.10); min-height:90px; display:flex; align-items:center; justify-content:center; padding:14px; backdrop-filter:blur(3px) }
     .logo img{max-height:42px; width:auto}
@@ -189,7 +183,17 @@
     footer{ border-top:1px solid rgba(255,255,255,.25); padding:24px 0; color:#e9e9e9; background:rgba(0,0,0,.18); text-align:center }
     footer a{color:#fff}
 
-    /* Mobile tweaks */
+    /* ===== Narrow laptop/tablet (wrap grid to two rows) ===== */
+    @media (max-width:1100px) and (min-width:900px){
+      .cta-grid{
+        grid-template-columns: 1fr 1fr 1fr;
+        grid-template-areas:
+          "phone date quote"
+          "from  to   book";
+      }
+    }
+
+    /* ===== Mobile tweaks ===== */
     @media (max-width:899.98px){
       .menu{ display:none; }
       .hamburger{ display:inline-flex; flex-direction:column; align-items:center; justify-content:center; width:34px; height:30px; gap:4px; }
@@ -201,11 +205,19 @@
         background-repeat:no-repeat !important;
         background-attachment:scroll !important;
       }
-      .is-touch .cta-grid{ grid-template-columns:1fr 1fr; gap:12px; }
-      .is-touch .control{ height:38px; font-size:16px; }
-      .is-touch .cta .btn{ width:100%; }
-      .is-touch .gallery-row{ flex-direction:column }
-      .is-touch .logos{ grid-template-columns:repeat(2,1fr) }
+
+      .cta-grid{
+        grid-template-columns:1fr 1fr;
+        grid-template-areas:
+          "phone phone"
+          "date  date"
+          "from  to"
+          "quote book";
+      }
+      .control{ height:38px; font-size:16px; }
+      .cta .btn{ width:100%; }
+      .gallery-row{ flex-direction:column }
+      .logos{ grid-template-columns:repeat(2,1fr) }
     }
 
     /* Quote Modal */
@@ -258,20 +270,20 @@
 
       <div class="cta">
         <div class="cta-grid">
-          <label>Phone Number
+          <label class="field phone">Phone Number
             <input type="tel" id="qbPhone" class="control" placeholder="971XXXXXXXXX" inputmode="numeric" pattern="^971\\d{9}$" />
           </label>
-          <label>Date
+          <label class="field date">Date
             <input type="date" id="qbDate" class="control">
           </label>
-          <label>From
+          <label class="field from">From
             <select id="qbFrom" class="control"></select>
           </label>
-          <label>To
+          <label class="field to">To
             <select id="qbTo" class="control"></select>
           </label>
-          <a id="qbQuote" class="btn" href="#">Get Instant Quote</a>
-          <a id="qbBook" class="btn secondary" href="#">Request to Book</a>
+          <a id="qbQuote" class="btn quote" href="#">Get Instant Quote</a>
+          <a id="qbBook" class="btn secondary book" href="#">Request to Book</a>
         </div>
       </div>
     </div>
@@ -404,7 +416,7 @@
     // Min date = today (optional)
     (function(){ const d=new Date(), pad=n=>String(n).padStart(2,'0'); const min=`${d.getFullYear()}-${pad(d.getMonth()+1)}-${pad(d.getDate())}`; const el=document.getElementById('qbDate'); if(el) el.setAttribute('min',min); })();
 
-    // Collect params (date optional)
+    // Collect params
     function collectQBParams(requireDate=false){
       const phoneEl=document.getElementById('qbPhone');
       const d=document.getElementById('qbDate').value||'';
