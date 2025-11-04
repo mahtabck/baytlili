@@ -302,7 +302,7 @@
             <select id="qbTo" class="control"></select>
           </label>
           <a id="qbQuote" class="btn" href="#">Get Instant Quote</a>
-          <a id="qbWA" class="btn secondary" href="#" target="_blank" rel="noopener">WhatsApp</a>
+          <a id="qbBook" class="btn secondary" href="#">Request to Book</a>
         </div>
       </div>
     </div>
@@ -510,38 +510,50 @@
       if(el) el.setAttribute('min', min);
     })();
 
-    // ----- Get Instant Quote (Phone + From + To required; Date optional) -----
-    document.getElementById('qbQuote').addEventListener('click', (e)=>{
-      e.preventDefault();
+    // Helper to validate and build shared params
+    function collectQBParams(requireDate=false){
       const phoneEl = document.getElementById('qbPhone');
       const d = document.getElementById('qbDate').value || '';
       const f = document.getElementById('qbFrom').value || '';
       const t = document.getElementById('qbTo').value || '';
-      const phone = phoneEl.value.trim();
+      const phone = (phoneEl.value || '').trim();
 
-      const phoneOk = /^971\d{9}$/.test(phone); // expects 971 + 9 digits (e.g., 9715XXXXXXXX)
+      const phoneOk = /^971\d{9}$/.test(phone); // expects 971 + 9 digits
 
-      if(!phoneOk || !f || !t){
+      // Phone + From + To required; Date optional unless requireDate=true
+      if(!phoneOk || !f || !t || (requireDate && !d)){
         let msg = [];
         if(!phoneOk) msg.push('valid phone number (format: 971XXXXXXXXX)');
         if(!f) msg.push('"From" time');
         if(!t) msg.push('"To" time');
-        alert('Please enter: ' + msg.join(', ') + '. Date is optional.');
-        return;
+        if(requireDate && !d) msg.push('Date');
+        alert('Please enter: ' + msg.join(', ') + (requireDate ? '.' : '. Date is optional.'));
+        return null;
       }
 
       const params = { phone, from:f, to:t };
       if(d) params.date = d; // include only if selected
+      return params;
+    }
+
+    // ----- Get Instant Quote -----
+    document.getElementById('qbQuote').addEventListener('click', (e)=>{
+      e.preventDefault();
+      const params = collectQBParams(false);
+      if(!params) return;
       const qs = new URLSearchParams(params);
       window.location.href = `booking.html?${qs.toString()}`;
     });
 
-    // ----- WhatsApp quick link button in CTA -----
-    const WHATSAPP_NUMBER = '971501589628'; // change if needed
-    const wa = document.getElementById('qbWA');
-    if(WHATSAPP_NUMBER && !WHATSAPP_NUMBER.includes('X')){
-      wa.href = `https://wa.me/${WHATSAPP_NUMBER}`;
-    }
+    // ----- Request to Book -----
+    document.getElementById('qbBook').addEventListener('click', (e)=>{
+      e.preventDefault();
+      const params = collectQBParams(false); // Date still optional
+      if(!params) return;
+      params.action = 'request';
+      const qs = new URLSearchParams(params);
+      window.location.href = `booking.html?${qs.toString()}`;
+    });
   </script>
 </body>
 </html>
