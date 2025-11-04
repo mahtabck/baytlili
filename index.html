@@ -27,12 +27,12 @@
       --line: rgba(255,255,255,.42);
       --panel-bg: rgba(11,11,11,.58);
       --panel-stroke: rgba(255,255,255,.14);
-      --header-h: 64px;
+      --header-h: 56px;                /* thinner header */
       --btn-border: rgba(255,255,255,.7);
       --control-h: 30px;
       --radius: 8px;
       --warm-white: #f8f3ec;
-      --cta-w: 900px; /* Eyebrow and Quick Booking share this width */
+      --cta-w: 900px;                  /* Eyebrow and Quick Booking share this width */
     }
 
     @font-face{
@@ -55,7 +55,7 @@
     }
 
     /* ===== DESKTOP (default) ===== */
-    /* Background image + veil — keep cover, shift down a bit (30%) to show more pool */
+    /* Background image + veil — cover, shifted down to show more pool (30%) */
     body::before{
       content:"";
       position:fixed;
@@ -83,14 +83,14 @@
       min-height:var(--header-h);
       backdrop-filter:saturate(1.1) blur(6px);
     }
-    .nav{display:flex;align-items:center;justify-content:space-between;gap:16px;padding:12px 0}
+    .nav{display:flex;align-items:center;justify-content:space-between;gap:16px;padding:8px 0} /* thinner */
     .brand{
       display:flex;align-items:center;gap:10px;color:#fff;
       font-family:'BaytLili','Playfair Display',serif;
       letter-spacing:.12em;font-variant:small-caps;white-space:nowrap;
       text-decoration:none;
     }
-    .brand img{height:38px}
+    .brand img{height:34px} /* slightly smaller to match thinner header */
     .menu{display:flex;align-items:center;gap:20px}
     .menu a{
       color:#fff;text-decoration:none;white-space:nowrap;font-size:1rem; position:relative; padding:6px 2px;
@@ -98,14 +98,17 @@
     .menu a::after{content:""; position:absolute; left:0; right:0; bottom:-4px; height:1px; background:transparent; transition:background .2s ease}
     .menu a:hover::after{background:rgba(255,255,255,.7)}
 
-    /* Hamburger (hidden on desktop, used on mobile) */
+    /* Hamburger (hidden on desktop, used on mobile/small widths) */
     .hamburger{
       display:none; background:transparent; border:1px solid rgba(255,255,255,.35);
-      height:36px; width:44px; border-radius:8px; align-items:center; justify-content:center; gap:4px;
+      height:30px; width:34px;                /* smaller button */
+      border-radius:8px; align-items:center; justify-content:center; gap:4px;
+      padding:0;
     }
-    .hamburger span{ display:block; width:20px; height:2px; background:#fff }
+    .hamburger span{ display:block; width:18px; height:2px; background:#fff } /* shorter bars */
     .mobile-menu{
-      display:none; position:absolute; top:calc(var(--header-h)); left:12px; right:12px;
+      display:none; position:absolute; top:calc(var(--header-h)); right:12px; /* align to right */
+      width:min(50vw, 360px);                 /* ~half width */
       background:#000000f2; border:1px solid rgba(255,255,255,.2); border-radius:10px; overflow:hidden
     }
     .mobile-menu a{ display:block; padding:12px 14px; color:#fff; text-decoration:none; border-bottom:1px solid rgba(255,255,255,.08) }
@@ -216,13 +219,10 @@
         flex-direction:column;         /* ensure vertical stacking even on laptop */
         align-items:center;
         justify-content:center;
-        width:40px; height:36px;
-        background: rgba(255,255,255,.08);
-        border: 1px solid rgba(255,255,255,.25);
-        border-radius: 8px;
-        gap:5px;
+        width:34px; height:30px;       /* small */
+        gap:4px;
       }
-      .hamburger span{ width:22px; height:2px; background:#fff; border-radius:1px; }
+      .hamburger span{ width:18px; height:2px; background:#fff; border-radius:1px; }
     }
 
     /* ===== TOUCH-ONLY MOBILE (≤900px): zoom-out bg + iOS tweaks ===== */
