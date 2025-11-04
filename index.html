@@ -8,76 +8,254 @@
   <meta name="robots" content="index,follow">
   <link rel="icon" type="image/png" href="assets/favicon.png" />
   <link rel="apple-touch-icon" href="assets/favicon.png" />
+
+  <!-- Social -->
+  <meta property="og:title" content="Bayt Lili — Boutique Villa in Dubai for Filming & Stays">
+  <meta property="og:description" content="Warm neutral tones, Mediterranean minimalism, easy access. Book Bayt Lili for your next shoot or stay.">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://baytlili.com/">
+  <meta property="og:image" content="/assets/og-cover.jpg">
+  <meta name="twitter:card" content="summary_large_image">
+
+  <!-- Fonts -->
   <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@500;600;700;800&display=swap" rel="stylesheet">
 
   <style>
     :root{
       --text:#ffffff;
       --muted:#ededed;
+      --line: rgba(255,255,255,.42);
       --panel-bg: rgba(11,11,11,.58);
       --panel-stroke: rgba(255,255,255,.14);
+      --header-h: 64px;
       --btn-border: rgba(255,255,255,.7);
+      --control-h: 30px;
       --radius: 8px;
-      --control-h: 34px;
+      --warm-white: #f8f3ec;
+      --cta-w: 900px; /* Eyebrow and Quick Booking share this width */
     }
 
-    body::before{ content:""; position:fixed; inset:0; background:url('assets/bgpic.png') center 40%/cover no-repeat; background-color:#000; z-index:-2; }
-
-    header{position:sticky;top:0;z-index:100;background:#000c;border-bottom:1px solid rgba(255,255,255,.2);backdrop-filter:blur(6px)}
-    .nav{display:flex;align-items:center;justify-content:space-between;padding:10px 16px}
-    .brand{display:flex;align-items:center;gap:8px;color:#fff;text-decoration:none;font-family:'BaytLili','Playfair Display',serif;letter-spacing:.12em;font-variant:small-caps}
-    .brand img{height:34px}
-
-    .hamburger{display:none;flex-direction:column;justify-content:center;gap:5px;width:38px;height:38px;background:transparent;border:none;border-radius:6px;position:relative}
-.hamburger span{display:block;width:22px;height:2px;background:#fff;border-radius:1px}
-    .hamburger span{display:block;width:20px;height:2px;background:#fff}
-    .menu{display:flex;gap:18px}
-    .menu a{color:#fff;text-decoration:none;font-size:.9rem;}
-
-    @media(max-width:900px){
-  .menu{display:none}
-  .hamburger{display:flex}
-  .mobile-menu{display:none;position:absolute;top:60px;right:12px;left:12px;background:#000000f2;border:1px solid rgba(255,255,255,.2);border-radius:10px;overflow:hidden}
-  .mobile-menu a{display:block;padding:12px 14px;color:#fff;text-decoration:none;border-bottom:1px solid rgba(255,255,255,.08)}
-  .mobile-menu a:last-child{border-bottom:none}
-}
-      .mobile-menu a{display:block;padding:10px 16px;color:#fff;text-decoration:none;border-bottom:1px solid rgba(255,255,255,.1)}
+    @font-face{
+      font-family:'BaytLili';
+      src: url('assets/BaytLili.ttf') format('truetype'),
+           url('assets/BaytLili.otf') format('opentype');
+      font-display:swap;
     }
 
-    .hero{min-height:calc(100vh - 60px);display:flex;align-items:center;justify-content:center;text-align:center;color:#fff;padding:0 20px}
-    .hero-title{font-size:clamp(40px,5.6vw,80px);font-family:'BaytLili','Playfair Display',serif;margin:0;text-shadow:0 3px 8px rgba(0,0,0,.4)}
-    .eyebrow{letter-spacing:.18em;text-transform:uppercase;margin-top:8px;font-weight:700;text-shadow:0 2px 6px rgba(0,0,0,.6)}
+    *,*::before,*::after{box-sizing:border-box}
+    html,body{height:100%}
+    body{
+      margin:0;
+      color:var(--text);
+      line-height:1.45;
+      font-family:'Playfair Display', serif;
+      -webkit-font-smoothing:antialiased;
+      -moz-osx-font-smoothing:grayscale;
+      scroll-behavior:smooth;
+    }
 
-    .cta{margin-top:12px;width:min(900px,100%);background:var(--panel-bg);border:1px solid var(--panel-stroke);border-radius:12px;padding:10px;overflow:hidden}
-    .cta-grid{display:grid;gap:12px;grid-template-columns:repeat(4,1fr) auto auto;align-items:end;grid-auto-rows:1fr}
-    .cta label{font-size:.9rem;display:block;text-align:left;color:#fff;min-width:0}
-    .control{width:100%;max-width:100%;padding:4px 8px;margin-top:4px;border-radius:var(--radius);border:1px solid var(--panel-stroke);background:#fff;color:#111;font-size:16px;height:var(--control-h);box-sizing:border-box} .control[type="date"]{-webkit-appearance:none;appearance:none}
-    .btn{display:inline-flex;align-items:center;justify-content:center;height:var(--control-h);padding:0 12px;border-radius:var(--radius);border:1px solid var(--btn-border);color:#fff;text-decoration:none;font-weight:700;}
-    .btn.secondary{border-color:rgba(255,255,255,.4)}
-    @media(max-width:900px){.cta-grid{grid-template-columns:1fr 1fr;}
-  .cta-grid .btn{grid-column: span 1}
-}
+    /* Background image + veil (desktop defaults preserved) */
+    body::before{
+      content:"";
+      position:fixed;
+      inset:0;
+      background:url('assets/bgpic.png') center 25%/cover no-repeat fixed;
+      z-index:-2;
+    }
+    body::after{
+      content:"";
+      position:fixed;
+      inset:0;
+      background:rgba(0,0,0,0.24);
+      z-index:-1;
+      pointer-events:none;
+    }
+
+    .container{width:min(1200px,92vw);margin-inline:auto}
+    .pad{padding:clamp(24px,4.5vw,64px) 0}
+
+    /* Header (desktop preserved) */
+    header{
+      position:sticky; top:0; z-index:50;
+      background:#000000f0;
+      border-bottom:1px solid rgba(255,255,255,0.2);
+      min-height:var(--header-h);
+      backdrop-filter:saturate(1.1) blur(6px);
+    }
+    .nav{display:flex;align-items:center;justify-content:space-between;gap:16px;padding:12px 0}
+    .brand{
+      display:flex;align-items:center;gap:10px;color:#fff;
+      font-family:'BaytLili','Playfair Display',serif;
+      letter-spacing:.12em;font-variant:small-caps;white-space:nowrap;
+      text-decoration:none;
+    }
+    .brand img{height:38px}
+    .menu{display:flex;align-items:center;gap:20px}
+    .menu a{
+      color:#fff;text-decoration:none;white-space:nowrap;font-size:1rem; position:relative; padding:6px 2px;
+    }
+    .menu a::after{content:""; position:absolute; left:0; right:0; bottom:-4px; height:1px; background:transparent; transition:background .2s ease}
+    .menu a:hover::after{background:rgba(255,255,255,.7)}
+
+    /* Mobile hamburger pieces (hidden on desktop) */
+    .hamburger{ display:none; background:transparent; border:1px solid rgba(255,255,255,.35); height:36px; width:44px; border-radius:8px; align-items:center; justify-content:center; gap:4px; }
+    .hamburger span{ display:block; width:20px; height:2px; background:#fff }
+    .mobile-menu{ display:none; position:absolute; top:calc(var(--header-h)); left:12px; right:12px; background:#000000f2; border:1px solid rgba(255,255,255,.2); border-radius:10px; overflow:hidden }
+    .mobile-menu a{ display:block; padding:12px 14px; color:#fff; text-decoration:none; border-bottom:1px solid rgba(255,255,255,.08) }
+    .mobile-menu a:last-child{ border-bottom:none }
+
+    /* HERO */
+    .hero{
+      min-height:calc(100vh - var(--header-h));
+      display:flex; align-items:center; justify-content:center;
+      padding:0;
+    }
+    .hero .text{
+      display:flex; flex-direction:column; gap:12px;
+      text-align:center; align-items:center; margin:0 auto; max-width:980px;
+    }
+    .hero-title{
+      margin:0;
+      color:#fff;
+      font-family:'BaytLili','Playfair Display',serif;
+      font-weight:700;
+      text-shadow:0 3px 10px rgba(0,0,0,.35);
+      font-size:clamp(40px,5.6vw,92px);
+      line-height:1.02;
+      letter-spacing:.08em;
+    }
+
+    .eyebrow-wrap{ width:min(var(--cta-w), 100%); margin-inline:auto; } /* matches CTA width */
+    .eyebrow{
+      color:var(--warm-white);
+      letter-spacing:.18em;
+      text-transform:uppercase;
+      font-weight:800;
+      font-size:clamp(15px,1.8vw,25px);
+      text-shadow:0 4px 10px rgba(0,0,0,.65);
+    }
+
+    /* CTA */
+    .cta{
+      margin-top:8px;
+      width:min(var(--cta-w), 100%);
+      background:var(--panel-bg);
+      border:1px solid var(--panel-stroke);
+      border-radius:14px;
+      padding:10px;
+      overflow:hidden; /* safety */
+    }
+    .cta-grid{
+      display:grid; gap:10px;
+      grid-template-columns: 1fr 1fr 1fr 1fr auto auto; /* Purpose, Date, From, To, buttons */
+      align-items:end; grid-auto-rows:auto;
+    }
+    .cta label{font-size:.9rem; opacity:.95; display:block; text-align:left; min-width:0}
+    .control{
+      width:100%; max-width:100%;
+      padding:4px 8px; margin-top:4px;
+      border-radius:var(--radius); border:1px solid var(--panel-stroke);
+      background:rgba(255,255,255,.96); color:#111; font-size:14px;
+      font-family:'Playfair Display', serif; height:var(--control-h); box-sizing:border-box;
+    }
+    .control[type="date"]{ -webkit-appearance:none; appearance:none; } /* iOS overflow fix */
+
+    .btn{
+      display:inline-flex; align-items:center; justify-content:center; gap:.5em;
+      font-weight:700; letter-spacing:.02em; text-decoration:none;
+      border:1px solid var(--btn-border); background:transparent; color:#fff; height:var(--control-h);
+      padding:0 12px; border-radius:var(--radius); font-size:14px;
+    }
+    .btn.secondary{border-color:rgba(255,255,255,.45)}
+    .btn:hover{opacity:.92}
+
+    /* Sections */
+    section+section{border-top:1px solid rgba(255,255,255,.18)}
+    h2{
+      font-family:'BaytLili','Playfair Display',serif;
+      font-size:clamp(24px,3.5vw,36px);
+      margin:0 0 12px;
+      scroll-margin-top: calc(var(--header-h) + 12px);
+    }
+    p{margin:0 0 12px; color:#ededed}
+
+    /* Features */
+    .panel{ background:var(--panel-bg); border:1px solid var(--panel-stroke); border-radius:18px; }
+    .panel-head{display:flex;align-items:center;justify-content:space-between;gap:10px;font-weight:700;color:#fff;font-size:1.02rem}
+    .panel hr{border:0;border-top:1px solid var(--panel-stroke);margin:8px 0}
+    .feature-grid{ display:grid; gap:10px 12px; grid-template-columns:repeat(auto-fit, minmax(220px, 1fr)) }
+    .feature-item{ display:flex; align-items:center; gap:10px; color:#fff; padding:10px 12px; border:1px solid var(--panel-stroke); border-radius:14px; background:rgba(255,255,255,.06) }
+    .icon{ width:22px; height:22px; display:inline-flex; align-items:center; justify-content:center; }
+    .label{font-weight:700; letter-spacing:.01em}
+
+    /* Gallery */
+    .gallery-row{display:flex; gap:12px; justify-content:space-between}
+    .card.small{ flex:0 0 31%; border:1px solid rgba(255,255,255,.30); border-radius:14px; overflow:hidden; background:rgba(255,255,255,.10); backdrop-filter:blur(3px); aspect-ratio: 4 / 5; display:flex }
+    .card.small img{ width:100%; height:100%; object-fit:cover; object-position:center; display:block }
+
+    /* Logos */
+    .logos{display:grid; grid-template-columns:repeat(5,1fr); gap:12px}
+    .logo{ border:1px solid rgba(255,255,255,.30); border-radius:14px; background:rgba(255,255,255,.10); min-height:90px; display:flex; align-items:center; justify-content:center; padding:14px; backdrop-filter:blur(3px) }
+    .logo img{max-height:42px; width:auto}
+
+    footer{ border-top:1px solid rgba(255,255,255,.25); padding:24px 0; color:#e9e9e9; background:rgba(0,0,0,.18); text-align:center }
+    footer a{color:#fff}
+
+    /* ---------- MOBILE ONLY (≤ 900px) ---------- */
+    @media (max-width:899.98px){
+      /* Show more of the hero image but still cover */
+      body::before{ background-position:center 35%; background-size:cover; }
+
+      /* Menu → hamburger */
+      .menu{ display:none; }
+      .hamburger{ display:inline-flex; }
+
+      /* Quick booking: 2 columns on phones, prevent any overlap */
+      .cta-grid{ grid-template-columns:1fr 1fr; gap:12px; }
+      .control{ height:34px; font-size:16px; } /* avoid iOS zoom + nice touch height */
+      .cta .btn{ width:100%; }                 /* full width buttons look cleaner */
+
+      /* Tweak brand and titles for small screens */
+      .brand{ font-size:1rem; letter-spacing:.10em; white-space:nowrap }
+      .hero-title{ font-size:clamp(34px,11vw,56px); white-space:normal }
+      .eyebrow{ font-size:clamp(16px,3.6vw,22px); letter-spacing:.18em }
+      .gallery-row{ flex-direction:column }
+      .logos{ grid-template-columns:repeat(2,1fr) }
+    }
   </style>
 </head>
+
 <body>
   <header>
-    <div class="nav">
-      <a href="index.html" class="brand"><img src="assets/bllogo.png" alt="Bayt Lili logo">BAYT LILI</a>
-      <div class="hamburger" id="hamburger"><span></span><span></span><span></span></div>
-      <nav class="menu">
+    <div class="container nav">
+      <a href="index.html" class="brand" aria-label="Bayt Lili — Home">
+        <img src="assets/bllogo.png" alt="Bayt Lili logo" />
+        BAYT LILI
+      </a>
+
+      <!-- Hamburger (hidden on desktop via CSS) -->
+      <button class="hamburger" aria-label="Open menu" aria-expanded="false" aria-controls="mobileMenu">
+        <span></span><span></span><span></span>
+      </button>
+
+      <!-- Desktop menu -->
+      <nav class="menu" aria-label="Primary">
         <a href="index.html">Home</a>
         <a href="booking.html">Booking</a>
         <a href="#gallery">Gallery</a>
         <a href="rates.html">Rates</a>
+        <a href="#contact">Contact</a>
       </nav>
     </div>
-    <nav class="mobile-menu" id="mobileMenu"></nav>
+    <!-- Mobile dropdown menu (hidden on desktop) -->
+    <nav id="mobileMenu" class="mobile-menu" aria-label="Mobile"></nav>
   </header>
 
-  <main class="hero">
-    <div>
+  <main class="container hero" id="home">
+    <div class="text">
       <h1 class="hero-title">BAYT LILI</h1>
-      <div class="eyebrow">BOUTIQUE VILLA • FILMING • PHOTOSHOOTS • STAYS</div>
+      <div class="eyebrow-wrap"><div class="eyebrow">BOUTIQUE VILLA • FILMING • PHOTOSHOOTS • STAYS</div></div>
+
       <div class="cta">
         <div class="cta-grid">
           <label>Purpose
@@ -102,36 +280,179 @@
     </div>
   </main>
 
+  <!-- Features -->
+  <section id="about" class="pad">
+    <div class="container">
+      <div class="panel" style="padding:14px">
+        <div class="panel-head">Features</div>
+        <hr>
+        <div class="feature-grid">
+          <div class="feature-item">
+            <span class="icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M3 12h18"/><path d="M3 6h18"/><path d="M3 18h18"/></svg>
+            </span>
+            <span class="label">Non-gated access</span>
+          </div>
+          <div class="feature-item">
+            <span class="icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"/><path d="M3.6 12H2m20 0h-1.6M12 3.6V2m0 20v-1.6"/></svg>
+            </span>
+            <span class="label">No permits required</span>
+          </div>
+          <div class="feature-item">
+            <span class="icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M3 21V9l9-6 9 6v12"/><path d="M9 21V12h6v9"/></svg>
+            </span>
+            <span class="label">Exclusive booking</span>
+          </div>
+          <div class="feature-item">
+            <span class="icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="7" width="18" height="13" rx="2"/><path d="M8 7V5a4 4 0 0 1 8 0v2"/></svg>
+            </span>
+            <span class="label">Dressing room</span>
+          </div>
+          <div class="feature-item">
+            <span class="icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M3 12l9-9 9 9"/><path d="M9 21V9h6v12"/></svg>
+            </span>
+            <span class="label">Front yard</span>
+          </div>
+          <div class="feature-item">
+            <span class="icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10l-9-7-9 7"/><path d="M5 10v10h14V10"/></svg>
+            </span>
+            <span class="label">Back yard</span>
+          </div>
+          <div class="feature-item">
+            <span class="icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M4 20h16"/><rect x="7" y="2" width="10" height="16" rx="2"/></svg>
+            </span>
+            <span class="label">Chef’s kitchen island</span>
+          </div>
+          <div class="feature-item">
+            <span class="icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="5"/><path d="M12 2v3M12 19v3M2 12h3M19 12h3"/></svg>
+            </span>
+            <span class="label">Dipping pool</span>
+          </div>
+          <div class="feature-item">
+            <span class="icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M4 20l8-16 8 16"/><path d="M12 18l-4-8h8l-4 8z"/></svg>
+            </span>
+            <span class="label">Design flexibility</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Gallery -->
+  <section id="gallery" class="pad">
+    <div class="container">
+      <h2>Gallery</h2>
+      <div class="gallery-row" style="margin-top:10px">
+        <div class="card small"><img src="assets/gallery/1.jpg" alt="Garden and pool view"></div>
+        <div class="card small"><img src="assets/gallery/2.jpg" alt="Kitchen island"></div>
+        <div class="card small"><img src="assets/gallery/3.jpg" alt="Living area"></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Previous Work / Clients -->
+  <section id="previous" class="pad">
+    <div class="container">
+      <h2>Previous Work</h2>
+      <p>Selected brands and productions that have shot at Bayt Lili.</p>
+      <div class="logos" style="margin-top:10px">
+        <div class="logo"><img src="assets/logos/brand1.svg" alt="Brand 1"></div>
+        <div class="logo"><img src="assets/logos/brand2.svg" alt="Brand 2"></div>
+        <div class="logo"><img src="assets/logos/brand3.svg" alt="Brand 3"></div>
+        <div class="logo"><img src="assets/logos/brand4.svg" alt="Brand 4"></div>
+        <div class="logo"><img src="assets/logos/brand5.svg" alt="Brand 5"></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Contact -->
+  <section id="contact" class="pad">
+    <div class="container">
+      <div class="panel" style="padding:14px">
+        <div class="panel-head">Contact</div>
+        <hr>
+        <p>Email: <a href="mailto:info@baytlili.com">info@baytlili.com</a> · Instagram: <a href="https://instagram.com/baytlili" target="_blank" rel="noopener">@baytlili</a></p>
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    © <span id="y"></span> Bayt Lili. All rights reserved. · <a href="https://instagram.com/baytlili" target="_blank" rel="noopener">@baytlili</a>
+  </footer>
+
   <script>
-    const hamburger = document.getElementById('hamburger');
-    const mobileMenu = document.getElementById('mobileMenu');
-    mobileMenu.innerHTML = document.querySelector('.menu').innerHTML;
-    hamburger.addEventListener('click',()=>{
-      const open = mobileMenu.style.display==='block';
-      mobileMenu.style.display=open?'none':'block';
-    });
+    // Footer year
+    document.getElementById('y').textContent = new Date().getFullYear();
 
-    const selFrom=document.getElementById('qbFrom');
-    const selTo=document.getElementById('qbTo');
+    // ----- Mobile menu: clone desktop links -----
+    (function(){
+      const btn = document.querySelector('.hamburger');
+      const mobile = document.getElementById('mobileMenu');
+      const desktop = document.querySelector('.menu');
+      if(btn && mobile && desktop){
+        mobile.innerHTML = desktop.innerHTML; // copy links
+        btn.addEventListener('click', ()=>{
+          const open = mobile.style.display === 'block';
+          mobile.style.display = open ? 'none' : 'block';
+          btn.setAttribute('aria-expanded', String(!open));
+        });
+      }
+    })();
 
-    function buildTimes(startMin,endMin){
-      const out=['<option value="">Select</option>'];
-      for(let m=startMin;m<endMin;m+=15){
-        const hh=String(Math.floor(m/60)).padStart(2,'0');
-        const mm=String(m%60).padStart(2,'0');
-        const val=`${hh}:${mm}`;
-        out.push(`<option value="${val}">${val}</option>`);
+    // ----- Time ranges -----
+    const selFrom = document.getElementById('qbFrom');
+    const selTo   = document.getElementById('qbTo');
+
+    function buildTimes(startMin, endMin, selected=''){
+      const out = ['<option value="">Select</option>'];
+      for(let m=startMin; m<endMin; m+=15){
+        const hh = String(Math.floor(m/60)).padStart(2,'0');
+        const mm = String(m%60).padStart(2,'0');
+        const val = `${hh}:${mm}`;
+        out.push(`<option value="${val}"${val===selected?' selected':''}>${val}</option>`);
       }
       return out.join('');
     }
+    if(selFrom && selTo){
+      selFrom.innerHTML = buildTimes(6*60, 12*60);  // 06:00 → 12:00
+      selTo.innerHTML   = buildTimes(12*60, 24*60); // 12:00 → 24:00
+    }
 
-    selFrom.innerHTML=buildTimes(360,720); // 6:00 to 12:00
-    selTo.innerHTML=buildTimes(720,1440); // 12:00 to midnight
+    // ----- Min date = today -----
+    (function lockMinDate(){
+      const d = new Date();
+      const pad = (n)=> String(n).padStart(2,'0');
+      const min = `${d.getFullYear()}-${pad(d.getMonth()+1)}-${pad(d.getDate())}`;
+      const el = document.getElementById('qbDate');
+      if(el) el.setAttribute('min', min);
+    })();
 
-    const d=new Date();
-    const pad=n=>String(n).padStart(2,'0');
-    const min=`${d.getFullYear()}-${pad(d.getMonth()+1)}-${pad(d.getDate())}`;
-    document.getElementById('qbDate').setAttribute('min',min);
+    // ----- Get Quote → booking.html with params -----
+    document.getElementById('qbQuote').addEventListener('click', (e)=>{
+      e.preventDefault();
+      const d = document.getElementById('qbDate').value || '';
+      const f = selFrom.value || '';
+      const t = selTo.value || '';
+      const p = (document.getElementById('qbPurpose') || {value:'Filming'}).value;
+      if(!d || !f || !t){ alert('Please select Date, From, and To.'); return; }
+      const qs = new URLSearchParams({ date:d, from:f, to:t, p });
+      window.location.href = `booking.html?${qs.toString()}`;
+    });
+
+    // ----- WhatsApp quick link -----
+    const WHATSAPP_NUMBER = '971501589628'; // change if needed
+    const wa = document.getElementById('qbWA');
+    if(WHATSAPP_NUMBER && !WHATSAPP_NUMBER.includes('X')){
+      wa.href = `https://wa.me/${WHATSAPP_NUMBER}`;
+    }
   </script>
 </body>
 </html>
