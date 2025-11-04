@@ -203,16 +203,34 @@
 
     /* ---------- MOBILE ONLY (≤ 900px) ---------- */
     @media (max-width:899.98px){
-      /* Show more of the hero image but still cover */
-      body::before{ background-position:center 35%; background-size:cover; }
+      /* Mobile hero: zoom OUT without touching desktop */
+      body::before{
+        background-position: center top !important;
+        background-size: auto 100% !important;  /* show full height; less zoomed */
+        background-repeat: no-repeat !important;
+        background-attachment: scroll !important; /* iOS-friendly */
+      }
 
       /* Menu → hamburger */
       .menu{ display:none; }
-      .hamburger{ display:inline-flex; }
+      .hamburger{
+        display:inline-flex !important;
+        flex-direction:column !important;  /* stack bars vertically */
+        align-items:center; justify-content:center;
+        width:40px; height:36px;
+        background: rgba(255,255,255,.08);
+        border: 1px solid rgba(255,255,255,.25);
+        border-radius: 8px;
+        gap:5px;
+      }
+      .hamburger span{
+        display:block; width:22px; height:2px; background:#fff; border-radius:1px;
+      }
 
       /* Quick booking: 2 columns on phones, prevent any overlap */
       .cta-grid{ grid-template-columns:1fr 1fr; gap:12px; }
-      .control{ height:34px; font-size:16px; } /* avoid iOS zoom + nice touch height */
+      .cta label{ min-width:0; }
+      .control{ height:34px; font-size:16px; } /* avoid iOS zoom + good touch height */
       .cta .btn{ width:100%; }                 /* full width buttons look cleaner */
 
       /* Tweak brand and titles for small screens */
