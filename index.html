@@ -108,7 +108,7 @@
     .hamburger span{ display:block; width:18px; height:2px; background:#fff } /* shorter bars */
     .mobile-menu{
       display:none; position:absolute; top:calc(var(--header-h)); right:12px; /* align to right */
-      width:min(50vw, 360px);                 /* ~half width */
+      width:min(35vw, 300px);                 /* thinner ~35% width */
       background:#000000f2; border:1px solid rgba(255,255,255,.2); border-radius:10px; overflow:hidden
     }
     .mobile-menu a{ display:block; padding:12px 14px; color:#fff; text-decoration:none; border-bottom:1px solid rgba(255,255,255,.08) }
@@ -157,7 +157,7 @@
     }
     .cta-grid{
       display:grid; gap:10px;
-      grid-template-columns: 1fr 1fr 1fr 1fr auto auto; /* Purpose, Date, From, To, buttons */
+      grid-template-columns: 1fr 1fr 1fr 1fr auto auto; /* Phone, Date, From, To, buttons */
       align-items:end; grid-auto-rows:auto;
     }
     .cta label{font-size:.9rem; opacity:.95; display:block; text-align:left; min-width:0}
@@ -178,6 +178,15 @@
     }
     .btn.secondary{border-color:rgba(255,255,255,.45)}
     .btn:hover{opacity:.92}
+
+    /* Floating WhatsApp button (home page only) */
+    .wa-float{
+      position:fixed; right:16px; bottom:16px;
+      width:56px; height:56px; border-radius:50%;
+      background:#25D366; display:flex; align-items:center; justify-content:center;
+      box-shadow:0 6px 18px rgba(0,0,0,.28); z-index:60;
+    }
+    .wa-float svg{ width:28px; height:28px; fill:#fff; display:block }
 
     /* Sections */
     section+section{border-top:1px solid rgba(255,255,255,.18)}
@@ -233,7 +242,7 @@
         background-repeat: no-repeat !important;
         background-attachment: scroll !important; /* iOS-friendly */
       }
-      /* (Optional) form comfort sizing on touch */
+      /* form comfort sizing on touch */
       .is-touch .cta-grid{ grid-template-columns:1fr 1fr; gap:12px; }
       .is-touch .cta label{ min-width:0; }
       .is-touch .control{ height:34px; font-size:16px; }
@@ -280,11 +289,8 @@
 
       <div class="cta">
         <div class="cta-grid">
-          <label>Purpose
-            <select id="qbPurpose" class="control">
-              <option value="Filming" selected>Filming / Photoshoot</option>
-              <option value="Stay">Stay</option>
-            </select>
+          <label>Phone Number
+            <input type="tel" id="qbPhone" class="control" placeholder="971XXXXXXXXX" inputmode="numeric" pattern="^971\\d{9}$" aria-describedby="phoneHelp" />
           </label>
           <label>Date
             <input type="date" id="qbDate" class="control">
@@ -295,12 +301,20 @@
           <label>To
             <select id="qbTo" class="control"></select>
           </label>
-          <a id="qbQuote" class="btn" href="#">Get Quote</a>
+          <a id="qbQuote" class="btn" href="#">Get Instant Quote</a>
           <a id="qbWA" class="btn secondary" href="#" target="_blank" rel="noopener">WhatsApp</a>
         </div>
       </div>
     </div>
   </main>
+
+  <!-- Floating WhatsApp (home page only) -->
+  <a class="wa-float" href="https://wa.me/971501589628" target="_blank" rel="noopener" aria-label="Chat on WhatsApp">
+    <!-- Official-style WhatsApp glyph in white -->
+    <svg viewBox="0 0 32 32" aria-hidden="true">
+      <path d="M19.11 17.44c-.29-.14-1.69-.83-1.95-.92-.26-.1-.45-.14-.64.14-.19.29-.74.92-.91 1.11-.17.19-.34.21-.63.07-.29-.14-1.23-.45-2.34-1.44-.86-.76-1.44-1.7-1.61-1.98-.17-.29-.02-.45.12-.59.12-.12.29-.31.43-.46.14-.15.19-.26.29-.45.1-.19.05-.36-.02-.5-.07-.14-.64-1.54-.88-2.12-.23-.55-.47-.48-.64-.48-.17 0-.36-.02-.55-.02s-.5.07-.76.36c-.26.29-1 1-1 2.43s1.02 2.82 1.16 3.01c.14.19 2 3.05 4.83 4.28.67.29 1.19.46 1.6.59.67.21 1.27.18 1.75.11.53-.08 1.69-.69 1.93-1.36.24-.67.24-1.25.17-1.36-.07-.11-.26-.17-.55-.31zM16 3.2c-7.07 0-12.8 5.73-12.8 12.8 0 2.26.6 4.36 1.66 6.18L3.2 28.8l6.8-1.78a12.74 12.74 0 0 0 6-.16c5.43-1.74 9.36-6.82 9.36-12.86C25.36 8.93 21.07 3.2 16 3.2zm0 22.94c-1.93 0-3.72-.49-5.29-1.36l-.38-.21-4.03 1.06 1.08-3.93-.25-.4a10.6 10.6 0 1 1 9.87 4.84z"/>
+    </svg>
+  </a>
 
   <!-- Features -->
   <section id="about" class="pad">
@@ -496,19 +510,33 @@
       if(el) el.setAttribute('min', min);
     })();
 
-    // ----- Get Quote → booking.html with params -----
+    // ----- Get Instant Quote (Phone + From + To required; Date optional) -----
     document.getElementById('qbQuote').addEventListener('click', (e)=>{
       e.preventDefault();
+      const phoneEl = document.getElementById('qbPhone');
       const d = document.getElementById('qbDate').value || '';
-      const f = selFrom.value || '';
-      const t = selTo.value || '';
-      const p = (document.getElementById('qbPurpose') || {value:'Filming'}).value;
-      if(!d || !f || !t){ alert('Please select Date, From, and To.'); return; }
-      const qs = new URLSearchParams({ date:d, from:f, to:t, p });
+      const f = document.getElementById('qbFrom').value || '';
+      const t = document.getElementById('qbTo').value || '';
+      const phone = phoneEl.value.trim();
+
+      const phoneOk = /^971\d{9}$/.test(phone); // expects 971 + 9 digits (e.g., 9715XXXXXXXX)
+
+      if(!phoneOk || !f || !t){
+        let msg = [];
+        if(!phoneOk) msg.push('valid phone number (format: 971XXXXXXXXX)');
+        if(!f) msg.push('"From" time');
+        if(!t) msg.push('"To" time');
+        alert('Please enter: ' + msg.join(', ') + '. Date is optional.');
+        return;
+      }
+
+      const params = { phone, from:f, to:t };
+      if(d) params.date = d; // include only if selected
+      const qs = new URLSearchParams(params);
       window.location.href = `booking.html?${qs.toString()}`;
     });
 
-    // ----- WhatsApp quick link -----
+    // ----- WhatsApp quick link button in CTA -----
     const WHATSAPP_NUMBER = '971501589628'; // change if needed
     const wa = document.getElementById('qbWA');
     if(WHATSAPP_NUMBER && !WHATSAPP_NUMBER.includes('X')){
