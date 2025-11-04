@@ -33,6 +33,7 @@
       --radius: 8px;
       --warm-white: #f8f3ec;
       --cta-w: 900px;                  /* Eyebrow and Quick Booking share this width */
+      --rate: 300;                     /* AED per hour */
     }
 
     @font-face{
@@ -55,7 +56,6 @@
     }
 
     /* ===== DESKTOP (default) ===== */
-    /* Background image + veil — cover, shifted down to show more pool (30%) */
     body::before{
       content:"";
       position:fixed;
@@ -83,14 +83,14 @@
       min-height:var(--header-h);
       backdrop-filter:saturate(1.1) blur(6px);
     }
-    .nav{display:flex;align-items:center;justify-content:space-between;gap:16px;padding:8px 0} /* thinner */
+    .nav{display:flex;align-items:center;justify-content:space-between;gap:16px;padding:8px 0}
     .brand{
       display:flex;align-items:center;gap:10px;color:#fff;
       font-family:'BaytLili','Playfair Display',serif;
       letter-spacing:.12em;font-variant:small-caps;white-space:nowrap;
       text-decoration:none;
     }
-    .brand img{height:34px} /* slightly smaller to match thinner header */
+    .brand img{height:34px}
     .menu{display:flex;align-items:center;gap:20px}
     .menu a{
       color:#fff;text-decoration:none;white-space:nowrap;font-size:1rem; position:relative; padding:6px 2px;
@@ -98,62 +98,38 @@
     .menu a::after{content:""; position:absolute; left:0; right:0; bottom:-4px; height:1px; background:transparent; transition:background .2s ease}
     .menu a:hover::after{background:rgba(255,255,255,.7)}
 
-    /* Hamburger (hidden on desktop, used on mobile/small widths) */
+    /* Hamburger */
     .hamburger{
       display:none; background:transparent; border:1px solid rgba(255,255,255,.35);
-      height:30px; width:34px;                /* smaller button */
-      border-radius:8px; align-items:center; justify-content:center; gap:4px;
-      padding:0;
+      height:30px; width:34px; border-radius:8px; align-items:center; justify-content:center; gap:4px; padding:0;
     }
-    .hamburger span{ display:block; width:18px; height:2px; background:#fff } /* shorter bars */
+    .hamburger span{ display:block; width:18px; height:2px; background:#fff }
     .mobile-menu{
-      display:none; position:absolute; top:calc(var(--header-h)); right:12px; /* align to right */
-      width:min(35vw, 300px);                 /* thinner ~35% width */
+      display:none; position:absolute; top:calc(var(--header-h)); right:12px;
+      width:min(35vw, 300px);
       background:#000000f2; border:1px solid rgba(255,255,255,.2); border-radius:10px; overflow:hidden
     }
     .mobile-menu a{ display:block; padding:12px 14px; color:#fff; text-decoration:none; border-bottom:1px solid rgba(255,255,255,.08) }
     .mobile-menu a:last-child{ border-bottom:none }
 
     /* HERO */
-    .hero{
-      min-height:calc(100vh - var(--header-h));
-      display:flex; align-items:center; justify-content:center;
-      padding:0;
-    }
-    .hero .text{
-      display:flex; flex-direction:column; gap:12px;
-      text-align:center; align-items:center; margin:0 auto; max-width:980px;
-    }
+    .hero{ min-height:calc(100vh - var(--header-h)); display:flex; align-items:center; justify-content:center; padding:0; }
+    .hero .text{ display:flex; flex-direction:column; gap:12px; text-align:center; align-items:center; margin:0 auto; max-width:980px;}
     .hero-title{
-      margin:0;
-      color:#fff;
-      font-family:'BaytLili','Playfair Display',serif;
-      font-weight:700;
-      text-shadow:0 3px 10px rgba(0,0,0,.35);
-      font-size:clamp(40px,5.6vw,92px);
-      line-height:1.02;
-      letter-spacing:.08em;
+      margin:0; color:#fff; font-family:'BaytLili','Playfair Display',serif; font-weight:700;
+      text-shadow:0 3px 10px rgba(0,0,0,.35); font-size:clamp(40px,5.6vw,92px); line-height:1.02; letter-spacing:.08em;
     }
 
-    .eyebrow-wrap{ width:min(var(--cta-w), 100%); margin-inline:auto; } /* matches CTA width */
+    .eyebrow-wrap{ width:min(var(--cta-w), 100%); margin-inline:auto; }
     .eyebrow{
-      color:var(--warm-white);
-      letter-spacing:.18em;
-      text-transform:uppercase;
-      font-weight:800;
-      font-size:clamp(15px,1.8vw,25px);
-      text-shadow:0 4px 10px rgba(0,0,0,.65);
+      color:var(--warm-white); letter-spacing:.18em; text-transform:uppercase;
+      font-weight:800; font-size:clamp(15px,1.8vw,25px); text-shadow:0 4px 10px rgba(0,0,0,.65);
     }
 
     /* CTA */
     .cta{
-      margin-top:8px;
-      width:min(var(--cta-w), 100%);
-      background:var(--panel-bg);
-      border:1px solid var(--panel-stroke);
-      border-radius:14px;
-      padding:10px;
-      overflow:hidden; /* safety */
+      margin-top:8px; width:min(var(--cta-w), 100%);
+      background:var(--panel-bg); border:1px solid var(--panel-stroke); border-radius:14px; padding:10px; overflow:hidden;
     }
     .cta-grid{
       display:grid; gap:10px;
@@ -162,8 +138,7 @@
     }
     .cta label{font-size:.9rem; opacity:.95; display:block; text-align:left; min-width:0}
     .control{
-      width:100%; max-width:100%;
-      padding:4px 8px; margin-top:4px;
+      width:100%; max-width:100%; padding:4px 8px; margin-top:4px;
       border-radius:var(--radius); border:1px solid var(--panel-stroke);
       background:rgba(255,255,255,.96); color:#111; font-size:14px;
       font-family:'Playfair Display', serif; height:var(--control-h); box-sizing:border-box;
@@ -179,7 +154,7 @@
     .btn.secondary{border-color:rgba(255,255,255,.45)}
     .btn:hover{opacity:.92}
 
-    /* Floating WhatsApp button (home page only) */
+    /* Floating WhatsApp (home page only) */
     .wa-float{
       position:fixed; right:16px; bottom:16px;
       width:56px; height:56px; border-radius:50%;
@@ -190,12 +165,7 @@
 
     /* Sections */
     section+section{border-top:1px solid rgba(255,255,255,.18)}
-    h2{
-      font-family:'BaytLili','Playfair Display',serif;
-      font-size:clamp(24px,3.5vw,36px);
-      margin:0 0 12px;
-      scroll-margin-top: calc(var(--header-h) + 12px);
-    }
+    h2{ font-family:'BaytLili','Playfair Display',serif; font-size:clamp(24px,3.5vw,36px); margin:0 0 12px; scroll-margin-top: calc(var(--header-h) + 12px); }
     p{margin:0 0 12px; color:#ededed}
 
     /* Features */
@@ -220,29 +190,20 @@
     footer{ border-top:1px solid rgba(255,255,255,.25); padding:24px 0; color:#e9e9e9; background:rgba(0,0,0,.18); text-align:center }
     footer a{color:#fff}
 
-    /* ===== MOBILE (≤900px): show hamburger & stack bars (works on laptops too) ===== */
+    /* ===== MOBILE (≤900px) ===== */
     @media (max-width:899.98px){
       .menu{ display:none; }
       .hamburger{
-        display:inline-flex;
-        flex-direction:column;         /* ensure vertical stacking even on laptop */
-        align-items:center;
-        justify-content:center;
-        width:34px; height:30px;       /* small */
-        gap:4px;
+        display:inline-flex; flex-direction:column; align-items:center; justify-content:center; width:34px; height:30px; gap:4px;
       }
       .hamburger span{ width:18px; height:2px; background:#fff; border-radius:1px; }
-    }
 
-    /* ===== TOUCH-ONLY MOBILE (≤900px): zoom-out bg + iOS tweaks ===== */
-    @media (max-width:899.98px){
       .is-touch body::before{
         background-position: center top !important;
         background-size: auto 100% !important;  /* show full height, less zoomed */
         background-repeat: no-repeat !important;
         background-attachment: scroll !important; /* iOS-friendly */
       }
-      /* form comfort sizing on touch */
       .is-touch .cta-grid{ grid-template-columns:1fr 1fr; gap:12px; }
       .is-touch .cta label{ min-width:0; }
       .is-touch .control{ height:34px; font-size:16px; }
@@ -253,6 +214,25 @@
       .is-touch .gallery-row{ flex-direction:column }
       .is-touch .logos{ grid-template-columns:repeat(2,1fr) }
     }
+
+    /* ===== Quote Modal ===== */
+    .modal-backdrop{
+      position:fixed; inset:0; background:rgba(0,0,0,.55);
+      display:none; align-items:center; justify-content:center; z-index:70;
+    }
+    .modal{
+      width:min(560px, 92vw); background:rgba(20,20,20,.96);
+      border:1px solid rgba(255,255,255,.18); border-radius:16px; padding:18px;
+      box-shadow:0 30px 80px rgba(0,0,0,.5);
+    }
+    .modal h3{ margin:0 0 8px; font-size:1.3rem; font-family:'BaytLili','Playfair Display',serif; }
+    .modal p{ margin:6px 0; color:#f1f1f1 }
+    .modal .row{ display:flex; justify-content:space-between; gap:12px; padding:8px 0; border-top:1px solid rgba(255,255,255,.12); }
+    .modal .row:first-of-type{ border-top:0 }
+    .modal .total{ font-weight:800; font-size:1.15rem; }
+    .modal-actions{ display:flex; gap:10px; justify-content:flex-end; margin-top:14px; }
+    .modal .btn{ height:36px; padding:0 14px; }
+    .btn.primary{ border-color:#fff; background:#ffffff22; }
   </style>
 </head>
 
@@ -310,7 +290,6 @@
 
   <!-- Floating WhatsApp (home page only) -->
   <a class="wa-float" href="https://wa.me/971501589628" target="_blank" rel="noopener" aria-label="Chat on WhatsApp">
-    <!-- Official-style WhatsApp glyph in white -->
     <svg viewBox="0 0 32 32" aria-hidden="true">
       <path d="M19.11 17.44c-.29-.14-1.69-.83-1.95-.92-.26-.1-.45-.14-.64.14-.19.29-.74.92-.91 1.11-.17.19-.34.21-.63.07-.29-.14-1.23-.45-2.34-1.44-.86-.76-1.44-1.7-1.61-1.98-.17-.29-.02-.45.12-.59.12-.12.29-.31.43-.46.14-.15.19-.26.29-.45.1-.19.05-.36-.02-.5-.07-.14-.64-1.54-.88-2.12-.23-.55-.47-.48-.64-.48-.17 0-.36-.02-.55-.02s-.5.07-.76.36c-.26.29-1 1-1 2.43s1.02 2.82 1.16 3.01c.14.19 2 3.05 4.83 4.28.67.29 1.19.46 1.6.59.67.21 1.27.18 1.75.11.53-.08 1.69-.69 1.93-1.36.24-.67.24-1.25.17-1.36-.07-.11-.26-.17-.55-.31zM16 3.2c-7.07 0-12.8 5.73-12.8 12.8 0 2.26.6 4.36 1.66 6.18L3.2 28.8l6.8-1.78a12.74 12.74 0 0 0 6-.16c5.43-1.74 9.36-6.82 9.36-12.86C25.36 8.93 21.07 3.2 16 3.2zm0 22.94c-1.93 0-3.72-.49-5.29-1.36l-.38-.21-4.03 1.06 1.08-3.93-.25-.4a10.6 10.6 0 1 1 9.87 4.84z"/>
     </svg>
@@ -418,6 +397,20 @@
     © <span id="y"></span> Bayt Lili. All rights reserved. · <a href="https://instagram.com/baytlili" target="_blank" rel="noopener">@baytlili</a>
   </footer>
 
+  <!-- Quote Modal -->
+  <div id="quoteModal" class="modal-backdrop" role="dialog" aria-modal="true" aria-labelledby="quoteTitle">
+    <div class="modal">
+      <h3 id="quoteTitle">Instant Quote</h3>
+      <div id="quoteBody">
+        <!-- filled by JS -->
+      </div>
+      <div class="modal-actions">
+        <button id="quoteClose" class="btn">Close</button>
+        <a id="quoteProceed" class="btn primary" href="#">Proceed to Booking</a>
+      </div>
+    </div>
+  </div>
+
   <script>
     // Add 'is-touch' class for real touch devices only
     (function(){
@@ -440,55 +433,41 @@
           btn.setAttribute('aria-expanded', 'false');
         }
       }
-
       function openMenu(){
         mobile.style.display = 'block';
         btn.setAttribute('aria-expanded', 'true');
       }
-
       if(btn && mobile && desktop){
-        // Clone desktop links into mobile menu
         mobile.innerHTML = desktop.innerHTML;
-
-        // Toggle on button click
         btn.addEventListener('click', (e)=>{
           e.stopPropagation();
           const open = mobile.style.display === 'block';
           if(open){ closeMenu(); } else { openMenu(); }
         });
-
-        // Close when clicking any mobile link
         mobile.addEventListener('click', (e)=>{
-          const target = e.target;
-          if(target.tagName === 'A'){ closeMenu(); }
+          if(e.target.tagName === 'A'){ closeMenu(); }
         });
-
-        // Close when clicking outside
         document.addEventListener('click', (e)=>{
           const withinHeader = e.target.closest('header');
           const withinMenu = e.target.closest('#mobileMenu');
           if(!withinHeader && !withinMenu){ closeMenu(); }
         });
-
-        // Close on Escape key
         document.addEventListener('keydown', (e)=>{
           if(e.key === 'Escape'){ closeMenu(); }
         });
-
-        // Close if resizing above mobile breakpoint
         window.addEventListener('resize', ()=>{
           if(window.innerWidth > 900){ closeMenu(); }
         });
       }
     })();
 
-    // ----- Time ranges -----
+    // ----- Time ranges (both From & To start at 06:00) -----
     const selFrom = document.getElementById('qbFrom');
     const selTo   = document.getElementById('qbTo');
 
-    function buildTimes(startMin, endMin, selected=''){
+    function optionList(startMin, endMin, selected){
       const out = ['<option value="">Select</option>'];
-      for(let m=startMin; m<endMin; m+=15){
+      for(let m=startMin; m<=endMin; m+=15){
         const hh = String(Math.floor(m/60)).padStart(2,'0');
         const mm = String(m%60).padStart(2,'0');
         const val = `${hh}:${mm}`;
@@ -496,12 +475,34 @@
       }
       return out.join('');
     }
-    if(selFrom && selTo){
-      selFrom.innerHTML = buildTimes(6*60, 12*60);  // 06:00 → 12:00
-      selTo.innerHTML   = buildTimes(12*60, 24*60); // 12:00 → 24:00
+
+    function minutes(val){
+      const [h,m] = val.split(':').map(Number);
+      return h*60 + m;
     }
 
-    // ----- Min date = today -----
+    // Build From 06:00 → 24:00; To will be adjusted after From
+    if(selFrom && selTo){
+      selFrom.innerHTML = optionList(6*60, 24*60, '');
+      selTo.innerHTML   = optionList(6*60+15, 24*60, ''); // default To after 06:00
+
+      selFrom.addEventListener('change', ()=>{
+        const f = selFrom.value ? minutes(selFrom.value) : 6*60;
+        // To must be at least +15 min after From, max 24:00
+        const start = Math.min(f + 15, 24*60);
+        const prev = selTo.value;
+        selTo.innerHTML = optionList(start, 24*60, '');
+        // If previous To is still valid, keep it
+        if(prev){
+          const pMin = minutes(prev);
+          if(pMin >= start && pMin <= 24*60){
+            selTo.value = prev;
+          }
+        }
+      });
+    }
+
+    // ----- Min date = today (optional field) -----
     (function lockMinDate(){
       const d = new Date();
       const pad = (n)=> String(n).padStart(2,'0');
@@ -510,17 +511,15 @@
       if(el) el.setAttribute('min', min);
     })();
 
-    // Helper to validate and build shared params
+    // ----- Validation + parameter collector -----
     function collectQBParams(requireDate=false){
       const phoneEl = document.getElementById('qbPhone');
       const d = document.getElementById('qbDate').value || '';
       const f = document.getElementById('qbFrom').value || '';
       const t = document.getElementById('qbTo').value || '';
       const phone = (phoneEl.value || '').trim();
+      const phoneOk = /^971\d{9}$/.test(phone);
 
-      const phoneOk = /^971\d{9}$/.test(phone); // expects 971 + 9 digits
-
-      // Phone + From + To required; Date optional unless requireDate=true
       if(!phoneOk || !f || !t || (requireDate && !d)){
         let msg = [];
         if(!phoneOk) msg.push('valid phone number (format: 971XXXXXXXXX)');
@@ -531,29 +530,89 @@
         return null;
       }
 
+      // Ensure To > From
+      const fMin = minutes(f);
+      const tMin = minutes(t);
+      if(tMin <= fMin){
+        alert('"To" time must be after "From" time.');
+        return null;
+      }
+
       const params = { phone, from:f, to:t };
-      if(d) params.date = d; // include only if selected
+      if(d) params.date = d;
       return params;
     }
 
-    // ----- Get Instant Quote -----
+    // ----- Quote modal helpers -----
+    const modal = document.getElementById('quoteModal');
+    const quoteBody = document.getElementById('quoteBody');
+    const quoteClose = document.getElementById('quoteClose');
+    const quoteProceed = document.getElementById('quoteProceed');
+
+    function openModal(){ modal.style.display = 'flex'; }
+    function closeModal(){ modal.style.display = 'none'; }
+
+    modal.addEventListener('click', (e)=>{
+      if(e.target === modal) closeModal(); // click backdrop to close
+    });
+    quoteClose.addEventListener('click', closeModal);
+    document.addEventListener('keydown', (e)=>{ if(e.key === 'Escape') closeModal(); });
+
+    function formatHours(mins){
+      // show with .25 increments if applicable; otherwise up to one decimal
+      const hours = mins / 60;
+      const quarter = Math.round(hours * 4) / 4; // round to nearest 0.25
+      return quarter.toFixed(quarter % 1 === 0 ? 0 : (quarter * 4 % 1 === 0 ? 2 : 1)).replace(/\.00?$/,'');
+    }
+    function formatAED(amount){
+      return new Intl.NumberFormat('en-AE', { style:'currency', currency:'AED', maximumFractionDigits:2 }).format(amount);
+    }
+
+    // ----- Get Instant Quote (shows modal) -----
     document.getElementById('qbQuote').addEventListener('click', (e)=>{
       e.preventDefault();
       const params = collectQBParams(false);
       if(!params) return;
+
+      const fMin = minutes(params.from);
+      const tMin = minutes(params.to);
+      const durationMin = tMin - fMin;
+      const hours = Math.round((durationMin/60) * 4)/4; // 0.25hr steps
+      const total = hours * parseFloat(getComputedStyle(document.documentElement).getPropertyValue('--rate')) || hours * 300;
+
+      // Fill modal content
+      quoteBody.innerHTML = `
+        <div class="row"><span>Phone</span><span>${params.phone}</span></div>
+        ${params.date ? `<div class="row"><span>Date</span><span>${params.date}</span></div>` : ``}
+        <div class="row"><span>From</span><span>${params.from}</span></div>
+        <div class="row"><span>To</span><span>${params.to}</span></div>
+        <div class="row"><span>Hours</span><span>${formatHours(durationMin)}</span></div>
+        <div class="row total"><span>Total (@ AED 300/hr)</span><span>${formatAED(total)}</span></div>
+      `;
+
+      // Proceed link to booking with prefill
       const qs = new URLSearchParams(params);
-      window.location.href = `booking.html?${qs.toString()}`;
+      quoteProceed.href = `booking.html?${qs.toString()}`;
+
+      openModal();
     });
 
-    // ----- Request to Book -----
+    // ----- Request to Book (navigates, date optional) -----
     document.getElementById('qbBook').addEventListener('click', (e)=>{
       e.preventDefault();
-      const params = collectQBParams(false); // Date still optional
+      const params = collectQBParams(false);
       if(!params) return;
       params.action = 'request';
       const qs = new URLSearchParams(params);
       window.location.href = `booking.html?${qs.toString()}`;
     });
+
+    // ----- WhatsApp quick link in CTA -----
+    const WHATSAPP_NUMBER = '971501589628';
+    const wa = document.getElementById('qbWA'); // (kept if needed later)
+    if(wa && WHATSAPP_NUMBER && !WHATSAPP_NUMBER.includes('X')){
+      wa.href = `https://wa.me/${WHATSAPP_NUMBER}`;
+    }
   </script>
 </body>
 </html>
