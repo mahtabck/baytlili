@@ -18,7 +18,7 @@
   <meta name="twitter:card" content="summary_large_image">
 
   <!-- Fonts -->
-  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@500;600;700;800&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700;800&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
 
   <style>
     :root{
@@ -27,13 +27,14 @@
       --line: rgba(255,255,255,.42);
       --panel-bg: rgba(11,11,11,.58);
       --panel-stroke: rgba(255,255,255,.14);
-      --header-h: 56px;                /* thinner header */
+      --header-h: 56px;
       --btn-border: rgba(255,255,255,.7);
-      --control-h: 30px;
-      --radius: 8px;
+      --control-h: 34px;           /* a touch taller for legibility */
+      --radius: 10px;
       --warm-white: #f8f3ec;
-      --cta-w: 900px;                  /* Eyebrow and Quick Booking share this width */
-      --rate: 300;                     /* AED per hour */
+      --cta-w: 900px;
+      --rate: 300;                 /* AED per hour */
+      --min-hours: 6;              /* Minimum billable hours */
     }
 
     @font-face{
@@ -49,7 +50,7 @@
       margin:0;
       color:var(--text);
       line-height:1.45;
-      font-family:'Playfair Display', serif;
+      font-family:'Playfair Display', serif; /* headings only; UI uses Inter below */
       -webkit-font-smoothing:antialiased;
       -moz-osx-font-smoothing:grayscale;
       scroll-behavior:smooth;
@@ -94,6 +95,8 @@
     .menu{display:flex;align-items:center;gap:20px}
     .menu a{
       color:#fff;text-decoration:none;white-space:nowrap;font-size:1rem; position:relative; padding:6px 2px;
+      font-family:'Inter', system-ui, -apple-system, Segoe UI, Roboto, sans-serif;
+      font-weight:600;
     }
     .menu a::after{content:""; position:absolute; left:0; right:0; bottom:-4px; height:1px; background:transparent; transition:background .2s ease}
     .menu a:hover::after{background:rgba(255,255,255,.7)}
@@ -109,7 +112,7 @@
       width:min(35vw, 300px);
       background:#000000f2; border:1px solid rgba(255,255,255,.2); border-radius:10px; overflow:hidden
     }
-    .mobile-menu a{ display:block; padding:12px 14px; color:#fff; text-decoration:none; border-bottom:1px solid rgba(255,255,255,.08) }
+    .mobile-menu a{ display:block; padding:12px 14px; color:#fff; text-decoration:none; border-bottom:1px solid rgba(255,255,255,.08); font-family:'Inter',system-ui,sans-serif; font-weight:600 }
     .mobile-menu a:last-child{ border-bottom:none }
 
     /* HERO */
@@ -126,22 +129,26 @@
       font-weight:800; font-size:clamp(15px,1.8vw,25px); text-shadow:0 4px 10px rgba(0,0,0,.65);
     }
 
-    /* CTA */
+    /* CTA (uses Inter for max legibility) */
     .cta{
       margin-top:8px; width:min(var(--cta-w), 100%);
-      background:var(--panel-bg); border:1px solid var(--panel-stroke); border-radius:14px; padding:10px; overflow:hidden;
+      background:var(--panel-bg); border:1px solid var(--panel-stroke); border-radius:14px; padding:12px; overflow:hidden;
+      font-family:'Inter', system-ui, -apple-system, Segoe UI, Roboto, sans-serif;
     }
     .cta-grid{
       display:grid; gap:10px;
       grid-template-columns: 1fr 1fr 1fr 1fr auto auto; /* Phone, Date, From, To, buttons */
       align-items:end; grid-auto-rows:auto;
     }
-    .cta label{font-size:.9rem; opacity:.95; display:block; text-align:left; min-width:0}
+    .cta label{
+      font-size:.95rem; opacity:.98; display:block; text-align:left; min-width:0; font-weight:600;
+    }
     .control{
-      width:100%; max-width:100%; padding:4px 8px; margin-top:4px;
+      width:100%; max-width:100%; padding:8px 10px; margin-top:6px;
       border-radius:var(--radius); border:1px solid var(--panel-stroke);
-      background:rgba(255,255,255,.96); color:#111; font-size:14px;
-      font-family:'Playfair Display', serif; height:var(--control-h); box-sizing:border-box;
+      background:rgba(255,255,255,.98); color:#111; font-size:15px;
+      font-family:'Inter', system-ui, -apple-system, Segoe UI, Roboto, sans-serif;
+      height:var(--control-h); box-sizing:border-box;
     }
     .control[type="date"]{ -webkit-appearance:none; appearance:none; } /* iOS overflow fix */
 
@@ -149,7 +156,8 @@
       display:inline-flex; align-items:center; justify-content:center; gap:.5em;
       font-weight:700; letter-spacing:.02em; text-decoration:none;
       border:1px solid var(--btn-border); background:transparent; color:#fff; height:var(--control-h);
-      padding:0 12px; border-radius:var(--radius); font-size:14px;
+      padding:0 14px; border-radius:var(--radius); font-size:15px;
+      font-family:'Inter', system-ui, -apple-system, Segoe UI, Roboto, sans-serif;
     }
     .btn.secondary{border-color:rgba(255,255,255,.45)}
     .btn:hover{opacity:.92}
@@ -175,7 +183,7 @@
     .feature-grid{ display:grid; gap:10px 12px; grid-template-columns:repeat(auto-fit, minmax(220px, 1fr)) }
     .feature-item{ display:flex; align-items:center; gap:10px; color:#fff; padding:10px 12px; border:1px solid var(--panel-stroke); border-radius:14px; background:rgba(255,255,255,.06) }
     .icon{ width:22px; height:22px; display:inline-flex; align-items:center; justify-content:center; }
-    .label{font-weight:700; letter-spacing:.01em}
+    .label{font-weight:700; letter-spacing:.01em; font-family:'Inter',system-ui,sans-serif}
 
     /* Gallery */
     .gallery-row{display:flex; gap:12px; justify-content:space-between}
@@ -206,7 +214,7 @@
       }
       .is-touch .cta-grid{ grid-template-columns:1fr 1fr; gap:12px; }
       .is-touch .cta label{ min-width:0; }
-      .is-touch .control{ height:34px; font-size:16px; }
+      .is-touch .control{ height:38px; font-size:16px; }
       .is-touch .cta .btn{ width:100%; }
       .is-touch .brand{ font-size:1rem; letter-spacing:.10em; white-space:nowrap }
       .is-touch .hero-title{ font-size:clamp(34px,11vw,56px); white-space:normal }
@@ -215,7 +223,7 @@
       .is-touch .logos{ grid-template-columns:repeat(2,1fr) }
     }
 
-    /* ===== Quote Modal ===== */
+    /* ===== Quote Modal (uses Inter) ===== */
     .modal-backdrop{
       position:fixed; inset:0; background:rgba(0,0,0,.55);
       display:none; align-items:center; justify-content:center; z-index:70;
@@ -224,14 +232,16 @@
       width:min(560px, 92vw); background:rgba(20,20,20,.96);
       border:1px solid rgba(255,255,255,.18); border-radius:16px; padding:18px;
       box-shadow:0 30px 80px rgba(0,0,0,.5);
+      font-family:'Inter', system-ui, -apple-system, Segoe UI, Roboto, sans-serif;
     }
-    .modal h3{ margin:0 0 8px; font-size:1.3rem; font-family:'BaytLili','Playfair Display',serif; }
+    .modal h3{ margin:0 0 8px; font-size:1.3rem; font-family:'Playfair Display',serif; }
     .modal p{ margin:6px 0; color:#f1f1f1 }
     .modal .row{ display:flex; justify-content:space-between; gap:12px; padding:8px 0; border-top:1px solid rgba(255,255,255,.12); }
     .modal .row:first-of-type{ border-top:0 }
-    .modal .total{ font-weight:800; font-size:1.15rem; }
+    .muted{ color:#cfcfcf; font-size:.95rem }
+    .badge{ display:inline-block; padding:.15rem .5rem; border:1px solid rgba(255,255,255,.25); border-radius:999px; font-size:.85rem; }
+    .total{ font-weight:800; font-size:1.15rem; }
     .modal-actions{ display:flex; gap:10px; justify-content:flex-end; margin-top:14px; }
-    .modal .btn{ height:36px; padding:0 14px; }
     .btn.primary{ border-color:#fff; background:#ffffff22; }
   </style>
 </head>
@@ -401,9 +411,10 @@
   <div id="quoteModal" class="modal-backdrop" role="dialog" aria-modal="true" aria-labelledby="quoteTitle">
     <div class="modal">
       <h3 id="quoteTitle">Instant Quote</h3>
-      <div id="quoteBody">
-        <!-- filled by JS -->
-      </div>
+      <div id="quoteBody"><!-- filled by JS --></div>
+      <p class="muted" id="minNote" style="display:none;">
+        <span class="badge">Note</span> A minimum booking of <strong>6 hours</strong> applies. The total reflects this minimum.
+      </p>
       <div class="modal-actions">
         <button id="quoteClose" class="btn">Close</button>
         <a id="quoteProceed" class="btn primary" href="#">Proceed to Booking</a>
@@ -481,28 +492,22 @@
       return h*60 + m;
     }
 
-    // Build From 06:00 → 24:00; To will be adjusted after From
     if(selFrom && selTo){
       selFrom.innerHTML = optionList(6*60, 24*60, '');
-      selTo.innerHTML   = optionList(6*60+15, 24*60, ''); // default To after 06:00
-
+      selTo.innerHTML   = optionList(6*60+15, 24*60, '');
       selFrom.addEventListener('change', ()=>{
         const f = selFrom.value ? minutes(selFrom.value) : 6*60;
-        // To must be at least +15 min after From, max 24:00
         const start = Math.min(f + 15, 24*60);
         const prev = selTo.value;
         selTo.innerHTML = optionList(start, 24*60, '');
-        // If previous To is still valid, keep it
         if(prev){
           const pMin = minutes(prev);
-          if(pMin >= start && pMin <= 24*60){
-            selTo.value = prev;
-          }
+          if(pMin >= start && pMin <= 24*60){ selTo.value = prev; }
         }
       });
     }
 
-    // ----- Min date = today (optional field) -----
+    // ----- Min date = today (optional) -----
     (function lockMinDate(){
       const d = new Date();
       const pad = (n)=> String(n).padStart(2,'0');
@@ -529,75 +534,78 @@
         alert('Please enter: ' + msg.join(', ') + (requireDate ? '.' : '. Date is optional.'));
         return null;
       }
-
-      // Ensure To > From
-      const fMin = minutes(f);
-      const tMin = minutes(t);
-      if(tMin <= fMin){
-        alert('"To" time must be after "From" time.');
-        return null;
-      }
+      const fMin = minutes(f), tMin = minutes(t);
+      if(tMin <= fMin){ alert('"To" time must be after "From" time.'); return null; }
 
       const params = { phone, from:f, to:t };
       if(d) params.date = d;
       return params;
     }
 
-    // ----- Quote modal helpers -----
+    // ----- Quote modal -----
     const modal = document.getElementById('quoteModal');
     const quoteBody = document.getElementById('quoteBody');
     const quoteClose = document.getElementById('quoteClose');
     const quoteProceed = document.getElementById('quoteProceed');
+    const minNote = document.getElementById('minNote');
 
     function openModal(){ modal.style.display = 'flex'; }
     function closeModal(){ modal.style.display = 'none'; }
 
-    modal.addEventListener('click', (e)=>{
-      if(e.target === modal) closeModal(); // click backdrop to close
-    });
+    modal.addEventListener('click', (e)=>{ if(e.target === modal) closeModal(); });
     quoteClose.addEventListener('click', closeModal);
     document.addEventListener('keydown', (e)=>{ if(e.key === 'Escape') closeModal(); });
 
+    function cssNumber(varName, fallback){
+      const v = parseFloat(getComputedStyle(document.documentElement).getPropertyValue(varName));
+      return isNaN(v) ? fallback : v;
+    }
     function formatHours(mins){
-      // show with .25 increments if applicable; otherwise up to one decimal
-      const hours = mins / 60;
-      const quarter = Math.round(hours * 4) / 4; // round to nearest 0.25
-      return quarter.toFixed(quarter % 1 === 0 ? 0 : (quarter * 4 % 1 === 0 ? 2 : 1)).replace(/\.00?$/,'');
+      const hours = Math.round((mins/60) * 4)/4; // 0.25 hr steps
+      return hours;
+    }
+    function hoursLabel(h){
+      return (Math.round(h*100)/100).toString().replace(/\.00?$/,'') + ' hr' + (h===1?'':'s');
     }
     function formatAED(amount){
       return new Intl.NumberFormat('en-AE', { style:'currency', currency:'AED', maximumFractionDigits:2 }).format(amount);
     }
 
-    // ----- Get Instant Quote (shows modal) -----
+    // ----- Get Instant Quote (shows modal with min-hours logic) -----
     document.getElementById('qbQuote').addEventListener('click', (e)=>{
       e.preventDefault();
       const params = collectQBParams(false);
       if(!params) return;
 
+      const rate = cssNumber('--rate', 300);
+      const minHours = cssNumber('--min-hours', 6);
       const fMin = minutes(params.from);
       const tMin = minutes(params.to);
-      const durationMin = tMin - fMin;
-      const hours = Math.round((durationMin/60) * 4)/4; // 0.25hr steps
-      const total = hours * parseFloat(getComputedStyle(document.documentElement).getPropertyValue('--rate')) || hours * 300;
+      const selectedH = formatHours(tMin - fMin);          // actual selected
+      const billableH = Math.max(selectedH, minHours);     // enforce minimum
+      const total = billableH * rate;
 
-      // Fill modal content
       quoteBody.innerHTML = `
         <div class="row"><span>Phone</span><span>${params.phone}</span></div>
         ${params.date ? `<div class="row"><span>Date</span><span>${params.date}</span></div>` : ``}
         <div class="row"><span>From</span><span>${params.from}</span></div>
         <div class="row"><span>To</span><span>${params.to}</span></div>
-        <div class="row"><span>Hours</span><span>${formatHours(durationMin)}</span></div>
-        <div class="row total"><span>Total (@ AED 300/hr)</span><span>${formatAED(total)}</span></div>
+        <div class="row"><span>Selected Hours</span><span>${hoursLabel(selectedH)}</span></div>
+        <div class="row"><span>Billable Hours</span><span>${hoursLabel(billableH)}</span></div>
+        <div class="row total"><span>Total (@ AED ${rate}/hr)</span><span>${formatAED(total)}</span></div>
       `;
 
-      // Proceed link to booking with prefill
+      // Show note only if minimum applies
+      minNote.style.display = (selectedH < minHours) ? 'block' : 'none';
+
+      // Proceed link with prefill (date optional)
       const qs = new URLSearchParams(params);
       quoteProceed.href = `booking.html?${qs.toString()}`;
 
       openModal();
     });
 
-    // ----- Request to Book (navigates, date optional) -----
+    // ----- Request to Book (navigates, prefilled; date optional) -----
     document.getElementById('qbBook').addEventListener('click', (e)=>{
       e.preventDefault();
       const params = collectQBParams(false);
@@ -607,12 +615,13 @@
       window.location.href = `booking.html?${qs.toString()}`;
     });
 
-    // ----- WhatsApp quick link in CTA -----
+    // ----- WhatsApp quick link placeholder (kept if needed later) -----
     const WHATSAPP_NUMBER = '971501589628';
-    const wa = document.getElementById('qbWA'); // (kept if needed later)
+    const wa = document.getElementById('qbWA'); // not visible now, for future reuse
     if(wa && WHATSAPP_NUMBER && !WHATSAPP_NUMBER.includes('X')){
       wa.href = `https://wa.me/${WHATSAPP_NUMBER}`;
     }
   </script>
 </body>
 </html>
+
