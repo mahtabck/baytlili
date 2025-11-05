@@ -29,7 +29,7 @@
       --panel-stroke: rgba(255,255,255,.14);
       --header-h: 56px;
       --btn-border: rgba(255,255,255,.7);
-      --control-h: 34px;
+      --control-h: 38px;          /* unified control/button height */
       --radius: 10px;
       --warm-white: #f8f3ec;
       --cta-w: 1200px;
@@ -119,13 +119,10 @@
       background:var(--panel-bg); border:1px solid var(--panel-stroke); border-radius:14px; padding:12px; overflow:hidden;
     }
 
-    /* Desktop: 4 equal fields + 2 compact buttons */
+    /* Desktop: 6 equal columns → 4 fields + 2 buttons all the same size */
     .cta-grid{
       display:grid; gap:10px; align-items:end;
-      grid-template-columns:
-        repeat(4, minmax(0, 1fr))
-        minmax(160px, auto)
-        minmax(170px, auto);
+      grid-template-columns: repeat(6, minmax(0, 1fr));
     }
 
     /* Stack label text above field; keep fields equal width */
@@ -138,26 +135,35 @@
 
     .control{
       display:block;
-      width:100%; max-width:100%; padding:8px 12px; margin-top:6px;
+      width:100%; max-width:100%;
+      height:var(--control-h);
+      padding:0 12px;          /* equalized vertical centering with line-height */
+      margin-top:6px;
       border-radius:var(--radius); border:1px solid var(--panel-stroke);
       background:rgba(255,255,255,.98); color:#111; font-size:15px;
       font-family:'Plus Jakarta Sans',system-ui,-apple-system,Segoe UI,Roboto,sans-serif;
-      height:var(--control-h);
+      line-height:calc(var(--control-h) - 2px);
     }
-    .control[type="date"]{ -webkit-appearance:none; appearance:none; }
 
-    /* Buttons (Playfair) — slightly tighter so both fit on one row */
+    /* Normalize date vertical alignment (WebKit) */
+    .control[type="date"]{
+      -webkit-appearance:none; appearance:none;
+    }
+    .control[type="date"]::-webkit-datetime-edit{ padding:0; line-height:1; }
+    .control[type="date"]::-webkit-date-and-time-value{ text-align:left; }
+
+    /* Buttons (Playfair) — same height and column width as fields */
     .btn{
       display:inline-flex; align-items:center; justify-content:center; gap:.5em;
       font-weight:700; letter-spacing:.02em; text-decoration:none;
-      border:1px solid var(--btn-border); background:transparent; color:#fff; height:var(--control-h);
-      padding:0 12px; border-radius:var(--radius); font-size:14px;
+      border:1px solid var(--btn-border); background:transparent; color:#fff;
+      height:var(--control-h); padding:0 12px; border-radius:var(--radius); font-size:14px;
       font-family:'Playfair Display',serif; white-space:nowrap;
     }
     .btn.secondary{border-color:rgba(255,255,255,.45)}
     .btn:hover{opacity:.92}
 
-    /* ≤1280px: switch to 2 columns; keep buttons side-by-side */
+    /* ≤1280px: switch to 2 columns; buttons side-by-side and same width as fields */
     @media (max-width:1280px){
       .cta-grid{
         grid-template-columns: 1fr 1fr;
@@ -166,7 +172,7 @@
       .cta label{ white-space:normal; }
       #qbQuote{ grid-column: 1 / 2; }
       #qbBook { grid-column: 2 / 3; }
-      .btn{ height:38px; font-size:15px; }
+      .btn{ font-size:15px; }
     }
 
     /* Floating WhatsApp (official glyph) */
@@ -291,7 +297,6 @@
   <!-- Floating WhatsApp -->
   <a class="wa-float" href="https://wa.me/971501589628" target="_blank" rel="noopener" aria-label="Chat on WhatsApp">
     <svg viewBox="0 0 24 24" aria-hidden="true" role="img" focusable="false" fill="#fff" preserveAspectRatio="xMidYMid meet">
-      <!-- official simple-icons WhatsApp glyph -->
       <path d="M20.52 3.484A11.815 11.815 0 0 0 11.98 0C5.364 0 .007 5.356 0 11.972c-.003 2.109.551 4.17 1.6 5.98L.001 24l6.217-1.631a11.94 11.94 0 0 0 5.752 1.466h.005c6.613 0 11.97-5.356 11.976-11.972a11.868 11.868 0 0 0-3.431-8.379ZM11.975 22.1h-.004a10.07 10.07 0 0 1-5.142-1.412l-.369-.219-3.823 1.003 1.022-3.734-.24-.382a10.074 10.074 0 0 1-1.54-5.353C1.883 6.3 6.317 1.87 11.978 1.87a10.07 10.07 0 0 1 7.134 2.96 10.05 10.05 0 0 1 2.95 7.137c-.004 5.661-4.438 10.095-10.087 10.095Zm5.497-7.718c-.297-.149-1.758-.867-2.029-.967-.273-.101-.471-.149-.669.149-.198.297-.767.967-.941 1.165-.173.198-.347.223-.644.074-1.758-.867-2.91-1.544-4.086-3.5-.308-.53.308-.492.882-1.64.098-.198.049-.371-.025-.52-.074-.149-.669-1.612-.916-2.206-.242-.579-.487-.5-.669-.51-.173-.01-.371-.012-.57-.012-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479s1.065 2.876 1.213 3.074c.149.198 2.096 3.2 5.077 4.487.71.306 1.263.489 1.694.626.712.226 1.36.194 1.872.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347Z"/>
     </svg>
   </a>
