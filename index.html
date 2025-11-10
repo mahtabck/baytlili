@@ -105,13 +105,13 @@
       .feature-item{justify-content:center;gap:8px}
     }
 
-    /* WIDE DESKTOP (≥901px): 4 columns, centered block, slight right nudge */
+    /* WIDE DESKTOP (≥901px): 4 cols, centered block, slight right nudge */
     @media (min-width:901px){
       .feature-grid{
         grid-template-columns:repeat(4,minmax(0,1fr));
         max-width:1040px;
         margin:0 auto;
-        padding-left:12px;        /* subtle nudge */
+        padding-left:12px;
         justify-content:start;
         justify-items:start;
         text-align:left;
@@ -119,14 +119,15 @@
       .feature-item{justify-content:flex-start;justify-self:start}
     }
 
-    /* SMALL DESKTOP (769–900px): 2 columns, block aligned LEFT (forced) */
+    /* SMALL DESKTOP (769–900px): 2 cols, cluster left (content-sized) */
     @media (min-width:769px) and (max-width:900px){
       .feature-grid{
-        width:100% !important;     /* <<< forced left-hugging as requested */
-        grid-template-columns:repeat(2,minmax(0,1fr));
-        margin-left:0; margin-right:auto; 
-        justify-content:start;     
-        justify-items:start;       
+        width:100% !important;                 /* keep container width */
+        grid-template-columns:max-content max-content;  /* shrink-wrap columns */
+        column-gap:36px; row-gap:12px;         /* spacing between the two columns */
+        margin-left:0; margin-right:auto;      /* hug left side of container */
+        justify-content:start;                 /* tracks start at the left */
+        justify-items:start;                   /* items left within cells */
         place-content:start; place-items:start;
         text-align:left;
       }
@@ -200,8 +201,8 @@
       <div class="feature-item"><span class="icon"><svg viewBox="0 0 24 24" stroke-width="1.8"><path d="M3 10.5 12 3l9 7.5"/><path d="M5 10v10h14V10"/><path d="M9 20v-6h6v6"/></svg></span><span class="label">Exclusive booking</span></div>
       <div class="feature-item"><span class="icon"><svg viewBox="0 0 24 24" stroke-width="1.8"><path d="M8 5v10M14 5v10M6 7h10M6 11h10M6 15h10"/><path d="M3 19c1 .8 2 .8 3 0s2-.8 3 0 2 .8 3 0"/></svg></span><span class="label">Dipping pool</span></div>
       <div class="feature-item"><span class="icon"><svg viewBox="0 0 24 24" stroke-width="1.8"><path d="M3 12c4-6 10-8 18-8 0 8-2 14-8 18-6-2-8-6-10-10z"/><path d="M3 12c6 0 10 4 10 10"/></svg></span><span class="label">Front yard</span></div>
-      <div class="feature-item"><span class="icon"><svg viewBox="0 0 24 24" stroke-width="1.8"><path d="M12 22v-4"/><path d="M7 14c-1.657 0-3-1.343-3-3 0-1.243.756-2.309 1.84-2.758A4 4 0 0 1 12 5a4 4 0  0 1 6.16 3.242C19.245 8.69 20 9.756 20 11c0 1.657-1.343 3-3 3H7z"/></svg></span><span class="label">Back yard</span></div>
-      <div class="feature-item"><span class="icon"><svg viewBox="0 0 24 24" stroke-width="1.8"><path d="M4 10h16v6a4 4 0 0 1-4 4H8a4 4 0  0 1-4-4v-6z"/><path d="M2 10h20"/><path d="M7 6h10"/><path d="M9 6l1.5-2h3L15 6"/></svg></span><span class="label">Chef’s kitchen island</span></div>
+      <div class="feature-item"><span class="icon"><svg viewBox="0 0 24 24" stroke-width="1.8"><path d="M12 22v-4"/><path d="M7 14c-1.657 0-3-1.343-3-3 0-1.243.756-2.309 1.84-2.758A4 4 0 0 1 12 5a4 4 0 0 1 6.16 3.242C19.245 8.69 20 9.756 20 11c0 1.657-1.343 3-3 3H7z"/></svg></span><span class="label">Back yard</span></div>
+      <div class="feature-item"><span class="icon"><svg viewBox="0 0 24 24" stroke-width="1.8"><path d="M4 10h16v6a4 4 0 0 1-4 4H8a4 4 0 0 1-4-4v-6z"/><path d="M2 10h20"/><path d="M7 6h10"/><path d="M9 6l1.5-2h3L15 6"/></svg></span><span class="label">Chef’s kitchen island</span></div>
       <div class="feature-item"><span class="icon"><svg viewBox="0 0 24 24" stroke-width="1.8"><path d="M12 3l8 16H4L12 3z"/></svg></span><span class="label">Design flexibility</span></div>
     </div>
   </div>
