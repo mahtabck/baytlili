@@ -7,6 +7,7 @@
   <meta name="description" content="Book Bayt Lili for filming, photoshoots, or stays. Submit your request or message us on WhatsApp.">
   <link rel="icon" type="image/png" href="assets/favicon.png"/>
 
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700;800&display=swap" rel="stylesheet">
   <style>
     :root{
       --text:#fff; --muted:#eaeaea;
@@ -15,14 +16,17 @@
       --price-bg:#fff; --price-text:#1b1b1b; --price-border:rgba(0,0,0,.08);
       --control-h: 44px;
       --btn-font-size: 16px;
-      --header-h: 64px;
+      /* Match homepage header height exactly */
+      --header-h: 56px;
     }
+
     @font-face{
       font-family:'BaytLili';
       src: url('assets/BaytLili.ttf') format('truetype'),
            url('assets/BaytLili.otf') format('opentype');
       font-display:swap;
     }
+
     *,*::before,*::after{box-sizing:border-box}
     html,body{height:100%}
     body{
@@ -40,13 +44,17 @@
       background:rgba(0,0,0,.28); z-index:-1;
     }
 
-    /* Header/nav */
+    .container{width:min(900px,92vw); margin:0 auto; padding:clamp(24px,5vw,48px) 0}
+
+    /* ---------- Header (identical to homepage) ---------- */
     header{
       position:sticky; top:0; z-index:50;
       background:#000000f0;
       border-bottom:1px solid rgba(255,255,255,0.2);
+      min-height:var(--header-h);
+      backdrop-filter:saturate(1.1) blur(6px);
     }
-    .nav{display:flex;align-items:center;justify-content:space-between;gap:16px;padding:12px 0; min-height:var(--header-h)}
+    .nav{display:flex;align-items:center;justify-content:space-between;gap:16px;padding:8px 0}
     .brand{
       display:flex;align-items:center;gap:10px;color:#fff;
       font-family:'BaytLili','Playfair Display',serif;
@@ -54,15 +62,23 @@
       text-decoration:none;
     }
     .brand img{height:34px}
+
     .menu{display:flex;align-items:center;gap:20px}
     .menu a{
       color:#fff;text-decoration:none;white-space:nowrap;
-      font-size:1rem; position:relative; padding:6px 2px;
+      font-weight:700; position:relative; padding:6px 2px;
     }
     .menu a::after{content:""; position:absolute; left:0; right:0; bottom:-4px; height:1px; background:transparent; transition:background .2s ease}
     .menu a:hover::after{background:rgba(255,255,255,.7)}
 
-    .container{width:min(900px,92vw); margin:0 auto; padding:clamp(24px,5vw,48px) 0}
+    .hamburger{display:none;border:1px solid rgba(255,255,255,.35);height:34px;width:36px;border-radius:8px;padding:6px;flex-direction:column;gap:4px;justify-content:center;align-items:center;background:transparent;}
+    .hamburger span{width:18px;height:2px;background:#fff;border-radius:1px}
+    .mobile-menu{display:none;position:absolute;top:calc(var(--header-h));right:12px;width:min(35vw,300px);background:#000000f2;border:1px solid rgba(255,255,255,.2);border-radius:10px;overflow:hidden}
+    .mobile-menu a{display:block;padding:12px 14px;color:#fff;border-bottom:1px solid rgba(255,255,255,.08);font-weight:700;}
+    .mobile-menu a:last-child{border-bottom:none}
+    @media (max-width:900px){.menu{display:none}.hamburger{display:flex}}
+
+    /* ---------- Page content ---------- */
     h1{
       font-family:'BaytLili','Playfair Display',serif;
       margin:18px 0 8px; font-size:clamp(26px,4.4vw,40px);
@@ -159,10 +175,14 @@
 
   <!-- Header -->
   <header>
-    <div class="container nav">
+    <div class="container nav" style="padding:8px 0">
       <a class="brand" href="index.html" aria-label="Bayt Lili — Home">
         <img src="assets/bllogo.png" alt="Bayt Lili"/> BAYT LILI
       </a>
+
+      <!-- hamburger (like homepage) -->
+      <button class="hamburger" aria-label="Menu"><span></span><span></span><span></span></button>
+
       <nav class="menu" aria-label="Primary">
         <a href="index.html">Home</a>
         <a href="booking.html">Booking</a>
@@ -171,6 +191,8 @@
         <a href="index.html#contact">Contact</a>
       </nav>
     </div>
+    <!-- mobile menu container (like homepage) -->
+    <nav id="mobileMenu" class="mobile-menu" aria-label="Mobile"></nav>
   </header>
 
   <!-- Gate -->
@@ -207,8 +229,8 @@
           <input id="email" name="email" type="email" required placeholder="name@email.com"/>
         </div>
         <div>
-          <label for="phone">Phone (with country code) *</label>
-          <input id="phone" name="phone" type="tel" required placeholder="+9715XXXXXXXX"/>
+          <label for="phone">Phone *</label>
+          <input id="phone" name="phone" type="tel" required placeholder="9715XXXXXXXX"/>
         </div>
 
         <!-- Hidden purpose (set by gate or query) -->
@@ -256,6 +278,21 @@
     const MIN_HOURS_PER_DAY = 6;
     const DAY_MIN_CHARGE = RATE_PER_HOUR * MIN_HOURS_PER_DAY;
 
+    // ---------- Header mobile menu (same as homepage) ----------
+    (function(){
+      const btn = document.querySelector('.hamburger');
+      const mobile = document.getElementById('mobileMenu');
+      const desktop = document.querySelector('.menu');
+      function closeM(){ mobile.style.display='none'; }
+      function openM(){ mobile.style.display='block'; }
+      if(btn && mobile && desktop){
+        mobile.innerHTML = desktop.innerHTML;
+        btn.addEventListener('click', (e)=>{ e.stopPropagation(); (mobile.style.display==='block') ? closeM() : openM(); });
+        document.addEventListener('click', (e)=>{ if(!e.target.closest('header')) closeM(); });
+        window.addEventListener('resize', ()=>{ if(window.innerWidth>900) closeM(); });
+      }
+    })();
+
     // ---------- Elements ----------
     const gate = document.getElementById('gate');
     const main = document.getElementById('main');
@@ -267,7 +304,7 @@
     const statusEl = document.getElementById('form-status');
     const daysWrap = document.getElementById('daysWrap');
 
-    // ---------- Gate behavior (manual click) ----------
+    // ---------- Gate behavior ----------
     gate.querySelectorAll('.gate-btn').forEach(btn=>{
       btn.addEventListener('click', ()=>{
         const choice = btn.dataset.choice;
@@ -314,7 +351,6 @@
       selFrom.addEventListener('change', ()=>{
         const fromVal = selFrom.value;
         const min = parseTime(fromVal);
-        const currentTo = selTo.value;
         selTo.innerHTML = buildTimeOptions(min, '');
         const firstOption = selTo.querySelector('option[value]:not([value=""])');
         if (firstOption) selTo.value = firstOption.value;
@@ -417,22 +453,7 @@
         statusEl.style.color = 'crimson';
         return;
       }
-      for (const row of daysWrap.children) {
-        const from = row.querySelector('[name=day_from]').value;
-        const to   = row.querySelector('[name=day_to]').value;
-        const date = row.querySelector('[name=day_date]').value;
-        if (!date || !from || !to) {
-          statusEl.textContent = 'Please complete date and time for each day.';
-          statusEl.style.color = 'crimson';
-          return;
-        }
-        const hrs = computeHours(from,to);
-        if (hrs < MIN_HOURS_PER_DAY) {
-          statusEl.textContent = 'Each shoot day must be at least 6 hours.';
-          statusEl.style.color = 'crimson';
-          return;
-        }
-      }
+      // NOTE: No minimum-hours blocking – users can select < 6h; pricing still bills 6h/day.
 
       const params = new URLSearchParams();
       params.set('name', name);
@@ -500,8 +521,11 @@
     (function prefillFromQuery(){
       if (prePhone || preDate || preFrom || preTo){
         startWithChoice('Filming');
-        // Phone
-        if (prePhone){ document.getElementById('phone').value = prePhone.startsWith('+') ? prePhone : ('+' + prePhone); }
+        // Phone: store without '+' (9715XXXXXXXX)
+        if (prePhone){
+          const cleaned = prePhone.startsWith('+') ? prePhone.slice(1) : prePhone;
+          document.getElementById('phone').value = cleaned;
+        }
 
         // Ensure one day exists and fill it
         ensureAtLeastOneDay();
@@ -510,20 +534,16 @@
         const fromEl = row.querySelector('[name=day_from]');
         const toEl   = row.querySelector('[name=day_to]');
 
-        // Set date
         if (preDate){ dateEl.value = preDate; }
 
-        // Rebuild selects then set From/To (preserve "To after From" rule)
         fromEl.innerHTML = buildTimeOptions(-1, preFrom || '');
         const min = preFrom ? parseTime(preFrom) : -1;
         toEl.innerHTML   = buildTimeOptions(min, preTo || '');
 
-        // If values present, assign
         if (preFrom) fromEl.value = preFrom;
         if (preTo)   toEl.value   = preTo;
 
         updatePrice();
-        // Focus on name to continue filling form
         document.getElementById('name').focus({preventScroll:true});
       }
     })();
