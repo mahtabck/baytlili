@@ -119,13 +119,11 @@
       background:var(--panel-bg); border:1px solid var(--panel-stroke); border-radius:14px; padding:12px; overflow:hidden;
     }
 
-    /* Desktop: 6 equal columns → 4 fields + 2 buttons all the same size */
     .cta-grid{
       display:grid; gap:10px; align-items:end;
       grid-template-columns: repeat(6, minmax(0, 1fr));
     }
 
-    /* Labels */
     .cta label{
       display:flex; flex-direction:column; align-items:stretch;
       font-family:'Playfair Display',serif;
@@ -133,7 +131,6 @@
       white-space:nowrap;
     }
 
-    /* Controls (unified height + centering) */
     .control{
       display:block;
       width:100%; max-width:100%;
@@ -146,7 +143,6 @@
       line-height:calc(var(--control-h) - 2px);
     }
 
-    /* Base date normalization */
     .control[type="date"]{
       -webkit-appearance:none; appearance:none;
     }
@@ -158,12 +154,10 @@
       .control[type="date"]{ padding-top:2px; padding-bottom:0; }
       .control[type="date"]::-webkit-datetime-edit{ position:relative; top:0.5px; }
     }
-    /* Optional Chrome tweak (kept tiny, harmless elsewhere) */
     @supports (-webkit-appearance:none) and (not (-ms-ime-align:auto)) {
       .control[type="date"]{ padding-top:1px; }
     }
 
-    /* Buttons (Playfair) — same height/column width as fields */
     .btn{
       display:inline-flex; align-items:center; justify-content:center; gap:.5em;
       font-weight:700; letter-spacing:.02em; text-decoration:none;
@@ -174,7 +168,6 @@
     .btn.secondary{border-color:rgba(255,255,255,.45)}
     .btn:hover{opacity:.92}
 
-    /* ≤1280px: 2 columns; buttons side-by-side with same width */
     @media (max-width:1280px){
       .cta-grid{
         grid-template-columns: 1fr 1fr;
@@ -199,13 +192,22 @@
     h2{ font-family:'BaytLili','Playfair Display',serif; font-size:clamp(24px,3.5vw,36px); margin:0 0 12px; scroll-margin-top: calc(var(--header-h) + 12px); }
     p{margin:0 0 12px; color:#ededed}
 
-    /* Features */
+    /* ===== Features (restyled: no boxes) ===== */
     .panel{ background:var(--panel-bg); border:1px solid var(--panel-stroke); border-radius:18px; }
     .panel-head{display:flex;align-items:center;justify-content:space-between;gap:10px;font-weight:700;color:#fff;font-size:1.02rem}
     .panel hr{border:0;border-top:1px solid var(--panel-stroke);margin:8px 0}
-    .feature-grid{ display:grid; gap:10px 12px; grid-template-columns:repeat(auto-fit, minmax(220px, 1fr)) }
-    .feature-item{ display:flex; align-items:center; gap:10px; color:#fff; padding:10px 12px; border:1px solid var(--panel-stroke); border-radius:14px; background:rgba(255,255,255,.06) }
-    .icon{ width:22px; height:22px; display:inline-flex; align-items:center; justify-content:center; }
+
+    .feature-grid{
+      display:grid; gap:10px 16px;
+      grid-template-columns:repeat(auto-fit, minmax(240px, 1fr));
+      align-items:center;
+    }
+    .feature-item{
+      display:flex; align-items:center; gap:10px; color:#fff; padding:8px 0;
+      /* removed border/background so they don't look like buttons */
+    }
+    .icon{ width:22px; height:22px; display:inline-flex; align-items:center; justify-content:center; opacity:.95 }
+    .icon svg{ width:22px; height:22px; stroke:currentColor; }
     .label{font-weight:700; letter-spacing:.01em; font-family:'Plus Jakarta Sans',system-ui,sans-serif}
 
     /* Gallery */
@@ -219,40 +221,6 @@
     .logo img{max-height:42px; width:auto}
 
     footer{ border-top:1px solid rgba(255,255,255,.25); padding:24px 0; color:#e9e9e9; background:rgba(0,0,0,.18); text-align:center }
-
-    /* Touch tweaks */
-    @media (max-width:899.98px){
-      .menu{ display:none; }
-      .hamburger{ display:inline-flex; flex-direction:column; align-items:center; justify-content:center; width:34px; height:30px; gap:4px; }
-      .hamburger span{ width:18px; height:2px; background:#fff; border-radius:1px; }
-
-      .is-touch body::before{
-        background-position:center top !important;
-        background-size:auto 100% !important;
-        background-repeat:no-repeat !important;
-        background-attachment:scroll !important;
-      }
-      .is-touch .gallery-row{ flex-direction:column }
-      .is-touch .logos{ grid-template-columns:repeat(2,1fr) }
-    }
-
-    /* Quote Modal */
-    .modal-backdrop{ position:fixed; inset:0; background:rgba(0,0,0,.55); display:none; align-items:center; justify-content:center; z-index:70; }
-    .modal{
-      width:min(560px, 92vw); background:rgba(20,20,20,.96);
-      border:1px solid rgba(255,255,255,.18); border-radius:16px; padding:18px;
-      box-shadow:0 30px 80px rgba(0,0,0,.5);
-      font-family:'Plus Jakarta Sans',system-ui,-apple-system,Segoe UI,Roboto,sans-serif;
-    }
-    .modal h3{ margin:0 0 8px; font-size:1.3rem; font-family:'Playfair Display',serif; }
-    .modal p{ margin:6px 0; color:#f1f1f1 }
-    .modal .row{ display:flex; justify-content:space-between; gap:12px; padding:8px 0; border-top:1px solid rgba(255,255,255,.12); }
-    .modal .row:first-of-type{ border-top:0 }
-    .muted{ color:#cfcfcf; font-size:.95rem }
-    .badge{ display:inline-block; padding:.15rem .5rem; border:1px solid rgba(255,255,255,.25); border-radius:999px; font-size:.85rem; }
-    .total{ font-weight:800; font-size:1.15rem; }
-    .modal-actions{ display:flex; gap:10px; justify-content:flex-end; margin-top:14px; }
-    .btn.primary{ border-color:#fff; background:#ffffff22; }
   </style>
 </head>
 
@@ -319,14 +287,92 @@
         <div class="panel-head">Features</div>
         <hr>
         <div class="feature-grid">
-          <div class="feature-item"><span class="icon" aria-hidden="true"><svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M3 12h18"/><path d="M3 6h18"/><path d="M3 18h18"/></svg></span><span class="label">Non-gated access</span></div>
-          <div class="feature-item"><span class="icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"/><path d="M3.6 12H2m20 0h-1.6M12 3.6V2m0 20v-1.6"/></svg></span><span class="label">No permits required</span></div>
-          <div class="feature-item"><span class="icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M3 21V9l9-6 9 6v12"/><path d="M9 21V12h6v9"/></svg></span><span class="label">Exclusive booking</span></div>
-          <div class="feature-item"><span class="icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M3 12l9-9 9 9"/><path d="M9 21V9h6v12"/></svg></span><span class="label">Front yard</span></div>
-          <div class="feature-item"><span class="icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10l-9-7-9 7"/><path d="M5 10v10h14V10"/></svg></span><span class="label">Back yard</span></div>
-          <div class="feature-item"><span class="icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M4 20h16"/><rect x="7" y="2" width="10" height="16" rx="2"/></svg></span><span class="label">Chef’s kitchen island</span></div>
-          <div class="feature-item"><span class="icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="5"/><path d="M12 2v3M12 19v3M2 12h3M19 12h3"/></svg></span><span class="label">Dipping pool</span></div>
-          <div class="feature-item"><span class="icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M4 20l8-16 8 16"/><path d="M12 18l-4-8h8l-4 8z"/></svg></span><span class="label">Design flexibility</span></div>
+          <div class="feature-item">
+            <span class="icon" aria-hidden="true">
+              <!-- Menu/Access icon -->
+              <svg viewBox="0 0 24 24" fill="none" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M3 6h18M3 12h18M3 18h18"/>
+              </svg>
+            </span>
+            <span class="label">Non-gated access</span>
+          </div>
+
+          <div class="feature-item">
+            <span class="icon" aria-hidden="true">
+              <!-- No permit / plus-circle -->
+              <svg viewBox="0 0 24 24" fill="none" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+                <circle cx="12" cy="12" r="9"/><path d="M12 8v8M8 12h8"/>
+              </svg>
+            </span>
+            <span class="label">No permits required</span>
+          </div>
+
+          <div class="feature-item">
+            <span class="icon" aria-hidden="true">
+              <!-- House/booking -->
+              <svg viewBox="0 0 24 24" fill="none" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M3 10.5 12 3l9 7.5"/><path d="M5 10v10h14V10"/><path d="M9 20v-6h6v6"/>
+              </svg>
+            </span>
+            <span class="label">Exclusive booking</span>
+          </div>
+
+          <div class="feature-item">
+            <span class="icon" aria-hidden="true">
+              <!-- Front yard / home -->
+              <svg viewBox="0 0 24 24" fill="none" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M3 12l9-8 9 8"/><path d="M9 21V10h6v11"/>
+              </svg>
+            </span>
+            <span class="label">Front yard</span>
+          </div>
+
+          <div class="feature-item">
+            <span class="icon" aria-hidden="true">
+              <!-- Back yard / tree -->
+              <svg viewBox="0 0 24 24" fill="none" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M12 22v-4"/>
+                <path d="M7 14c-1.657 0-3-1.343-3-3 0-1.243.756-2.309 1.84-2.758A4 4 0 0 1 12 5a4 4 0 0 1 6.16 3.242C19.245 8.69 20 9.756 20 11c0 1.657-1.343 3-3 3H7z"/>
+              </svg>
+            </span>
+            <span class="label">Back yard</span>
+          </div>
+
+          <div class="feature-item">
+            <span class="icon" aria-hidden="true">
+              <!-- Kitchen island -->
+              <svg viewBox="0 0 24 24" fill="none" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+                <rect x="4" y="8" width="16" height="10" rx="2"/>
+                <path d="M8 8v-2a2 2 0 0 1 2-2h4"/>
+                <path d="M8 13h8"/>
+              </svg>
+            </span>
+            <span class="label">Chef’s kitchen island</span>
+          </div>
+
+          <div class="feature-item">
+            <span class="icon" aria-hidden="true">
+              <!-- Dipping pool / ladder + waves -->
+              <svg viewBox="0 0 24 24" fill="none" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+                <!-- ladder -->
+                <path d="M8 5v10M14 5v10"/>
+                <path d="M6 7h10M6 11h10M6 15h10"/>
+                <!-- waves -->
+                <path d="M3 19c1 .8 2 .8 3 0s2-.8 3 0 2 .8 3 0 2-.8 3 0 2 .8 3 0"/>
+              </svg>
+            </span>
+            <span class="label">Dipping pool</span>
+          </div>
+
+          <div class="feature-item">
+            <span class="icon" aria-hidden="true">
+              <!-- Flexibility / triangle -->
+              <svg viewBox="0 0 24 24" fill="none" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M12 3l8 16H4L12 3z"/>
+              </svg>
+            </span>
+            <span class="label">Design flexibility</span>
+          </div>
         </div>
       </div>
     </div>
