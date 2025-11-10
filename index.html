@@ -29,7 +29,7 @@
       --panel-stroke: rgba(255,255,255,.14);
       --header-h: 56px;
       --btn-border: rgba(255,255,255,.7);
-      --control-h: 38px;          /* unified control/button height */
+      --control-h: 38px;
       --radius: 10px;
       --warm-white: #f8f3ec;
       --cta-w: 1200px;
@@ -118,19 +118,16 @@
       margin-top:8px; width:min(var(--cta-w), 100%);
       background:var(--panel-bg); border:1px solid var(--panel-stroke); border-radius:14px; padding:12px; overflow:hidden;
     }
-
     .cta-grid{
       display:grid; gap:10px; align-items:end;
       grid-template-columns: repeat(6, minmax(0, 1fr));
     }
-
     .cta label{
       display:flex; flex-direction:column; align-items:stretch;
       font-family:'Playfair Display',serif;
       font-size:.95rem; letter-spacing:.01em; opacity:.98; text-align:left; min-width:0; font-weight:700;
       white-space:nowrap;
     }
-
     .control{
       display:block;
       width:100%; max-width:100%;
@@ -142,14 +139,12 @@
       font-family:'Plus Jakarta Sans',system-ui,-apple-system,Segoe UI,Roboto,sans-serif;
       line-height:calc(var(--control-h) - 2px);
     }
-
     .control[type="date"]{
       -webkit-appearance:none; appearance:none;
     }
     .control[type="date"]::-webkit-datetime-edit{ padding:0; line-height:1; }
     .control[type="date"]::-webkit-date-and-time-value{ text-align:left; }
-
-    /* --- Safari date vertical centering fix --- */
+    /* Safari date vertical centering fix */
     @supports (-webkit-touch-callout: none) {
       .control[type="date"]{ padding-top:2px; padding-bottom:0; }
       .control[type="date"]::-webkit-datetime-edit{ position:relative; top:0.5px; }
@@ -169,17 +164,14 @@
     .btn:hover{opacity:.92}
 
     @media (max-width:1280px){
-      .cta-grid{
-        grid-template-columns: 1fr 1fr;
-        gap:12px;
-      }
+      .cta-grid{ grid-template-columns: 1fr 1fr; gap:12px; }
       .cta label{ white-space:normal; }
       #qbQuote{ grid-column: 1 / 2; }
       #qbBook { grid-column: 2 / 3; }
       .btn{ font-size:15px; }
     }
 
-    /* Floating WhatsApp (official glyph) */
+    /* WhatsApp (official glyph) */
     .wa-float{
       position:fixed; right:16px; bottom:16px; width:56px; height:56px; border-radius:50%;
       background:#25D366; display:flex; align-items:center; justify-content:center;
@@ -187,27 +179,24 @@
     }
     .wa-float svg{ width:28px; height:28px; display:block; fill:#fff }
 
-    /* Sections */
+    /* Section headings */
     section+section{border-top:1px solid rgba(255,255,255,.18)}
     h2{ font-family:'BaytLili','Playfair Display',serif; font-size:clamp(24px,3.5vw,36px); margin:0 0 12px; scroll-margin-top: calc(var(--header-h) + 12px); }
     p{margin:0 0 12px; color:#ededed}
 
-    /* ===== Features (restyled: no boxes) ===== */
-    .panel{ background:var(--panel-bg); border:1px solid var(--panel-stroke); border-radius:18px; }
-    .panel-head{display:flex;align-items:center;justify-content:space-between;gap:10px;font-weight:700;color:#fff;font-size:1.02rem}
-    .panel hr{border:0;border-top:1px solid var(--panel-stroke);margin:8px 0}
-
+    /* ===== Features (panel removed; clean list with icons) ===== */
+    .features-wrap{ padding:0; } /* no background box */
+    .features-head{ display:flex; align-items:center; justify-content:space-between; gap:10px; font-weight:700; color:#fff; font-size:1.02rem; margin-bottom:8px; }
     .feature-grid{
       display:grid; gap:10px 16px;
       grid-template-columns:repeat(auto-fit, minmax(240px, 1fr));
       align-items:center;
     }
     .feature-item{
-      display:flex; align-items:center; gap:10px; color:#fff; padding:8px 0;
-      /* removed border/background so they don't look like buttons */
+      display:flex; align-items:center; gap:12px; color:#fff; padding:6px 0;
     }
     .icon{ width:22px; height:22px; display:inline-flex; align-items:center; justify-content:center; opacity:.95 }
-    .icon svg{ width:22px; height:22px; stroke:currentColor; }
+    .icon svg{ width:22px; height:22px; stroke:currentColor; fill:none; }
     .label{font-weight:700; letter-spacing:.01em; font-family:'Plus Jakarta Sans',system-ui,sans-serif}
 
     /* Gallery */
@@ -280,57 +269,60 @@
     </svg>
   </a>
 
-  <!-- Features -->
+  <!-- Features (panel removed) -->
   <section id="about" class="pad">
     <div class="container">
-      <div class="panel" style="padding:14px">
-        <div class="panel-head">Features</div>
-        <hr>
+      <div class="features-wrap">
+        <div class="features-head">Features</div>
         <div class="feature-grid">
+          <!-- Non-gated access: open door icon -->
           <div class="feature-item">
             <span class="icon" aria-hidden="true">
-              <!-- Menu/Access icon -->
-              <svg viewBox="0 0 24 24" fill="none" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
-                <path d="M3 6h18M3 12h18M3 18h18"/>
+              <svg viewBox="0 0 24 24" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+                <rect x="3" y="3" width="5" height="18" rx="1"/>
+                <path d="M8 5l8-2v18l-8-2z"/>
+                <circle cx="14.5" cy="12" r="0.8" fill="currentColor" stroke="none"/>
               </svg>
             </span>
             <span class="label">Non-gated access</span>
           </div>
 
+          <!-- No permits required: checkmark -->
           <div class="feature-item">
             <span class="icon" aria-hidden="true">
-              <!-- No permit / plus-circle -->
-              <svg viewBox="0 0 24 24" fill="none" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
-                <circle cx="12" cy="12" r="9"/><path d="M12 8v8M8 12h8"/>
+              <svg viewBox="0 0 24 24" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+                <circle cx="12" cy="12" r="9"/>
+                <path d="M8 12l3 3 5-6"/>
               </svg>
             </span>
             <span class="label">No permits required</span>
           </div>
 
+          <!-- Exclusive booking: house -->
           <div class="feature-item">
             <span class="icon" aria-hidden="true">
-              <!-- House/booking -->
-              <svg viewBox="0 0 24 24" fill="none" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+              <svg viewBox="0 0 24 24" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
                 <path d="M3 10.5 12 3l9 7.5"/><path d="M5 10v10h14V10"/><path d="M9 20v-6h6v6"/>
               </svg>
             </span>
             <span class="label">Exclusive booking</span>
           </div>
 
+          <!-- Front yard: leaf -->
           <div class="feature-item">
             <span class="icon" aria-hidden="true">
-              <!-- Front yard / home -->
-              <svg viewBox="0 0 24 24" fill="none" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
-                <path d="M3 12l9-8 9 8"/><path d="M9 21V10h6v11"/>
+              <svg viewBox="0 0 24 24" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M3 12c4-6 10-8 18-8 0 8-2 14-8 18-6-2-8-6-10-10z"/>
+                <path d="M3 12c6 0 10 4 10 10"/>
               </svg>
             </span>
             <span class="label">Front yard</span>
           </div>
 
+          <!-- Back yard: tree -->
           <div class="feature-item">
             <span class="icon" aria-hidden="true">
-              <!-- Back yard / tree -->
-              <svg viewBox="0 0 24 24" fill="none" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+              <svg viewBox="0 0 24 24" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
                 <path d="M12 22v-4"/>
                 <path d="M7 14c-1.657 0-3-1.343-3-3 0-1.243.756-2.309 1.84-2.758A4 4 0 0 1 12 5a4 4 0 0 1 6.16 3.242C19.245 8.69 20 9.756 20 11c0 1.657-1.343 3-3 3H7z"/>
               </svg>
@@ -338,36 +330,34 @@
             <span class="label">Back yard</span>
           </div>
 
+          <!-- Chef’s kitchen island: cooking pot -->
           <div class="feature-item">
             <span class="icon" aria-hidden="true">
-              <!-- Kitchen island -->
-              <svg viewBox="0 0 24 24" fill="none" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
-                <rect x="4" y="8" width="16" height="10" rx="2"/>
-                <path d="M8 8v-2a2 2 0 0 1 2-2h4"/>
-                <path d="M8 13h8"/>
+              <svg viewBox="0 0 24 24" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M4 10h16v6a4 4 0 0 1-4 4H8a4 4 0 0 1-4-4v-6z"/>
+                <path d="M2 10h20"/>
+                <path d="M7 6h10"/>
+                <path d="M9 6l1.5-2h3L15 6"/>
               </svg>
             </span>
             <span class="label">Chef’s kitchen island</span>
           </div>
 
+          <!-- Dipping pool: ladder + waves -->
           <div class="feature-item">
             <span class="icon" aria-hidden="true">
-              <!-- Dipping pool / ladder + waves -->
-              <svg viewBox="0 0 24 24" fill="none" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
-                <!-- ladder -->
-                <path d="M8 5v10M14 5v10"/>
-                <path d="M6 7h10M6 11h10M6 15h10"/>
-                <!-- waves -->
+              <svg viewBox="0 0 24 24" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M8 5v10M14 5v10M6 7h10M6 11h10M6 15h10"/>
                 <path d="M3 19c1 .8 2 .8 3 0s2-.8 3 0 2 .8 3 0 2-.8 3 0 2 .8 3 0"/>
               </svg>
             </span>
             <span class="label">Dipping pool</span>
           </div>
 
+          <!-- Design flexibility: triangle -->
           <div class="feature-item">
             <span class="icon" aria-hidden="true">
-              <!-- Flexibility / triangle -->
-              <svg viewBox="0 0 24 24" fill="none" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+              <svg viewBox="0 0 24 24" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
                 <path d="M12 3l8 16H4L12 3z"/>
               </svg>
             </span>
@@ -408,11 +398,7 @@
   <!-- Contact -->
   <section id="contact" class="pad">
     <div class="container">
-      <div class="panel" style="padding:14px">
-        <div class="panel-head">Contact</div>
-        <hr>
-        <p>Email: <a href="mailto:info@baytlili.com">info@baytlili.com</a> · Instagram: <a href="https://instagram.com/baytlili" target="_blank" rel="noopener">@baytlili</a></p>
-      </div>
+      <p>Email: <a href="mailto:info@baytlili.com">info@baytlili.com</a> · Instagram: <a href="https://instagram.com/baytlili" target="_blank" rel="noopener">@baytlili</a></p>
     </div>
   </section>
 
