@@ -130,7 +130,7 @@
       font-family:'Playfair Display',serif; letter-spacing:.02em; text-align:center;
     }
     .cta-buttons{
-      display:flex; align-items:center; justify-content:center; gap:10px; margin-bottom:8px;
+      display:flex; align-items:center; justify-content:center; gap:10px; margin-bottom:10px;
     }
     .btn{
       display:inline-flex; align-items:center; justify-content:center; gap:.5em;
@@ -142,56 +142,51 @@
     .btn.primary{ background:#fff; color:#111; border-color:#fff; }
     .btn:hover{opacity:.92}
 
-    /* Mini quote — even smaller, aligned button and fields, one row */
+    /* ===== Two-column row: Quick Booking (left) + Airbnb (right) ===== */
+    .cta-row{
+      margin-top:8px;
+      display:grid; gap:14px; align-items:start;
+      grid-template-columns: 1.1fr 0.9fr;   /* left a bit wider */
+    }
+    @media (max-width:900px){
+      .cta-row{ grid-template-columns: 1fr; }
+    }
+
+    /* Quick Booking Card (left) — compact vertical stack */
     .mini-quote{
       background:var(--panel-bg);
       border:1px solid var(--panel-stroke);
       border-radius:12px;
-      padding:6px 8px;                /* tighter padding */
-      overflow:hidden;
+      padding:10px; overflow:hidden; text-align:left;
     }
-    .mini-grid{
-      display:grid; gap:6px; align-items:end; /* align all to the bottom line */
-      grid-template-columns: 1fr 0.7fr auto;  /* phone | hours | button (narrower middle) */
+    .mini-title{
+      margin:0 0 6px; font-family:'Playfair Display',serif; font-weight:800; letter-spacing:.02em; font-size:1rem;
+    }
+    .mini-vert{
+      display:grid; gap:6px; grid-template-columns: 1fr; align-items:start;
     }
     .mini label{
-      display:flex; flex-direction:column; align-items:stretch;
-      font-family:'Playfair Display',serif;
-      font-size:.8rem; letter-spacing:.01em; opacity:.98; text-align:left; min-width:0; font-weight:700;
-      white-space:nowrap; margin:0;
+      display:flex; flex-direction:column;
+      font-family:'Playfair Display',serif; font-size:.85rem; font-weight:700; letter-spacing:.01em; opacity:.98;
     }
     .mini .control{
-      height:24px;                     /* smaller fields */
-      padding:0 6px;
-      margin-top:3px;
-      font-size:12px;
-      border-radius:6px;
-      border:1px solid var(--panel-stroke);
-      background:rgba(255,255,255,.98); color:#111;
-      line-height:22px;
-      font-family:'Plus Jakarta Sans',system-ui,-apple-system,Segoe UI,Roboto,sans-serif;
+      height:26px; padding:0 8px; margin-top:4px; font-size:12px; border-radius:6px;
+      border:1px solid var(--panel-stroke); background:rgba(255,255,255,.98); color:#111;
+      line-height:24px; font-family:'Plus Jakarta Sans',system-ui,-apple-system,Segoe UI,Roboto,sans-serif;
     }
     .mini .btn-quote{
-      height:24px;                     /* same height as fields */
-      padding:0 8px;                   /* as small as possible but tappable */
-      font-size:12px;
-      border-radius:6px;
-      align-self:end;                  /* bottom-align with inputs */
-      justify-self:stretch;            /* same width rhythm as inputs */
-      text-align:center;
-    }
-    /* Keep one line even on small screens */
-    @media (max-width:900px){
-      .mini-grid{ grid-template-columns: 1fr 0.6fr auto; }
+      height:26px; padding:0 10px; font-size:12px; border-radius:6px;
+      text-align:center; width:100%;
     }
 
-    /* STAYS (centered text + half-sized image) */
-    .cta-stays{ margin-top:12px; width:min(var(--cta-w), 100%); background:transparent; border:none; padding:0; }
-    .stays-grid{
-      display:flex; flex-direction:column; align-items:center; justify-content:center; gap:10px;
-      text-align:center;
+    /* Airbnb Card (right) — centered text + half-size image */
+    .cta-stays{ background:transparent; border:none; padding:0; }
+    .stays-card{
+      background:transparent; text-align:center; padding:4px;
     }
-    .stays-text{ font-family:'Playfair Display',serif; font-weight:700; letter-spacing:.02em; }
+    .stays-text{
+      font-family:'Playfair Display',serif; font-weight:700; letter-spacing:.02em; margin-bottom:8px;
+    }
     .airbnb-link{ display:inline-flex; align-items:center; justify-content:center; text-decoration:none; }
     .airbnb-img{
       display:block; height:auto; width:auto; max-width:210px; /* half of previous 420px */
@@ -312,33 +307,38 @@
       <h1 class="hero-title">BAYT LILI</h1>
       <div class="eyebrow-wrap"><div class="eyebrow">BOUTIQUE VILLA • FILMING • PHOTOSHOOTS • STAYS</div></div>
 
-      <!-- Intro + Book Now + Compact quick quote -->
+      <!-- Intro + Book Now -->
       <div class="cta">
         <div class="cta-intro">Looking for a filming or photoshoot location?</div>
         <div class="cta-buttons">
           <a href="booking.html" class="btn primary">Book Now</a>
         </div>
 
-        <div class="mini-quote mini">
-          <div class="mini-grid">
-            <label>Phone Number
-              <input type="tel" id="qbPhone" class="control" placeholder="971XXXXXXXXX" inputmode="numeric" pattern="^971\\d{9}$" />
-            </label>
-            <label>Number of Hours
-              <input type="number" id="qbHours" class="control" placeholder="e.g., 8" inputmode="decimal" min="1" step="0.5" />
-            </label>
-            <a id="qbQuote" class="btn btn-quote" href="#">Get Instant Quote</a>
+        <!-- Two-column layout: Quick Booking (left) | Airbnb (right) -->
+        <div class="cta-row">
+          <!-- Left: Quick Booking -->
+          <div class="mini-quote mini">
+            <h3 class="mini-title">Quick Booking</h3>
+            <div class="mini-vert">
+              <label>Phone Number
+                <input type="tel" id="qbPhone" class="control" placeholder="971XXXXXXXXX" inputmode="numeric" pattern="^971\\d{9}$" />
+              </label>
+              <label>Number of Hours
+                <input type="number" id="qbHours" class="control" placeholder="e.g., 8" inputmode="decimal" min="1" step="0.5" />
+              </label>
+              <a id="qbQuote" class="btn btn-quote" href="#">Get Instant Quote</a>
+            </div>
           </div>
-        </div>
-      </div>
 
-      <!-- STAYS (centered text and image, image half-size) -->
-      <div class="cta-stays" aria-labelledby="staysTitle">
-        <div class="stays-grid">
-          <div class="stays-text" id="staysTitle">For stays, please visit us on Airbnb:</div>
-          <a class="airbnb-link" href="https://www.airbnb.com/rooms/1010972686934184319?viralityEntryPoint=1&s=76" target="_blank" rel="noopener" aria-label="View Bayt Lili on Airbnb">
-            <img class="airbnb-img" src="assets/airbnb.png" alt="Bayt Lili on Airbnb"/>
-          </a>
+          <!-- Right: Airbnb -->
+          <div class="cta-stays">
+            <div class="stays-card">
+              <div class="stays-text">For stays, please visit us on Airbnb:</div>
+              <a class="airbnb-link" href="https://www.airbnb.com/rooms/1010972686934184319?viralityEntryPoint=1&s=76" target="_blank" rel="noopener" aria-label="View Bayt Lili on Airbnb">
+                <img class="airbnb-img" src="assets/airbnb.png" alt="Bayt Lili on Airbnb"/>
+              </a>
+            </div>
+          </div>
         </div>
       </div>
     </div>
