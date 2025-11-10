@@ -189,6 +189,19 @@
         background-color:#000;
       }
     }
+    /* Desktop-only: center the Features block, keep items left-aligned */
+@media (min-width: 769px) {
+  .feature-grid {
+    max-width: 1000px;   /* adjust width if you want it tighter/wider */
+    margin: 0 auto;      /* centers the whole grid block */
+    justify-content: center; /* centers the grid tracks inside the block */
+    justify-items: start;    /* items themselves align left inside each cell */
+    text-align: left;        /* keep text left-aligned */
+  }
+  .feature-item {
+    justify-content: flex-start; /* icon+label stay left within each row */
+  }
+}
   </style>
 </head>
 
