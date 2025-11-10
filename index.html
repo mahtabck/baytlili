@@ -33,8 +33,8 @@
       --radius: 10px;
       --warm-white: #f8f3ec;
       --cta-w: 1200px;
-      --rate: 300;
-      --min-hours: 6;
+      --rate: 300;         /* AED per hour */
+      --min-hours: 6;      /* Minimum billable hours */
     }
 
     @font-face{
@@ -89,10 +89,15 @@
     .menu a::after{content:""; position:absolute; left:0; right:0; bottom:-4px; height:1px; background:transparent; transition:background .2s ease}
     .menu a:hover::after{background:rgba(255,255,255,.7)}
 
-    /* Hamburger (mobile + narrow desktop) */
-    .hamburger{display:none; background:transparent; border:1px solid rgba(255,255,255,.35);
-      height:30px; width:34px; border-radius:8px; align-items:center; justify-content:center; gap:4px; padding:0;}
-    .hamburger span{ display:block; width:18px; height:2px; background:#fff; border-radius:1px }
+    /* Hamburger (mobile + narrow desktop) — stacked lines */
+    .hamburger{
+      display:none; background:transparent; border:1px solid rgba(255,255,255,.35);
+      height:34px; width:36px; border-radius:8px; align-items:center; justify-content:center; padding:6px;
+      flex-direction:column; gap:4px;
+    }
+    .hamburger span{
+      display:block; width:18px; height:2px; background:#fff; border-radius:1px;
+    }
     .mobile-menu{
       display:none; position:absolute; top:calc(var(--header-h)); right:12px;
       width:min(35vw, 300px); background:#000000f2; border:1px solid rgba(255,255,255,.2); border-radius:10px; overflow:hidden
@@ -101,7 +106,7 @@
       font-family:'Playfair Display',serif; font-weight:700; font-size:1rem; letter-spacing:.02em; }
     .mobile-menu a:last-child{ border-bottom:none }
 
-    /* Show hamburger & hide desktop menu when ≤ 900px (even on desktop) */
+    /* Show hamburger & hide desktop menu when ≤ 900px */
     @media (max-width:900px){
       .menu{ display:none; }
       .hamburger{ display:inline-flex; }
@@ -120,61 +125,56 @@
       font-weight:800; font-size:clamp(15px,1.8vw,25px); text-shadow:0 4px 10px rgba(0,0,0,.65);
     }
 
-    /* ===== QUICK BOOKING ===== */
-    .cta{
-      margin-top:8px; width:min(var(--cta-w), 100%);
+    /* ===== QUICK FLOW (intro line, Book Now, then mini quote) ===== */
+    .cta{ width:min(var(--cta-w), 100%); }
+    .cta-intro{
+      margin:6px 0 8px; color:#fff; font-weight:700;
+      font-family:'Playfair Display',serif; letter-spacing:.02em; text-align:center;
+    }
+    .cta-buttons{
+      display:flex; align-items:center; justify-content:center; gap:10px; margin-bottom:10px;
+    }
+    .btn{
+      display:inline-flex; align-items:center; justify-content:center; gap:.5em;
+      font-weight:700; letter-spacing:.02em; text-decoration:none;
+      border:1px solid var(--btn-border); background:transparent; color:#fff;
+      height:var(--control-h); padding:0 14px; border-radius:var(--radius); font-size:14px;
+      font-family:'Playfair Display',serif; white-space:nowrap;
+    }
+    .btn.primary{ background:#fff; color:#111; border-color:#fff; }
+    .btn:hover{opacity:.92}
+
+    /* Mini quote panel */
+    .mini-quote{
       background:var(--panel-bg); border:1px solid var(--panel-stroke); border-radius:14px; padding:12px; overflow:hidden;
     }
-    .cta-intro{
-      margin:2px 2px 8px; text-align:left; color:#fff; font-weight:700;
-      font-family:'Playfair Display',serif; letter-spacing:.02em;
-    }
-    .cta-grid{
+    .mini-grid{
       display:grid; gap:10px; align-items:end;
-      grid-template-columns: repeat(6, minmax(0, 1fr));
+      grid-template-columns: 2fr 1fr 1fr;   /* phone | hours | button */
     }
-    .cta label{
+    .mini label{
       display:flex; flex-direction:column; align-items:stretch;
       font-family:'Playfair Display',serif;
       font-size:.95rem; letter-spacing:.01em; opacity:.98; text-align:left; min-width:0; font-weight:700;
       white-space:nowrap;
     }
     .control{
-      display:block;
-      width:100%; max-width:100%;
-      height:var(--control-h);
-      padding:0 12px;
-      margin-top:6px;
-      border-radius:var(--radius); border:1px solid var(--panel-stroke);
+      display:block; width:100%; max-width:100%; height:var(--control-h);
+      padding:0 12px; margin-top:6px; border-radius:var(--radius); border:1px solid var(--panel-stroke);
       background:rgba(255,255,255,.98); color:#111; font-size:15px;
       font-family:'Plus Jakarta Sans',system-ui,-apple-system,Segoe UI,Roboto,sans-serif;
       line-height:calc(var(--control-h) - 2px);
     }
-    .control[type="date"]{ -webkit-appearance:none; appearance:none; }
-    .control[type="date"]::-webkit-datetime-edit{ padding:0; line-height:1; }
-    .control[type="date"]::-webkit-date-and-time-value{ text-align:left; }
-    /* Safari date vertical centering fix */
-    @supports (-webkit-touch-callout: none) {
-      .control[type="date"]{ padding-top:2px; padding-bottom:0; }
-      .control[type="date"]::-webkit-datetime-edit{ position:relative; top:0.5px; }
-    }
-    @supports (-webkit-appearance:none) and (not (-ms-ime-align:auto)) {
-      .control[type="date"]{ padding-top:1px; }
+    .mini .btn-quote{ justify-self:start; }
+
+    @media (max-width:900px){
+      .mini-grid{ grid-template-columns: 1fr; }
+      .mini .btn-quote{ width:100%; }
     }
 
-    .btn{
-      display:inline-flex; align-items:center; justify-content:center; gap:.5em;
-      font-weight:700; letter-spacing:.02em; text-decoration:none;
-      border:1px solid var(--btn-border); background:transparent; color:#fff;
-      height:var(--control-h); padding:0 12px; border-radius:var(--radius); font-size:14px;
-      font-family:'Playfair Display',serif; white-space:nowrap;
-    }
-    .btn.secondary{border-color:rgba(255,255,255,.45)}
-    .btn:hover{opacity:.92}
-
-    /* ===== STAYS BOX ===== */
+    /* ===== STAYS BOX (Airbnb square image) ===== */
     .cta-stays{
-      margin-top:10px; width:min(var(--cta-w), 100%);
+      margin-top:12px; width:min(var(--cta-w), 100%);
       background:var(--panel-bg); border:1px solid var(--panel-stroke); border-radius:14px; padding:12px;
     }
     .stays-grid{
@@ -184,14 +184,9 @@
       font-family:'Playfair Display',serif; font-weight:700; letter-spacing:.02em;
     }
     .airbnb-link{ display:inline-flex; align-items:center; gap:10px; text-decoration:none; }
-    .airbnb-img{ height:36px; width:auto; display:block; }
-
-    @media (max-width:1280px){
-      .cta-grid{ grid-template-columns: 1fr 1fr; gap:12px; }
-      .cta label{ white-space:normal; }
-      #qbQuote{ grid-column: 1 / 2; }
-      #qbBook { grid-column: 2 / 3; }
-      .btn{ font-size:15px; }
+    .airbnb-img-square{
+      width:110px; height:110px; object-fit:cover; border-radius:12px; display:block;
+      border:1px solid rgba(255,255,255,.2);
     }
 
     /* WhatsApp (official glyph) */
@@ -212,24 +207,16 @@
     .feature-grid{
       display:grid; gap:12px 18px;
       grid-template-columns:repeat(auto-fit, minmax(240px, 1fr));
-      justify-content:center;             /* grid stays centered overall */
-      justify-items:stretch;              /* columns stretch */
-      align-items:center;
-      text-align:left;                    /* text left in each column */
+      justify-content:center; justify-items:stretch; align-items:center; text-align:left;
     }
-    .feature-item{
-      display:flex; align-items:center; justify-content:flex-start; gap:12px; /* left align per column */
-      color:#fff; padding:6px 0;
-    }
+    .feature-item{ display:flex; align-items:center; justify-content:flex-start; gap:12px; color:#fff; padding:6px 0; }
     .icon{ width:22px; height:22px; display:inline-flex; align-items:center; justify-content:center; opacity:.95 }
     .icon svg{ width:22px; height:22px; stroke:currentColor; fill:none; }
     .label{font-weight:700; letter-spacing:.01em; font-family:'Plus Jakarta Sans',system-ui,sans-serif}
 
-    /* ===== Gallery (4 images; centered; responsive grid) ===== */
+    /* ===== Gallery ===== */
     .gallery-grid{
-      display:grid; gap:12px;
-      grid-template-columns: repeat(4, 1fr);
-      justify-items:stretch;
+      display:grid; gap:12px; grid-template-columns: repeat(4, 1fr); justify-items:stretch;
     }
     @media (max-width:900px){ .gallery-grid{ grid-template-columns: repeat(2, 1fr); } }
     @media (max-width:560px){ .gallery-grid{ grid-template-columns: 1fr; } }
@@ -257,15 +244,15 @@
     /* --------- Mobile / touch: make BG cover (fix grey bottom) --------- */
     .is-touch body::before{
       background-position:center top !important;
-      background-size:cover !important;          /* cover, not contain */
+      background-size:cover !important;
       background-repeat:no-repeat !important;
-      background-attachment:scroll !important;   /* disable fixed on iOS */
+      background-attachment:scroll !important;
     }
     @media (max-width:900px){
       body::before{
         background-attachment:scroll;
         background-position:center top;
-        background-size:cover;                   /* ensure full screen coverage on narrow viewports */
+        background-size:cover;
       }
     }
 
@@ -317,23 +304,26 @@
       <h1 class="hero-title">BAYT LILI</h1>
       <div class="eyebrow-wrap"><div class="eyebrow">BOUTIQUE VILLA • FILMING • PHOTOSHOOTS • STAYS</div></div>
 
+      <!-- Intro line -->
       <div class="cta">
         <div class="cta-intro">Looking for a filming or photoshoot location?</div>
-        <div class="cta-grid">
-          <label>Phone Number
-            <input type="tel" id="qbPhone" class="control" placeholder="971XXXXXXXXX" inputmode="numeric" pattern="^971\\d{9}$" />
-          </label>
-          <label>Date
-            <input type="date" id="qbDate" class="control">
-          </label>
-          <label>From
-            <select id="qbFrom" class="control"></select>
-          </label>
-          <label>To
-            <select id="qbTo" class="control"></select>
-          </label>
-          <a id="qbQuote" class="btn" href="#">Get Instant Quote</a>
-          <a id="qbBook" class="btn secondary" href="#">Request to Book</a>
+
+        <!-- Book Now button (above mini quote) -->
+        <div class="cta-buttons">
+          <a href="booking.html" class="btn primary">Book Now</a>
+        </div>
+
+        <!-- Mini quote: phone + hours + Get Instant Quote -->
+        <div class="mini-quote mini">
+          <div class="mini-grid">
+            <label>Phone Number
+              <input type="tel" id="qbPhone" class="control" placeholder="971XXXXXXXXX" inputmode="numeric" pattern="^971\\d{9}$" />
+            </label>
+            <label>Number of Hours
+              <input type="number" id="qbHours" class="control" placeholder="e.g., 8" inputmode="decimal" min="1" step="0.5" />
+            </label>
+            <a id="qbQuote" class="btn btn-quote" href="#">Get Instant Quote</a>
+          </div>
         </div>
       </div>
 
@@ -342,8 +332,8 @@
         <div class="stays-grid">
           <div class="stays-text" id="staysTitle">For stays, please visit us on Airbnb:</div>
           <a class="airbnb-link" href="https://www.airbnb.com/rooms/1010972686934184319?viralityEntryPoint=1&s=76" target="_blank" rel="noopener" aria-label="View Bayt Lili on Airbnb">
-            <!-- Replace this file with your own logo -->
-            <img class="airbnb-img" src="assets/airbnb-logo.png" alt="Airbnb" />
+            <!-- Your square picture -->
+            <img class="airbnb-img-square" src="assets/airbnb.png" alt="Bayt Lili on Airbnb" />
           </a>
         </div>
       </div>
@@ -366,8 +356,7 @@
           <div class="feature-item">
             <span class="icon" aria-hidden="true">
               <svg viewBox="0 0 24 24" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
-                <rect x="3" y="3" width="5" height="18" rx="1"/>
-                <path d="M8 5l8-2v18l-8-2z"/>
+                <rect x="3" y="3" width="5" height="18" rx="1"/><path d="M8 5l8-2v18l-8-2z"/>
                 <circle cx="14.5" cy="12" r="0.8" fill="currentColor" stroke="none"/>
               </svg>
             </span>
@@ -377,8 +366,7 @@
           <div class="feature-item">
             <span class="icon" aria-hidden="true">
               <svg viewBox="0 0 24 24" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
-                <circle cx="12" cy="12" r="9"/>
-                <path d="M8 12l3 3 5-6"/>
+                <circle cx="12" cy="12" r="9"/><path d="M8 12l3 3 5-6"/>
               </svg>
             </span>
             <span class="label">No permits required</span>
@@ -407,8 +395,7 @@
           <div class="feature-item">
             <span class="icon" aria-hidden="true">
               <svg viewBox="0 0 24 24" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
-                <path d="M3 12c4-6 10-8 18-8 0 8-2 14-8 18-6-2-8-6-10-10z"/>
-                <path d="M3 12c6 0 10 4 10 10"/>
+                <path d="M3 12c4-6 10-8 18-8 0 8-2 14-8 18-6-2-8-6-10-10z"/><path d="M3 12c6 0 10 4 10 10"/>
               </svg>
             </span>
             <span class="label">Front yard</span>
@@ -417,8 +404,7 @@
           <div class="feature-item">
             <span class="icon" aria-hidden="true">
               <svg viewBox="0 0 24 24" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
-                <path d="M12 22v-4"/>
-                <path d="M7 14c-1.657 0-3-1.343-3-3 0-1.243.756-2.309 1.84-2.758A4 4 0 0 1 12 5a4 4 0 0 1 6.16 3.242C19.245 8.69 20 9.756 20 11c0 1.657-1.343 3-3 3H7z"/>
+                <path d="M12 22v-4"/><path d="M7 14c-1.657 0-3-1.343-3-3 0-1.243.756-2.309 1.84-2.758A4 4 0 0 1 12 5a4 4 0 0 1 6.16 3.242C19.245 8.69 20 9.756 20 11c0 1.657-1.343 3-3 3H7z"/>
               </svg>
             </span>
             <span class="label">Back yard</span>
@@ -427,10 +413,7 @@
           <div class="feature-item">
             <span class="icon" aria-hidden="true">
               <svg viewBox="0 0 24 24" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
-                <path d="M4 10h16v6a4 4 0 0 1-4 4H8a4 4 0 0 1-4-4v-6z"/>
-                <path d="M2 10h20"/>
-                <path d="M7 6h10"/>
-                <path d="M9 6l1.5-2h3L15 6"/>
+                <path d="M4 10h16v6a4 4 0 0 1-4 4H8a4 4 0 0 1-4-4v-6z"/><path d="M2 10h20"/><path d="M7 6h10"/><path d="M9 6l1.5-2h3L15 6"/>
               </svg>
             </span>
             <span class="label">Chef’s kitchen island</span>
@@ -493,10 +476,10 @@
     <div class="modal">
       <h3 id="quoteTitle">Instant Quote</h3>
       <div id="quoteBody"></div>
-      <p class="muted" id="minNote" style="display:none;">
+      <p class="muted" id="minNote" style="margin:6px 0; display:none;">
         <span class="badge">Note</span> A minimum booking of <strong>6 hours</strong> applies. The total reflects this minimum.
       </p>
-      <p class="muted" id="depositNote">
+      <p class="muted" id="depositNote" style="margin:6px 0;">
         <span class="badge">Deposit</span> A refundable damage deposit of <strong>AED 5,000</strong> applies to filming/photoshoots.
       </p>
       <div class="modal-actions">
@@ -533,53 +516,20 @@
       }
     })();
 
-    // Times (start 06:00)
-    const selFrom = document.getElementById('qbFrom');
-    const selTo   = document.getElementById('qbTo');
-    function optionList(startMin, endMin, selected){
-      const out=['<option value="">Select</option>'];
-      for(let m=startMin;m<=endMin;m+=15){
-        const hh=String(Math.floor(m/60)).padStart(2,'0');
-        const mm=String(m%60).padStart(2,'0');
-        const val=`${hh}:${mm}`;
-        out.push(`<option value="${val}"${val===selected?' selected':''}>${val}</option>`);
-      }
-      return out.join('');
-    }
-    function minutes(v){ const [h,m]=v.split(':').map(Number); return h*60+m; }
-    if(selFrom && selTo){
-      selFrom.innerHTML = optionList(6*60, 24*60, '');
-      selTo.innerHTML   = optionList(6*60+15, 24*60, '');
-      selFrom.addEventListener('change', ()=>{
-        const f = selFrom.value ? minutes(selFrom.value) : 6*60;
-        const start = Math.min(f+15, 24*60);
-        const prev = selTo.value;
-        selTo.innerHTML = optionList(start, 24*60, '');
-        if(prev){ const p=minutes(prev); if(p>=start && p<=24*60) selTo.value=prev; }
-      });
-    }
+    function cssNumber(name, fallback){ const v=parseFloat(getComputedStyle(document.documentElement).getPropertyValue(name)); return isNaN(v)?fallback:v; }
+    function AED(n){ return new Intl.NumberFormat('en-AE',{style:'currency',currency:'AED',maximumFractionDigits:2}).format(n); }
 
-    // Min date = today (optional)
-    (function(){
-      const d=new Date(), pad=n=>String(n).padStart(2,'0');
-      const min=`${d.getFullYear()}-${pad(d.getMonth()+1)}-${pad(d.getDate())}`;
-      const el=document.getElementById('qbDate'); if(el) el.setAttribute('min',min);
-    })();
-
-    // Collect params (date optional)
-    function collectQBParams(requireDate=false){
-      const phoneEl=document.getElementById('qbPhone');
-      const d=document.getElementById('qbDate').value||'';
-      const f=document.getElementById('qbFrom').value||'';
-      const t=document.getElementById('qbTo').value||'';
-      const phone=(phoneEl.value||'').trim();
+    // Collect params (phone + hours)
+    function collectMiniParams(){
+      const phone = (document.getElementById('qbPhone').value||'').trim();
+      const hoursRaw = (document.getElementById('qbHours').value||'').trim();
       const phoneOk=/^971\d{9}$/.test(phone);
-      if(!phoneOk || !f || !t || (requireDate && !d)){
-        let msg=[]; if(!phoneOk) msg.push('valid phone number (971XXXXXXXXX)'); if(!f) msg.push('"From" time'); if(!t) msg.push('"To" time'); if(requireDate && !d) msg.push('Date');
-        alert('Please enter: '+msg.join(', ')+(requireDate?'.':'. Date is optional.')); return null;
+      const hours = parseFloat(hoursRaw);
+      if(!phoneOk || !hours || hours <= 0){
+        let msg=[]; if(!phoneOk) msg.push('valid phone number (971XXXXXXXXX)'); if(!(hours>0)) msg.push('number of hours');
+        alert('Please enter: '+msg.join(', ')+'.'); return null;
       }
-      const fMin=minutes(f), tMin=minutes(t); if(tMin<=fMin){ alert('"To" time must be after "From" time.'); return null; }
-      const params={ phone, from:f, to:t }; if(d) params.date=d; return params;
+      return { phone, hours };
     }
 
     // Quote modal utilities
@@ -589,35 +539,27 @@
     function openModal(){ modal.style.display='flex'; } function closeModal(){ modal.style.display='none'; }
     modal.addEventListener('click', (e)=>{ if(e.target===modal) closeModal(); }); quoteClose.addEventListener('click', closeModal);
     document.addEventListener('keydown', (e)=>{ if(e.key==='Escape') closeModal(); });
-    function cssNumber(name, fallback){ const v=parseFloat(getComputedStyle(document.documentElement).getPropertyValue(name)); return isNaN(v)?fallback:v; }
-    function AED(n){ return new Intl.NumberFormat('en-AE',{style:'currency',currency:'AED',maximumFractionDigits:2}).format(n); }
 
-    // Get Instant Quote
+    // Instant Quote (phone + hours -> summary)
     document.getElementById('qbQuote').addEventListener('click',(e)=>{
       e.preventDefault();
-      const params=collectQBParams(false); if(!params) return;
+      const p = collectMiniParams(); if(!p) return;
       const rate=cssNumber('--rate',300), minHours=cssNumber('--min-hours',6);
-      const minutesFrom=t=>{const [h,m]=t.split(':').map(Number);return h*60+m;};
-      const f=minutesFrom(params.from), t=minutesFrom(params.to);
-      const selected=Math.round(((t-f)/60)*4)/4; const billable=Math.max(selected,minHours); const total=billable*rate;
+      const selected = Math.round(p.hours*4)/4;   // quarter-hour rounding
+      const billable = Math.max(selected, minHours);
+      const total    = billable * rate;
+
       quoteBody.innerHTML=`
-        <div class="row"><span>Phone</span><span>${params.phone}</span></div>
-        ${params.date?`<div class="row"><span>Date</span><span>${params.date}</span></div>`:''}
-        <div class="row"><span>From</span><span>${params.from}</span></div>
-        <div class="row"><span>To</span><span>${params.to}</span></div>
-        <div class="row"><span>Selected Hours</span><span>${selected.toString()} hrs</span></div>
-        <div class="row"><span>Billable Hours</span><span>${billable.toString()} hrs</span></div>
+        <div class="row"><span>Phone</span><span>${p.phone}</span></div>
+        <div class="row"><span>Selected Hours</span><span>${selected} hr${selected===1?'':'s'}</span></div>
+        <div class="row"><span>Billable Hours (min ${minHours})</span><span>${billable} hr${billable===1?'':'s'}</span></div>
         <div class="row total"><span>Total (@ AED ${rate}/hr)</span><span>${AED(total)}</span></div>`;
       minNote.style.display = selected < minHours ? 'block' : 'none';
-      const qs=new URLSearchParams(params); quoteProceed.href=`booking.html?${qs.toString()}`; openModal();
-    });
 
-    // Request to Book — pass params to booking page (prefill there)
-    document.getElementById('qbBook').addEventListener('click',(e)=>{
-      e.preventDefault();
-      const params=collectQBParams(false); if(!params) return;
-      params.action='request';
-      const qs=new URLSearchParams(params); window.location.href=`booking.html?${qs.toString()}`;
+      // Pass phone to booking page to prefill phone; hours are just for quote
+      const qs = new URLSearchParams({ phone: p.phone });
+      quoteProceed.href = `booking.html?${qs.toString()}`;
+      openModal();
     });
   </script>
 </body>
