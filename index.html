@@ -105,36 +105,34 @@
       .feature-item{justify-content:center;gap:8px}
     }
 
-    /* WIDE DESKTOP: 4 columns, centered block, slight right nudge */
+    /* WIDE DESKTOP (≥901px): 4 columns, centered block, slight right nudge */
     @media (min-width:901px){
       .feature-grid{
         grid-template-columns:repeat(4,minmax(0,1fr));
         max-width:1040px;
         margin:0 auto;
         padding-left:12px;        /* subtle nudge */
-        justify-content:start;    /* tracks align from the left inside max-width */
-        justify-items:start;      /* items left in each cell */
+        justify-content:start;
+        justify-items:start;
         text-align:left;
       }
       .feature-item{justify-content:flex-start;justify-self:start}
     }
 
-    /* NARROW DESKTOP (your "small desktop"): 2 columns HARD-LEFT */
+    /* SMALL DESKTOP (769–900px): 2 columns, block aligned LEFT */
     @media (min-width:769px) and (max-width:900px){
       .feature-grid{
-        grid-template-columns:repeat(2,minmax(0,1fr));
-        max-width:none;            /* use full container width */
-        margin-left:0; margin-right:auto;
-        justify-content:start;     /* grid tracks start at left */
-        justify-items:start;       /* items left within their cells */
-        place-content:start;       /* ensure tracks don't center in some browsers */
-        place-items:start;         /* ensure items don't center in some browsers */
+        /* Make the grid’s own width shrink to its content so it won’t center */
+        width:max-content;
+        grid-template-columns:auto auto;  /* columns sized to content */
+        column-gap:28px; row-gap:12px;
+        margin-left:0; margin-right:auto; /* hug left of the container */
+        justify-content:start;            /* grid tracks start at left */
+        justify-items:start;              /* items left in their cells */
+        place-content:start; place-items:start;
         text-align:left;
       }
-      .feature-item{
-        justify-content:flex-start;
-        justify-self:start;        /* item-level left lock */
-      }
+      .feature-item{justify-content:flex-start;justify-self:start}
     }
 
     /* Gallery */
