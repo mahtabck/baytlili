@@ -28,7 +28,7 @@
       --panel-stroke: rgba(255,255,255,.14);
       --header-h: 56px;
       --btn-border: rgba(255,255,255,.7);
-      --control-h: 38px;
+      --control-h: 34px;
       --radius: 10px;
       --cta-w: 1200px;
       --rate: 300;
@@ -83,8 +83,8 @@
       color:#fff;text-decoration:none;white-space:nowrap; position:relative; padding:6px 2px;
       font-family:'Playfair Display',serif; font-weight:700; font-size:1rem; letter-spacing:.02em;
     }
-    .menu a:hover::after{background:rgba(255,255,255,.7)}
     .menu a::after{content:""; position:absolute; left:0; right:0; bottom:-4px; height:1px; background:transparent; transition:background .2s ease}
+    .menu a:hover::after{background:rgba(255,255,255,.7)}
 
     /* Hamburger (stacked vertical bars) */
     .hamburger{
@@ -121,47 +121,50 @@
     .cta-buttons{
       display:flex; align-items:center; justify-content:center; gap:10px;
       margin-top:10px;
-      margin-bottom:56px; /* big gap to quote section */
+      margin-bottom:56px;
     }
     .btn{
       display:inline-flex; align-items:center; justify-content:center; gap:.5em;
       font-weight:700; letter-spacing:.02em; text-decoration:none;
       border:1px solid var(--btn-border); background:transparent; color:#fff;
-      height:var(--control-h); padding:0 14px; border-radius:var(--radius); font-size:14px;
+      height:42px; padding:0 18px; border-radius:14px; font-size:16px;
       font-family:'Playfair Display',serif; white-space:nowrap;
     }
     .btn.primary{ background:#fff; color:#111; border-color:#fff; }
-    .btn.large{ height:64px; padding:0 38px; font-size:20px; border-radius:16px; letter-spacing:.02em; }
+    .btn.large{ height:60px; padding:0 36px; font-size:20px; border-radius:16px; }
     .btn:hover{opacity:.92}
 
-    /* ===== Quick Booking (centered, compact; labels on the LEFT) ===== */
+    /* ===== Quick Booking (labels left; compact; perfectly aligned) ===== */
     .cta-row{ display:flex; justify-content:center; }
     .mini-quote{ background:transparent; border:none; padding:0; text-align:left; margin:0 auto; }
     .mini-vert{
-      display:grid; gap:12px;
-      width:min(560px, 92vw);
+      display:grid; gap:14px;
+      width:min(520px, 92vw);
       margin:0 auto;
     }
     .mini-row{
       display:grid;
-      grid-template-columns: 1fr 2fr;  /* label | input */
-      gap:12px; align-items:center;
+      grid-template-columns: 150px 1fr;  /* label | input */
+      gap:10px; align-items:center;
     }
     .mini-lbl{
-      font-family:'Playfair Display',serif; font-size:1.05rem; font-weight:700; letter-spacing:.01em; opacity:.98; white-space:nowrap;
+      font-family:'Playfair Display',serif; font-size:1rem; font-weight:700; letter-spacing:.01em; opacity:.98; white-space:nowrap;
+      text-align:left;
     }
     .control{
-      height:32px; padding:0 10px; font-size:14px; border-radius:8px;
+      height:var(--control-h); padding:0 10px; font-size:14px; border-radius:8px;
       border:1px solid var(--panel-stroke); background:rgba(255,255,255,.98); color:#111;
-      line-height:30px; font-family:'Plus Jakarta Sans',system-ui,-apple-system,Segoe UI,Roboto,sans-serif;
+      line-height:calc(var(--control-h) - 2px); font-family:'Plus Jakarta Sans',system-ui,-apple-system,Segoe UI,Roboto,sans-serif;
       width:100%;
     }
     .btn-quote{
-      height:38px; padding:0 14px; font-size:14px; border-radius:10px;
-      text-align:center; width:100%;
-      border:1px solid #fff; color:#111; background:#fff; /* white with black text */
+      height:36px; padding:0 14px; font-size:14px; border-radius:8px;
+      width:100%; display:inline-flex; align-items:center; justify-content:center;
+      border:1px solid #fff; color:#111; background:#fff;
       font-family:'Playfair Display',serif; font-weight:700;
+      text-decoration:none;                 /* remove underline */
     }
+    .btn-quote:hover, .btn-quote:focus{ text-decoration:none; opacity:.95; }
 
     /* WhatsApp FAB */
     .wa-float{
@@ -274,7 +277,7 @@
       <div class="eyebrow-wrap"><div class="eyebrow">BOUTIQUE VILLA • FILMING • PHOTOSHOOTS • STAYS</div></div>
 
       <div class="cta">
-        <!-- Big Book Now -->
+        <!-- Book Now -->
         <div class="cta-buttons">
           <a href="booking.html" class="btn primary large">Book Now</a>
         </div>
@@ -285,7 +288,7 @@
             <div class="mini-vert">
               <div class="mini-row">
                 <label for="qbPhone" class="mini-lbl">Phone Number</label>
-                <input type="tel" id="qbPhone" class="control" placeholder="971XXXXXXXXX" inputmode="numeric" pattern="^971\d{9}$" />
+                <input type="tel" id="qbPhone" class="control" placeholder="971XXXXXXXXX" inputmode="numeric" />
               </div>
               <div class="mini-row">
                 <label for="qbHours" class="mini-lbl">Number of Hours</label>
@@ -477,7 +480,7 @@
     function cssNumber(name, fallback){ const v=parseFloat(getComputedStyle(document.documentElement).getPropertyValue(name)); return isNaN(v)?fallback:v; }
     function AED(n){ return new Intl.NumberFormat('en-AE',{style:'currency',currency:'AED',maximumFractionDigits:2}).format(n); }
 
-    // Collect params (phone + hours) — accepts 971XXXXXXXXX or +971XXXXXXXXX
+    // Collect params (phone + hours) — accept 971XXXXXXXXX or +971XXXXXXXXX
     function collectMiniParams(){
       const raw = (document.getElementById('qbPhone').value||'').trim();
       const digits = raw.replace(/\D/g,''); // strip non-digits
@@ -492,7 +495,7 @@
       return { phone: digits, hours };
     }
 
-    // Quote modal utilities
+    // Modal helpers
     const modal=document.getElementById('quoteModal'), quoteBody=document.getElementById('quoteBody'),
           quoteClose=document.getElementById('quoteClose'), quoteProceed=document.getElementById('quoteProceed'),
           minNote=document.getElementById('minNote');
