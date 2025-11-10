@@ -105,25 +105,30 @@
       .feature-item{justify-content:center;gap:8px}
     }
 
-    /* Desktop wide: 4 columns centered block, left-aligned items */
+    /* Desktop wide: 4 columns, centered block, items left-aligned.
+       Slight nudge right to visually center under the title. */
     @media (min-width:901px){
       .feature-grid{
         grid-template-columns:repeat(4,minmax(0,1fr));
-        max-width:1000px;
-        margin:0 auto;
-        justify-items:start;
+        max-width:1040px;          /* constrain so the block can be centered */
+        margin:0 auto;             /* center the 4-col block */
+        padding-left:12px;         /* subtle shift to the right */
+        justify-items:start;       /* left-align contents inside each cell */
         text-align:left;
       }
+      .feature-item{justify-content:flex-start;}
     }
 
-    /* Narrow desktop/tablet: 2 columns LEFT-aligned block + items */
+    /* Narrow desktop/tablet: 2 columns, LEFT-aligned block + items */
     @media (min-width:769px) and (max-width:900px){
       .feature-grid{
         grid-template-columns:repeat(2,minmax(0,1fr));
-        max-width:none;        /* do not constrain width */
-        margin:0;              /* align grid to left edge of container */
-        justify-content:start; /* grid tracks start at left */
-        justify-items:start;   /* items align left within each column */
+        max-width:none;            /* take full container width */
+        margin-left:0;             /* block hugs the left edge of the container */
+        margin-right:auto;
+        justify-content:start;     /* grid tracks start at left */
+        justify-items:start;       /* items align left within each column */
+        align-items:start;
         text-align:left;
       }
       .feature-item{justify-content:flex-start;}
@@ -194,7 +199,7 @@
       <div class="feature-item"><span class="icon"><svg viewBox="0 0 24 24" stroke-width="1.8"><rect x="3" y="3" width="5" height="18" rx="1"/><path d="M8 5l8-2v18l-8-2z"/></svg></span><span class="label">Non-gated access</span></div>
       <div class="feature-item"><span class="icon"><svg viewBox="0 0 24 24" stroke-width="1.8"><circle cx="12" cy="12" r="9"/><path d="M8 12l3 3 5-6"/></svg></span><span class="label">No permits required</span></div>
       <div class="feature-item"><span class="icon"><svg viewBox="0 0 24 24" stroke-width="1.8"><path d="M3 10.5 12 3l9 7.5"/><path d="M5 10v10h14V10"/><path d="M9 20v-6h6v6"/></svg></span><span class="label">Exclusive booking</span></div>
-      <div class="feature-item"><span class="icon"><svg viewBox="0 0 24 24" stroke-width="1.8"><path d="M8 5v10M14 5v10M6 7h10M6 11h10M6 15h10"/><path d="M3 19c1 .8 2 .8 3 0s2-.8 3 0 2 .8 3 0 2-.8 3 0"/></svg></span><span class="label">Dipping pool</span></div>
+      <div class="feature-item"><span class="icon"><svg viewBox="0 0 24 24" stroke-width="1.8"><path d="M8 5v10M14 5v10M6 7h10M6 11h10M6 15h10"/><path d="M3 19c1 .8 2 .8 3 0s2-.8 3 0 2 .8 3 0"/></svg></span><span class="label">Dipping pool</span></div>
       <div class="feature-item"><span class="icon"><svg viewBox="0 0 24 24" stroke-width="1.8"><path d="M3 12c4-6 10-8 18-8 0 8-2 14-8 18-6-2-8-6-10-10z"/><path d="M3 12c6 0 10 4 10 10"/></svg></span><span class="label">Front yard</span></div>
       <div class="feature-item"><span class="icon"><svg viewBox="0 0 24 24" stroke-width="1.8"><path d="M12 22v-4"/><path d="M7 14c-1.657 0-3-1.343-3-3 0-1.243.756-2.309 1.84-2.758A4 4 0 0 1 12 5a4 4 0 0 1 6.16 3.242C19.245 8.69 20 9.756 20 11c0 1.657-1.343 3-3 3H7z"/></svg></span><span class="label">Back yard</span></div>
       <div class="feature-item"><span class="icon"><svg viewBox="0 0 24 24" stroke-width="1.8"><path d="M4 10h16v6a4 4 0 0 1-4 4H8a4 4 0 0 1-4-4v-6z"/><path d="M2 10h20"/><path d="M7 6h10"/><path d="M9 6l1.5-2h3L15 6"/></svg></span><span class="label">Chef’s kitchen island</span></div>
