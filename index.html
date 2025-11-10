@@ -105,33 +105,36 @@
       .feature-item{justify-content:center;gap:8px}
     }
 
-    /* Desktop wide: 4 columns, centered block, items left-aligned.
-       Slight nudge right to visually center under the title. */
+    /* WIDE DESKTOP: 4 columns, centered block, slight right nudge */
     @media (min-width:901px){
       .feature-grid{
         grid-template-columns:repeat(4,minmax(0,1fr));
-        max-width:1040px;          /* constrain so the block can be centered */
-        margin:0 auto;             /* center the 4-col block */
-        padding-left:12px;         /* subtle shift to the right */
-        justify-items:start;       /* left-align contents inside each cell */
+        max-width:1040px;
+        margin:0 auto;
+        padding-left:12px;        /* subtle nudge */
+        justify-content:start;    /* tracks align from the left inside max-width */
+        justify-items:start;      /* items left in each cell */
         text-align:left;
       }
-      .feature-item{justify-content:flex-start;}
+      .feature-item{justify-content:flex-start;justify-self:start}
     }
 
-    /* Narrow desktop/tablet: 2 columns, LEFT-aligned block + items */
+    /* NARROW DESKTOP (your "small desktop"): 2 columns HARD-LEFT */
     @media (min-width:769px) and (max-width:900px){
       .feature-grid{
         grid-template-columns:repeat(2,minmax(0,1fr));
-        max-width:none;            /* take full container width */
-        margin-left:0;             /* block hugs the left edge of the container */
-        margin-right:auto;
+        max-width:none;            /* use full container width */
+        margin-left:0; margin-right:auto;
         justify-content:start;     /* grid tracks start at left */
-        justify-items:start;       /* items align left within each column */
-        align-items:start;
+        justify-items:start;       /* items left within their cells */
+        place-content:start;       /* ensure tracks don't center in some browsers */
+        place-items:start;         /* ensure items don't center in some browsers */
         text-align:left;
       }
-      .feature-item{justify-content:flex-start;}
+      .feature-item{
+        justify-content:flex-start;
+        justify-self:start;        /* item-level left lock */
+      }
     }
 
     /* Gallery */
