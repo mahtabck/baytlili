@@ -115,14 +115,14 @@
       margin:0; color:#fff; font-family:'BaytLili','Playfair Display',serif; font-weight:700;
       text-shadow:0 3px 10px rgba(0,0,0,.35); font-size:clamp(40px,5.6vw,92px); line-height:1.02; letter-spacing:.08em;
     }
-    .eyebrow-wrap{ width:min(var(--cta-w), 100%); margin-inline:auto; margin-bottom:14px; } /* add a bit of space before the button */
+    .eyebrow-wrap{ width:min(var(--cta-w), 100%); margin-inline:auto; margin-bottom:14px; }
 
     /* CTA area */
     .cta{ width:min(var(--cta-w), 100%); }
     .cta-buttons{
       display:flex; align-items:center; justify-content:center; gap:10px;
-      margin-top:6px;              /* space between top text and button */
-      margin-bottom:20px;          /* doubled space after Book Now */
+      margin-top:6px;     /* space between top text and button */
+      margin-bottom:20px; /* doubled space after Book Now */
     }
     .btn{
       display:inline-flex; align-items:center; justify-content:center; gap:.5em;
@@ -134,15 +134,9 @@
     .btn.primary{ background:#fff; color:#111; border-color:#fff; }
     .btn:hover{opacity:.92}
 
-    /* ===== Side-by-side: Quick Booking (left) + Airbnb (right) ===== */
-    .cta-row{
-      display:grid; align-items:start; column-gap:16px; /* a bit more breathing room */
-      grid-template-columns: 1fr 1fr;  /* ALWAYS two columns */
-      margin-top:8px;
-    }
-
-    /* Left column (Quick Booking) — NO background, ultra compact */
-    .mini-quote{ background:transparent; border:none; padding:0; text-align:left; width:100%; }
+    /* ===== Quick Booking (centered, compact) ===== */
+    .cta-row{ display:flex; justify-content:center; }
+    .mini-quote{ background:transparent; border:none; padding:0; text-align:left; }
     .mini-vert{
       display:grid; grid-template-columns: 1fr; gap:8px;
       width:min(44vw, 360px);
@@ -160,25 +154,6 @@
       height:24px; padding:0 8px; font-size:12px; border-radius:6px;
       text-align:center; width:100%;
       border:1px solid var(--btn-border); color:#fff; background:transparent;
-    }
-
-    /* Right column (Airbnb) — square image, 1/3 previous size, bottom-cropped */
-    .stays-card{ background:transparent; text-align:center; padding:0; width:min(44vw, 360px); margin:0 auto; }
-    .stays-text{ font-family:'Playfair Display',serif; font-weight:700; letter-spacing:.02em; margin-bottom:8px; }
-
-    /* Square wrapper that is 1/3 of the right column width */
-    .airbnb-square{
-      width: calc(min(44vw, 360px) * .33);
-      aspect-ratio: 1 / 1;
-      margin: 0 auto;
-      overflow: hidden;
-      border-radius:10px;
-    }
-    .airbnb-img{
-      width:100%; height:100%;
-      object-fit:cover;
-      object-position:center bottom; /* show the bottom part */
-      display:block;
     }
 
     /* WhatsApp FAB */
@@ -296,14 +271,13 @@
       <div class="eyebrow-wrap"><div class="eyebrow">BOUTIQUE VILLA • FILMING • PHOTOSHOOTS • STAYS</div></div>
 
       <div class="cta">
-        <!-- Book Now (with added spacing above/below) -->
+        <!-- Book Now -->
         <div class="cta-buttons">
           <a href="booking.html" class="btn primary">Book Now</a>
         </div>
 
-        <!-- Always side-by-side: Quick Booking (left) | Airbnb (right) -->
+        <!-- Quick Booking (centered) -->
         <div class="cta-row">
-          <!-- Left: Quick Booking (no heading, no box) -->
           <div class="mini-quote mini">
             <div class="mini-vert">
               <label>Phone Number
@@ -312,18 +286,8 @@
               <label>Number of Hours
                 <input type="number" id="qbHours" class="control" placeholder="e.g., 8" inputmode="decimal" min="1" step="0.5" />
               </label>
-              <a id="qbQuote" class="btn btn-quote" href="#">Get Instant Quote</a>
+              <a id="qbQuote" class="btn btn-quote" href="#">Get Instant Quote for Filming/Photoshoot</a>
             </div>
-          </div>
-
-          <!-- Right: Airbnb (square, small, bottom-cropped) -->
-          <div class="stays-card">
-            <div class="stays-text">For stays, please visit us on Airbnb:</div>
-            <a class="airbnb-link" href="https://www.airbnb.com/rooms/1010972686934184319?viralityEntryPoint=1&s=76" target="_blank" rel="noopener" aria-label="View Bayt Lili on Airbnb">
-              <div class="airbnb-square">
-                <img class="airbnb-img" src="assets/airbnb.png" alt="Bayt Lili on Airbnb"/>
-              </div>
-            </a>
           </div>
         </div>
       </div>
@@ -439,7 +403,7 @@
   <section id="previous" class="pad">
     <div class="container">
       <h2>Previous Work</h2>
-      <p style="text-align:center">Selected brands and productions that have shot at Bayt Lili.</p>
+    <p style="text-align:center">Selected brands and productions that have shot at Bayt Lili.</p>
       <div class="logos" style="margin-top:10px">
         <div class="logo"><img src="assets/logos/brand1.svg" alt="Brand 1"></div>
         <div class="logo"><img src="assets/logos/brand2.svg" alt="Brand 2"></div>
