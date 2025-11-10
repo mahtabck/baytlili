@@ -88,7 +88,7 @@
     h2{font-family:'BaytLili','Playfair Display',serif;text-align:center;margin:0 0 12px}
     p{color:#ededed}
 
-    /* Features base */
+    /* Features */
     .feature-grid{
       display:grid;gap:12px 18px;
       grid-template-columns:repeat(auto-fit,minmax(240px,1fr));
@@ -99,13 +99,12 @@
     .icon svg{width:22px;height:22px;stroke:currentColor;fill:none}
     .label{font-weight:700;font-family:'Plus Jakarta Sans',sans-serif}
 
-    /* Mobile: centered items (unchanged) */
     @media (max-width:768px){
       .feature-grid{text-align:center;justify-items:center;gap:8px 10px}
       .feature-item{justify-content:center;gap:8px}
     }
 
-    /* NEW: Desktop/medium columns */
+    /* Desktop and Medium screens */
     @media (min-width:901px){
       .feature-grid{
         grid-template-columns:repeat(4,minmax(0,1fr));
@@ -120,9 +119,11 @@
         grid-template-columns:repeat(2,minmax(0,1fr));
         max-width:700px;
         margin:0 auto;
+        justify-content:center;
         justify-items:start;
         text-align:left;
       }
+      .feature-item{justify-content:flex-start;}
     }
 
     /* Gallery */
@@ -140,7 +141,7 @@
 
     footer{text-align:center;border-top:1px solid rgba(255,255,255,.25);padding:24px 0;color:#e9e9e9;background:rgba(0,0,0,.18)}
 
-    /* Mobile background fill */
+    /* Mobile background */
     @media (max-width:900px){
       body::before{
         background-position:center top !important;
@@ -192,7 +193,7 @@
       <div class="feature-item"><span class="icon"><svg viewBox="0 0 24 24" stroke-width="1.8"><path d="M3 10.5 12 3l9 7.5"/><path d="M5 10v10h14V10"/><path d="M9 20v-6h6v6"/></svg></span><span class="label">Exclusive booking</span></div>
       <div class="feature-item"><span class="icon"><svg viewBox="0 0 24 24" stroke-width="1.8"><path d="M8 5v10M14 5v10M6 7h10M6 11h10M6 15h10"/><path d="M3 19c1 .8 2 .8 3 0s2-.8 3 0 2 .8 3 0 2-.8 3 0"/></svg></span><span class="label">Dipping pool</span></div>
       <div class="feature-item"><span class="icon"><svg viewBox="0 0 24 24" stroke-width="1.8"><path d="M3 12c4-6 10-8 18-8 0 8-2 14-8 18-6-2-8-6-10-10z"/><path d="M3 12c6 0 10 4 10 10"/></svg></span><span class="label">Front yard</span></div>
-      <div class="feature-item"><span class="icon"><svg viewBox="0 0 24 24" stroke-width="1.8"><path d="M12 22v-4"/><path d="M7 14c-1.657 0-3-1.343-3-3 0-1.243.756-2.309 1.84-2.758A4 4 0 0 1 12 5a4 4 0 0 1 6.16 3.242C19.245 8.69 20 9.756 20 11c0 1.657-1.343 3-3 3H7z"/></svg></span><span class="label">Back yard</span></div>
+      <div class="feature-item"><span class="icon"><svg viewBox="0 0 24 24" stroke-width="1.8"><path d="M12 22v-4"/><path d="M7 14c-1.657 0-3-1.343-3-3 0-1.243.756-2.309 1.84-2.758A4 4 0 0 1 12 5a4 4 0  0 1 6.16 3.242C19.245 8.69 20 9.756 20 11c0 1.657-1.343 3-3 3H7z"/></svg></span><span class="label">Back yard</span></div>
       <div class="feature-item"><span class="icon"><svg viewBox="0 0 24 24" stroke-width="1.8"><path d="M4 10h16v6a4 4 0 0 1-4 4H8a4 4 0 0 1-4-4v-6z"/><path d="M2 10h20"/><path d="M7 6h10"/><path d="M9 6l1.5-2h3L15 6"/></svg></span><span class="label">Chef’s kitchen island</span></div>
       <div class="feature-item"><span class="icon"><svg viewBox="0 0 24 24" stroke-width="1.8"><path d="M12 3l8 16H4L12 3z"/></svg></span><span class="label">Design flexibility</span></div>
     </div>
@@ -235,20 +236,22 @@
 
 <script>
   // Year
-  document.getElementById('y').textContent=new Date().getFullYear();
+  document.getElementById('y').textContent = new Date().getFullYear();
 
   // Mobile menu
-  const btn=document.querySelector('.hamburger'),
-        mobile=document.getElementById('mobileMenu'),
-        desktop=document.querySelector('.menu');
-  function closeM(){mobile.style.display='none'}
-  function openM(){mobile.style.display='block'}
-  if(btn&&mobile&&desktop){
-    mobile.innerHTML=desktop.innerHTML;
-    btn.addEventListener('click',e=>{e.stopPropagation();mobile.style.display==='block'?closeM():openM()});
-    document.addEventListener('click',e=>{ if(!e.target.closest('header')) closeM() });
-    window.addEventListener('resize',()=>{ if(innerWidth>900) closeM() });
-  }
+  (function(){
+    const btn = document.querySelector('.hamburger');
+    const mobile = document.getElementById('mobileMenu');
+    const desktop = document.querySelector('.menu');
+    function closeM(){ mobile.style.display='none'; }
+    function openM(){ mobile.style.display='block'; }
+    if(btn && mobile && desktop){
+      mobile.innerHTML = desktop.innerHTML;
+      btn.addEventListener('click', (e)=>{ e.stopPropagation(); (mobile.style.display==='block') ? closeM() : openM(); });
+      document.addEventListener('click', (e)=>{ if(!e.target.closest('header')) closeM(); });
+      window.addEventListener('resize', ()=>{ if(window.innerWidth>900) closeM(); });
+    }
+  })();
 </script>
 </body>
 </html>
