@@ -104,7 +104,7 @@
       font-family:'Playfair Display',serif; font-weight:700; font-size:1rem; letter-spacing:.02em; }
     .mobile-menu a:last-child{ border-bottom:none }
 
-    /* Show hamburger on ≤900px (even on desktop when narrow) */
+    /* Show hamburger on ≤900px */
     @media (max-width:900px){
       .menu{ display:none; }
       .hamburger{ display:inline-flex; }
@@ -130,7 +130,7 @@
       font-family:'Playfair Display',serif; letter-spacing:.02em; text-align:center;
     }
     .cta-buttons{
-      display:flex; align-items:center; justify-content:center; gap:10px; margin-bottom:10px;
+      display:flex; align-items:center; justify-content:center; gap:10px; margin-bottom:8px;
     }
     .btn{
       display:inline-flex; align-items:center; justify-content:center; gap:.5em;
@@ -142,44 +142,61 @@
     .btn.primary{ background:#fff; color:#111; border-color:#fff; }
     .btn:hover{opacity:.92}
 
-    /* Mini quote — super compact, equal widths, single row even on mobile */
+    /* Mini quote — even smaller, aligned button and fields, one row */
     .mini-quote{
       background:var(--panel-bg);
       border:1px solid var(--panel-stroke);
-      border-radius:14px; padding:8px 10px; overflow:hidden;
+      border-radius:12px;
+      padding:6px 8px;                /* tighter padding */
+      overflow:hidden;
     }
     .mini-grid{
-      display:grid; gap:8px; align-items:center;
-      grid-template-columns: 1fr 1fr 1fr; /* phone | hours | button */
+      display:grid; gap:6px; align-items:end; /* align all to the bottom line */
+      grid-template-columns: 1fr 0.7fr auto;  /* phone | hours | button (narrower middle) */
     }
     .mini label{
       display:flex; flex-direction:column; align-items:stretch;
       font-family:'Playfair Display',serif;
-      font-size:.85rem; letter-spacing:.01em; opacity:.98; text-align:left; min-width:0; font-weight:700;
+      font-size:.8rem; letter-spacing:.01em; opacity:.98; text-align:left; min-width:0; font-weight:700;
       white-space:nowrap; margin:0;
     }
     .mini .control{
-      height:28px; padding:0 8px; margin-top:4px; font-size:13px; border-radius:8px;
-      border:1px solid var(--panel-stroke); background:rgba(255,255,255,.98); color:#111;
+      height:24px;                     /* smaller fields */
+      padding:0 6px;
+      margin-top:3px;
+      font-size:12px;
+      border-radius:6px;
+      border:1px solid var(--panel-stroke);
+      background:rgba(255,255,255,.98); color:#111;
+      line-height:22px;
       font-family:'Plus Jakarta Sans',system-ui,-apple-system,Segoe UI,Roboto,sans-serif;
-      line-height:26px;
     }
     .mini .btn-quote{
-      height:28px; padding:0 10px; font-size:13px; border-radius:8px;
-      justify-self:stretch; text-align:center;
+      height:24px;                     /* same height as fields */
+      padding:0 8px;                   /* as small as possible but tappable */
+      font-size:12px;
+      border-radius:6px;
+      align-self:end;                  /* bottom-align with inputs */
+      justify-self:stretch;            /* same width rhythm as inputs */
+      text-align:center;
     }
-    /* Force one line always */
+    /* Keep one line even on small screens */
     @media (max-width:900px){
-      .mini-grid{ grid-template-columns: 1fr 1fr 1fr; }
-      .mini .btn-quote{ white-space:nowrap; }
+      .mini-grid{ grid-template-columns: 1fr 0.6fr auto; }
     }
 
-    /* STAYS (no box; natural image size) */
+    /* STAYS (centered text + half-sized image) */
     .cta-stays{ margin-top:12px; width:min(var(--cta-w), 100%); background:transparent; border:none; padding:0; }
-    .stays-grid{ display:flex; align-items:center; gap:14px; flex-wrap:wrap; }
+    .stays-grid{
+      display:flex; flex-direction:column; align-items:center; justify-content:center; gap:10px;
+      text-align:center;
+    }
     .stays-text{ font-family:'Playfair Display',serif; font-weight:700; letter-spacing:.02em; }
-    .airbnb-link{ display:inline-flex; align-items:center; text-decoration:none; }
-    .airbnb-img{ display:block; height:auto; width:auto; max-width:420px; border-radius:10px; }
+    .airbnb-link{ display:inline-flex; align-items:center; justify-content:center; text-decoration:none; }
+    .airbnb-img{
+      display:block; height:auto; width:auto; max-width:210px; /* half of previous 420px */
+      border-radius:10px;
+    }
 
     /* WhatsApp FAB */
     .wa-float{
@@ -295,7 +312,7 @@
       <h1 class="hero-title">BAYT LILI</h1>
       <div class="eyebrow-wrap"><div class="eyebrow">BOUTIQUE VILLA • FILMING • PHOTOSHOOTS • STAYS</div></div>
 
-      <!-- Intro + Book Now + Super-compact quick quote -->
+      <!-- Intro + Book Now + Compact quick quote -->
       <div class="cta">
         <div class="cta-intro">Looking for a filming or photoshoot location?</div>
         <div class="cta-buttons">
@@ -315,7 +332,7 @@
         </div>
       </div>
 
-      <!-- STAYS (no background box; larger natural-size image) -->
+      <!-- STAYS (centered text and image, image half-size) -->
       <div class="cta-stays" aria-labelledby="staysTitle">
         <div class="stays-grid">
           <div class="stays-text" id="staysTitle">For stays, please visit us on Airbnb:</div>
