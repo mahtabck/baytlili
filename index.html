@@ -25,7 +25,6 @@
       --text:#ffffff;
       --muted:#ededed;
       --line: rgba(255,255,255,.42);
-      --panel-bg: rgba(11,11,11,.58);
       --panel-stroke: rgba(255,255,255,.14);
       --header-h: 56px;
       --btn-border: rgba(255,255,255,.7);
@@ -50,8 +49,7 @@
       margin:0; color:var(--text);
       line-height:1.45; font-family:'Playfair Display', serif;
       -webkit-font-smoothing:antialiased; -moz-osx-font-smoothing:grayscale;
-      scroll-behavior:smooth;
-      background:#000;
+      scroll-behavior:smooth; background:#000;
     }
 
     /* Background */
@@ -123,12 +121,8 @@
       font-weight:800; font-size:clamp(15px,1.8vw,25px); text-shadow:0 4px 10px rgba(0,0,0,.65);
     }
 
-    /* CTA intro + Book Now */
+    /* CTA area */
     .cta{ width:min(var(--cta-w), 100%); }
-    .cta-intro{
-      margin:6px 0 8px; color:#fff; font-weight:700;
-      font-family:'Playfair Display',serif; letter-spacing:.02em; text-align:center;
-    }
     .cta-buttons{
       display:flex; align-items:center; justify-content:center; gap:10px; margin-bottom:10px;
     }
@@ -142,56 +136,51 @@
     .btn.primary{ background:#fff; color:#111; border-color:#fff; }
     .btn:hover{opacity:.92}
 
-    /* ===== Two-column row: Quick Booking (left) + Airbnb (right) ===== */
+    /* ===== Side-by-side: Quick Booking (left) + Airbnb (right) =====
+       Always 2 columns, even on very small screens. Each column is a fluid
+       fraction of the viewport to guarantee they fit next to each other.  */
     .cta-row{
       margin-top:8px;
-      display:grid; gap:14px; align-items:start;
-      grid-template-columns: 1.1fr 0.9fr;   /* left a bit wider */
-    }
-    @media (max-width:900px){
-      .cta-row{ grid-template-columns: 1fr; }
+      display:grid; align-items:start; column-gap:12px;
+      grid-template-columns: 1fr 1fr;         /* ALWAYS two columns */
     }
 
-    /* Quick Booking Card (left) — compact vertical stack */
+    /* Left column (Quick Booking) — NO background, ultra compact */
     .mini-quote{
-      background:var(--panel-bg);
-      border:1px solid var(--panel-stroke);
-      border-radius:12px;
-      padding:10px; overflow:hidden; text-align:left;
-    }
-    .mini-title{
-      margin:0 0 6px; font-family:'Playfair Display',serif; font-weight:800; letter-spacing:.02em; font-size:1rem;
+      background:transparent; border:none; padding:0; text-align:left;
+      width:100%;
     }
     .mini-vert{
-      display:grid; gap:6px; grid-template-columns: 1fr; align-items:start;
+      display:grid; grid-template-columns: 1fr; gap:6px;
+      /* Constrain the column width so two columns always fit */
+      width:min(44vw, 360px);    /* on tiny phones this becomes ~44% of viewport */
     }
     .mini label{
       display:flex; flex-direction:column;
       font-family:'Playfair Display',serif; font-size:.85rem; font-weight:700; letter-spacing:.01em; opacity:.98;
     }
     .mini .control{
-      height:26px; padding:0 8px; margin-top:4px; font-size:12px; border-radius:6px;
+      height:24px; padding:0 6px; margin-top:4px; font-size:12px; border-radius:6px;
       border:1px solid var(--panel-stroke); background:rgba(255,255,255,.98); color:#111;
-      line-height:24px; font-family:'Plus Jakarta Sans',system-ui,-apple-system,Segoe UI,Roboto,sans-serif;
+      line-height:22px; font-family:'Plus Jakarta Sans',system-ui,-apple-system,Segoe UI,Roboto,sans-serif;
     }
     .mini .btn-quote{
-      height:26px; padding:0 10px; font-size:12px; border-radius:6px;
+      height:24px; padding:0 8px; font-size:12px; border-radius:6px;
       text-align:center; width:100%;
+      border:1px solid var(--btn-border); color:#fff; background:transparent;
     }
 
-    /* Airbnb Card (right) — centered text + half-size image */
-    .cta-stays{ background:transparent; border:none; padding:0; }
+    /* Right column (Airbnb) — centered text + image sized to match left column width */
     .stays-card{
-      background:transparent; text-align:center; padding:4px;
+      background:transparent; text-align:center; padding:0;
+      width:min(44vw, 360px);    /* match left column width */
+      margin:0 auto;
     }
     .stays-text{
       font-family:'Playfair Display',serif; font-weight:700; letter-spacing:.02em; margin-bottom:8px;
     }
     .airbnb-link{ display:inline-flex; align-items:center; justify-content:center; text-decoration:none; }
-    .airbnb-img{
-      display:block; height:auto; width:auto; max-width:210px; /* half of previous 420px */
-      border-radius:10px;
-    }
+    .airbnb-img{ display:block; height:auto; width:100%; max-width:100%; border-radius:10px; }
 
     /* WhatsApp FAB */
     .wa-float{
@@ -206,7 +195,7 @@
     h2{ font-family:'BaytLili','Playfair Display',serif; font-size:clamp(24px,3.5vw,36px); margin:0 0 12px; text-align:center; scroll-margin-top: calc(var(--header-h) + 12px); }
     p{margin:0 0 12px; color:#ededed}
 
-    /* Features (centered grid; left-aligned items) */
+    /* Features (left-aligned items) */
     .features-wrap{ padding:0; }
     .feature-grid{
       display:grid; gap:12px 18px;
@@ -307,18 +296,16 @@
       <h1 class="hero-title">BAYT LILI</h1>
       <div class="eyebrow-wrap"><div class="eyebrow">BOUTIQUE VILLA • FILMING • PHOTOSHOOTS • STAYS</div></div>
 
-      <!-- Intro + Book Now -->
       <div class="cta">
-        <div class="cta-intro">Looking for a filming or photoshoot location?</div>
+        <!-- Book Now -->
         <div class="cta-buttons">
           <a href="booking.html" class="btn primary">Book Now</a>
         </div>
 
-        <!-- Two-column layout: Quick Booking (left) | Airbnb (right) -->
+        <!-- Always side-by-side: Quick Booking (left) | Airbnb (right) -->
         <div class="cta-row">
-          <!-- Left: Quick Booking -->
+          <!-- Left: Quick Booking (no heading, no box) -->
           <div class="mini-quote mini">
-            <h3 class="mini-title">Quick Booking</h3>
             <div class="mini-vert">
               <label>Phone Number
                 <input type="tel" id="qbPhone" class="control" placeholder="971XXXXXXXXX" inputmode="numeric" pattern="^971\\d{9}$" />
@@ -331,13 +318,11 @@
           </div>
 
           <!-- Right: Airbnb -->
-          <div class="cta-stays">
-            <div class="stays-card">
-              <div class="stays-text">For stays, please visit us on Airbnb:</div>
-              <a class="airbnb-link" href="https://www.airbnb.com/rooms/1010972686934184319?viralityEntryPoint=1&s=76" target="_blank" rel="noopener" aria-label="View Bayt Lili on Airbnb">
-                <img class="airbnb-img" src="assets/airbnb.png" alt="Bayt Lili on Airbnb"/>
-              </a>
-            </div>
+          <div class="stays-card">
+            <div class="stays-text">For stays, please visit us on Airbnb:</div>
+            <a class="airbnb-link" href="https://www.airbnb.com/rooms/1010972686934184319?viralityEntryPoint=1&s=76" target="_blank" rel="noopener" aria-label="View Bayt Lili on Airbnb">
+              <img class="airbnb-img" src="assets/airbnb.png" alt="Bayt Lili on Airbnb"/>
+            </a>
           </div>
         </div>
       </div>
@@ -527,7 +512,7 @@
     function collectMiniParams(){
       const phone = (document.getElementById('qbPhone').value||'').trim();
       const hoursRaw = (document.getElementById('qbHours').value||'').trim();
-      const phoneOk=/^971\d{9}$/.test(phone);
+      const phoneOk=/^971\\d{9}$/.test(phone);
       const hours = parseFloat(hoursRaw);
       if(!phoneOk || !hours || hours <= 0){
         let msg=[]; if(!phoneOk) msg.push('valid phone number (971XXXXXXXXX)'); if(!(hours>0)) msg.push('number of hours');
