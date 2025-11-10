@@ -121,8 +121,8 @@
     .cta{ width:min(var(--cta-w), 100%); }
     .cta-buttons{
       display:flex; align-items:center; justify-content:center; gap:10px;
-      margin-top:6px;     /* space between top text and button */
-      margin-bottom:20px; /* doubled space after Book Now */
+      margin-top:10px;           /* space between top text and button */
+      margin-bottom:56px;        /* MUCH more space below button */
     }
     .btn{
       display:inline-flex; align-items:center; justify-content:center; gap:.5em;
@@ -132,26 +132,28 @@
       font-family:'Playfair Display',serif; white-space:nowrap;
     }
     .btn.primary{ background:#fff; color:#111; border-color:#fff; }
+    .btn.large{ height:64px; padding:0 38px; font-size:20px; border-radius:16px; letter-spacing:.02em; }
     .btn:hover{opacity:.92}
 
     /* ===== Quick Booking (centered, compact) ===== */
     .cta-row{ display:flex; justify-content:center; }
-    .mini-quote{ background:transparent; border:none; padding:0; text-align:left; }
+    .mini-quote{ background:transparent; border:none; padding:0; text-align:left; margin:0 auto; }
     .mini-vert{
-      display:grid; grid-template-columns: 1fr; gap:8px;
-      width:min(44vw, 360px);
+      display:grid; grid-template-columns: 1fr; gap:10px;
+      width:min(460px, 92vw);        /* wider on mobile but stays centered */
+      margin:0 auto;                 /* ensure centering */
     }
     .mini label{
       display:flex; flex-direction:column;
-      font-family:'Playfair Display',serif; font-size:.85rem; font-weight:700; letter-spacing:.01em; opacity:.98;
+      font-family:'Playfair Display',serif; font-size:.95rem; font-weight:700; letter-spacing:.01em; opacity:.98;
     }
     .mini .control{
-      height:24px; padding:0 6px; margin-top:4px; font-size:12px; border-radius:6px;
+      height:28px; padding:0 8px; margin-top:4px; font-size:13px; border-radius:8px;
       border:1px solid var(--panel-stroke); background:rgba(255,255,255,.98); color:#111;
-      line-height:22px; font-family:'Plus Jakarta Sans',system-ui,-apple-system,Segoe UI,Roboto,sans-serif;
+      line-height:26px; font-family:'Plus Jakarta Sans',system-ui,-apple-system,Segoe UI,Roboto,sans-serif;
     }
     .mini .btn-quote{
-      height:24px; padding:0 8px; font-size:12px; border-radius:6px;
+      height:32px; padding:0 10px; font-size:13px; border-radius:8px;
       text-align:center; width:100%;
       border:1px solid var(--btn-border); color:#fff; background:transparent;
     }
@@ -271,9 +273,9 @@
       <div class="eyebrow-wrap"><div class="eyebrow">BOUTIQUE VILLA • FILMING • PHOTOSHOOTS • STAYS</div></div>
 
       <div class="cta">
-        <!-- Book Now -->
+        <!-- Book Now (larger) -->
         <div class="cta-buttons">
-          <a href="booking.html" class="btn primary">Book Now</a>
+          <a href="booking.html" class="btn primary large">Book Now</a>
         </div>
 
         <!-- Quick Booking (centered) -->
@@ -403,7 +405,7 @@
   <section id="previous" class="pad">
     <div class="container">
       <h2>Previous Work</h2>
-    <p style="text-align:center">Selected brands and productions that have shot at Bayt Lili.</p>
+      <p style="text-align:center">Selected brands and productions that have shot at Bayt Lili.</p>
       <div class="logos" style="margin-top:10px">
         <div class="logo"><img src="assets/logos/brand1.svg" alt="Brand 1"></div>
         <div class="logo"><img src="assets/logos/brand2.svg" alt="Brand 2"></div>
