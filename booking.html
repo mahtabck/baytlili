@@ -7,9 +7,6 @@
   <meta name="description" content="Book Bayt Lili for filming, photoshoots, or stays. Submit your request or message us on WhatsApp.">
   <link rel="icon" type="image/png" href="assets/favicon.png"/>
 
-  <!-- Fonts -->
-  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700;800&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
-
   <style>
     :root{
       --text:#fff; --muted:#eaeaea;
@@ -17,7 +14,7 @@
       --card: rgba(255,255,255,.10);
       --price-bg:#fff; --price-text:#1b1b1b; --price-border:rgba(0,0,0,.08);
       --control-h: 44px;
-      --btn-font-size: 15px;
+      --btn-font-size: 16px;
       --header-h: 64px;
     }
     @font-face{
@@ -60,8 +57,7 @@
     .menu{display:flex;align-items:center;gap:20px}
     .menu a{
       color:#fff;text-decoration:none;white-space:nowrap;
-      font-family:'Plus Jakarta Sans',system-ui,-apple-system,Segoe UI,Roboto,sans-serif;
-      font-weight:600; font-size:1rem; position:relative; padding:6px 2px;
+      font-size:1rem; position:relative; padding:6px 2px;
     }
     .menu a::after{content:""; position:absolute; left:0; right:0; bottom:-4px; height:1px; background:transparent; transition:background .2s ease}
     .menu a:hover::after{background:rgba(255,255,255,.7)}
@@ -82,17 +78,14 @@
     /* Form grid */
     form{display:grid; grid-template-columns:1fr 1fr; gap:14px}
     .full{grid-column:1 / -1}
-    label{
-      font-size:.95rem; opacity:.95; display:block;
-      font-family:'Playfair Display',serif; font-weight:700;
-    }
+    label{font-size:.95rem; opacity:.95; display:block}
 
-    /* Controls in Plus Jakarta */
+    /* Controls */
     input, select, textarea{
       width:100%; padding:12px 12px; margin-top:6px;
       border-radius:10px; border:1px solid var(--line);
       background:rgba(255,255,255,.92); color:#111; font-size:16px;
-      font-family:'Plus Jakarta Sans',system-ui,-apple-system,Segoe UI,Roboto,sans-serif;
+      font-family:'Playfair Display', serif;
       height:var(--control-h);
     }
     textarea{min-height:120px; height:auto; resize:vertical}
@@ -103,7 +96,6 @@
       display:inline-flex; gap:8px; align-items:center;
       padding:10px 12px; border:1px solid var(--line); border-radius:999px;
       background:rgba(255,255,255,.10); user-select:none; height:var(--control-h);
-      font-family:'Plus Jakarta Sans',system-ui,-apple-system,Segoe UI,Roboto,sans-serif;
     }
 
     /* Filming day rows */
@@ -112,14 +104,14 @@
     }
     .day button.rem{
       background:transparent; color:#fff; border:1px solid var(--line); border-radius:10px; padding:.65em .8em; cursor:pointer;
-      font-family:'Plus Jakarta Sans',system-ui,-apple-system,Segoe UI,Roboto,sans-serif; height:var(--control-h); font-weight:600;
+      font-family:'Playfair Display', serif; height:var(--control-h);
     }
 
     .add-more{margin-top:6px}
     .add-more button{
       background:transparent; color:#fff; border:1px solid var(--line);
       border-radius:999px; padding:.6em 1em; cursor:pointer; font-weight:600;
-      font-family:'Plus Jakarta Sans',system-ui,-apple-system,Segoe UI,Roboto,sans-serif; height:var(--control-h);
+      font-family:'Playfair Display', serif; height:var(--control-h);
     }
 
     .price-card{
@@ -132,9 +124,9 @@
     .actions{display:flex; gap:10px; flex-wrap:wrap; margin-top:12px}
     .btn{
       display:inline-flex; align-items:center; justify-content:center; gap:.5em;
-      padding:.6em 1.0em; border-radius:999px; border:1px solid var(--line);
-      background:transparent; color:#fff; font-weight:700; letter-spacing:.01em;
-      cursor:pointer; text-decoration:none; font-family:'Plus Jakarta Sans',system-ui,-apple-system,Segoe UI,Roboto,sans-serif;
+      padding:.75em 1.1em; border-radius:999px; border:1px solid var(--line);
+      background:transparent; color:#fff; font-weight:600; letter-spacing:.02em;
+      cursor:pointer; text-decoration:none; font-family:'Playfair Display', serif;
       height:var(--control-h); font-size:var(--btn-font-size);
     }
 
@@ -155,16 +147,12 @@
     .gate-btn{
       padding:18px 16px; border-radius:14px; border:1px solid var(--line);
       background:transparent; color:#fff; cursor:pointer; font-weight:700; letter-spacing:.02em;
-      font-family:'Plus Jakarta Sans',system-ui,-apple-system,Segoe UI,Roboto,sans-serif; font-size:18px;
+      font-family:'Playfair Display', serif; font-size:18px;
     }
     .gate-btn:hover{opacity:.92}
     @media (max-width:700px){ .gate-options{grid-template-columns:1fr} }
 
-    /* Responsive: stack form on small screens */
-    @media (max-width:720px){
-      form{grid-template-columns:1fr}
-      .day{grid-template-columns: 1fr 1fr 1fr auto;}
-    }
+    .hidden{ display:none !important; }
   </style>
 </head>
 <body>
@@ -223,7 +211,7 @@
           <input id="phone" name="phone" type="tel" required placeholder="+9715XXXXXXXX"/>
         </div>
 
-        <!-- Hidden purpose (set by gate) -->
+        <!-- Hidden purpose (set by gate or query) -->
         <input type="hidden" id="purpose" name="purpose" value="">
 
         <!-- Days list -->
@@ -236,7 +224,7 @@
         <!-- PRICE CARD -->
         <div id="priceCard" class="price-card" style="display:none">
           <div id="priceSummary" style="font-weight:700">Estimated Total: AED 0</div>
-          <small id="priceNotes">Rate: AED 300/hr. Minimum: 6 hours (AED 1800) per day. Refundable deposit: AED 5000.</small>
+          <small id="priceNotes">Rate: AED 350/hr. Minimum: 6 hours (AED 2100) per day. Refundable deposit: AED 5000.</small>
         </div>
 
         <!-- ACTION BUTTONS -->
@@ -264,7 +252,7 @@
     // ---------- Config ----------
     const WHATSAPP_NUMBER = '971501589628';
     const SHEETS_ENDPOINT = 'https://script.google.com/macros/s/AKfycbzP17hb9riNcRnWQ06dinxrqwII6CYjH247SV6xCnhd9bJV6nVBVANkVRA0QZA70OII/exec';
-    const RATE_PER_HOUR = 300;      // AED/hr (unified)
+    const RATE_PER_HOUR = 350;
     const MIN_HOURS_PER_DAY = 6;
     const DAY_MIN_CHARGE = RATE_PER_HOUR * MIN_HOURS_PER_DAY;
 
@@ -277,28 +265,17 @@
 
     const form = document.getElementById('booking-form');
     const statusEl = document.getElementById('form-status');
+    const daysWrap = document.getElementById('daysWrap');
 
-    // Gate behavior
+    // ---------- Gate behavior (manual click) ----------
     gate.querySelectorAll('.gate-btn').forEach(btn=>{
       btn.addEventListener('click', ()=>{
-        const choice = btn.dataset.choice; // "Filming" or "Stay"
-        document.getElementById('purpose').value = choice;
-        main.classList.remove('hidden');
-        gate.style.display = 'none';
-
-        if (choice === 'Filming') {
-          filmingCard.style.display = '';
-          stayCard.style.display = 'none';
-          ensureAtLeastOneDay();
-          updatePrice();
-        } else {
-          filmingCard.style.display = 'none';
-          stayCard.style.display = '';
-        }
+        const choice = btn.dataset.choice;
+        startWithChoice(choice);
       });
     });
 
-    // ---------- Time options (15-min increments) ----------
+    // ---------- Time options ----------
     function buildTimeOptions(minMinutesExclusive = -1, selectedVal = ''){
       const opts = ['<option value="" disabled>Select time</option>'];
       for (let m=0; m<24*60; m+=15){
@@ -311,17 +288,15 @@
       }
       return opts.join('');
     }
-
     function parseTime(t){ if(!t) return null; const [h,m]=t.split(':').map(Number); return h*60+(m||0); }
     function computeHours(from,to){
       const a=parseTime(from), b=parseTime(to);
       if(a==null||b==null) return 0;
       let diff=(b-a)/60;
-      if (diff < 0) return 0; // disallow earlier end
+      if (diff < 0) return 0;
       return Math.max(0, diff);
     }
 
-    const daysWrap = document.getElementById('daysWrap');
     function makeDayRow(){
       const row = document.createElement('div');
       row.className = 'day';
@@ -331,10 +306,8 @@
         <label>To   <select name="day_to" required></select></label>
         <button type="button" class="rem" aria-label="Remove day">Remove</button>
       `;
-
       const selFrom = row.querySelector('[name=day_from]');
       const selTo   = row.querySelector('[name=day_to]');
-
       selFrom.innerHTML = buildTimeOptions(-1);
       selTo.innerHTML   = buildTimeOptions(-1);
 
@@ -347,15 +320,11 @@
         if (firstOption) selTo.value = firstOption.value;
         updatePrice();
       });
-
       selTo.addEventListener('change', updatePrice);
       row.querySelector('[name=day_date]').addEventListener('change', updatePrice);
-
       row.querySelector('.rem').addEventListener('click', () => {
-        row.remove();
-        updatePrice();
+        row.remove(); updatePrice();
       });
-
       return row;
     }
 
@@ -387,12 +356,12 @@
         `Rate: AED ${RATE_PER_HOUR}/hr. Minimum: ${MIN_HOURS_PER_DAY} hours (AED ${DAY_MIN_CHARGE}) per day. Refundable deposit: AED 5000.`;
     }
 
-    // WhatsApp (no validation required)
+    // WhatsApp
     function openWA(msg){
       window.open(`https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(msg||'Hello Bayt Lili')}`,'_blank');
     }
+    document.getElementById('whatsappStay').addEventListener('click', (e)=>{ e.preventDefault(); openWA('Hello Bayt Lili — I’m interested in a stay.'); });
     document.getElementById('whatsappDirect').addEventListener('click', (e)=>{ e.preventDefault(); openWA('Hello Bayt Lili — I’d like to inquire about filming availability.'); });
-    document.getElementById('whatsappStay').addEventListener('click',   (e)=>{ e.preventDefault(); openWA('Hello Bayt Lili — I’m interested in a stay.'); });
 
     // Build concise summary for the sheet
     function buildMessageFilming(){
@@ -421,12 +390,12 @@
       ].join('\n');
     }
 
-    // Submit: require all fields + at least one valid day for Filming (≥ 6h each)
+    // Submit: validations
     form.addEventListener('submit', async (e) => {
       e.preventDefault();
 
       const purpose = document.getElementById('purpose').value;
-      if (purpose !== 'Filming') return; // only filming has a submit flow
+      if (purpose !== 'Filming') return;
 
       const name    = (document.getElementById('name').value||'').trim();
       const email   = (document.getElementById('email').value||'').trim();
@@ -503,6 +472,61 @@
     // Wire WA links
     document.getElementById('whatsappStay').href   = `https://wa.me/${WHATSAPP_NUMBER}`;
     document.getElementById('whatsappDirect').href = `https://wa.me/${WHATSAPP_NUMBER}`;
+
+    // ---------- Prefill from query params (phone, date, from, to) ----------
+    const qp = new URLSearchParams(window.location.search);
+    const prePhone = qp.get('phone') || '';
+    const preDate  = qp.get('date')  || '';
+    const preFrom  = qp.get('from')  || '';
+    const preTo    = qp.get('to')    || '';
+
+    function startWithChoice(choice){
+      document.getElementById('purpose').value = choice;
+      main.classList.remove('hidden');
+      gate.style.display = 'none';
+
+      if (choice === 'Filming') {
+        filmingCard.style.display = '';
+        stayCard.style.display = 'none';
+        ensureAtLeastOneDay();
+        updatePrice();
+      } else {
+        filmingCard.style.display = 'none';
+        stayCard.style.display = '';
+      }
+    }
+
+    // If any quick-booking params are present, auto-start in Filming and prefill fields.
+    (function prefillFromQuery(){
+      if (prePhone || preDate || preFrom || preTo){
+        startWithChoice('Filming');
+        // Phone
+        if (prePhone){ document.getElementById('phone').value = prePhone.startsWith('+') ? prePhone : ('+' + prePhone); }
+
+        // Ensure one day exists and fill it
+        ensureAtLeastOneDay();
+        const row = daysWrap.children[0];
+        const dateEl = row.querySelector('[name=day_date]');
+        const fromEl = row.querySelector('[name=day_from]');
+        const toEl   = row.querySelector('[name=day_to]');
+
+        // Set date
+        if (preDate){ dateEl.value = preDate; }
+
+        // Rebuild selects then set From/To (preserve "To after From" rule)
+        fromEl.innerHTML = buildTimeOptions(-1, preFrom || '');
+        const min = preFrom ? parseTime(preFrom) : -1;
+        toEl.innerHTML   = buildTimeOptions(min, preTo || '');
+
+        // If values present, assign
+        if (preFrom) fromEl.value = preFrom;
+        if (preTo)   toEl.value   = preTo;
+
+        updatePrice();
+        // Focus on name to continue filling form
+        document.getElementById('name').focus({preventScroll:true});
+      }
+    })();
   </script>
 </body>
 </html>
