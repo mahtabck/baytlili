@@ -7,183 +7,124 @@
   <meta name="description" content="Book Bayt Lili for filming, photoshoots, or stays. Submit your request or message us on WhatsApp.">
   <link rel="icon" type="image/png" href="assets/favicon.png"/>
 
-  <!-- Fonts -->
   <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700;800&family=Plus+Jakarta+Sans:wght@400;500;600;700&family=Ranade:wght@600;700&display=swap" rel="stylesheet">
 
   <style>
     :root{
-      --text:#fff; --muted:#eaeaea;
-      --line: rgba(255,255,255,.30);
-      --card: rgba(255,255,255,.10);
-      --btn-border: rgba(255,255,255,.7);
-      --price-bg:#fff; --price-text:#1b1b1b; --price-border:rgba(0,0,0,.08);
-      --control-h: 44px;
-      --header-h: 56px;
-      --stay-photo-w: 320px;
-      --stay-photo-h: 568px;
-      --reviews-scale: 0.72;
+      --text:#fff; --muted:#eaeaea; --line: rgba(255,255,255,.30); --card: rgba(255,255,255,.10);
+      --btn-border: rgba(255,255,255,.7); --price-bg:#fff; --price-text:#1b1b1b; --price-border:rgba(0,0,0,.08);
+      --control-h: 44px; --header-h: 56px; --stay-photo-w: 320px; --stay-photo-h: 568px;
     }
-
     @font-face{
       font-family:'BaytLili';
       src: url('assets/BaytLili.ttf') format('truetype'),
            url('assets/BaytLili.otf') format('opentype');
       font-display:swap;
     }
-
     *,*::before,*::after{box-sizing:border-box}
     html,body{height:100%}
     body{
-      margin:0; color:var(--text);
-      font-family:'Playfair Display', serif; line-height:1.5;
-      background:#000; scroll-behavior:smooth;
-      -webkit-font-smoothing:antialiased; -moz-osx-font-smoothing:grayscale;
+      margin:0;color:var(--text);font-family:'Playfair Display',serif;line-height:1.5;background:#000;scroll-behavior:smooth;
+      -webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:grayscale;
     }
-    body::before{
-      content:""; position:fixed; inset:0;
-      background:url('assets/lightbg.png') center 35%/cover no-repeat fixed; z-index:-2;
-    }
-    body::after{
-      content:""; position:fixed; inset:0;
-      background:rgba(0,0,0,.28); z-index:-1;
-    }
+    body::before{content:"";position:fixed;inset:0;background:url('assets/lightbg.png') center 35%/cover no-repeat fixed;z-index:-2}
+    body::after{content:"";position:fixed;inset:0;background:rgba(0,0,0,.28);z-index:-1}
 
     /* Containers */
-    .container{width:min(900px,92vw); margin:0 auto; padding:clamp(24px,5vw,48px) 0}
+    .container{width:min(900px,92vw);margin:0 auto;padding:clamp(24px,5vw,48px) 0}
 
-    /* === HEADER (exactly homepage) === */
+    /* Header (exact homepage) */
     header{
-      position:sticky; top:0; z-index:50;
-      background:#000000f0; border-bottom:1px solid rgba(255,255,255,0.2);
-      min-height:var(--header-h); backdrop-filter:saturate(1.1) blur(6px);
+      position:sticky;top:0;z-index:50;background:#000000f0;border-bottom:1px solid rgba(255,255,255,0.2);
+      min-height:var(--header-h);backdrop-filter:saturate(1.1) blur(6px);
     }
-    header .container{width:min(1200px,92vw);}  /* identical to homepage width */
+    header .container{width:min(1200px,92vw)}
     .nav{display:flex;align-items:center;justify-content:space-between;gap:16px;padding:8px 0}
-    .brand{
-      display:flex;align-items:center;gap:10px;color:#fff;
-      font-family:'BaytLili','Playfair Display',serif;
-      letter-spacing:.12em;font-variant:small-caps;white-space:nowrap;
-      text-decoration:none;
-    }
+    .brand{display:flex;align-items:center;gap:10px;color:#fff;font-family:'BaytLili','Playfair Display',serif;letter-spacing:.12em;font-variant:small-caps;text-decoration:none}
     .brand img{height:34px}
     .menu{display:flex;align-items:center;gap:20px}
-    .menu a{
-      color:#fff;text-decoration:none;white-space:nowrap;
-      font-weight:700; position:relative; padding:6px 2px;
-      font-family:'Playfair Display', serif;
-    }
-    .menu a::after{content:""; position:absolute; left:0; right:0; bottom:-4px; height:1px; background:transparent; transition:background .2s ease}
+    .menu a{color:#fff;text-decoration:none;white-space:nowrap;font-weight:700;position:relative;padding:6px 2px;font-family:'Playfair Display',serif}
+    .menu a::after{content:"";position:absolute;left:0;right:0;bottom:-4px;height:1px;background:transparent;transition:background .2s}
     .menu a:hover::after{background:rgba(255,255,255,.7)}
-    .hamburger{display:none;border:1px solid rgba(255,255,255,.35);height:34px;width:36px;border-radius:8px;padding:6px;flex-direction:column;gap:4px;justify-content:center;align-items:center;background:transparent;}
+    .hamburger{display:none;border:1px solid rgba(255,255,255,.35);height:34px;width:36px;border-radius:8px;padding:6px;flex-direction:column;gap:4px;justify-content:center;align-items:center;background:transparent}
     .hamburger span{width:18px;height:2px;background:#fff;border-radius:1px}
     .mobile-menu{display:none;position:absolute;top:calc(var(--header-h));right:12px;width:min(35vw,300px);background:#000000f2;border:1px solid rgba(255,255,255,.2);border-radius:10px;overflow:hidden}
-    .mobile-menu a{display:block;padding:12px 14px;color:#fff;border-bottom:1px solid rgba(255,255,255,.08);font-weight:700;}
+    .mobile-menu a{display:block;padding:12px 14px;color:#fff;border-bottom:1px solid rgba(255,255,255,.08);font-weight:700}
     .mobile-menu a:last-child{border-bottom:none}
     @media (max-width:900px){.menu{display:none}.hamburger{display:flex}}
 
-    /* Page text */
-    h1{
-      font-family:'Ranade','Plus Jakarta Sans',sans-serif!important;
-      margin:18px 0 8px; font-size:clamp(26px,4.4vw,40px);
-      scroll-margin-top: calc(var(--header-h) + 12px);
-    }
-    p.lede{color:var(--muted); margin:0 0 18px; font-family:'Plus Jakarta Sans',sans-serif}
+    /* Page content */
+    h1{font-family:'Ranade','Plus Jakarta Sans',sans-serif!important;margin:18px 0 8px;font-size:clamp(26px,4.4vw,40px);scroll-margin-top:calc(var(--header-h) + 12px)}
+    p.lede{color:var(--muted);margin:0 0 18px;font-family:'Plus Jakarta Sans',sans-serif}
+    .card{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:18px}
 
-    .card{
-      background:var(--card); border:1px solid var(--line);
-      border-radius:16px; padding:18px;
-    }
-
-    /* Buttons */
     .btn{
-      display:inline-flex; align-items:center; justify-content:center; gap:.5em;
-      padding:.75em 1.1em; border-radius:999px; border:1px solid var(--btn-border);
-      background:#fff; color:#111; font-weight:700; letter-spacing:.02em;
-      cursor:pointer; text-decoration:none; font-family:'Playfair Display', serif;
-      height:var(--control-h); font-size:16px; min-width: 180px;
+      display:inline-flex;align-items:center;justify-content:center;gap:.5em;padding:.75em 1.1em;border-radius:999px;border:1px solid var(--btn-border);
+      background:#fff;color:#111;font-weight:700;letter-spacing:.02em;cursor:pointer;text-decoration:none;font-family:'Playfair Display',serif;height:var(--control-h);font-size:16px;min-width:180px;
     }
     .btn:hover{opacity:.92}
 
-    /* Form */
-    form{display:grid; grid-template-columns:1fr 1fr; gap:14px}
-    .full{grid-column:1 / -1}
-    label{font-size:.95rem; opacity:.95; display:block; font-family:'Plus Jakarta Sans',sans-serif}
-    input, select, textarea{
-      width:100%; padding:12px 12px; margin-top:6px;
-      border-radius:10px; border:1px solid var(--line);
-      background:rgba(255,255,255,.92); color:#111; font-size:16px;
-      font-family:'Plus Jakarta Sans', sans-serif;
-      height:var(--control-h);
+    form{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+    .full{grid-column:1/-1}
+    label{font-size:.95rem;opacity:.95;display:block;font-family:'Plus Jakarta Sans',sans-serif}
+    input,select,textarea{
+      width:100%;padding:12px;margin-top:6px;border-radius:10px;border:1px solid var(--line);
+      background:rgba(255,255,255,.92);color:#111;font-size:16px;font-family:'Plus Jakarta Sans',sans-serif;height:var(--control-h)
     }
-    textarea{min-height:120px; height:auto; resize:vertical}
-    input[type="date"]{-webkit-appearance:none; appearance:none;}
-    .day{display:grid; grid-template-columns: 1.2fr .9fr .9fr auto; gap:10px; align-items:end; margin-top:6px;}
-    .day .rem{
-      background:transparent; color:#fff; border:1px solid var(--line); border-radius:10px; padding:.65em .8em; cursor:pointer;
-      font-family:'Plus Jakarta Sans', sans-serif; height:var(--control-h);
-    }
+    textarea{min-height:120px;height:auto;resize:vertical}
+    .day{display:grid;grid-template-columns:1.2fr .9fr .9fr auto;gap:10px;align-items:end;margin-top:6px}
+    .day .rem{background:transparent;color:#fff;border:1px solid var(--line);border-radius:10px;padding:.65em .8em;cursor:pointer;font-family:'Plus Jakarta Sans',sans-serif;height:var(--control-h)}
     .add-more{margin-top:6px}
-    .add-more button{
-      background:transparent; color:#fff; border:1px solid var(--line);
-      border-radius:999px; padding:.6em 1em; cursor:pointer; font-weight:600;
-      font-family:'Plus Jakarta Sans', sans-serif; height:var(--control-h);
-    }
-    .price-card{
-      grid-column:1/-1; background:var(--price-bg); color:var(--price-text);
-      border:1px solid var(--price-border); border-radius:14px;
-      padding:14px 16px; margin-top:6px; font-family:'Plus Jakarta Sans',sans-serif;
-    }
-    .actions{display:flex; gap:10px; flex-wrap:wrap; margin-top:12px}
+    .add-more button{background:transparent;color:#fff;border:1px solid var(--line);border-radius:999px;padding:.6em 1em;cursor:pointer;font-weight:600;font-family:'Plus Jakarta Sans',sans-serif;height:var(--control-h)}
+    .price-card{grid-column:1/-1;background:var(--price-bg);color:var(--price-text);border:1px solid var(--price-border);border-radius:14px;padding:14px 16px;margin-top:6px;font-family:'Plus Jakarta Sans',sans-serif}
+    .actions{display:flex;gap:10px;flex-wrap:wrap;margin-top:12px}
 
-    /* Gate */
-    .gate{
-      position:fixed; inset:0; z-index:100; display:flex; align-items:center; justify-content:center;
-      background:#000;
-    }
-    .gate-card{
-      width:min(720px,92vw); background:rgba(255,255,255,.08);
-      border:1px solid var(--line); border-radius:18px; padding:20px; text-align:center;
-      font-family:'Plus Jakarta Sans',sans-serif;
-    }
-    .gate h2{margin:0 0 10px; font-family:'BaytLili','Playfair Display',serif}
-    .gate-options{display:grid; grid-template-columns:1fr 1fr; gap:12px}
-    .gate-btn{
-      padding:18px 16px; border-radius:14px; border:1px solid var(--line);
-      background:transparent; color:#fff; cursor:pointer; font-weight:700;
-      letter-spacing:.02em; font-family:'Playfair Display', serif; font-size:18px;
-    }
+    .gate{position:fixed;inset:0;z-index:100;display:flex;align-items:center;justify-content:center;background:#000}
+    .gate-card{width:min(720px,92vw);background:rgba(255,255,255,.08);border:1px solid var(--line);border-radius:18px;padding:20px;text-align:center;font-family:'Plus Jakarta Sans',sans-serif}
+    .gate h2{margin:0 0 10px;font-family:'BaytLili','Playfair Display',serif}
+    .gate-options{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+    .gate-btn{padding:18px 16px;border-radius:14px;border:1px solid var(--line);background:transparent;color:#fff;cursor:pointer;font-weight:700;letter-spacing:.02em;font-family:'Playfair Display',serif;font-size:18px}
     .gate-btn:hover{opacity:.92}
-    @media (max-width:700px){ .gate-options{grid-template-columns:1fr} }
-    .hidden{ display:none !important; }
+    @media (max-width:700px){.gate-options{grid-template-columns:1fr}}
+    .hidden{display:none!important}
 
-    /* Success view */
-    .success-card{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:18px;text-align:center;}
-    .success-card .msg{color:limegreen;font-weight:700;font-family:'Plus Jakarta Sans',sans-serif;font-size:clamp(18px,2.6vw,22px);margin-bottom:16px;}
-    .success-card .buttons{display:flex;justify-content:center;gap:10px;flex-wrap:wrap;}
+    .success-card{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:18px;text-align:center}
+    .success-card .msg{color:limegreen;font-weight:700;font-family:'Plus Jakarta Sans',sans-serif;font-size:clamp(18px,2.6vw,22px);margin-bottom:16px}
+    .success-card .buttons{display:flex;justify-content:center;gap:10px;flex-wrap:wrap}
 
-    /* Stay Section */
-    .stay-actions{display:flex;gap:12px;flex-wrap:wrap;margin-bottom:26px;}
+    .stay-actions{display:flex;gap:12px;flex-wrap:wrap;margin-bottom:26px}
     @media (max-width:640px){.stay-actions{flex-direction:column}.stay-actions .btn{width:100%}}
-    .stay-grid{display:block;}
-    .stay-photo img{width:100%;border-radius:16px;border:1px solid rgba(255,255,255,.15);background:rgba(255,255,255,.06);display:block;}
+    .stay-grid{display:block}
+    .stay-photo img{width:100%;height:auto;border-radius:16px;border:1px solid rgba(255,255,255,.15);background:rgba(255,255,255,.06);display:block}
     .reviews{margin-top:22px}
-    .rev-vert{display:flex;flex-direction:column;gap:10px;overflow-y:auto;max-height:360px;}
-    .rev-vert img{width:100%;border-radius:12px;display:block;}
+    .rev-vert{display:flex;flex-direction:column;gap:10px;overflow-y:auto;max-height:360px}
+    .rev-vert img{width:100%;height:auto;border-radius:12px;display:block}
     @media (min-width:1100px){
-      .stay-grid{display:grid;grid-template-columns: var(--stay-photo-w) 1fr;gap:36px;align-items:start;}
-      .stay-photo img{width:var(--stay-photo-w);height:var(--stay-photo-h);aspect-ratio:9/16;object-fit:cover;}
-      .rev-vert{height:var(--stay-photo-h);max-height:none;}
+      .stay-grid{display:grid;grid-template-columns:var(--stay-photo-w) 1fr;gap:36px;align-items:start}
+      .stay-photo img{width:var(--stay-photo-w);height:var(--stay-photo-h);aspect-ratio:9/16;object-fit:cover}
+      .rev-vert{height:var(--stay-photo-h);max-height:none}
     }
+
+    /* WhatsApp FAB (official) */
+    .wa-float{
+      position:fixed;right:16px;bottom:16px;width:56px;height:56px;border-radius:50%;
+      background:#25D366;display:flex;align-items:center;justify-content:center;
+      box-shadow:0 6px 18px rgba(0,0,0,.28);z-index:1000;text-decoration:none
+    }
+    .wa-float svg{width:28px;height:28px;display:block}
+    .wa-float:hover{transform:translateY(-1px);opacity:.95}
   </style>
 </head>
-
 <body>
-  <!-- HEADER -->
+
+  <!-- Header -->
   <header>
     <div class="container nav">
-      <a class="brand" href="index.html"><img src="assets/bllogo.png" alt="Bayt Lili"/> BAYT LILI</a>
+      <a class="brand" href="index.html" aria-label="Bayt Lili — Home">
+        <img src="assets/bllogo.png" alt="Bayt Lili"/> BAYT LILI
+      </a>
       <button class="hamburger" aria-label="Menu"><span></span><span></span><span></span></button>
-      <nav class="menu">
+      <nav class="menu" aria-label="Primary">
         <a href="index.html">Home</a>
         <a href="booking.html" aria-current="page">Booking</a>
         <a href="gallery.html">Gallery</a>
@@ -191,7 +132,7 @@
         <a href="contact.html">Contact</a>
       </nav>
     </div>
-    <nav id="mobileMenu" class="mobile-menu"></nav>
+    <nav id="mobileMenu" class="mobile-menu" aria-label="Mobile"></nav>
   </header>
 
   <!-- Gate -->
@@ -205,7 +146,6 @@
     </div>
   </div>
 
-  <!-- Main -->
   <div class="container hidden" id="main">
     <h1>Booking Request</h1>
     <p class="lede" id="lede">Tell us about your booking. We reply the same day.</p>
@@ -213,19 +153,25 @@
     <!-- Filming -->
     <div class="card" id="filmingCard" style="display:none">
       <form id="booking-form">
-        <div><label>Full name *<input id="name" name="name" required></label></div>
-        <div><label>Company / Brand *<input id="company" name="company"></label></div>
-        <div><label>Email *<input id="email" name="email" type="email" required></label></div>
-        <div><label>Phone *<input id="phone" name="phone" required></label></div>
-        <input type="hidden" id="purpose" name="purpose">
+        <div><label for="name">Full name *<input id="name" name="name" type="text" required placeholder="Your name"/></label></div>
+        <div><label for="company">Company / Brand *<input id="company" name="company" type="text" placeholder="Company or brand"/></label></div>
+        <div><label for="email">Email *<input id="email" name="email" type="email" required placeholder="name@email.com"/></label></div>
+        <div><label for="phone">Phone *<input id="phone" name="phone" type="tel" required placeholder="9715XXXXXXXX"/></label></div>
+
+        <input type="hidden" id="purpose" name="purpose" value="">
         <div id="daysWrap" class="full"></div>
         <div class="add-more"><button type="button" id="addDayBtn">+ Add another day</button></div>
+
         <div id="priceCard" class="price-card" style="display:none">
           <div id="priceSummary" style="font-weight:700">Estimated Total: AED 0</div>
           <small id="priceNotes">Rate: AED <span id="rateVal">300</span>/hr. <span id="minNote">Min: 6 hrs are billable</span>. Refundable deposit: AED 5,000.</small>
         </div>
-        <div class="actions full"><button type="submit" class="btn" id="request-booking">Request Booking</button><a class="btn" id="whatsappDirect" href="#" target="_blank">WhatsApp Us</a></div>
-        <p id="form-status"></p>
+
+        <div class="actions full" id="filmButtons" style="display:flex">
+          <button type="submit" class="btn" id="request-booking">Request Booking</button>
+          <a class="btn" id="whatsappDirect" href="#" target="_blank" rel="noopener">WhatsApp Us</a>
+        </div>
+        <p id="form-status" role="status"></p>
       </form>
     </div>
 
@@ -233,56 +179,235 @@
     <div class="card" id="stayCard" style="display:none">
       <p class="lede">For stays, please check seasonal rates and book directly on Airbnb or message us on WhatsApp.</p>
       <div class="stay-actions">
-        <a class="btn" id="whatsappStay" href="#" target="_blank">WhatsApp Us</a>
-        <a class="btn" id="airbnbBtn" href="https://www.airbnb.com/rooms/1010972686934184319" target="_blank">View on Airbnb</a>
+        <a class="btn" id="whatsappStay" href="#" target="_blank" rel="noopener">WhatsApp Us</a>
+        <a class="btn" id="airbnbBtn" href="https://www.airbnb.com/rooms/1010972686934184319" target="_blank" rel="noopener">View on Airbnb</a>
       </div>
       <div class="stay-grid">
         <div class="stay-photo"><img src="assets/airbnb.png" alt="Airbnb"></div>
         <section class="reviews">
-          <div class="rev-vert"><img src="assets/review1.png"><img src="assets/review2.png"><img src="assets/review3.png"><img src="assets/review4.png"><img src="assets/review5.png"></div>
+          <div class="rev-vert" id="revVert">
+            <img src="assets/review1.png" alt="Review 1">
+            <img src="assets/review2.png" alt="Review 2">
+            <img src="assets/review3.png" alt="Review 3">
+            <img src="assets/review4.png" alt="Review 4">
+            <img src="assets/review5.png" alt="Review 5">
+          </div>
         </section>
       </div>
     </div>
   </div>
 
-  <!-- Scripts -->
+  <!-- WhatsApp FAB (official) -->
+  <a class="wa-float" href="https://wa.me/971501589628" target="_blank" rel="noopener" aria-label="Chat on WhatsApp">
+    <svg viewBox="0 0 32 32" aria-hidden="true" focusable="false">
+      <circle cx="16" cy="16" r="16" fill="#25D366"/>
+      <path fill="#FFFFFF" d="M24.5 16.03c0 4.68-3.87 8.48-8.64 8.48-1.52 0-2.94-.38-4.18-1.06l-4.17 1.1 1.11-4.07a8.4 8.4 0 0 1-1.24-4.45c0-4.68 3.87-8.48 8.64-8.48s8.48 3.8 8.48 8.48z"/>
+      <path fill="#25D366" d="M15.86 8.69c-4.04 0-7.32 3.23-7.32 7.21 0 1.42.42 2.74 1.16 3.85l-.76 2.79 2.86-.76a7.29 7.29 0 0 0 4.06 1.19c3.99 0 7.32-3.23 7.32-7.21 0-3.98-3.33-7.21-7.32-7.21z"/>
+      <path fill="#FFFFFF" d="M20.63 18.48c-.11-.06-1.25-.64-1.44-.72-.19-.07-.33-.11-.47.11-.14.22-.55.72-.67.86-.12.14-.25.16-.46.06-1.26-.63-2.07-1.13-2.89-2.57-.22-.38.22-.36.62-1.19.07-.14.03-.26-.02-.37s-.47-1.16-.66-1.6c-.18-.42-.36-.36-.47-.36s-.25-.01-.38-.01c-.14 0-.36.05-.56.26-.19.21-.75.75-.75 1.81 0 1.06.77 2.09.88 2.23.11.14 1.52 2.35 3.68 3.3.52.23.92.36 1.23.47.52.17.98.14 1.34.09.41-.06 1.24-.51 1.41-1.01.17-.5.17-.92.12-1.01-.06-.09-.2-.14-.4-.24z"/>
+    </svg>
+  </a>
+
   <script>
     const WHATSAPP_NUMBER='971501589628';
     const INSTAGRAM_URL='https://instagram.com/baytlili';
     const SHEETS_ENDPOINT='https://script.google.com/macros/s/AKfycbw3ovdG31xmwUmpintksLOGuenjDF4tO-ZbqJbihQweSswhWxj6643z2-L-nFl7FMEG/exec';
-    const RATE_PER_HOUR=300;const MIN_HOURS_PER_DAY=6;const AED=new Intl.NumberFormat('en-US',{maximumFractionDigits:0});
+    const RATE_PER_HOUR=300, MIN_HOURS_PER_DAY=6; const AED=new Intl.NumberFormat('en-US',{maximumFractionDigits:0});
 
-    // mobile menu identical to homepage
+    // Mobile menu
     (function(){
-      const btn=document.querySelector('.hamburger'),mobile=document.getElementById('mobileMenu'),desktop=document.querySelector('.menu');
-      function closeM(){mobile.style.display='none';}function openM(){mobile.style.display='block';}
-      if(btn&&mobile&&desktop){mobile.innerHTML=desktop.innerHTML;
-        btn.addEventListener('click',e=>{e.stopPropagation();mobile.style.display==='block'?closeM():openM();});
+      const btn=document.querySelector('.hamburger'), mobile=document.getElementById('mobileMenu'), desktop=document.querySelector('.menu');
+      function closeM(){mobile.style.display='none';} function openM(){mobile.style.display='block';}
+      if(btn&&mobile&&desktop){
+        mobile.innerHTML=desktop.innerHTML;
+        btn.addEventListener('click',e=>{e.stopPropagation();(mobile.style.display==='block')?closeM():openM();});
         document.addEventListener('click',e=>{if(!e.target.closest('header'))closeM();});
         window.addEventListener('resize',()=>{if(window.innerWidth>900)closeM();});
       }
     })();
 
-    const gate=document.getElementById('gate'),main=document.getElementById('main'),filmingCard=document.getElementById('filmingCard'),stayCard=document.getElementById('stayCard'),form=document.getElementById('booking-form'),statusEl=document.getElementById('form-status'),daysWrap=document.getElementById('daysWrap');
+    // Cached refs
+    const gate=document.getElementById('gate');
+    const main=document.getElementById('main');
+    const filmingCard=document.getElementById('filmingCard');
+    const stayCard=document.getElementById('stayCard');
+    const form=document.getElementById('booking-form');
+    const statusEl=document.getElementById('form-status');
+    const daysWrap=document.getElementById('daysWrap');
 
-    document.querySelectorAll('.gate-btn').forEach(btn=>btn.addEventListener('click',()=>startWithChoice(btn.dataset.choice)));
+    // Gate buttons
+    document.querySelectorAll('.gate-btn').forEach(b=>b.addEventListener('click',()=>startWithChoice(b.dataset.choice)));
 
-    function buildTimeOptions(minMinutesExclusive=-1,selectedVal=''){const opts=['<option value="" disabled>Select time</option>'];for(let m=0;m<1440;m+=15){if(m<=minMinutesExclusive)continue;const hh=String(Math.floor(m/60)).padStart(2,'0');const mm=String(m%60).padStart(2,'0');const label=`${hh}:${mm}`;opts.push(`<option value="${label}"${label===selectedVal?' selected':''}>${label}</option>`);}return opts.join('');}
-    function parseTime(t){if(!t)return null;const[h,m]=t.split(':').map(Number);return h*60+(m||0);}
-    function computeHours(f,t){const a=parseTime(f),b=parseTime(t);if(a==null||b==null)return 0;let d=(b-a)/60;if(d<0)return 0;return Math.max(0,d);}
+    // Time helpers
+    function buildTimeOptions(minMinutesExclusive=-1,selectedVal=''){
+      const opts=['<option value="" disabled>Select time</option>'];
+      for(let m=0;m<24*60;m+=15){
+        if(m<=minMinutesExclusive)continue;
+        const hh=String(Math.floor(m/60)).padStart(2,'0'), mm=String(m%60).padStart(2,'0'), label=`${hh}:${mm}`;
+        opts.push(`<option value="${label}"${label===selectedVal?' selected':''}>${label}</option>`);
+      }
+      return opts.join('');
+    }
+    function parseTime(t){if(!t)return null;const [h,m]=t.split(':').map(Number);return h*60+(m||0);}
+    function computeHours(f,t){const a=parseTime(f),b=parseTime(t);if(a==null||b==null)return 0;const d=(b-a)/60;return d>0?d:0;}
 
-    function makeDayRow(){const r=document.createElement('div');r.className='day';r.innerHTML=`<label>Date <input type="date" name="day_date"></label><label>From <select name="day_from" required></select></label><label>To <select name="day_to" required></select></label><button type="button" class="rem">Remove</button>`;const f=r.querySelector('[name=day_from]'),t=r.querySelector('[name=day_to]');f.innerHTML=buildTimeOptions(-1);t.innerHTML=buildTimeOptions(-1);
-      f.addEventListener('change',()=>{const min=parseTime(f.value);t.innerHTML=buildTimeOptions(min,'');updatePrice();});
+    function makeDayRow(){
+      const r=document.createElement('div');
+      r.className='day';
+      r.innerHTML=`<label>Date <input type="date" name="day_date"></label>
+                   <label>From <select name="day_from" required></select></label>
+                   <label>To <select name="day_to" required></select></label>
+                   <button type="button" class="rem" aria-label="Remove day">Remove</button>`;
+      const f=r.querySelector('[name=day_from]'), t=r.querySelector('[name=day_to]');
+      f.innerHTML=buildTimeOptions(-1); t.innerHTML=buildTimeOptions(-1);
+      f.addEventListener('change',()=>{const min=parseTime(f.value);t.innerHTML=buildTimeOptions(min,'');const first=t.querySelector('option[value]:not([value=""])');if(first)t.value=first.value;updatePrice();});
       t.addEventListener('change',updatePrice);
       r.querySelector('[name=day_date]').addEventListener('change',updatePrice);
       r.querySelector('.rem').addEventListener('click',()=>{r.remove();updatePrice();});
-      return r;}
-    document.getElementById('addDayBtn').addEventListener('click',()=>{daysWrap.appendChild(makeDayRow());updatePrice();});
-    function ensureAtLeastOneDay(){if(!daysWrap.children.length)daysWrap.appendChild(makeDayRow());}
-    function updatePrice(){let total=0,hours=0;[...daysWrap.children].forEach(r=>{const f=r.querySelector('[name=day_from]').value,t=r.querySelector('[name=day_to]').value;const h=computeHours(f,t);if(h>0)hours+=h;total+=Math.max(h,MIN_HOURS_PER_DAY)*RATE_PER_HOUR;});document.getElementById('priceCard').style.display=daysWrap.children.length?'':'none';document.getElementById('priceSummary').textContent=`Estimated Total: AED ${AED.format(Math.round(total))}`;}
+      return r;
+    }
 
-    function startWithChoice(c){document.getElementById('purpose').value=c;main.classList.remove('hidden');gate.style.display='none';if(c==='Filming'){filmingCard.style.display='';stayCard.style.display='none';ensureAtLeastOneDay();updatePrice();}else{filmingCard.style.display='none';stayCard.style.display='';}}
-    document.getElementById('whatsappStay').addEventListener('click',e=>{e.preventDefault();window.open(`https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent('Hello Bayt Lili — I’m interested in a stay.')}`,'_blank');});
+    document.getElementById('addDayBtn').addEventListener('click',()=>{daysWrap.appendChild(makeDayRow());updatePrice();});
+    function ensureAtLeastOneDay(){if(daysWrap.children.length===0){daysWrap.appendChild(makeDayRow());}}
+
+    function updatePrice(){
+      let totalHours=0,totalPrice=0,anyUnderMin=false,anyDayComplete=false;
+      [...daysWrap.children].forEach(row=>{
+        const from=row.querySelector('[name=day_from]').value;
+        const to=row.querySelector('[name=day_to]').value;
+        const hrs=computeHours(from,to);
+        if(from&&to){anyDayComplete=true;if(hrs>0&&hrs<MIN_HOURS_PER_DAY)anyUnderMin=true;}
+        const billable=Math.max(hrs,MIN_HOURS_PER_DAY);
+        totalHours+=hrs; totalPrice+=billable*RATE_PER_HOUR;
+      });
+      document.getElementById('priceCard').style.display=daysWrap.children.length?'':'none';
+      document.getElementById('priceSummary').textContent=`Estimated Total: AED ${AED.format(Math.round(totalPrice))} — Total Selected Hours: ${isFinite(totalHours)?totalHours.toFixed(2):'0'}`;
+      const minNote=document.getElementById('minNote');
+      minNote.textContent='Min: 6 hrs are billable';
+      minNote.style.color=(anyDayComplete&&anyUnderMin)?'crimson':'#555';
+    }
+
+    function buildLinesFromForm(){
+      const name=(document.getElementById('name').value||'').trim();
+      const email=(document.getElementById('email').value||'').trim();
+      const phone=(document.getElementById('phone').value||'').trim();
+      const company=(document.getElementById('company').value||'').trim();
+      const dayLines=[];
+      [...daysWrap.children].forEach((row,i)=>{
+        const date=row.querySelector('[name=day_date]').value||'';
+        const from=row.querySelector('[name=day_from]').value||'';
+        const to=row.querySelector('[name=day_to]').value||'';
+        if(from||to||date){dayLines.push(`Day ${i+1}: ${date||'-'} — ${from||'-'} to ${to||'-'}`);}
+      });
+      return {name,email,phone,company,dayLines};
+    }
+
+    function buildMessageFilmingForSheet(){
+      const {name,email,phone,company,dayLines}=buildLinesFromForm();
+      let total=0;
+      [...daysWrap.children].forEach(row=>{
+        const hrs=computeHours(row.querySelector('[name=day_from]').value,row.querySelector('[name=day_to]').value);
+        const bill=Math.max(hrs,MIN_HOURS_PER_DAY); total+=bill*RATE_PER_HOUR;
+      });
+      return [
+        'Booking Request — Filming',
+        `Name: ${name||'-'}`,`Company: ${company||'-'}`,`Email: ${email||'-'}`,`Phone: ${phone||'-'}`,
+        '',...(dayLines.length?dayLines:['No days selected']),'',
+        `Estimated Total: AED ${new Intl.NumberFormat('en-US',{maximumFractionDigits:0}).format(Math.round(total))} (rate AED ${RATE_PER_HOUR}/hr; ${MIN_HOURS_PER_DAY}h min/day)`
+      ].join('\n');
+    }
+
+    function buildWAString(){
+      const {name,email,phone,company,dayLines}=buildLinesFromForm();
+      return ['Hello Bayt Lili — Filming inquiry',name?`Name: ${name}`:null,company?`Company: ${company}`:null,email?`Email: ${email}`:null,phone?`Phone: ${phone}`:null,dayLines.length?dayLines.join(' | '):null].filter(Boolean).join(' • ');
+    }
+
+    function openWA(msg){ window.open(`https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(msg)}`,'_blank'); }
+    document.getElementById('whatsappStay').addEventListener('click',e=>{e.preventDefault();openWA('Hello Bayt Lili — I’m interested in a stay.');});
+    document.getElementById('whatsappDirect').addEventListener('click',e=>{e.preventDefault();openWA(buildWAString());});
+
+    function showSuccessView(){
+      const html=`<div class="success-wrap"><div class="card success-card" role="status" aria-live="polite">
+        <div class="msg">Thank you! Your request has been received. We’ll get back to you shortly.</div>
+        <div class="buttons">
+          <a class="btn" href="https://wa.me/${WHATSAPP_NUMBER}" target="_blank" rel="noopener">WhatsApp Us</a>
+          <a class="btn" href="${INSTAGRAM_URL}" target="_blank" rel="noopener">Follow us on Instagram</a>
+          <a class="btn" href="index.html">Return to Homepage</a>
+        </div></div></div>`;
+      document.getElementById('main').innerHTML=html;
+    }
+
+    // Submit
+    form.addEventListener('submit', async (e)=>{
+      e.preventDefault();
+      if(document.getElementById('purpose').value!=='Filming')return;
+      const name=(document.getElementById('name').value||'').trim();
+      const email=(document.getElementById('email').value||'').trim();
+      const phone=(document.getElementById('phone').value||'').trim();
+      const company=(document.getElementById('company').value||'').trim();
+
+      if(!name||!email||!phone){statusEl.textContent='Please fill in Name, Email, and Phone.';statusEl.style.color='crimson';return;}
+      if(!company){statusEl.textContent='Please enter your Company / Brand.';statusEl.style.color='crimson';return;}
+      if(daysWrap.children.length===0){statusEl.textContent='Please add at least one day (From/To).';statusEl.style.color='crimson';return;}
+      for(const row of daysWrap.children){
+        const from=row.querySelector('[name=day_from]').value, to=row.querySelector('[name=day_to]').value;
+        if(!from||!to){statusEl.textContent='Please select From and To for each day.';statusEl.style.color='crimson';return;}
+      }
+
+      const submitBtn=document.getElementById('request-booking');
+      submitBtn.disabled=true; submitBtn.textContent='Sending…'; statusEl.textContent='';
+
+      const message=buildMessageFilmingForSheet();
+      const notifyPayload={type:'filming',...buildLinesFromForm(),waText:buildWAString(),rate:300,minHours:6,pageUrl:location.href,userAgent:navigator.userAgent};
+
+      try{
+        const params=new URLSearchParams();
+        params.set('name',name); params.set('email',email); params.set('phone',phone);
+        params.set('inquiry','Filming / Shoot'); params.set('message',message);
+        params.set('pageUrl',location.href); params.set('userAgent',navigator.userAgent);
+        params.set('notify','1'); params.set('notifyPayload',JSON.stringify(notifyPayload));
+
+        await fetch('https://script.google.com/macros/s/AKfycbw3ovdG31xmwUmpintksLOGuenjDF4tO-ZbqJbihQweSswhWxj6643z2-L-nFl7FMEG/exec',{
+          method:'POST',headers:{'Content-Type':'application/x-www-form-urlencoded;charset=UTF-8'},body:params.toString()
+        });
+
+        form.reset(); daysWrap.innerHTML=''; showSuccessView();
+      }catch(err){
+        statusEl.textContent='Network error. Please try again.';statusEl.style.color='crimson';
+        submitBtn.disabled=false; submitBtn.textContent='Request Booking';
+      }
+    });
+
+    // Prefill / gate
+    const qp=new URLSearchParams(location.search);
+    const prePhone=qp.get('phone')||'', preDate=qp.get('date')||'', preFrom=qp.get('from')||'', preTo=qp.get('to')||'';
+    function startWithChoice(choice){
+      document.getElementById('purpose').value=choice;
+      main.classList.remove('hidden'); gate.style.display='none';
+      const lede=document.getElementById('lede');
+      if(choice==='Filming'){
+        if(lede) lede.style.display='';
+        filmingCard.style.display=''; stayCard.style.display='none';
+        ensureAtLeastOneDay(); updatePrice();
+      }else{
+        if(lede) lede.style.display='none';
+        filmingCard.style.display='none'; stayCard.style.display='';
+      }
+    }
+    (function prefill(){
+      if(prePhone||preDate||preFrom||preTo){
+        startWithChoice('Filming');
+        if(prePhone){const cleaned=prePhone.startsWith('+')?prePhone.slice(1):prePhone;document.getElementById('phone').value=cleaned;}
+        ensureAtLeastOneDay();
+        const row=daysWrap.children[0];
+        const dateEl=row.querySelector('[name=day_date]'), fromEl=row.querySelector('[name=day_from]'), toEl=row.querySelector('[name=day_to]');
+        if(preDate) dateEl.value=preDate;
+        fromEl.innerHTML=buildTimeOptions(-1, preFrom||'');
+        const min=preFrom?parseTime(preFrom):-1;
+        toEl.innerHTML=buildTimeOptions(min, preTo||'');
+        if(preFrom) fromEl.value=preFrom; if(preTo) toEl.value=preTo;
+        updatePrice(); document.getElementById('name').focus({preventScroll:true});
+      }
+    })();
   </script>
 </body>
 </html>
