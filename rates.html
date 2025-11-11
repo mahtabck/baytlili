@@ -7,114 +7,73 @@
   <meta name="description" content="Bayt Lili pricing for filming, photoshoots, and stays.">
   <link rel="icon" type="image/png" href="assets/favicon.png" />
   <link rel="apple-touch-icon" href="assets/favicon.png" />
-
-  <!-- Fonts (same set used across the site) -->
   <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700;800&family=Plus+Jakarta+Sans:wght@400;500;600;700&family=Ranade:wght@700&display=swap" rel="stylesheet">
 
   <style>
     :root{
-      --text:#ffffff;
-      --muted:#ededed;
-      --line: rgba(255,255,255,.42);
-      --panel-stroke: rgba(255,255,255,.14);
-      --header-h: 56px;
-      --btn-border: rgba(255,255,255,.7);
+      --text:#ffffff; --muted:#ededed; --line: rgba(255,255,255,.42);
+      --panel-stroke: rgba(255,255,255,.14); --header-h: 56px; --btn-border: rgba(255,255,255,.7);
     }
-
     @font-face{
       font-family:'BaytLili';
       src: url('assets/BaytLili.ttf') format('truetype'),
            url('assets/BaytLili.otf') format('opentype');
       font-display:swap;
     }
-
     *,*::before,*::after{box-sizing:border-box}
     html,body{height:100%}
     body{
-      margin:0; color:var(--text);
-      line-height:1.45; font-family:'Playfair Display', serif; /* header/menu font family */
-      scroll-behavior:smooth; background:#000;
+      margin:0;color:var(--text);line-height:1.45;font-family:'Playfair Display',serif;background:#000;scroll-behavior:smooth;
     }
-
-    /* Background — match BOOKING (lightbg.png) */
-    body::before{
-      content:""; position:fixed; inset:0;
-      background:url('assets/lightbg.png') center 35%/cover no-repeat fixed; z-index:-2;
-    }
-    body::after{
-      content:""; position:fixed; inset:0;
-      background:rgba(0,0,0,0.24); z-index:-1;
-    }
+    /* Background: same as Booking (lightbg.png) */
+    body::before{content:"";position:fixed;inset:0;background:url('assets/lightbg.png') center 35%/cover no-repeat fixed;z-index:-2}
+    body::after{content:"";position:fixed;inset:0;background:rgba(0,0,0,0.24);z-index:-1}
 
     .container{width:min(1200px,92vw);margin-inline:auto}
-    .pad{padding:clamp(24px,4.5vw,64px) 0}
+    main{padding:clamp(24px,4.5vw,64px) 0}
 
-    /* ===== Header (EXACTLY like homepage) ===== */
+    /* Header (exact as homepage) */
     header{
-      position:sticky; top:0; z-index:50;
-      background:#000000f0; border-bottom:1px solid rgba(255,255,255,0.2);
-      min-height:var(--header-h); backdrop-filter:saturate(1.1) blur(6px);
+      position:sticky;top:0;z-index:50;background:#000000f0;border-bottom:1px solid rgba(255,255,255,0.2);
+      min-height:var(--header-h);backdrop-filter:saturate(1.1) blur(6px);
     }
     .nav{display:flex;align-items:center;justify-content:space-between;gap:16px;padding:8px 0}
-    .brand{display:flex;align-items:center;gap:10px;color:#fff;font-family:'BaytLili','Playfair Display',serif;letter-spacing:.12em;font-variant:small-caps;text-decoration:none;}
+    .brand{display:flex;align-items:center;gap:10px;color:#fff;font-family:'BaytLili','Playfair Display',serif;letter-spacing:.12em;font-variant:small-caps;text-decoration:none}
     .brand img{height:34px}
     .menu{display:flex;align-items:center;gap:20px}
-    .menu a{color:#fff;text-decoration:none;position:relative;padding:6px 2px;font-family:'Playfair Display',serif;font-weight:700;}
+    .menu a{color:#fff;text-decoration:none;position:relative;padding:6px 2px;font-family:'Playfair Display',serif;font-weight:700}
     .menu a::after{content:"";position:absolute;left:0;right:0;bottom:-4px;height:1px;background:transparent;transition:background .2s}
     .menu a:hover::after{background:rgba(255,255,255,.7)}
-    .hamburger{display:none;border:1px solid rgba(255,255,255,.35);height:34px;width:36px;border-radius:8px;padding:6px;flex-direction:column;gap:4px;justify-content:center;align-items:center;background:transparent;}
+    .hamburger{display:none;border:1px solid rgba(255,255,255,.35);height:34px;width:36px;border-radius:8px;padding:6px;flex-direction:column;gap:4px;justify-content:center;align-items:center;background:transparent}
     .hamburger span{width:18px;height:2px;background:#fff;border-radius:1px}
     .mobile-menu{display:none;position:absolute;top:calc(var(--header-h));right:12px;width:min(35vw,300px);background:#000000f2;border:1px solid rgba(255,255,255,.2);border-radius:10px;overflow:hidden}
-    .mobile-menu a{display:block;padding:12px 14px;color:#fff;border-bottom:1px solid rgba(255,255,255,.08);font-weight:700;}
+    .mobile-menu a{display:block;padding:12px 14px;color:#fff;border-bottom:1px solid rgba(255,255,255,.08);font-weight:700}
     .mobile-menu a:last-child{border-bottom:none}
     @media (max-width:900px){.menu{display:none}.hamburger{display:flex}}
 
-    /* ===== Page ===== */
-    main{padding:clamp(24px,4.5vw,64px) 0}
-    /* Title in Ranade; body text below will be Jakarta Sans */
+    /* Title (Ranade), Under-title content Jakarta Sans */
     h1{
-      font-family:'Ranade','Plus Jakarta Sans',sans-serif;
-      font-weight:700;
-      font-size:clamp(30px,5vw,48px);
-      margin:0 0 8px;
-      letter-spacing:.01em;
-      text-shadow:0 3px 10px rgba(0,0,0,.35);
+      font-family:'Ranade','Plus Jakarta Sans',sans-serif;font-weight:700;
+      font-size:clamp(30px,5vw,48px);margin:0 0 8px;letter-spacing:.01em;text-shadow:0 3px 10px rgba(0,0,0,.35);
     }
-
-    /* Everything under the title uses Jakarta Sans (matches booking page) */
-    .content { font-family:'Plus Jakarta Sans',sans-serif; }
+    .content{font-family:'Plus Jakarta Sans',sans-serif}
     .content .lede{margin:0 0 18px;color:var(--muted)}
-    .card{
-      background:rgba(255,255,255,.10);
-      border:1px solid var(--panel-stroke);
-      border-radius:14px;
-      padding:18px;
-      backdrop-filter:blur(4px);
-    }
-    .rate{
-      display:flex;align-items:baseline;justify-content:space-between;gap:12px;
-      border-bottom:1px dashed rgba(255,255,255,.28);
-      padding-bottom:10px;margin-bottom:10px;
-    }
+
+    .card{background:rgba(255,255,255,.10);border:1px solid var(--panel-stroke);border-radius:14px;padding:18px;backdrop-filter:blur(4px)}
+    .rate{display:flex;align-items:baseline;justify-content:space-between;gap:12px;border-bottom:1px dashed rgba(255,255,255,.28);padding-bottom:10px;margin-bottom:10px}
     .rate:last-child{border-bottom:none;margin-bottom:0;padding-bottom:0}
     .rate .title{font-weight:700}
     .rate .value{font-weight:600}
 
     .actions{display:flex;flex-wrap:wrap;gap:10px;margin-top:12px}
-
-    /* Buttons — same visual as site buttons */
     .btn{
-      display:inline-flex;align-items:center;justify-content:center;
-      border:1px solid var(--btn-border);
-      font-weight:700;border-radius:12px;
-      height:40px;padding:0 20px;background:#fff;color:#111;
-      font-family:'Playfair Display',serif; /* keep button look consistent site-wide */
-      text-decoration:none;font-size:16px;
+      display:inline-flex;align-items:center;justify-content:center;border:1px solid var(--btn-border);
+      font-weight:700;border-radius:12px;height:40px;padding:0 20px;background:#fff;color:#111;
+      font-family:'Playfair Display',serif;text-decoration:none;font-size:16px;
     }
     .btn:hover{opacity:.92}
     @media (max-width:768px){.btn{height:36px;padding:0 16px;font-size:15px;border-radius:10px}}
 
-    /* Mobile background behavior (same as booking) */
     @media (max-width:900px){
       body::before{
         background-position:center top !important;
@@ -124,16 +83,21 @@
         background-color:#000;
       }
     }
+
+    /* WhatsApp FAB (official) */
+    .wa-float{
+      position:fixed;right:16px;bottom:16px;width:56px;height:56px;border-radius:50%;
+      background:#25D366;display:flex;align-items:center;justify-content:center;
+      box-shadow:0 6px 18px rgba(0,0,0,.28);z-index:1000;text-decoration:none
+    }
+    .wa-float svg{width:28px;height:28px;display:block}
+    .wa-float:hover{transform:translateY(-1px);opacity:.95}
   </style>
 </head>
-
 <body>
-  <!-- Header (exact) -->
   <header>
     <div class="container nav">
-      <a href="index.html" class="brand">
-        <img src="assets/bllogo.png" alt="Bayt Lili logo"/> BAYT LILI
-      </a>
+      <a href="index.html" class="brand"><img src="assets/bllogo.png" alt="Bayt Lili logo"/> BAYT LILI</a>
       <button class="hamburger" aria-label="Menu"><span></span><span></span><span></span></button>
       <nav class="menu">
         <a href="index.html">Home</a>
@@ -148,33 +112,15 @@
 
   <main class="container">
     <h1>Rates</h1>
-
-    <!-- Everything below uses Jakarta Sans -->
     <div class="content">
       <p class="lede">Transparent, simple pricing. For custom requests, please contact us.</p>
 
       <div class="card">
-        <div class="rate">
-          <div class="title">Filming / Photoshoot</div>
-          <div class="value">AED 300 per hour</div>
-        </div>
-        <div class="rate">
-          <div class="title">Minimum charge</div>
-          <div class="value">6 hours (AED 1,800) per day</div>
-        </div>
-        <div class="rate">
-          <div class="title">Refundable deposit</div>
-          <div class="value">AED 5,000</div>
-        </div>
-        <div class="rate">
-          <div class="title">Overtime</div>
-          <div class="value">Billed at AED 300/hr</div>
-        </div>
-        <div class="rate">
-          <div class="title">Stays</div>
-          <div class="value">Daily Airbnb rates</div>
-        </div>
-
+        <div class="rate"><div class="title">Filming / Photoshoot</div><div class="value">AED 300 per hour</div></div>
+        <div class="rate"><div class="title">Minimum charge</div><div class="value">6 hours (AED 1,800) per day</div></div>
+        <div class="rate"><div class="title">Refundable deposit</div><div class="value">AED 5,000</div></div>
+        <div class="rate"><div class="title">Overtime</div><div class="value">Billed at AED 300/hr</div></div>
+        <div class="rate"><div class="title">Stays</div><div class="value">Daily Airbnb rates</div></div>
         <div class="actions">
           <a class="btn" href="booking.html">Book Now</a>
           <a class="btn" href="https://instagram.com/baytlili" target="_blank" rel="noopener">Instagram</a>
@@ -184,19 +130,28 @@
     </div>
   </main>
 
-  <!-- Mobile menu (same behavior as homepage) -->
+  <!-- WhatsApp FAB (official) -->
+  <a class="wa-float" href="https://wa.me/971501589628" target="_blank" rel="noopener" aria-label="Chat on WhatsApp">
+    <svg viewBox="0 0 32 32" aria-hidden="true" focusable="false">
+      <circle cx="16" cy="16" r="16" fill="#25D366"/>
+      <path fill="#FFFFFF" d="M24.5 16.03c0 4.68-3.87 8.48-8.64 8.48-1.52 0-2.94-.38-4.18-1.06l-4.17 1.1 1.11-4.07a8.4 8.4 0 0 1-1.24-4.45c0-4.68 3.87-8.48 8.64-8.48s8.48 3.8 8.48 8.48z"/>
+      <path fill="#25D366" d="M15.86 8.69c-4.04 0-7.32 3.23-7.32 7.21 0 1.42.42 2.74 1.16 3.85l-.76 2.79 2.86-.76a7.29 7.29 0 0 0 4.06 1.19c3.99 0 7.32-3.23 7.32-7.21 0-3.98-3.33-7.21-7.32-7.21z"/>
+      <path fill="#FFFFFF" d="M20.63 18.48c-.11-.06-1.25-.64-1.44-.72-.19-.07-.33-.11-.47.11-.14.22-.55.72-.67.86-.12.14-.25.16-.46.06-1.26-.63-2.07-1.13-2.89-2.57-.22-.38.22-.36.62-1.19.07-.14.03-.26-.02-.37s-.47-1.16-.66-1.6c-.18-.42-.36-.36-.47-.36s-.25-.01-.38-.01c-.14 0-.36.05-.56.26-.19.21-.75.75-.75 1.81 0 1.06.77 2.09.88 2.23.11.14 1.52 2.35 3.68 3.3.52.23.92.36 1.23.47.52.17.98.14 1.34.09.41-.06 1.24-.51 1.41-1.01.17-.5.17-.92.12-1.01-.06-.09-.2-.14-.4-.24z"/>
+    </svg>
+  </a>
+
   <script>
     (function(){
-      const btn = document.querySelector('.hamburger');
-      const mobile = document.getElementById('mobileMenu');
-      const desktop = document.querySelector('.menu');
-      function closeM(){ mobile.style.display='none'; }
-      function openM(){ mobile.style.display='block'; }
-      if(btn && mobile && desktop){
-        mobile.innerHTML = desktop.innerHTML;
-        btn.addEventListener('click', (e)=>{ e.stopPropagation(); (mobile.style.display==='block') ? closeM() : openM(); });
-        document.addEventListener('click', (e)=>{ if(!e.target.closest('header')) closeM(); });
-        window.addEventListener('resize', ()=>{ if(window.innerWidth>900) closeM(); });
+      const btn=document.querySelector('.hamburger');
+      const mobile=document.getElementById('mobileMenu');
+      const desktop=document.querySelector('.menu');
+      function closeM(){mobile.style.display='none';}
+      function openM(){mobile.style.display='block';}
+      if(btn&&mobile&&desktop){
+        mobile.innerHTML=desktop.innerHTML;
+        btn.addEventListener('click',e=>{e.stopPropagation();(mobile.style.display==='block')?closeM():openM();});
+        document.addEventListener('click',e=>{if(!e.target.closest('header'))closeM();});
+        window.addEventListener('resize',()=>{if(window.innerWidth>900)closeM();});
       }
     })();
   </script>
