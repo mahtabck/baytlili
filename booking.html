@@ -45,14 +45,18 @@
       background:rgba(0,0,0,.28); z-index:-1;
     }
 
+    /* Base page container (content cards) */
     .container{width:min(900px,92vw); margin:0 auto; padding:clamp(24px,5vw,48px) 0}
 
-    /* ---------- Header (identical to homepage) ---------- */
+    /* ---------- Header (uniform with homepage) ---------- */
     header{
       position:sticky; top:0; z-index:50;
       background:#000000f0; border-bottom:1px solid rgba(255,255,255,0.2);
       min-height:var(--header-h); backdrop-filter:saturate(1.1) blur(6px);
     }
+    /* Wider header container to match the homepage spacing */
+    header .container.nav{ width:min(1100px, 92vw); }
+
     .nav{display:flex;align-items:center;justify-content:space-between;gap:16px;padding:8px 0}
     .brand{
       display:flex;align-items:center;gap:10px;color:#fff;
@@ -61,7 +65,7 @@
       text-decoration:none;
     }
     .brand img{height:34px}
-    .menu{display:flex;align-items:center;gap:20px}
+    .menu{display:flex;align-items:center;gap:24px}
     .menu a{
       color:#fff;text-decoration:none;white-space:nowrap;
       font-weight:700; position:relative; padding:6px 2px;
@@ -89,14 +93,13 @@
       border-radius:16px; padding:18px;
     }
 
-    /* ---------- Buttons (identical everywhere) ---------- */
+    /* ---------- Buttons ---------- */
     .btn{
       display:inline-flex; align-items:center; justify-content:center; gap:.5em;
       padding:.75em 1.1em; border-radius:999px; border:1px solid var(--btn-border);
       background:#fff; color:#111; font-weight:700; letter-spacing:.02em;
       cursor:pointer; text-decoration:none; font-family:'Playfair Display', serif;
-      height:var(--control-h); font-size:16px;
-      min-width: 180px;
+      height:var(--control-h); font-size:16px; min-width: 180px;
     }
     .btn:hover{opacity:.92}
 
@@ -171,7 +174,7 @@
     }
     .success-card .buttons{ display:flex; justify-content:center; gap:10px; flex-wrap:wrap; }
 
-    /* ---------- STAY (layout kept, aligned under buttons) ---------- */
+    /* ---------- STAY (new layout: photo left, reviews right on desktop) ---------- */
     #stayCard .lede{ margin-top:0; margin-bottom:14px; }
     .stay-actions{
       display:flex; gap:12px; flex-wrap:wrap; margin-bottom:14px;
@@ -181,24 +184,25 @@
       .stay-actions .btn{ width:100% }
     }
 
-    /* Airbnb images: two side-by-side, keep ratio, align left under buttons */
-    .stay-images{
-      display:grid;
-      grid-template-columns:repeat(2, 1fr);
-      gap:12px;               /* base gap */
-      max-width:720px;        /* base width (matches your earlier visual) */
-      margin-top:8px;
+    /* Grid for desktop: left = photo (same size as before), right = reviews */
+    .stay-grid{
+      display:block; /* stacked by default */
     }
-    .stay-images img{
+    /* Left photo block: keep previous “half of images area” size feel */
+    .stay-photo{
       width:100%;
-      height:auto;            /* keep shape/ratio */
+      max-width:720px; /* same base container you used earlier */
+    }
+    .stay-photo img{
+      width:100%;
+      height:auto;
       border-radius:16px;
       border:1px solid rgba(255,255,255,.15);
       background:rgba(255,255,255,.06);
       display:block;
     }
 
-    /* ---------- Reviews: slightly smaller ---------- */
+    /* Reviews block (reuses your carousel styles) */
     .reviews{margin-top:22px}
     .reviews h2{font-family:'BaytLili','Playfair Display',serif;margin:0 0 10px}
     .rev-wrap{position:relative; overflow:hidden; border:1px solid var(--line); border-radius:16px; padding:8px; background:rgba(255,255,255,.06)}
@@ -208,21 +212,28 @@
     .rev-btn{position:absolute; top:50%; transform:translateY(-50%); background:#ffffff; color:#111; border:1px solid var(--btn-border); width:32px; height:32px; border-radius:999px; display:flex; align-items:center; justify-content:center; font-weight:700; cursor:pointer}
     .rev-prev{left:10px} .rev-next{right:10px}
 
-    /* ======== DESKTOP-FULLSCREEN ONLY TWEAKS ======== */
-    @media (min-width: 1300px){
-      /* Make the Stay card the SAME width as the Filming card (container width).
-         (We removed the old max-width override on #stayCard.) */
+    /* ---------- Desktop full-screen adjustments ---------- */
+    @media (min-width: 1100px){
+      /* Make header container wider already set above for better brand/menu spacing */
 
-      /* Keep the Airbnb pics slightly smaller on big screens */
-      .stay-images{
-        max-width: 600px;   /* subtle shrink within the full-width card */
-        gap: 20px;          /* ⬅ increased gap for cleaner spacing on desktop */
+      /* Stay grid becomes two columns: fixed left (photo), fluid right (reviews) */
+      .stay-grid{
+        display:grid;
+        grid-template-columns: 340px 1fr; /* photo ~ the old half-image size */
+        gap: 24px;
+        align-items:start;
       }
-
-      /* Reviews more compact so everything sits neatly under the images */
-      .rev-wrap{ padding:6px; }
-      .rev-track{ gap: 8px; }
+      /* Keep the photo visually similar to the old half-width image on desktop */
+      .stay-photo{ max-width:340px; }
+      /* Reduce review image height a bit so the column feels tidy next to the photo */
       .rev-item img{ max-height:260px; }
+    }
+
+    @media (min-width: 1300px){
+      .stay-grid{
+        grid-template-columns: 330px 1fr; /* tiny refinement on very wide screens */
+        gap: 28px;                        /* a bit more breathing room */
+      }
     }
   </style>
 </head>
@@ -230,7 +241,7 @@
 
   <!-- Header -->
   <header>
-    <div class="container nav" style="padding:8px 0">
+    <div class="container nav">
       <a class="brand" href="index.html" aria-label="Bayt Lili — Home">
         <img src="assets/bllogo.png" alt="Bayt Lili"/> BAYT LILI
       </a>
@@ -325,27 +336,28 @@
         <a class="btn" id="airbnbBtn" href="https://www.airbnb.com/rooms/1010972686934184319" target="_blank" rel="noopener">View on Airbnb</a>
       </div>
 
-      <!-- Airbnb images (two across, aligned left) -->
-      <div class="stay-images">
-        <img src="assets/airbnb.png" alt="Airbnb 1">
-        <img src="assets/airbnb2.png" alt="Airbnb 2">
-      </div>
-
-      <!-- Reviews -->
-      <section class="reviews">
-        <h2>Reviews</h2>
-        <div class="rev-wrap">
-          <button class="rev-btn rev-prev" aria-label="Previous">‹</button>
-          <div class="rev-track" id="revTrack">
-            <div class="rev-item"><img src="assets/review1.png" alt="Review 1"></div>
-            <div class="rev-item"><img src="assets/review2.png" alt="Review 2"></div>
-            <div class="rev-item"><img src="assets/review3.png" alt="Review 3"></div>
-            <div class="rev-item"><img src="assets/review4.png" alt="Review 4"></div>
-            <div class="rev-item"><img src="assets/review5.png" alt="Review 5"></div>
-          </div>
-          <button class="rev-btn rev-next" aria-label="Next">›</button>
+      <!-- New desktop grid: photo left, reviews right -->
+      <div class="stay-grid">
+        <div class="stay-photo">
+          <img src="assets/airbnb.png" alt="Airbnb">
         </div>
-      </section>
+
+        <!-- Reviews (moved to the right on desktop) -->
+        <section class="reviews">
+          <h2>Reviews</h2>
+          <div class="rev-wrap">
+            <button class="rev-btn rev-prev" aria-label="Previous">‹</button>
+            <div class="rev-track" id="revTrack">
+              <div class="rev-item"><img src="assets/review1.png" alt="Review 1"></div>
+              <div class="rev-item"><img src="assets/review2.png" alt="Review 2"></div>
+              <div class="rev-item"><img src="assets/review3.png" alt="Review 3"></div>
+              <div class="rev-item"><img src="assets/review4.png" alt="Review 4"></div>
+              <div class="rev-item"><img src="assets/review5.png" alt="Review 5"></div>
+            </div>
+            <button class="rev-btn rev-next" aria-label="Next">›</button>
+          </div>
+        </section>
+      </div>
     </div>
 
   </div>
@@ -360,6 +372,7 @@
     const MIN_HOURS_PER_DAY = 6;
     const AED = new Intl.NumberFormat('en-US', { maximumFractionDigits: 0 });
 
+    // Header mobile menu
     (function(){
       const btn = document.querySelector('.hamburger');
       const mobile = document.getElementById('mobileMenu');
@@ -462,7 +475,7 @@
 
       document.getElementById('priceCard').style.display = daysWrap.children.length ? '' : 'none';
       document.getElementById('priceSummary').textContent =
-        `Estimated Total: AED ${isFinite(totalPrice)? AED.format(Math.round(totalPrice)) : 0} — Total Selected Hours: ${isFinite(totalHours)?totalHours.toFixed(2):'0'}`;
+        `Estimated Total: AED ${isFinite(totalPrice)? new Intl.NumberFormat('en-US', { maximumFractionDigits: 0 }).format(Math.round(totalPrice)) : 0} — Total Selected Hours: ${isFinite(totalHours)?totalHours.toFixed(2):'0'}`;
 
       const minNote = document.getElementById('minNote');
       minNote.textContent = `Min: 6 hrs are billable`;
@@ -499,7 +512,7 @@
         'Booking Request — Filming',
         `Name: ${name||'-'}`, `Company: ${company||'-'}`, `Email: ${email||'-'}`, `Phone: ${phone||'-'}`,
         '', ...(dayLines.length?dayLines:['No days selected']), '',
-        `Estimated Total: AED ${AED.format(Math.round(total))} (rate AED ${RATE_PER_HOUR}/hr; ${MIN_HOURS_PER_DAY}h min/day)`
+        `Estimated Total: AED ${new Intl.NumberFormat('en-US', { maximumFractionDigits: 0 }).format(Math.round(total))} (rate AED ${RATE_PER_HOUR}/hr; ${MIN_HOURS_PER_DAY}h min/day)`
       ].join('\n');
     }
 
@@ -636,7 +649,7 @@
         ensureAtLeastOneDay();
         updatePrice();
       } else {
-        if (lede) lede.style.display = 'none';
+        if (lede) lede.style.display = 'none'; // hide the top sentence only for Stay
         filmingCard.style.display = 'none';
         stayCard.style.display = '';
         initReviews();
