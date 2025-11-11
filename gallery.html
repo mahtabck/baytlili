@@ -12,12 +12,8 @@
 
   <style>
     :root{
-      --text:#ffffff;
-      --muted:#ededed;
-      --line: rgba(255,255,255,.30);
-      --btn-border: rgba(255,255,255,.7);
-      --header-h: 56px;
-      --thumb-r: 14px;
+      --text:#ffffff; --muted:#ededed; --line: rgba(255,255,255,.30);
+      --btn-border: rgba(255,255,255,.7); --header-h:56px; --thumb-r:14px;
     }
     @font-face{
       font-family:'BaytLili';
@@ -28,28 +24,20 @@
     *,*::before,*::after{box-sizing:border-box}
     html,body{height:100%}
     body{
-      margin:0; color:var(--text);
-      line-height:1.45; font-family:'Playfair Display', serif;
-      scroll-behavior:smooth; background:#000;
-      -webkit-font-smoothing:antialiased; -moz-osx-font-smoothing:grayscale;
+      margin:0;color:var(--text);line-height:1.45;font-family:'Playfair Display',serif;background:#000;scroll-behavior:smooth;
+      -webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:grayscale;
     }
     /* Background (same as booking/rates) */
-    body::before{
-      content:""; position:fixed; inset:0;
-      background:url('assets/lightbg.png') center 35%/cover no-repeat fixed; z-index:-2;
-    }
-    body::after{
-      content:""; position:fixed; inset:0;
-      background:rgba(0,0,0,0.24); z-index:-1;
-    }
+    body::before{content:"";position:fixed;inset:0;background:url('assets/lightbg.png') center 35%/cover no-repeat fixed;z-index:-2}
+    body::after{content:"";position:fixed;inset:0;background:rgba(0,0,0,.24);z-index:-1}
+
     .container{width:min(1200px,92vw);margin-inline:auto}
     .pad{padding:clamp(24px,4.5vw,48px) 0}
 
     /* Header (exact match to homepage) */
     header{
-      position:sticky; top:0; z-index:50;
-      background:#000000f0; border-bottom:1px solid rgba(255,255,255,0.2);
-      min-height:var(--header-h); backdrop-filter:saturate(1.1) blur(6px);
+      position:sticky;top:0;z-index:50;background:#000000f0;border-bottom:1px solid rgba(255,255,255,0.2);
+      min-height:var(--header-h);backdrop-filter:saturate(1.1) blur(6px);
     }
     .nav{display:flex;align-items:center;justify-content:space-between;gap:16px;padding:8px 0}
     .brand{display:flex;align-items:center;gap:10px;color:#fff;font-family:'BaytLili','Playfair Display',serif;letter-spacing:.12em;font-variant:small-caps;text-decoration:none}
@@ -58,17 +46,14 @@
     .menu a{color:#fff;text-decoration:none;position:relative;padding:6px 2px;font-family:'Playfair Display',serif;font-weight:700;white-space:nowrap}
     .menu a::after{content:"";position:absolute;left:0;right:0;bottom:-4px;height:1px;background:transparent;transition:background .2s}
     .menu a:hover::after{background:rgba(255,255,255,.7)}
-    .hamburger{display:none;border:1px solid rgba(255,255,255,.35);height:34px;width:36px;border-radius:8px;padding:6px;flex-direction:column;gap:4px;justify-content:center;align-items:center;background:transparent;}
+    .hamburger{display:none;border:1px solid rgba(255,255,255,.35);height:34px;width:36px;border-radius:8px;padding:6px;flex-direction:column;gap:4px;justify-content:center;align-items:center;background:transparent}
     .hamburger span{width:18px;height:2px;background:#fff;border-radius:1px}
     .mobile-menu{display:none;position:absolute;top:calc(var(--header-h));right:12px;width:min(35vw,300px);background:#000000f2;border:1px solid rgba(255,255,255,.2);border-radius:10px;overflow:hidden}
-    .mobile-menu a{display:block;padding:12px 14px;color:#fff;border-bottom:1px solid rgba(255,255,255,.08);font-weight:700;}
+    .mobile-menu a{display:block;padding:12px 14px;color:#fff;border-bottom:1px solid rgba(255,255,255,.08);font-weight:700}
     .mobile-menu a:last-child{border-bottom:none}
     @media (max-width:900px){.menu{display:none}.hamburger{display:flex}}
 
-    h1{
-      font-family:'Ranade','Plus Jakarta Sans',sans-serif;
-      margin:22px 0 14px; font-size:clamp(28px,4.4vw,44px);
-    }
+    h1{font-family:'Ranade','Plus Jakarta Sans',sans-serif;margin:22px 0 14px;font-size:clamp(28px,4.4vw,44px)}
     p.lede{color:var(--muted);margin:0 0 18px;font-family:'Plus Jakarta Sans',sans-serif}
 
     /* Buttons */
@@ -83,36 +68,35 @@
       gap:12px;
     }
     .thumb{
-      position:relative; border-radius:var(--thumb-r); overflow:hidden;
-      border:1px solid rgba(255,255,255,.3); background:rgba(255,255,255,.08);
-      aspect-ratio: 4 / 3;          /* equal sizes */
-      cursor:pointer;
+      position:relative;border-radius:var(--thumb-r);overflow:hidden;border:1px solid rgba(255,255,255,.3);background:rgba(255,255,255,.08);
+      aspect-ratio:4/3;cursor:pointer;
     }
-    .thumb img{
-      width:100%; height:100%; object-fit:cover; display:block;
-      transition:transform .25s ease;
-    }
-    .thumb:hover img{ transform:scale(1.03); }
+    .thumb img{width:100%;height:100%;object-fit:cover;display:block;transition:transform .25s ease}
+    .thumb:hover img{transform:scale(1.03)}
 
-    /* Lightbox */
+    /* Lightbox — GUARANTEE FULL IMAGE FITS WITHOUT SCROLLING */
     .lightbox{
-      position:fixed; inset:0; background:rgba(0,0,0,.92);
-      display:none; align-items:center; justify-content:center; z-index:1000;
+      position:fixed;inset:0;background:rgba(0,0,0,.92);
+      display:none;align-items:center;justify-content:center;z-index:1000;
     }
     .lightbox.open{display:flex}
-    .lb-img-wrap{max-width:92vw; max-height:86vh; position:relative}
-    .lb-img{max-width:100%; max-height:100%; border-radius:12px; display:block}
-    .lb-close,.lb-prev,.lb-next{
-      position:absolute; top:50%; transform:translateY(-50%);
-      background:rgba(255,255,255,.14); border:1px solid rgba(255,255,255,.35);
-      color:#fff; width:42px; height:42px; border-radius:50%;
-      display:flex; align-items:center; justify-content:center;
-      cursor:pointer; user-select:none;
+    .lb-stage{
+      position:relative;display:flex;align-items:center;justify-content:center;
+      max-width:96vw;max-height:96vh;
     }
-    .lb-close{top:12px; right:12px; transform:none}
+    .lb-img{
+      width:auto;height:auto;max-width:96vw;max-height:92vh; /* fits on screen */
+      object-fit:contain;border-radius:12px;display:block;
+    }
+    .lb-close,.lb-prev,.lb-next{
+      position:absolute;background:rgba(255,255,255,.14);border:1px solid rgba(255,255,255,.35);
+      color:#fff;width:42px;height:42px;border-radius:50%;display:flex;align-items:center;justify-content:center;cursor:pointer;user-select:none;
+    }
+    .lb-close{top:-56px;right:0}
     .lb-prev{left:-56px}
     .lb-next{right:-56px}
     @media(max-width:700px){
+      .lb-close{top:8px;right:8px}
       .lb-prev{left:8px} .lb-next{right:8px}
     }
 
@@ -146,7 +130,7 @@
   <!-- Content -->
   <main class="container pad">
     <h1>Gallery</h1>
-    <p class="lede">Tap any photo to enter slideshow and swipe/arrow through.</p>
+    <p class="lede">Tap any photo to enter slideshow. Swipe or use arrows to navigate.</p>
 
     <div id="grid" class="grid" aria-live="polite"></div>
 
@@ -159,7 +143,7 @@
 
   <!-- Lightbox -->
   <div id="lightbox" class="lightbox" role="dialog" aria-modal="true" aria-label="Image slideshow">
-    <div class="lb-img-wrap">
+    <div class="lb-stage">
       <img id="lbImg" class="lb-img" alt="Gallery image">
       <button class="lb-close" id="lbClose" aria-label="Close">✕</button>
       <button class="lb-prev" id="lbPrev" aria-label="Previous">‹</button>
@@ -173,7 +157,7 @@
   </a>
 
   <script>
-    // Mobile menu clone (same as other pages)
+    // Mobile menu clone
     (function(){
       const btn=document.querySelector('.hamburger');
       const mobile=document.getElementById('mobileMenu');
@@ -188,8 +172,8 @@
       }
     })();
 
-    // ------- Gallery data: simply set how many images you have in assets/gallery/ -------
-    const NUM_PHOTOS = 20; // change to match how many files you add
+    // ------- ONLY 17 IMAGES -------
+    const NUM_PHOTOS = 17; // exactly how many images in assets/gallery
     const grid = document.getElementById('grid');
     const files = Array.from({length:NUM_PHOTOS}, (_,i)=>`assets/gallery/${i+1}.png`);
 
@@ -213,15 +197,22 @@
       current=(idx+files.length)%files.length;
       lbImg.src=files[current];
     }
-    function openLightbox(idx){ show(idx); lb.classList.add('open'); document.body.style.overflow='hidden'; }
-    function closeLightbox(){ lb.classList.remove('open'); document.body.style.overflow=''; }
+    function openLightbox(idx){
+      show(idx);
+      lb.classList.add('open');
+      document.body.style.overflow='hidden'; // prevent page scroll
+    }
+    function closeLightbox(){
+      lb.classList.remove('open');
+      document.body.style.overflow='';
+    }
 
     lbClose.addEventListener('click', closeLightbox);
     lbPrev.addEventListener('click', ()=>show(current-1));
     lbNext.addEventListener('click', ()=>show(current+1));
-    lb.addEventListener('click', e=>{ if(e.target===lb) closeLightbox(); });
+    lb.addEventListener('click', e=>{ if(e.target===lb) closeLightbox(); }); // click backdrop to close
 
-    // Keyboard
+    // Keyboard navigation
     document.addEventListener('keydown', e=>{
       if(!lb.classList.contains('open')) return;
       if(e.key==='Escape') closeLightbox();
