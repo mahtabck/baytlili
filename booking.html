@@ -28,7 +28,7 @@
       margin:0;color:var(--text);font-family:'Playfair Display',serif;line-height:1.5;background:#000;scroll-behavior:smooth;
       -webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:grayscale;
     }
-    /* Background same as Rates */
+    /* Background */
     body::before{content:"";position:fixed;inset:0;background:url('assets/lightbg.png') center 35%/cover no-repeat fixed;z-index:-2}
     body::after{content:"";position:fixed;inset:0;background:rgba(0,0,0,.28);z-index:-1}
 
@@ -94,8 +94,24 @@
     .success-card .msg{color:limegreen;font-weight:700;font-family:'Plus Jakarta Sans',sans-serif;font-size:clamp(18px,2.6vw,22px);margin-bottom:16px}
     .success-card .buttons{display:flex;justify-content:center;gap:10px;flex-wrap:wrap}
 
-    .stay-actions{display:flex;gap:12px;flex-wrap:wrap;margin-bottom:26px}
-    @media (max-width:640px){.stay-actions{flex-direction:column}.stay-actions .btn{width:100%}}
+    /* ===== STAY section ===== */
+    .stay-actions{
+      display:flex;gap:12px;flex-wrap:wrap;margin-bottom:26px;
+      align-items:flex-start;                 /* top-align row so both start at same line */
+    }
+    /* Enforce identical button metrics so both pills match perfectly */
+    .stay-actions .btn{
+      height:56px;                             /* consistent height */
+      padding:0 32px;                          /* horizontal padding */
+      border-radius:9999px;                    /* pill */
+      line-height:1;                           /* no extra leading */
+      white-space:nowrap;                      /* prevent wrapping making one taller */
+    }
+    @media (max-width:640px){
+      .stay-actions{flex-direction:column}
+      .stay-actions .btn{width:100%}
+    }
+
     .stay-grid{display:block}
     .stay-photo img{width:100%;height:auto;border-radius:16px;border:1px solid rgba(255,255,255,.15);background:rgba(255,255,255,.06);display:block}
     .reviews{margin-top:22px}
