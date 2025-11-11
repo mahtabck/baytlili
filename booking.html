@@ -21,11 +21,11 @@
       --header-h: 56px; /* match homepage */
 
       /* === STAY photo sizing (desktop) ===
-         9:16 portrait, nice & prominent on desktop
-         Width 270px, Height 480px keeps it tall and not tiny
+         Bigger photo (9:16), reviews will be smaller height than photo
       */
-      --stay-photo-w: 270px;
-      --stay-photo-h: 480px;
+      --stay-photo-w: 320px;
+      --stay-photo-h: 568px; /* 320 * 16/9 ≈ 568 */
+      --reviews-scale: 0.72;  /* reviews height relative to photo (72%) */
     }
 
     @font-face{
@@ -184,7 +184,8 @@
     /* ---------- STAY (photo left, vertical reviews right on desktop) ---------- */
     #stayCard .lede{ margin-top:0; margin-bottom:14px; }
     .stay-actions{
-      display:flex; gap:12px; flex-wrap:wrap; margin-bottom:14px;
+      display:flex; gap:12px; flex-wrap:wrap;
+      margin-bottom: 26px; /* ↑ more space below the buttons */
     }
     @media (max-width:640px){
       .stay-actions{ flex-direction:column; }
@@ -204,7 +205,7 @@
       border:1px solid rgba(255,255,255,.15);
       background:rgba(255,255,255,.06);
       display:block;
-      /* keep natural file ratio on mobile; desktop overrides below */
+      /* natural ratio on mobile; desktop overrides below */
     }
 
     /* Vertical reviews list (no title) */
@@ -227,29 +228,29 @@
       display:block;
     }
 
-    /* ---------- Desktop full-screen layout (enforce 9:16 and equal heights) ---------- */
+    /* ---------- Desktop full-screen layout (photo bigger, reviews smaller) ---------- */
     @media (min-width:1100px){
       .stay-grid{
         display:grid;
-        grid-template-columns: var(--stay-photo-w) 1fr; /* fixed photo column + flexible reviews */
-        gap: 32px;
+        grid-template-columns: var(--stay-photo-w) 1fr; /* fixed photo + flexible reviews */
+        gap: 36px;
         align-items:start;
       }
       .stay-photo{ max-width: var(--stay-photo-w); }
       .stay-photo img{
         width: var(--stay-photo-w);
         height: var(--stay-photo-h);
-        aspect-ratio: 9 / 16;   /* ✅ 9:16 portrait */
-        object-fit: cover;      /* ✅ same crop/feel */
+        aspect-ratio: 9 / 16;   /* 9:16 portrait */
+        object-fit: cover;      /* keep crop feel */
       }
       .reviews{ margin-top:0; }
       .rev-vert{
-        max-height: var(--stay-photo-h);  /* ✅ same height as the photo */
+        max-height: calc(var(--stay-photo-h) * var(--reviews-scale));  /* smaller than photo */
       }
     }
 
     @media (min-width:1300px){
-      .stay-grid{ gap: 36px; }
+      .stay-grid{ gap: 40px; }
     }
   </style>
 </head>
@@ -352,13 +353,12 @@
         <a class="btn" id="airbnbBtn" href="https://www.airbnb.com/rooms/1010972686934184319" target="_blank" rel="noopener">View on Airbnb</a>
       </div>
 
-      <!-- Desktop grid: photo left, vertical reviews right (no title) -->
+      <!-- Desktop grid: photo left (bigger), vertical reviews right (smaller, no title) -->
       <div class="stay-grid">
         <div class="stay-photo">
           <img src="assets/airbnb.png" alt="Airbnb">
         </div>
 
-        <!-- Reviews (vertical, scroll up/down, no heading) -->
         <section class="reviews">
           <div class="rev-vert" id="revVert">
             <img src="assets/review1.png" alt="Review 1">
