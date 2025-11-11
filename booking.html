@@ -20,9 +20,9 @@
       --control-h: 44px;
       --header-h: 56px; /* match homepage */
 
-      /* Desktop stay-photo target height (to confine reviews). Tweak if you like. */
-      --stay-photo-w: 340px;  /* photo column width on desktop */
-      --stay-photo-h: 255px;  /* assumed ~4:3 height for that width */
+      /* Desktop stay photo size to match your original half-image look */
+      --stay-photo-w: 354px; /* ~half of 720px grid with 12px gap */
+      --stay-photo-h: 240px; /* original fixed height */
     }
 
     @font-face{
@@ -58,7 +58,7 @@
       background:#000000f0; border-bottom:1px solid rgba(255,255,255,0.2);
       min-height:var(--header-h); backdrop-filter:saturate(1.1) blur(6px);
     }
-    /* Wider header container to match the homepage spacing */
+    /* Wider header container to match the homepage spacing (brand and menu further apart) */
     header .container.nav{ width:min(1100px, 92vw); }
 
     .nav{display:flex;align-items:center;justify-content:space-between;gap:16px;padding:8px 0}
@@ -192,69 +192,56 @@
 
     .stay-photo{
       width:100%;
-      max-width:720px; /* keeps the same feel as before on smaller screens */
+      max-width:720px; /* same base container as before */
     }
     .stay-photo img{
       width:100%;
-      height:auto;
+      height: var(--stay-photo-h);  /* ✅ original fixed height */
+      object-fit: cover;            /* ✅ same crop/feel as before */
       border-radius:16px;
       border:1px solid rgba(255,255,255,.15);
       background:rgba(255,255,255,.06);
       display:block;
     }
 
-    /* Reviews (carousel) */
+    /* Reviews — now vertical list with up/down scroll */
     .reviews{margin-top:22px}
     .reviews h2{font-family:'BaytLili','Playfair Display',serif;margin:0 0 10px}
-    .rev-wrap{position:relative; overflow:hidden; border:1px solid var(--line); border-radius:16px; padding:8px; background:rgba(255,255,255,.06)}
-    .rev-track{display:flex; gap:10px; overflow:hidden; scroll-behavior:smooth}
-    .rev-item img{display:block; height:auto; max-height:300px; border-radius:12px}
-    @media (max-width:640px){ .rev-item img{ max-height:200px; } }
-    .rev-btn{position:absolute; top:50%; transform:translateY(-50%); background:#ffffff; color:#111; border:1px solid var(--btn-border); width:32px; height:32px; border-radius:999px; display:flex; align-items:center; justify-content:center; font-weight:700; cursor:pointer}
-    .rev-prev{left:10px} .rev-next{right:10px}
+    .rev-vert{
+      border:1px solid var(--line);
+      border-radius:16px;
+      background:rgba(255,255,255,.06);
+      padding:10px;
+      display:flex;
+      flex-direction:column;
+      gap:10px;
+      overflow-y:auto;          /* vertical scroll */
+      max-height:360px;         /* mobile/tablet default cap */
+    }
+    .rev-vert img{
+      width:100%;
+      height:auto;
+      border-radius:12px;
+      display:block;
+    }
 
-    /* ---------- Desktop full-screen layout + confinement ---------- */
+    /* ---------- Desktop full-screen layout ---------- */
     @media (min-width:1100px){
-      /* Two columns on desktop */
       .stay-grid{
         display:grid;
-        grid-template-columns: var(--stay-photo-w) 1fr; /* left fixed width, right flexible */
+        grid-template-columns: var(--stay-photo-w) 1fr; /* fixed photo width + flexible reviews */
         gap: 28px;
         align-items:start;
       }
-
-      /* Keep the left photo consistent in perceived size */
       .stay-photo{ max-width: var(--stay-photo-w); }
-      .stay-photo img{
-        aspect-ratio: 4 / 3;              /* set a steady box so right can match height */
-        height:auto; object-fit: cover;   /* preserves your look */
-      }
-
-      /* ✅ Confine the reviews within the card height matching the photo column */
-      .reviews{
-        margin-top:0;                      /* align top with the photo */
-        max-height: var(--stay-photo-h);   /* cap the total reviews column height */
-        overflow:hidden;                   /* prevent spilling outside the card */
-      }
-      .rev-wrap{
-        max-height: calc(var(--stay-photo-h) - 44px); /* leave room for the "Reviews" heading + padding */
-        overflow:hidden;                   /* confine carousel visuals */
-      }
-      .rev-track{
-        overflow:hidden;                   /* keep horizontal track inside the box */
-        gap: 8px;
-      }
-      .rev-item img{
-        max-height: calc(var(--stay-photo-h) - 76px); /* stay inside the box with controls */
-      }
-      .rev-btn{
-        /* keep nav buttons inside the confined area */
-        width:30px; height:30px;
+      /* Keep reviews inside the card and aligned with photo height */
+      .reviews{ margin-top:0; }
+      .rev-vert{
+        max-height: var(--stay-photo-h); /* same height as image = a tidy box */
       }
     }
 
     @media (min-width:1300px){
-      /* Slight breathing room on very wide screens */
       .stay-grid{ gap: 32px; }
     }
   </style>
@@ -364,19 +351,15 @@
           <img src="assets/airbnb.png" alt="Airbnb">
         </div>
 
-        <!-- Reviews (confined inside the card on desktop) -->
+        <!-- Reviews (vertical, scroll up/down) -->
         <section class="reviews">
           <h2>Reviews</h2>
-          <div class="rev-wrap">
-            <button class="rev-btn rev-prev" aria-label="Previous">‹</button>
-            <div class="rev-track" id="revTrack">
-              <div class="rev-item"><img src="assets/review1.png" alt="Review 1"></div>
-              <div class="rev-item"><img src="assets/review2.png" alt="Review 2"></div>
-              <div class="rev-item"><img src="assets/review3.png" alt="Review 3"></div>
-              <div class="rev-item"><img src="assets/review4.png" alt="Review 4"></div>
-              <div class="rev-item"><img src="assets/review5.png" alt="Review 5"></div>
-            </div>
-            <button class="rev-btn rev-next" aria-label="Next">›</button>
+          <div class="rev-vert" id="revVert">
+            <img src="assets/review1.png" alt="Review 1">
+            <img src="assets/review2.png" alt="Review 2">
+            <img src="assets/review3.png" alt="Review 3">
+            <img src="assets/review4.png" alt="Review 4">
+            <img src="assets/review5.png" alt="Review 5">
           </div>
         </section>
       </div>
@@ -674,7 +657,7 @@
         if (lede) lede.style.display = 'none'; // hide the top sentence only for Stay
         filmingCard.style.display = 'none';
         stayCard.style.display = '';
-        initReviews();
+        // no special JS needed for vertical reviews
       }
     }
 
@@ -704,17 +687,6 @@
         document.getElementById('name').focus({preventScroll:true});
       }
     })();
-
-    function initReviews(){
-      const track = document.getElementById('revTrack');
-      if(!track) return;
-      const prev = document.querySelector('.rev-prev');
-      const next = document.querySelector('.rev-next');
-      const step = () => Math.min(track.clientWidth * 0.9, 600);
-      prev.addEventListener('click', ()=> track.scrollBy({left:-step(), behavior:'smooth'}));
-      next.addEventListener('click', ()=> track.scrollBy({left: step(), behavior:'smooth'}));
-    }
-    initReviews();
   </script>
 </body>
 </html>
