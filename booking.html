@@ -157,14 +157,22 @@
     .hidden{ display:none !important; }
 
     /* ---------- Success view (after submit) ---------- */
-    .success-wrap{ text-align:center; margin:40px auto; }
-    .success-wrap .msg{
+    .success-wrap{ margin:40px auto; }
+    /* 3) Put thank-you in a card box */
+    .success-card{
+      background:var(--card);
+      border:1px solid var(--line);
+      border-radius:16px;
+      padding:18px;
+      text-align:center;
+    }
+    .success-card .msg{
       color: limegreen; font-weight:700; font-family:'Plus Jakarta Sans',sans-serif; font-size: clamp(18px,2.6vw,22px);
       margin-bottom:16px;
     }
-    .success-wrap .buttons{ display:flex; justify-content:center; gap:10px; flex-wrap:wrap; }
+    .success-card .buttons{ display:flex; justify-content:center; gap:10px; flex-wrap:wrap; }
 
-    /* ---------- STAY (tidy layout) ---------- */
+    /* ---------- STAY (adjusted layout) ---------- */
     #stayCard .lede{ margin-top:0; margin-bottom:14px; }
     .stay-actions{
       display:flex; gap:12px; flex-wrap:wrap; margin-bottom:14px;
@@ -173,25 +181,44 @@
       .stay-actions{ flex-direction:column; }
       .stay-actions .btn{ width:100% }
     }
+
+    /* 1) Airbnb images: keep original aspect, slightly smaller on desktop, aligned left under buttons */
     .stay-images{
-      display:grid; grid-template-columns:repeat(2,1fr); gap:12px;
-      max-width: 720px; margin: 0 auto; /* keeps them smaller on desktop */
+      display:grid;
+      grid-auto-flow: column;
+      grid-auto-columns: max-content;
+      gap:12px;
+      justify-content: start;     /* align to left */
+      align-items: start;
+      margin-top: 6px;
     }
+    /* default (mobile & small screens): let images be natural width but contained */
     .stay-images img{
-      width:100%; height:240px; object-fit:cover; border-radius:16px; display:block;
-      border:1px solid rgba(255,255,255,.15); background:rgba(255,255,255,.06);
+      display:block;
+      max-width:100%;
+      height:auto;                /* preserve original form/ratio */
+      border-radius:16px;
+      border:1px solid rgba(255,255,255,.15);
+      background:rgba(255,255,255,.06);
     }
-    @media (max-width:640px){
-      .stay-images img{ height:auto; } /* natural size on mobile */
+    /* desktop: slightly smaller than original but still same ratio */
+    @media (min-width: 900px){
+      .stay-images img{
+        max-height: 300px;        /* gentle cap; preserves aspect */
+        width:auto;
+      }
     }
 
-    /* ---------- Reviews carousel ---------- */
+    /* ---------- Reviews carousel (smaller on mobile & desktop) ---------- */
     .reviews{margin-top:22px}
     .reviews h2{font-family:'BaytLili','Playfair Display',serif;margin:0 0 10px}
-    .rev-wrap{position:relative; overflow:hidden; border:1px solid var(--line); border-radius:16px; padding:10px; background:rgba(255,255,255,.06)}
-    .rev-track{display:flex; gap:12px; overflow:hidden; scroll-behavior:smooth}
-    .rev-item img{display:block; height:auto; max-height:420px; border-radius:12px}
-    .rev-btn{position:absolute; top:50%; transform:translateY(-50%); background:#ffffff; color:#111; border:1px solid var(--btn-border); width:36px; height:36px; border-radius:999px; display:flex; align-items:center; justify-content:center; font-weight:700; cursor:pointer}
+    .rev-wrap{position:relative; overflow:hidden; border:1px solid var(--line); border-radius:16px; padding:8px; background:rgba(255,255,255,.06)}
+    .rev-track{display:flex; gap:10px; overflow:hidden; scroll-behavior:smooth}
+    .rev-item img{display:block; height:auto; max-height:300px; border-radius:12px} /* smaller desktop */
+    @media (max-width:640px){
+      .rev-item img{ max-height:200px; } /* smaller mobile */
+    }
+    .rev-btn{position:absolute; top:50%; transform:translateY(-50%); background:#ffffff; color:#111; border:1px solid var(--btn-border); width:32px; height:32px; border-radius:999px; display:flex; align-items:center; justify-content:center; font-weight:700; cursor:pointer}
     .rev-prev{left:10px} .rev-next{right:10px}
   </style>
 </head>
@@ -294,6 +321,7 @@
         <a class="btn" id="airbnbBtn" href="https://www.airbnb.com/rooms/1010972686934184319" target="_blank" rel="noopener">View on Airbnb</a>
       </div>
 
+      <!-- 1) Airbnb images aligned left, same ratio, slightly smaller on desktop -->
       <div class="stay-images">
         <img src="assets/airbnb.png" alt="Airbnb 1">
         <img src="assets/airbnb2.png" alt="Airbnb 2">
@@ -323,7 +351,7 @@
     const WHATSAPP_NUMBER = '971501589628';
     const INSTAGRAM_URL   = 'https://instagram.com/baytlili';
 
-    // ✅ Your live Apps Script endpoint (pasted from your message)
+    // Your live Apps Script endpoint
     const SHEETS_ENDPOINT = 'https://script.google.com/macros/s/AKfycbw3ovdG31xmwUmpintksLOGuenjDF4tO-ZbqJbihQweSswhWxj6643z2-L-nFl7FMEG/exec';
 
     // Rate & minimum
@@ -446,10 +474,9 @@
       const minNote = document.getElementById('minNote');
       minNote.textContent = `Min: 6 hrs are billable`;
       minNote.style.color = (anyDayComplete && anyUnderMin) ? 'crimson' : '#555';
-      // Keep deposit text with thousands separator (already 5,000 in static text)
     }
 
-    // Build a compact text block from current filming form (used for WA buttons and notifications)
+    // Build text from filming form (used for WA + email message)
     function buildLinesFromForm(){
       const name = (document.getElementById('name').value||'').trim();
       const email = (document.getElementById('email').value||'').trim();
@@ -496,20 +523,22 @@
       ].filter(Boolean).join(' • ');
     }
 
-    // WhatsApp buttons (prefill user-visible WA with current fields)
+    // WhatsApp buttons
     function openWA(msg){ window.open(`https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(msg)}`,'_blank'); }
     document.getElementById('whatsappStay').addEventListener('click', (e)=>{ e.preventDefault(); openWA('Hello Bayt Lili — I’m interested in a stay.'); });
     document.getElementById('whatsappDirect').addEventListener('click', (e)=>{ e.preventDefault(); openWA(buildWAString()); });
 
-    // Success view (after filming submit)
+    // 3) Success view inside a box
     function showSuccessView(){
       const html = `
-        <div class="success-wrap" role="status" aria-live="polite">
-          <div class="msg">Thank you! Your request has been received. We’ll get back to you shortly.</div>
-          <div class="buttons">
-            <a class="btn" href="https://wa.me/${WHATSAPP_NUMBER}" target="_blank" rel="noopener">WhatsApp Us</a>
-            <a class="btn" href="${INSTAGRAM_URL}" target="_blank" rel="noopener">Follow us on Instagram</a>
-            <a class="btn" href="index.html">Return to Homepage</a>
+        <div class="success-wrap">
+          <div class="card success-card" role="status" aria-live="polite">
+            <div class="msg">Thank you! Your request has been received. We’ll get back to you shortly.</div>
+            <div class="buttons">
+              <a class="btn" href="https://wa.me/${WHATSAPP_NUMBER}" target="_blank" rel="noopener">WhatsApp Us</a>
+              <a class="btn" href="${INSTAGRAM_URL}" target="_blank" rel="noopener">Follow us on Instagram</a>
+              <a class="btn" href="index.html">Return to Homepage</a>
+            </div>
           </div>
         </div>`;
       document.getElementById('main').innerHTML = html;
@@ -578,7 +607,6 @@
         params.set('message', message);
         params.set('pageUrl', window.location.href);
         params.set('userAgent', navigator.userAgent);
-        // Inform backend this came from the booking page (optional meta)
         params.set('notify', '1');
         params.set('notifyPayload', JSON.stringify(notifyPayload));
 
@@ -623,7 +651,7 @@
         ensureAtLeastOneDay();
         updatePrice();
       } else {
-        if (lede) lede.style.display = 'none'; // hide the top sentence only for Stay
+        if (lede) lede.style.display = 'none';
         filmingCard.style.display = 'none';
         stayCard.style.display = '';
         initReviews();
