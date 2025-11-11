@@ -19,6 +19,10 @@
       --price-bg:#fff; --price-text:#1b1b1b; --price-border:rgba(0,0,0,.08);
       --control-h: 44px;
       --header-h: 56px; /* match homepage */
+
+      /* Desktop stay-photo target height (to confine reviews). Tweak if you like. */
+      --stay-photo-w: 340px;  /* photo column width on desktop */
+      --stay-photo-h: 255px;  /* assumed ~4:3 height for that width */
     }
 
     @font-face{
@@ -174,7 +178,7 @@
     }
     .success-card .buttons{ display:flex; justify-content:center; gap:10px; flex-wrap:wrap; }
 
-    /* ---------- STAY (new layout: photo left, reviews right on desktop) ---------- */
+    /* ---------- STAY (photo left, reviews right on desktop) ---------- */
     #stayCard .lede{ margin-top:0; margin-bottom:14px; }
     .stay-actions{
       display:flex; gap:12px; flex-wrap:wrap; margin-bottom:14px;
@@ -184,14 +188,11 @@
       .stay-actions .btn{ width:100% }
     }
 
-    /* Grid for desktop: left = photo (same size as before), right = reviews */
-    .stay-grid{
-      display:block; /* stacked by default */
-    }
-    /* Left photo block: keep previous “half of images area” size feel */
+    .stay-grid{ display:block; } /* stacked by default */
+
     .stay-photo{
       width:100%;
-      max-width:720px; /* same base container you used earlier */
+      max-width:720px; /* keeps the same feel as before on smaller screens */
     }
     .stay-photo img{
       width:100%;
@@ -202,7 +203,7 @@
       display:block;
     }
 
-    /* Reviews block (reuses your carousel styles) */
+    /* Reviews (carousel) */
     .reviews{margin-top:22px}
     .reviews h2{font-family:'BaytLili','Playfair Display',serif;margin:0 0 10px}
     .rev-wrap{position:relative; overflow:hidden; border:1px solid var(--line); border-radius:16px; padding:8px; background:rgba(255,255,255,.06)}
@@ -212,28 +213,49 @@
     .rev-btn{position:absolute; top:50%; transform:translateY(-50%); background:#ffffff; color:#111; border:1px solid var(--btn-border); width:32px; height:32px; border-radius:999px; display:flex; align-items:center; justify-content:center; font-weight:700; cursor:pointer}
     .rev-prev{left:10px} .rev-next{right:10px}
 
-    /* ---------- Desktop full-screen adjustments ---------- */
-    @media (min-width: 1100px){
-      /* Make header container wider already set above for better brand/menu spacing */
-
-      /* Stay grid becomes two columns: fixed left (photo), fluid right (reviews) */
+    /* ---------- Desktop full-screen layout + confinement ---------- */
+    @media (min-width:1100px){
+      /* Two columns on desktop */
       .stay-grid{
         display:grid;
-        grid-template-columns: 340px 1fr; /* photo ~ the old half-image size */
-        gap: 24px;
+        grid-template-columns: var(--stay-photo-w) 1fr; /* left fixed width, right flexible */
+        gap: 28px;
         align-items:start;
       }
-      /* Keep the photo visually similar to the old half-width image on desktop */
-      .stay-photo{ max-width:340px; }
-      /* Reduce review image height a bit so the column feels tidy next to the photo */
-      .rev-item img{ max-height:260px; }
+
+      /* Keep the left photo consistent in perceived size */
+      .stay-photo{ max-width: var(--stay-photo-w); }
+      .stay-photo img{
+        aspect-ratio: 4 / 3;              /* set a steady box so right can match height */
+        height:auto; object-fit: cover;   /* preserves your look */
+      }
+
+      /* ✅ Confine the reviews within the card height matching the photo column */
+      .reviews{
+        margin-top:0;                      /* align top with the photo */
+        max-height: var(--stay-photo-h);   /* cap the total reviews column height */
+        overflow:hidden;                   /* prevent spilling outside the card */
+      }
+      .rev-wrap{
+        max-height: calc(var(--stay-photo-h) - 44px); /* leave room for the "Reviews" heading + padding */
+        overflow:hidden;                   /* confine carousel visuals */
+      }
+      .rev-track{
+        overflow:hidden;                   /* keep horizontal track inside the box */
+        gap: 8px;
+      }
+      .rev-item img{
+        max-height: calc(var(--stay-photo-h) - 76px); /* stay inside the box with controls */
+      }
+      .rev-btn{
+        /* keep nav buttons inside the confined area */
+        width:30px; height:30px;
+      }
     }
 
-    @media (min-width: 1300px){
-      .stay-grid{
-        grid-template-columns: 330px 1fr; /* tiny refinement on very wide screens */
-        gap: 28px;                        /* a bit more breathing room */
-      }
+    @media (min-width:1300px){
+      /* Slight breathing room on very wide screens */
+      .stay-grid{ gap: 32px; }
     }
   </style>
 </head>
@@ -336,13 +358,13 @@
         <a class="btn" id="airbnbBtn" href="https://www.airbnb.com/rooms/1010972686934184319" target="_blank" rel="noopener">View on Airbnb</a>
       </div>
 
-      <!-- New desktop grid: photo left, reviews right -->
+      <!-- Desktop grid: photo left, reviews right -->
       <div class="stay-grid">
         <div class="stay-photo">
           <img src="assets/airbnb.png" alt="Airbnb">
         </div>
 
-        <!-- Reviews (moved to the right on desktop) -->
+        <!-- Reviews (confined inside the card on desktop) -->
         <section class="reviews">
           <h2>Reviews</h2>
           <div class="rev-wrap">
@@ -475,7 +497,7 @@
 
       document.getElementById('priceCard').style.display = daysWrap.children.length ? '' : 'none';
       document.getElementById('priceSummary').textContent =
-        `Estimated Total: AED ${isFinite(totalPrice)? new Intl.NumberFormat('en-US', { maximumFractionDigits: 0 }).format(Math.round(totalPrice)) : 0} — Total Selected Hours: ${isFinite(totalHours)?totalHours.toFixed(2):'0'}`;
+        `Estimated Total: AED ${isFinite(totalPrice)? AED.format(Math.round(totalPrice)) : 0} — Total Selected Hours: ${isFinite(totalHours)?totalHours.toFixed(2):'0'}`;
 
       const minNote = document.getElementById('minNote');
       minNote.textContent = `Min: 6 hrs are billable`;
@@ -512,7 +534,7 @@
         'Booking Request — Filming',
         `Name: ${name||'-'}`, `Company: ${company||'-'}`, `Email: ${email||'-'}`, `Phone: ${phone||'-'}`,
         '', ...(dayLines.length?dayLines:['No days selected']), '',
-        `Estimated Total: AED ${new Intl.NumberFormat('en-US', { maximumFractionDigits: 0 }).format(Math.round(total))} (rate AED ${RATE_PER_HOUR}/hr; ${MIN_HOURS_PER_DAY}h min/day)`
+        `Estimated Total: AED ${AED.format(Math.round(total))} (rate AED ${RATE_PER_HOUR}/hr; ${MIN_HOURS_PER_DAY}h min/day)`
       ].join('\n');
     }
 
@@ -621,9 +643,9 @@
       } catch (err) {
         statusEl.textContent = 'Network error. Please try again.';
         statusEl.style.color = 'crimson';
-        const submitBtn = document.getElementById('request-booking');
-        submitBtn.disabled = false;
-        submitBtn.textContent = 'Request Booking';
+        const submitBtn2 = document.getElementById('request-booking');
+        submitBtn2.disabled = false;
+        submitBtn2.textContent = 'Request Booking';
       }
     });
 
