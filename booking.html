@@ -96,7 +96,7 @@
       background:#fff; color:#111; font-weight:700; letter-spacing:.02em;
       cursor:pointer; text-decoration:none; font-family:'Playfair Display', serif;
       height:var(--control-h); font-size:16px;
-      min-width: 180px; /* keep consistent width feel */
+      min-width: 180px; /* consistent button feel */
     }
     .btn:hover{opacity:.92}
 
@@ -322,11 +322,16 @@
     // ---------- Config ----------
     const WHATSAPP_NUMBER = '971501589628';
     const INSTAGRAM_URL   = 'https://instagram.com/baytlili';
-    const SHEETS_ENDPOINT = 'https://script.google.com/macros/s/AKfycbzP17hb9riNcRnWQ06dinxrqwII6CYjH247SV6xCnhd9bJV6nVBVANkVRA0QZA70OII/exec';
+
+    // ✅ Your live Apps Script endpoint (pasted from your message)
+    const SHEETS_ENDPOINT = 'https://script.google.com/macros/s/AKfycbw3ovdG31xmwUmpintksLOGuenjDF4tO-ZbqJbihQweSswhWxj6643z2-L-nFl7FMEG/exec';
 
     // Rate & minimum
     const RATE_PER_HOUR = 300;
     const MIN_HOURS_PER_DAY = 6;
+
+    // Number formatting (AED with thousands)
+    const AED = new Intl.NumberFormat('en-US', { maximumFractionDigits: 0 });
 
     // Header mobile menu (same as homepage)
     (function(){
@@ -436,11 +441,12 @@
 
       document.getElementById('priceCard').style.display = daysWrap.children.length ? '' : 'none';
       document.getElementById('priceSummary').textContent =
-        `Estimated Total: AED ${isFinite(totalPrice)?Math.round(totalPrice):0} — Total Selected Hours: ${isFinite(totalHours)?totalHours.toFixed(2):'0'}`;
+        `Estimated Total: AED ${isFinite(totalPrice)? AED.format(Math.round(totalPrice)) : 0} — Total Selected Hours: ${isFinite(totalHours)?totalHours.toFixed(2):'0'}`;
 
       const minNote = document.getElementById('minNote');
       minNote.textContent = `Min: 6 hrs are billable`;
       minNote.style.color = (anyDayComplete && anyUnderMin) ? 'crimson' : '#555';
+      // Keep deposit text with thousands separator (already 5,000 in static text)
     }
 
     // Build a compact text block from current filming form (used for WA buttons and notifications)
@@ -474,7 +480,7 @@
         'Booking Request — Filming',
         `Name: ${name||'-'}`, `Company: ${company||'-'}`, `Email: ${email||'-'}`, `Phone: ${phone||'-'}`,
         '', ...(dayLines.length?dayLines:['No days selected']), '',
-        `Estimated Total: AED ${Math.round(total)} (rate AED ${RATE_PER_HOUR}/hr; ${MIN_HOURS_PER_DAY}h min/day)`
+        `Estimated Total: AED ${AED.format(Math.round(total))} (rate AED ${RATE_PER_HOUR}/hr; ${MIN_HOURS_PER_DAY}h min/day)`
       ].join('\n');
     }
 
@@ -563,7 +569,7 @@
       };
 
       try {
-        // Send to your Google Apps Script (stores row; you can also make it send email/WA there)
+        // Send to Google Apps Script (stores row + sends email)
         const params = new URLSearchParams();
         params.set('name', name);
         params.set('email', email);
@@ -572,7 +578,7 @@
         params.set('message', message);
         params.set('pageUrl', window.location.href);
         params.set('userAgent', navigator.userAgent);
-        // Let backend know to notify (email/WA) silently:
+        // Inform backend this came from the booking page (optional meta)
         params.set('notify', '1');
         params.set('notifyPayload', JSON.stringify(notifyPayload));
 
