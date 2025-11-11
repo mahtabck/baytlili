@@ -7,31 +7,31 @@
   <meta name="description" content="Bayt Lili pricing for filming, photoshoots, and stays.">
   <link rel="icon" type="image/png" href="assets/favicon.png"/>
 
-  <!-- Fonts: Brand serif + UI sans to match other pages -->
+  <!-- Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <!-- Playfair for headings (fallback to BaytLili where used), Plus Jakarta Sans for UI/text/buttons -->
-  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <!-- Ranade for page titles, Plus Jakarta Sans for UI; brand font local -->
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;700&family=Ranade:wght@600;700&display=swap" rel="stylesheet">
 
   <style>
     :root{
       --text:#fff;
       --muted:#eaeaea;
-      --line:rgba(255,255,255,.30);
+      --line:rgba(255,255,255,.28);
       --card:rgba(255,255,255,.10);
       --blur:4px;
 
-      /* Spacing + layout */
       --container: 1100px;
       --pad: clamp(20px, 4vw, 40px);
 
-      /* Buttons (match booking/home) */
       --btn-bg:#ffffff;
       --btn-fg:#111111;
       --btn-border:rgba(0,0,0,.08);
       --btn-radius:999px;
       --btn-pad-block:.72em;
       --btn-pad-inline:1.1em;
+
+      --header-h:64px;
     }
 
     /* Brand font */
@@ -55,7 +55,7 @@
       -moz-osx-font-smoothing:grayscale;
     }
 
-    /* Background image + overlay (consistent with other pages) */
+    /* Background image + overlay (same as other pages) */
     body::before{
       content:"";
       position:fixed; inset:0;
@@ -69,38 +69,98 @@
       z-index:-1;
     }
 
-    .container{width:min(var(--container),92vw);margin:0 auto;padding:var(--pad) 0}
-
-    /* Header — matches home/booking spacing and alignment */
-    header.site{
-      display:flex; align-items:center; justify-content:space-between;
-      gap:18px; padding-bottom:10px; border-bottom:1px solid var(--line);
-      margin-bottom:20px;
+    /* ===== Header (match homepage) ===== */
+    .site-header{
+      position:sticky; top:0; z-index:50;
+      height:var(--header-h);
+      background:rgba(0,0,0,0.95);
+      border-bottom:1px solid rgba(255,255,255,.08);
+      backdrop-filter:saturate(1.1) blur(6px);
+      -webkit-backdrop-filter:saturate(1.1) blur(6px);
     }
+    .header-inner{
+      width:min(var(--container),92vw);
+      margin:0 auto;
+      height:100%;
+      display:flex; align-items:center; justify-content:space-between; gap:16px;
+    }
+
     .brand{
-      display:flex; align-items:center; gap:12px;
+      display:flex; align-items:center; gap:10px;
       color:#fff; text-decoration:none;
       letter-spacing:.12em; font-variant:small-caps;
-      font-family:'BaytLili','Playfair Display',serif;
+      font-family:'BaytLili','Plus Jakarta Sans',sans-serif;
+      white-space:nowrap;
     }
-    .brand img{height:34px; display:block}
-    nav ul{display:flex; align-items:center; gap:18px; list-style:none; margin:0; padding:0}
-    nav a{
-      color:#fff; text-decoration:none; opacity:.92;
-      font-weight:600; letter-spacing:.02em;
-      padding:8px 10px; border-radius:10px;
-    }
-    nav a:hover{opacity:1; text-decoration:underline}
-    nav a.active{opacity:1; text-decoration:none; border:1px solid var(--line)}
+    .brand img{height:30px; display:block}
 
-    /* Page title */
-    h1{
-      font-family:'BaytLili','Playfair Display',serif;
-      margin:18px 0 6px;
-      font-size:clamp(28px,4.4vw,44px);
-      text-shadow:0 3px 10px rgba(0,0,0,.35);
-      letter-spacing:.02em;
+    nav.primary{
+      display:flex; align-items:center; gap:0;
     }
+    .menu{
+      list-style:none; margin:0; padding:0;
+      display:flex; align-items:center; gap:26px;
+    }
+    .menu a{
+      color:#fff; text-decoration:none;
+      font-weight:700;
+      padding:8px 0;
+    }
+    .menu a:hover{opacity:.9; text-decoration:underline}
+    .menu a.active{opacity:1}
+
+    /* Hamburger */
+    .hamburger{
+      display:none;
+      width:42px; height:42px; border-radius:10px;
+      border:1px solid var(--line);
+      background:#111; color:#fff; cursor:pointer;
+      align-items:center; justify-content:center;
+    }
+    .hamburger span{
+      display:block; width:20px; height:2px; background:#fff; position:relative;
+    }
+    .hamburger span::before,.hamburger span::after{
+      content:""; position:absolute; left:0; width:20px; height:2px; background:#fff;
+    }
+    .hamburger span::before{top:-6px}
+    .hamburger span::after{top:6px}
+
+    /* Mobile nav panel */
+    @media (max-width: 860px){
+      .hamburger{display:flex}
+      .menu{
+        position:absolute; right:4vw; top:calc(var(--header-h) + 8px);
+        background:#0d0d0d; border:1px solid rgba(255,255,255,.1);
+        border-radius:12px; padding:10px; width:200px;
+        box-shadow:0 10px 30px rgba(0,0,0,.35);
+        display:none; flex-direction:column; gap:6px;
+      }
+      .menu li{width:100%}
+      .menu a{
+        display:block; width:100%; padding:10px 12px; border-radius:8px;
+      }
+      .menu a:hover{background:rgba(255,255,255,.06)}
+      .menu.open{display:flex}
+    }
+
+    /* ===== Page layout ===== */
+    .container{
+      width:min(var(--container),92vw);
+      margin:0 auto;
+      padding:calc(var(--pad) * 1.2) 0 var(--pad);
+    }
+
+    /* Title in Ranade (match booking) */
+    h1{
+      font-family:'Ranade','Plus Jakarta Sans',sans-serif;
+      font-weight:700;
+      margin:18px 0 6px;
+      font-size:clamp(30px,5vw,48px);
+      letter-spacing:.01em;
+      text-shadow:0 3px 10px rgba(0,0,0,.35);
+    }
+
     p.lede{color:var(--muted);margin:0 0 18px}
 
     .card{
@@ -121,14 +181,13 @@
     .rate:last-child{border-bottom:none;padding-bottom:0;margin-bottom:0}
     .rate .title{
       font-weight:700; font-size:1.05rem;
-      font-family:'Playfair Display',serif;
       letter-spacing:.01em;
     }
     .rate .value{font-size:1.02rem}
 
     .actions{display:flex; gap:10px; flex-wrap:wrap; margin-top:12px}
 
-    /* Buttons — identical style site-wide */
+    /* Buttons (same styling across site) */
     .btn{
       display:inline-flex; align-items:center; justify-content:center; gap:.5em;
       padding:var(--btn-pad-block) var(--btn-pad-inline);
@@ -136,48 +195,48 @@
       border:1px solid var(--btn-border);
       background:var(--btn-bg); color:var(--btn-fg);
       font-weight:600; letter-spacing:.02em; cursor:pointer; text-decoration:none;
-      font-family:'Plus Jakarta Sans', system-ui, -apple-system, Segoe UI, Roboto, sans-serif;
       white-space:nowrap;
+      font-family:'Plus Jakarta Sans', system-ui, -apple-system, Segoe UI, Roboto, sans-serif;
     }
     .btn.secondary{
       background:transparent; color:#fff; border:1px solid var(--line)
     }
     .btn:hover{opacity:.92}
 
-    /* Footer actions spacing */
-    .page-actions{margin-top:18px}
-
-    /* Responsive tweaks */
+    /* Small tweaks */
     @media (max-width:720px){
-      nav ul{gap:10px}
-      nav a{padding:6px 8px}
       .rate{gap:10px}
       .rate .title,.rate .value{font-size:1rem}
     }
   </style>
 </head>
 <body>
-  <div class="container">
-
-    <!-- Header / Nav (matching home & booking) -->
-    <header class="site" aria-label="Primary">
+  <!-- Header -->
+  <header class="site-header" role="banner">
+    <div class="header-inner">
       <a class="brand" href="index.html" aria-label="Bayt Lili — Home">
         <img src="assets/bllogo.png" alt="Bayt Lili logo"/> BAYT LILI
       </a>
-      <nav aria-label="Main menu">
-        <ul>
+
+      <nav class="primary" aria-label="Main menu">
+        <button class="hamburger" aria-expanded="false" aria-label="Toggle menu">
+          <span></span>
+        </button>
+        <ul class="menu" id="menu">
           <li><a href="index.html">Home</a></li>
           <li><a href="booking.html">Booking</a></li>
+          <li><a href="gallery.html">Gallery</a></li>
           <li><a class="active" href="rates.html" aria-current="page">Rates</a></li>
-          <li><a href="https://instagram.com/baytlili" target="_blank" rel="noopener">Instagram</a></li>
+          <li><a href="contact.html">Contact</a></li>
         </ul>
       </nav>
-    </header>
+    </div>
+  </header>
 
+  <main class="container">
     <h1>Rates</h1>
     <p class="lede">Transparent, simple pricing. For custom requests, please contact us.</p>
 
-    <!-- Filming / Photoshoot (single card) -->
     <div class="card">
       <div class="rate">
         <div class="title">Filming / Photoshoot</div>
@@ -195,7 +254,7 @@
         <div class="title">Overtime</div>
         <div class="value">Billed at AED 350/hr</div>
       </div>
-      <!-- Stays line (as requested) -->
+      <!-- Stays line -->
       <div class="rate">
         <div class="title">Stays</div>
         <div class="value">Daily Airbnb rates</div>
@@ -206,11 +265,30 @@
       </div>
     </div>
 
-    <!-- Page-level actions -->
-    <div class="actions page-actions">
+    <div class="actions" style="margin-top:18px">
       <a class="btn secondary" href="booking.html">Go to Booking</a>
       <a class="btn" href="https://instagram.com/baytlili" target="_blank" rel="noopener">Instagram</a>
     </div>
-  </div>
+  </main>
+
+  <script>
+    // Mobile menu toggle
+    const btn = document.querySelector('.hamburger');
+    const menu = document.getElementById('menu');
+    btn.addEventListener('click', () => {
+      const open = menu.classList.toggle('open');
+      btn.setAttribute('aria-expanded', open ? 'true' : 'false');
+    });
+
+    // Close menu when clicking a link (mobile)
+    menu.querySelectorAll('a').forEach(a=>{
+      a.addEventListener('click', ()=> {
+        if (menu.classList.contains('open')) {
+          menu.classList.remove('open');
+          btn.setAttribute('aria-expanded','false');
+        }
+      });
+    });
+  </script>
 </body>
 </html>
