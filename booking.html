@@ -53,13 +53,14 @@
     /* Base page container (content cards) */
     .container{width:min(900px,92vw); margin:0 auto; padding:clamp(24px,5vw,48px) 0}
 
-    /* ---------- Header (uniform with homepage) ---------- */
+    /* ---------- HEADER (exact look/behavior from homepage) ---------- */
     header{
       position:sticky; top:0; z-index:50;
       background:#000000f0; border-bottom:1px solid rgba(255,255,255,0.2);
       min-height:var(--header-h); backdrop-filter:saturate(1.1) blur(6px);
     }
-    header .container.nav{ width:min(1100px, 92vw); } /* brand & menu further apart like homepage */
+    /* make header row wider like homepage */
+    header .container.nav{ width:min(1100px,92vw); }
 
     .nav{display:flex;align-items:center;justify-content:space-between;gap:16px;padding:8px 0}
     .brand{
@@ -69,18 +70,37 @@
       text-decoration:none;
     }
     .brand img{height:34px}
-    .menu{display:flex;align-items:center;gap:24px}
+
+    .menu{display:flex;align-items:center;gap:20px}
     .menu a{
       color:#fff;text-decoration:none;white-space:nowrap;
       font-weight:700; position:relative; padding:6px 2px;
       font-family:'Playfair Display', serif;
     }
-    .menu a::after{content:""; position:absolute; left:0; right:0; bottom:-4px; height:1px; background:transparent; transition:background .2s ease}
+    .menu a::after{
+      content:""; position:absolute; left:0; right:0; bottom:-4px; height:1px;
+      background:transparent; transition:background .2s ease;
+    }
     .menu a:hover::after{background:rgba(255,255,255,.7)}
-    .hamburger{display:none;border:1px solid rgba(255,255,255,.35);height:34px;width:36px;border-radius:8px;padding:6px;flex-direction:column;gap:4px;justify-content:center;align-items:center;background:transparent;}
+
+    .hamburger{
+      display:none;border:1px solid rgba(255,255,255,.35);
+      height:34px;width:36px;border-radius:8px;padding:6px;
+      flex-direction:column;gap:4px;justify-content:center;align-items:center;
+      background:transparent;
+    }
     .hamburger span{width:18px;height:2px;background:#fff;border-radius:1px}
-    .mobile-menu{display:none;position:absolute;top:calc(var(--header-h));right:12px;width:min(35vw,300px);background:#000000f2;border:1px solid rgba(255,255,255,.2);border-radius:10px;overflow:hidden}
-    .mobile-menu a{display:block;padding:12px 14px;color:#fff;border-bottom:1px solid rgba(255,255,255,.08);font-weight:700;}
+
+    .mobile-menu{
+      display:none; position:absolute; top:calc(var(--header-h)); right:12px;
+      width:min(35vw,300px); background:#000000f2;
+      border:1px solid rgba(255,255,255,.2); border-radius:10px; overflow:hidden;
+    }
+    .mobile-menu a{
+      display:block; padding:12px 14px; color:#fff; font-weight:700;
+      border-bottom:1px solid rgba(255,255,255,.08);
+      text-decoration:none;
+    }
     .mobile-menu a:last-child{border-bottom:none}
     @media (max-width:900px){.menu{display:none}.hamburger{display:flex}}
 
@@ -208,50 +228,35 @@
     /* Vertical reviews list (NO box) */
     .reviews{margin-top:22px}
     .rev-vert{
-      /* no border/background/padding -> clean, no box */
-      display:flex;
-      flex-direction:column;
-      gap:10px;
-      overflow-y:auto;
-      max-height:360px; /* cap on small screens only */
+      display:flex; flex-direction:column; gap:10px;
+      overflow-y:auto; max-height:360px;
     }
     .rev-vert img{
-      width:100%;
-      height:auto;
-      border-radius:12px;
-      display:block;
+      width:100%; height:auto; border-radius:12px; display:block;
     }
 
-    /* ---------- Desktop full-screen layout (photo 9:16, reviews same height) ---------- */
+    /* Desktop full-screen layout (photo 9:16, reviews same height) */
     @media (min-width:1100px){
       .stay-grid{
         display:grid;
-        grid-template-columns: var(--stay-photo-w) 1fr; /* fixed photo + flexible reviews */
-        gap: 36px;
-        align-items:start;
+        grid-template-columns: var(--stay-photo-w) 1fr;
+        gap: 36px; align-items:start;
       }
       .stay-photo{ max-width: var(--stay-photo-w); }
       .stay-photo img{
         width: var(--stay-photo-w);
         height: var(--stay-photo-h);
-        aspect-ratio: 9 / 16;   /* tall portrait */
-        object-fit: cover;      /* keep crop feel */
+        aspect-ratio: 9 / 16; object-fit: cover;
       }
       .reviews{ margin-top:0; }
-      .rev-vert{
-        height: var(--stay-photo-h);   /* EXACT same visible height as photo */
-        max-height: none;              /* override mobile cap */
-      }
+      .rev-vert{ height: var(--stay-photo-h); max-height: none; }
     }
-
-    @media (min-width:1300px){
-      .stay-grid{ gap: 40px; }
-    }
+    @media (min-width:1300px){ .stay-grid{ gap: 40px; } }
   </style>
 </head>
 <body>
 
-  <!-- Header -->
+  <!-- ---------- HEADER (same as homepage; links adapted for subpage) ---------- -->
   <header>
     <div class="container nav">
       <a class="brand" href="index.html" aria-label="Bayt Lili — Home">
@@ -262,10 +267,10 @@
 
       <nav class="menu" aria-label="Primary">
         <a href="index.html">Home</a>
-        <a href="booking.html">Booking</a>
-        <a href="index.html#gallery">Gallery</a>
+        <a href="booking.html" aria-current="page">Booking</a>
+        <a href="gallery.html">Gallery</a>
         <a href="rates.html">Rates</a>
-        <a href="index.html#contact">Contact</a>
+        <a href="contact.html">Contact</a>
       </nav>
     </div>
     <nav id="mobileMenu" class="mobile-menu" aria-label="Mobile"></nav>
@@ -378,7 +383,7 @@
     const MIN_HOURS_PER_DAY = 6;
     const AED = new Intl.NumberFormat('en-US', { maximumFractionDigits: 0 });
 
-    // Header mobile menu
+    // Mobile menu (exact behavior from homepage)
     (function(){
       const btn = document.querySelector('.hamburger');
       const mobile = document.getElementById('mobileMenu');
@@ -481,7 +486,7 @@
 
       document.getElementById('priceCard').style.display = daysWrap.children.length ? '' : 'none';
       document.getElementById('priceSummary').textContent =
-        `Estimated Total: AED ${isFinite(totalPrice)? AED.format(Math.round(totalPrice)) : 0} — Total Selected Hours: ${isFinite(totalHours)?totalHours.toFixed(2):'0'}`;
+        `Estimated Total: AED ${isFinite(totalPrice)? new Intl.NumberFormat('en-US',{maximumFractionDigits:0}).format(Math.round(totalPrice)) : 0} — Total Selected Hours: ${isFinite(totalHours)?totalHours.toFixed(2):'0'}`;
 
       const minNote = document.getElementById('minNote');
       minNote.textContent = `Min: 6 hrs are billable`;
@@ -518,7 +523,7 @@
         'Booking Request — Filming',
         `Name: ${name||'-'}`, `Company: ${company||'-'}`, `Email: ${email||'-'}`, `Phone: ${phone||'-'}`,
         '', ...(dayLines.length?dayLines:['No days selected']), '',
-        `Estimated Total: AED ${AED.format(Math.round(total))} (rate AED ${RATE_PER_HOUR}/hr; ${MIN_HOURS_PER_DAY}h min/day)`
+        `Estimated Total: AED ${new Intl.NumberFormat('en-US',{maximumFractionDigits:0}).format(Math.round(total))} (rate AED ${RATE_PER_HOUR}/hr; ${MIN_HOURS_PER_DAY}h min/day)`
       ].join('\n');
     }
 
@@ -553,6 +558,7 @@
       document.getElementById('main').innerHTML = html;
     }
 
+    const form = document.getElementById('booking-form');
     form.addEventListener('submit', async (e) => {
       e.preventDefault();
       const purpose = document.getElementById('purpose').value;
@@ -563,6 +569,7 @@
       const phone   = (document.getElementById('phone').value||'').trim();
       const company = (document.getElementById('company').value||'').trim();
 
+      const statusEl = document.getElementById('form-status');
       if (!name || !email || !phone) {
         statusEl.textContent = 'Please fill in Name, Email, and Phone.';
         statusEl.style.color = 'crimson';
@@ -573,6 +580,7 @@
         statusEl.style.color = 'crimson';
         return;
       }
+      const daysWrap = document.getElementById('daysWrap');
       if (daysWrap.children.length === 0) {
         statusEl.textContent = 'Please add at least one day (From/To).';
         statusEl.style.color = 'crimson';
@@ -622,7 +630,7 @@
         });
 
         form.reset();
-        daysWrap.innerHTML = '';
+        document.getElementById('daysWrap').innerHTML = '';
         showSuccessView();
       } catch (err) {
         statusEl.textContent = 'Network error. Please try again.';
@@ -642,27 +650,29 @@
     const preFrom  = qp.get('from')  || '';
     const preTo    = qp.get('to')    || '';
 
+    function ensureAtLeastOneDay(){ if(document.getElementById('daysWrap').children.length===0){ document.getElementById('daysWrap').appendChild(makeDayRow()); } }
+
     function startWithChoice(choice){
       document.getElementById('purpose').value = choice;
-      main.classList.remove('hidden');
-      gate.style.display = 'none';
+      document.getElementById('main').classList.remove('hidden');
+      document.getElementById('gate').style.display = 'none';
 
       const lede = document.getElementById('lede');
       if (choice === 'Filming') {
         if (lede) lede.style.display = '';
-        filmingCard.style.display = '';
-        stayCard.style.display = 'none';
+        document.getElementById('filmingCard').style.display = '';
+        document.getElementById('stayCard').style.display = 'none';
         ensureAtLeastOneDay();
         updatePrice();
       } else {
-        if (lede) lede.style.display = 'none'; // hide the top sentence only for Stay
-        filmingCard.style.display = 'none';
-        stayCard.style.display = '';
-        // vertical reviews need no JS
+        if (lede) lede.style.display = 'none';
+        document.getElementById('filmingCard').style.display = 'none';
+        document.getElementById('stayCard').style.display = '';
       }
     }
 
     (function prefillFromQuery(){
+      const daysWrap = document.getElementById('daysWrap');
       if (prePhone || preDate || preFrom || preTo){
         startWithChoice('Filming');
         if (prePhone){
