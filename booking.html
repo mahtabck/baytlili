@@ -7,8 +7,8 @@
   <meta name="description" content="Book Bayt Lili for filming, photoshoots, or stays. Submit your request or message us on WhatsApp.">
   <link rel="icon" type="image/png" href="assets/favicon.png"/>
 
-  <!-- Fonts identical to homepage -->
-  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700;800&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <!-- Fonts: same as homepage + Ranade for section titles -->
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700;800&family=Plus+Jakarta+Sans:wght@400;500;600;700&family=Ranade:wght@600;700&display=swap" rel="stylesheet">
 
   <style>
     :root{
@@ -18,6 +18,7 @@
       --price-bg:#fff; --price-text:#1b1b1b; --price-border:rgba(0,0,0,.08);
       --control-h: 44px;
       --btn-font-size: 16px;
+      --btn-border: rgba(255,255,255,.7);
       /* Match homepage header height */
       --header-h: 56px;
     }
@@ -82,8 +83,9 @@
     @media (max-width:900px){.menu{display:none}.hamburger{display:flex}}
 
     /* ---------- Page content ---------- */
+    /* Section title uses Ranade */
     h1{
-      font-family:'BaytLili','Playfair Display',serif;
+      font-family:'Ranade','Playfair Display',serif;
       margin:18px 0 8px; font-size:clamp(26px,4.4vw,40px);
       scroll-margin-top: calc(var(--header-h) + 12px);
     }
@@ -141,13 +143,16 @@
     .price-card small{color:#555}
 
     .actions{display:flex; gap:10px; flex-wrap:wrap; margin-top:12px}
+
+    /* Buttons: match homepage white CTA */
     .btn{
       display:inline-flex; align-items:center; justify-content:center; gap:.5em;
-      padding:.75em 1.1em; border-radius:999px; border:1px solid var(--line);
-      background:transparent; color:#fff; font-weight:600; letter-spacing:.02em;
+      padding:.75em 1.1em; border-radius:999px; border:1px solid var(--btn-border);
+      background:#fff; color:#111; font-weight:700; letter-spacing:.02em;
       cursor:pointer; text-decoration:none; font-family:'Playfair Display', serif;
       height:var(--control-h); font-size:var(--btn-font-size);
     }
+    .btn:hover{opacity:.92}
 
     #form-status{margin-top:8px;font-size:.95rem;font-family:'Plus Jakarta Sans',sans-serif}
 
@@ -189,6 +194,14 @@
     .success-wrap .buttons{
       display:flex; justify-content:center; gap:10px; flex-wrap:wrap;
     }
+    .promo-img{
+      display:block;
+      margin-top:14px;
+      max-width:220px;
+      height:auto;
+      /* “centered to the left”: left-aligned inside the container */
+      margin-left:0;
+    }
   </style>
 </head>
 <body>
@@ -227,7 +240,7 @@
 
   <div class="container hidden" id="main">
     <h1>Booking Request</h1>
-    <p class="lede">Tell us about your booking. We reply the same day.</p>
+    <p class="lede" id="lede">Tell us about your booking. We reply the same day.</p>
 
     <div class="card" id="filmingCard" style="display:none">
       <form id="booking-form">
@@ -266,7 +279,7 @@
           <div id="priceSummary" style="font-weight:700">Estimated Total: AED 0</div>
           <small id="priceNotes">
             Rate: AED <span id="rateVal">300</span>/hr.
-            <span id="minNote">Minimum: 6 hours (AED 1800) per day.</span>
+            <span id="minNote">Minimum: 6 hrs are billable</span>.
             Refundable deposit: AED 5000.
           </small>
         </div>
@@ -283,11 +296,11 @@
 
     <!-- STAY -->
     <div class="card" id="stayCard" style="display:none">
-      <p class="lede">For stays, please check seasonal rates and book directly on Airbnb or message us on WhatsApp.</p>
       <div class="actions">
         <a class="btn" id="whatsappStay" href="#" target="_blank" rel="noopener">WhatsApp Us</a>
         <a class="btn" id="airbnbBtn" href="https://www.airbnb.com/rooms/1010972686934184319" target="_blank" rel="noopener">View on Airbnb</a>
       </div>
+      <img class="promo-img" src="assets/airbnb.png" alt="Airbnb" />
     </div>
 
   </div>
@@ -298,7 +311,7 @@
     const INSTAGRAM_URL   = 'https://instagram.com/baytlili';
     const SHEETS_ENDPOINT = 'https://script.google.com/macros/s/AKfycbzP17hb9riNcRnWQ06dinxrqwII6CYjH247SV6xCnhd9bJV6nVBVANkVRA0QZA70OII/exec';
 
-    // New rate
+    // Rate & minimum
     const RATE_PER_HOUR = 300;
     const MIN_HOURS_PER_DAY = 6;
     const DAY_MIN_CHARGE = RATE_PER_HOUR * MIN_HOURS_PER_DAY;
@@ -413,10 +426,10 @@
       document.getElementById('priceSummary').textContent =
         `Estimated Total: AED ${isFinite(totalPrice)?Math.round(totalPrice):0} — Total Selected Hours: ${isFinite(totalHours)?totalHours.toFixed(2):'0'}`;
 
-      // Update price notes – rate + min
+      // Update notes
       document.getElementById('rateVal').textContent = RATE_PER_HOUR;
       const minNote = document.getElementById('minNote');
-      minNote.textContent = `Minimum: ${MIN_HOURS_PER_DAY} hours (AED ${DAY_MIN_CHARGE}) per day.`;
+      minNote.textContent = `Minimum: 6 hrs are billable`;
       minNote.style.color = (anyDayComplete && anyUnderMin) ? 'crimson' : '#555';
     }
 
@@ -427,7 +440,7 @@
     document.getElementById('whatsappStay').addEventListener('click', (e)=>{ e.preventDefault(); openWA('Hello Bayt Lili — I’m interested in a stay.'); });
     document.getElementById('whatsappDirect').addEventListener('click', (e)=>{ e.preventDefault(); openWA('Hello Bayt Lili — I’d like to inquire about filming availability.'); });
 
-    // Success view (green message + 2 buttons only)
+    // Success view (green message + 2 buttons + Airbnb image)
     function showSuccessView(){
       const html = `
         <div class="success-wrap" role="status" aria-live="polite">
@@ -436,8 +449,8 @@
             <a class="btn" href="https://wa.me/${WHATSAPP_NUMBER}" target="_blank" rel="noopener">WhatsApp Us</a>
             <a class="btn" href="${INSTAGRAM_URL}" target="_blank" rel="noopener">Follow us on Instagram</a>
           </div>
+          <img class="promo-img" src="assets/airbnb.png" alt="Airbnb" />
         </div>`;
-      // Hide the title/lede and replace the form area with just the message + buttons
       document.getElementById('main').innerHTML = html;
     }
 
@@ -468,7 +481,7 @@
       ].join('\n');
     }
 
-    // Submit: validations
+    // Submit
     form.addEventListener('submit', async (e) => {
       e.preventDefault();
 
@@ -495,7 +508,6 @@
         statusEl.style.color = 'crimson';
         return;
       }
-      // No min-hours blocking — users may select <6h, pricing still bills 6h/day.
 
       const params = new URLSearchParams();
       params.set('name', name);
@@ -546,12 +558,16 @@
       main.classList.remove('hidden');
       gate.style.display = 'none';
 
+      // Hide the lede if they choose Stay
+      const lede = document.getElementById('lede');
       if (choice === 'Filming') {
+        if (lede) lede.style.display = '';
         filmingCard.style.display = '';
         stayCard.style.display = 'none';
         ensureAtLeastOneDay();
         updatePrice();
       } else {
+        if (lede) lede.style.display = 'none';
         filmingCard.style.display = 'none';
         stayCard.style.display = '';
       }
