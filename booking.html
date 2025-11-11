@@ -171,7 +171,7 @@
     }
     .success-card .buttons{ display:flex; justify-content:center; gap:10px; flex-wrap:wrap; }
 
-    /* ---------- STAY (layout kept, images aligned left under buttons) ---------- */
+    /* ---------- STAY (layout kept) ---------- */
     #stayCard .lede{ margin-top:0; margin-bottom:14px; }
     .stay-actions{
       display:flex; gap:12px; flex-wrap:wrap; margin-bottom:14px;
@@ -181,12 +181,12 @@
       .stay-actions .btn{ width:100% }
     }
 
-    /* ✅ Airbnb images: always two side-by-side, keep ratio, align left under buttons */
+    /* ✅ Airbnb images: two side-by-side, keep ratio, align left under buttons */
     .stay-images{
       display:grid;
       grid-template-columns:repeat(2, 1fr);
       gap:12px;
-      max-width:720px;     /* base size (what you had visually) */
+      max-width:720px;     /* base size */
       margin-top: 8px;     /* sits right under the buttons */
     }
     .stay-images img{
@@ -196,10 +196,6 @@
       border:1px solid rgba(255,255,255,.15);
       background:rgba(255,255,255,.06);
       display:block;
-    }
-    /* ✅ Slightly smaller ONLY on wide desktop (fullscreen feel), unchanged for smaller screens */
-    @media (min-width: 1300px){
-      .stay-images{ max-width:660px; } /* tweak this down/up for subtle change */
     }
 
     /* ---------- Reviews: smaller on desktop & mobile ---------- */
@@ -211,6 +207,25 @@
     @media (max-width:640px){ .rev-item img{ max-height:200px; } }                  /* mobile smaller */
     .rev-btn{position:absolute; top:50%; transform:translateY(-50%); background:#ffffff; color:#111; border:1px solid var(--btn-border); width:32px; height:32px; border-radius:999px; display:flex; align-items:center; justify-content:center; font-weight:700; cursor:pointer}
     .rev-prev{left:10px} .rev-next{right:10px}
+
+    /* ========= DESKTOP-FULLSCREEN ONLY TWEAKS =========
+       Keep everything tight so it all fits under the Airbnb pics,
+       doesn't stretch to the right, and looks aligned.
+    */
+    @media (min-width: 1300px){
+      /* Make the entire Stay card slightly narrower than images+padding */
+      /* Images max content width below = 660px; card padding is 18px each side */
+      #stayCard{
+        max-width: 696px; /* 660 + 18 + 18 => aligns with images */
+      }
+      /* Make the two Airbnb pics a touch smaller */
+      .stay-images{
+        max-width: 660px; /* subtle shrink on very wide screens only */
+      }
+      /* Keep reviews compact so they sit nicely under the images */
+      .rev-wrap{ padding:6px; }
+      .rev-item img{ max-height:260px; } /* a bit smaller on wide desktop */
+    }
   </style>
 </head>
 <body>
@@ -342,7 +357,7 @@
     const WHATSAPP_NUMBER = '971501589628';
     const INSTAGRAM_URL   = 'https://instagram.com/baytlili';
 
-    // ✅ Your live Apps Script endpoint
+    // Your live Apps Script endpoint
     const SHEETS_ENDPOINT = 'https://script.google.com/macros/s/AKfycbw3ovdG31xmwUmpintksLOGuenjDF4tO-ZbqJbihQweSswhWxj6643z2-L-nFl7FMEG/exec';
 
     // Rate & minimum
