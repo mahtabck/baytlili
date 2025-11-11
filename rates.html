@@ -7,11 +7,10 @@
   <meta name="description" content="Bayt Lili pricing for filming, photoshoots, and stays.">
   <link rel="icon" type="image/png" href="assets/favicon.png"/>
 
-  <!-- Fonts -->
+  <!-- Fonts (match site): Playfair for nav, Ranade for page title, local brand font -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <!-- Ranade for page titles, Plus Jakarta Sans for UI; brand font local -->
-  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;700&family=Ranade:wght@600;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700&family=Ranade:wght@700&display=swap" rel="stylesheet">
 
   <style>
     :root{
@@ -24,12 +23,13 @@
       --container: 1100px;
       --pad: clamp(20px, 4vw, 40px);
 
+      /* Button system — identical everywhere (white pill) */
       --btn-bg:#ffffff;
       --btn-fg:#111111;
-      --btn-border:rgba(0,0,0,.08);
+      --btn-border:rgba(0,0,0,.10);
       --btn-radius:999px;
-      --btn-pad-block:.72em;
-      --btn-pad-inline:1.1em;
+      --btn-pb:.72em;
+      --btn-pl:1.1em;
 
       --header-h:64px;
     }
@@ -44,89 +44,72 @@
 
     *,*::before,*::after{box-sizing:border-box}
     html,body{height:100%}
-
     body{
-      margin:0;
-      color:var(--text);
-      font-family:'Plus Jakarta Sans', system-ui, -apple-system, Segoe UI, Roboto, sans-serif;
-      line-height:1.55;
-      background:#000;
-      -webkit-font-smoothing:antialiased;
-      -moz-osx-font-smoothing:grayscale;
+      margin:0; color:var(--text);
+      font-family:'Playfair Display', serif;
+      line-height:1.55; background:#000;
+      -webkit-font-smoothing:antialiased; -moz-osx-font-smoothing:grayscale;
     }
 
-    /* Background image + overlay (same as other pages) */
+    /* Background + overlay (site-wide look) */
     body::before{
-      content:"";
-      position:fixed; inset:0;
-      background:url('assets/lightbg.png') center 35%/cover no-repeat fixed;
-      z-index:-2;
+      content:""; position:fixed; inset:0;
+      background:url('assets/lightbg.png') center 35%/cover no-repeat fixed; z-index:-2;
     }
     body::after{
-      content:"";
-      position:fixed; inset:0;
-      background:rgba(0,0,0,.28);
-      z-index:-1;
+      content:""; position:fixed; inset:0;
+      background:rgba(0,0,0,.28); z-index:-1;
     }
 
-    /* ===== Header (match homepage) ===== */
+    /* ===== Header — match homepage ===== */
     .site-header{
       position:sticky; top:0; z-index:50;
       height:var(--header-h);
-      background:rgba(0,0,0,0.95);
+      background:#000; /* solid black like home */
       border-bottom:1px solid rgba(255,255,255,.08);
-      backdrop-filter:saturate(1.1) blur(6px);
-      -webkit-backdrop-filter:saturate(1.1) blur(6px);
     }
     .header-inner{
       width:min(var(--container),92vw);
-      margin:0 auto;
-      height:100%;
+      margin:0 auto; height:100%;
       display:flex; align-items:center; justify-content:space-between; gap:16px;
     }
-
     .brand{
       display:flex; align-items:center; gap:10px;
       color:#fff; text-decoration:none;
       letter-spacing:.12em; font-variant:small-caps;
-      font-family:'BaytLili','Plus Jakarta Sans',sans-serif;
+      font-family:'BaytLili','Playfair Display',serif;
       white-space:nowrap;
     }
     .brand img{height:30px; display:block}
 
-    nav.primary{
-      display:flex; align-items:center; gap:0;
-    }
+    nav.primary{display:flex; align-items:center}
     .menu{
       list-style:none; margin:0; padding:0;
-      display:flex; align-items:center; gap:26px;
+      display:flex; align-items:center; gap:28px;
+      font-family:'Playfair Display', serif; /* match homepage nav */
+      font-weight:700;
     }
     .menu a{
       color:#fff; text-decoration:none;
-      font-weight:700;
       padding:8px 0;
     }
     .menu a:hover{opacity:.9; text-decoration:underline}
     .menu a.active{opacity:1}
 
-    /* Hamburger */
+    /* Hamburger (mobile) */
     .hamburger{
-      display:none;
-      width:42px; height:42px; border-radius:10px;
-      border:1px solid var(--line);
+      display:none; width:42px; height:42px;
+      border-radius:10px; border:1px solid var(--line);
       background:#111; color:#fff; cursor:pointer;
       align-items:center; justify-content:center;
     }
-    .hamburger span{
-      display:block; width:20px; height:2px; background:#fff; position:relative;
-    }
+    .hamburger span{display:block; width:20px; height:2px; background:#fff; position:relative}
     .hamburger span::before,.hamburger span::after{
       content:""; position:absolute; left:0; width:20px; height:2px; background:#fff;
     }
-    .hamburger span::before{top:-6px}
-    .hamburger span::after{top:6px}
+    .hamburger span::before{top:-6px} .hamburger span::after{top:6px}
 
-    /* Mobile nav panel */
+    /* Mobile dropdown panel */
     @media (max-width: 860px){
       .hamburger{display:flex}
       .menu{
@@ -137,39 +120,27 @@
         display:none; flex-direction:column; gap:6px;
       }
       .menu li{width:100%}
-      .menu a{
-        display:block; width:100%; padding:10px 12px; border-radius:8px;
-      }
+      .menu a{display:block; width:100%; padding:10px 12px; border-radius:8px}
       .menu a:hover{background:rgba(255,255,255,.06)}
       .menu.open{display:flex}
     }
 
-    /* ===== Page layout ===== */
-    .container{
-      width:min(var(--container),92vw);
-      margin:0 auto;
-      padding:calc(var(--pad) * 1.2) 0 var(--pad);
-    }
+    /* ===== Page ===== */
+    .container{width:min(var(--container),92vw); margin:0 auto; padding:calc(var(--pad) * 1.2) 0 var(--pad)}
 
-    /* Title in Ranade (match booking) */
+    /* Title uses Ranade (like Booking) */
     h1{
-      font-family:'Ranade','Plus Jakarta Sans',sans-serif;
-      font-weight:700;
-      margin:18px 0 6px;
+      font-family:'Ranade', 'Playfair Display', serif;
+      font-weight:700; margin:18px 0 6px;
       font-size:clamp(30px,5vw,48px);
-      letter-spacing:.01em;
-      text-shadow:0 3px 10px rgba(0,0,0,.35);
+      letter-spacing:.01em; text-shadow:0 3px 10px rgba(0,0,0,.35);
     }
-
-    p.lede{color:var(--muted);margin:0 0 18px}
+    p.lede{color:var(--muted); margin:0 0 18px}
 
     .card{
-      background:var(--card);
-      border:1px solid var(--line);
-      border-radius:16px;
-      padding:18px;
-      backdrop-filter:blur(var(--blur));
-      -webkit-backdrop-filter:blur(var(--blur));
+      background:var(--card); border:1px solid var(--line);
+      border-radius:16px; padding:18px;
+      backdrop-filter:blur(var(--blur)); -webkit-backdrop-filter:blur(var(--blur));
       margin-bottom:14px;
     }
 
@@ -178,32 +149,23 @@
       gap:12px; border-bottom:1px dashed rgba(255,255,255,.25);
       padding-bottom:10px; margin-bottom:10px;
     }
-    .rate:last-child{border-bottom:none;padding-bottom:0;margin-bottom:0}
-    .rate .title{
-      font-weight:700; font-size:1.05rem;
-      letter-spacing:.01em;
-    }
+    .rate:last-child{border-bottom:none; padding-bottom:0; margin-bottom:0}
+    .rate .title{font-weight:700; font-size:1.05rem; letter-spacing:.01em}
     .rate .value{font-size:1.02rem}
 
+    /* Buttons — exact site style (white pill) */
     .actions{display:flex; gap:10px; flex-wrap:wrap; margin-top:12px}
-
-    /* Buttons (same styling across site) */
     .btn{
       display:inline-flex; align-items:center; justify-content:center; gap:.5em;
-      padding:var(--btn-pad-block) var(--btn-pad-inline);
+      padding:var(--btn-pb) var(--btn-pl);
       border-radius:var(--btn-radius);
       border:1px solid var(--btn-border);
       background:var(--btn-bg); color:var(--btn-fg);
-      font-weight:600; letter-spacing:.02em; cursor:pointer; text-decoration:none;
+      font-weight:700; letter-spacing:.02em; cursor:pointer; text-decoration:none;
       white-space:nowrap;
-      font-family:'Plus Jakarta Sans', system-ui, -apple-system, Segoe UI, Roboto, sans-serif;
-    }
-    .btn.secondary{
-      background:transparent; color:#fff; border:1px solid var(--line)
     }
     .btn:hover{opacity:.92}
 
-    /* Small tweaks */
     @media (max-width:720px){
       .rate{gap:10px}
       .rate .title,.rate .value{font-size:1rem}
@@ -240,11 +202,11 @@
     <div class="card">
       <div class="rate">
         <div class="title">Filming / Photoshoot</div>
-        <div class="value">AED 350 per hour</div>
+        <div class="value">AED 300 per hour</div>
       </div>
       <div class="rate">
         <div class="title">Minimum charge</div>
-        <div class="value">6 hours (AED 2,100) per day</div>
+        <div class="value">6 hours (AED 1,800) per day</div>
       </div>
       <div class="rate">
         <div class="title">Refundable deposit</div>
@@ -252,22 +214,19 @@
       </div>
       <div class="rate">
         <div class="title">Overtime</div>
-        <div class="value">Billed at AED 350/hr</div>
+        <div class="value">Billed at AED 300/hr</div>
       </div>
-      <!-- Stays line -->
       <div class="rate">
         <div class="title">Stays</div>
         <div class="value">Daily Airbnb rates</div>
       </div>
 
+      <!-- Buttons inside the box -->
       <div class="actions">
-        <a class="btn secondary" href="booking.html">Request Booking</a>
+        <a class="btn" href="booking.html">Book Now</a>
+        <a class="btn" href="https://instagram.com/baytlili" target="_blank" rel="noopener">Instagram</a>
+        <a class="btn" href="index.html">Go Home</a>
       </div>
-    </div>
-
-    <div class="actions" style="margin-top:18px">
-      <a class="btn secondary" href="booking.html">Go to Booking</a>
-      <a class="btn" href="https://instagram.com/baytlili" target="_blank" rel="noopener">Instagram</a>
     </div>
   </main>
 
@@ -279,8 +238,7 @@
       const open = menu.classList.toggle('open');
       btn.setAttribute('aria-expanded', open ? 'true' : 'false');
     });
-
-    // Close menu when clicking a link (mobile)
+    // Close menu after selecting a link
     menu.querySelectorAll('a').forEach(a=>{
       a.addEventListener('click', ()=> {
         if (menu.classList.contains('open')) {
