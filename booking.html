@@ -1,605 +1,127 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="utf-8"/>
-  <meta name="viewport" content="width=device-width, initial-scale=1"/>
-  <title>Book Bayt Lili</title>
-  <meta name="description" content="Book Bayt Lili for filming, photoshoots, or stays. Submit your request or message us on WhatsApp.">
-  <link rel="icon" type="image/png" href="assets/favicon.png"/>
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>Book Bayt Lili</title>
+<link rel="icon" type="image/png" href="assets/favicon.png"/>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700;800&family=Plus+Jakarta+Sans:wght@400;500;600;700&family=Ranade:wght@600;700&display=swap" rel="stylesheet">
 
-  <!-- Fonts: same as homepage + Ranade for section titles -->
-  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700;800&family=Plus+Jakarta+Sans:wght@400;500;600;700&family=Ranade:wght@600;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --text:#fff;--muted:#eaeaea;--line:rgba(255,255,255,.3);
+  --card:rgba(255,255,255,.1);--btn-border:rgba(255,255,255,.7);
+  --header-h:56px;
+}
+body{margin:0;color:var(--text);font-family:'Playfair Display',serif;background:#000}
+body::before{content:"";position:fixed;inset:0;background:url('assets/lightbg.png')center/cover no-repeat;z-index:-2}
+body::after{content:"";position:fixed;inset:0;background:rgba(0,0,0,.28);z-index:-1}
+.container{width:min(900px,92vw);margin:0 auto;padding:clamp(24px,5vw,48px) 0}
+header{position:sticky;top:0;background:#000000f0;border-bottom:1px solid rgba(255,255,255,.2)}
+.nav{display:flex;justify-content:space-between;align-items:center;padding:8px 0}
+.brand{display:flex;align-items:center;gap:10px;color:#fff;text-decoration:none;font-family:'BaytLili','Playfair Display',serif;letter-spacing:.12em}
+.brand img{height:34px}
+.menu{display:flex;gap:20px}
+.menu a{color:#fff;text-decoration:none;font-weight:700}
+.hamburger{display:none;flex-direction:column;gap:4px;padding:6px;border:1px solid rgba(255,255,255,.35);border-radius:8px}
+.hamburger span{width:18px;height:2px;background:#fff}
+.mobile-menu{display:none;position:absolute;top:56px;right:12px;background:#000000f2;border:1px solid rgba(255,255,255,.2);border-radius:10px}
+.mobile-menu a{display:block;color:#fff;padding:12px;border-bottom:1px solid rgba(255,255,255,.1)}
+@media(max-width:900px){.menu{display:none}.hamburger{display:flex}}
 
-  <style>
-    :root{
-      --text:#fff; --muted:#eaeaea;
-      --line: rgba(255,255,255,.30);
-      --card: rgba(255,255,255,.10);
-      --price-bg:#fff; --price-text:#1b1b1b; --price-border:rgba(0,0,0,.08);
-      --control-h: 44px;
-      --btn-font-size: 16px;
-      --btn-border: rgba(255,255,255,.7);
-      /* Match homepage header height */
-      --header-h: 56px;
-    }
+h1{font-family:'Ranade','Plus Jakarta Sans',sans-serif!important;margin:18px 0 8px;font-size:clamp(26px,4.4vw,40px)}
+p.lede{color:var(--muted);margin:0 0 18px;font-family:'Plus Jakarta Sans',sans-serif}
+.card{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:18px}
+.btn{display:inline-flex;justify-content:center;align-items:center;padding:.75em 1.1em;border-radius:999px;border:1px solid var(--btn-border);background:#fff;color:#111;font-weight:700;font-family:'Playfair Display',serif;text-decoration:none;cursor:pointer}
+.btn:hover{opacity:.9}
+.success-wrap{text-align:center;margin:40px auto}
+.success-wrap .msg{color:limegreen;font-family:'Plus Jakarta Sans',sans-serif;font-size:clamp(18px,2.6vw,22px);margin-bottom:16px}
+.success-wrap .buttons{display:flex;justify-content:center;gap:10px;flex-wrap:wrap}
 
-    @font-face{
-      font-family:'BaytLili';
-      src: url('assets/BaytLili.ttf') format('truetype'),
-           url('assets/BaytLili.otf') format('opentype');
-      font-display:swap;
-    }
+.stay-flex{display:flex;gap:18px;align-items:flex-start}
+.stay-left{display:flex;flex-direction:column;gap:10px;width:min(280px,100%)}
+.stay-left .btn{width:100%}
+.stay-right{display:flex;gap:12px;flex-wrap:wrap}
+.stay-right img{max-width:260px;border-radius:14px}
+@media(max-width:700px){.stay-flex{flex-direction:column}.stay-right img{max-width:220px}}
 
-    *,*::before,*::after{box-sizing:border-box}
-    html,body{height:100%}
-    body{
-      margin:0; color:var(--text);
-      font-family:'Playfair Display', serif; line-height:1.5;
-      -webkit-font-smoothing:antialiased; -moz-osx-font-smoothing:grayscale;
-      background:#000; scroll-behavior:smooth;
-    }
-    body::before{
-      content:""; position:fixed; inset:0;
-      background:url('assets/lightbg.png') center 35%/cover no-repeat fixed; z-index:-2;
-    }
-    body::after{
-      content:""; position:fixed; inset:0;
-      background:rgba(0,0,0,.28); z-index:-1;
-    }
-
-    .container{width:min(900px,92vw); margin:0 auto; padding:clamp(24px,5vw,48px) 0}
-
-    /* ---------- Header (identical to homepage) ---------- */
-    header{
-      position:sticky; top:0; z-index:50;
-      background:#000000f0;
-      border-bottom:1px solid rgba(255,255,255,0.2);
-      min-height:var(--header-h);
-      backdrop-filter:saturate(1.1) blur(6px);
-    }
-    .nav{display:flex;align-items:center;justify-content:space-between;gap:16px;padding:8px 0}
-    .brand{
-      display:flex;align-items:center;gap:10px;color:#fff;
-      font-family:'BaytLili','Playfair Display',serif;
-      letter-spacing:.12em;font-variant:small-caps;white-space:nowrap;
-      text-decoration:none;
-    }
-    .brand img{height:34px}
-
-    .menu{display:flex;align-items:center;gap:20px}
-    .menu a{
-      color:#fff;text-decoration:none;white-space:nowrap;
-      font-weight:700; position:relative; padding:6px 2px;
-      font-family:'Playfair Display', serif;
-    }
-    .menu a::after{content:""; position:absolute; left:0; right:0; bottom:-4px; height:1px; background:transparent; transition:background .2s ease}
-    .menu a:hover::after{background:rgba(255,255,255,.7)}
-
-    .hamburger{display:none;border:1px solid rgba(255,255,255,.35);height:34px;width:36px;border-radius:8px;padding:6px;flex-direction:column;gap:4px;justify-content:center;align-items:center;background:transparent;}
-    .hamburger span{width:18px;height:2px;background:#fff;border-radius:1px}
-    .mobile-menu{display:none;position:absolute;top:calc(var(--header-h));right:12px;width:min(35vw,300px);background:#000000f2;border:1px solid rgba(255,255,255,.2);border-radius:10px;overflow:hidden}
-    .mobile-menu a{display:block;padding:12px 14px;color:#fff;border-bottom:1px solid rgba(255,255,255,.08);font-weight:700;}
-    .mobile-menu a:last-child{border-bottom:none}
-    @media (max-width:900px){.menu{display:none}.hamburger{display:flex}}
-
-    /* ---------- Page content ---------- */
-    /* Section title uses Ranade */
-    h1{
-      font-family:'Ranade','Playfair Display',serif;
-      margin:18px 0 8px; font-size:clamp(26px,4.4vw,40px);
-      scroll-margin-top: calc(var(--header-h) + 12px);
-    }
-    p.lede{color:var(--muted); margin:0 0 18px; font-family:'Plus Jakarta Sans',sans-serif}
-
-    .card{
-      background:var(--card); border:1px solid var(--line);
-      border-radius:16px; padding:18px;
-    }
-
-    /* Form grid */
-    form{display:grid; grid-template-columns:1fr 1fr; gap:14px}
-    .full{grid-column:1 / -1}
-    label{font-size:.95rem; opacity:.95; display:block; font-family:'Plus Jakarta Sans',sans-serif}
-
-    /* Controls */
-    input, select, textarea{
-      width:100%; padding:12px 12px; margin-top:6px;
-      border-radius:10px; border:1px solid var(--line);
-      background:rgba(255,255,255,.92); color:#111; font-size:16px;
-      font-family:'Plus Jakarta Sans', sans-serif;
-      height:var(--control-h);
-    }
-    textarea{min-height:120px; height:auto; resize:vertical}
-    input[type="date"]{-webkit-appearance:none; appearance:none; line-height:calc(var(--control-h) - 2px); padding-top:0; padding-bottom:0}
-    select{ line-height:calc(var(--control-h) - 2px); }
-    .row{display:flex; gap:10px; align-items:center; flex-wrap:wrap}
-    .radio{
-      display:inline-flex; gap:8px; align-items:center;
-      padding:10px 12px; border:1px solid var(--line); border-radius:999px;
-      background:rgba(255,255,255,.10); user-select:none; height:var(--control-h);
-      font-family:'Plus Jakarta Sans',sans-serif;
-    }
-
-    /* Filming day rows */
-    .day{display:grid; grid-template-columns: 1.2fr .9fr .9fr auto; gap:10px; align-items:end; margin-top:6px;}
-    .day button.rem{
-      background:transparent; color:#fff; border:1px solid var(--line); border-radius:10px; padding:.65em .8em; cursor:pointer;
-      font-family:'Plus Jakarta Sans', sans-serif; height:var(--control-h);
-    }
-
-    .add-more{margin-top:6px}
-    .add-more button{
-      background:transparent; color:#fff; border:1px solid var(--line);
-      border-radius:999px; padding:.6em 1em; cursor:pointer; font-weight:600;
-      font-family:'Plus Jakarta Sans', sans-serif; height:var(--control-h);
-    }
-
-    .price-card{
-      grid-column:1/-1; background:var(--price-bg); color:var(--price-text);
-      border:1px solid var(--price-border); border-radius:14px;
-      padding:14px 16px; margin-top:6px;
-      font-family:'Plus Jakarta Sans',sans-serif;
-    }
-    .price-card small{color:#555}
-
-    .actions{display:flex; gap:10px; flex-wrap:wrap; margin-top:12px}
-
-    /* Buttons: match homepage white CTA */
-    .btn{
-      display:inline-flex; align-items:center; justify-content:center; gap:.5em;
-      padding:.75em 1.1em; border-radius:999px; border:1px solid var(--btn-border);
-      background:#fff; color:#111; font-weight:700; letter-spacing:.02em;
-      cursor:pointer; text-decoration:none; font-family:'Playfair Display', serif;
-      height:var(--control-h); font-size:var(--btn-font-size);
-    }
-    .btn:hover{opacity:.92}
-
-    #form-status{margin-top:8px;font-size:.95rem;font-family:'Plus Jakarta Sans',sans-serif}
-
-    /* Gate */
-    .gate{
-      position:fixed; inset:0; z-index:100; display:flex; align-items:center; justify-content:center;
-      background:#000;
-    }
-    .gate-card{
-      width:min(720px,92vw); background:rgba(255,255,255,.08);
-      border:1px solid var(--line); border-radius:18px; padding:20px; text-align:center;
-      font-family:'Plus Jakarta Sans',sans-serif;
-    }
-    .gate h2{margin:0 0 10px; font-family:'BaytLili','Playfair Display',serif}
-    .gate p{margin:0 0 16px; color:#eaeaea}
-    .gate-options{display:grid; grid-template-columns:1fr 1fr; gap:12px}
-    .gate-btn{
-      padding:18px 16px; border-radius:14px; border:1px solid var(--line);
-      background:transparent; color:#fff; cursor:pointer; font-weight:700; letter-spacing:.02em;
-      font-family:'Playfair Display', serif; font-size:18px;
-    }
-    .gate-btn:hover{opacity:.92}
-    @media (max-width:700px){ .gate-options{grid-template-columns:1fr} }
-
-    .hidden{ display:none !important; }
-
-    /* Success view (simple, no boxes) */
-    .success-wrap{
-      text-align:center;
-      margin: 40px auto;
-    }
-    .success-wrap .msg{
-      color: limegreen;
-      font-weight:700;
-      font-family:'Plus Jakarta Sans',sans-serif;
-      font-size: clamp(18px,2.6vw,22px);
-      margin-bottom:16px;
-    }
-    .success-wrap .buttons{
-      display:flex; justify-content:center; gap:10px; flex-wrap:wrap;
-    }
-    .promo-img{
-      display:block;
-      margin-top:14px;
-      max-width:220px;
-      height:auto;
-      /* “centered to the left”: left-aligned inside the container */
-      margin-left:0;
-    }
-  </style>
+.reviews{margin-top:22px}
+.rev-wrap{position:relative;overflow:hidden;border:1px solid var(--line);border-radius:16px;background:rgba(255,255,255,.06);padding:10px}
+.rev-track{display:flex;gap:12px;scroll-behavior:smooth;overflow:hidden}
+.rev-item img{max-height:440px;border-radius:12px}
+.rev-btn{position:absolute;top:50%;transform:translateY(-50%);background:#fff;color:#111;border:1px solid var(--btn-border);width:36px;height:36px;border-radius:50%;display:flex;align-items:center;justify-content:center;cursor:pointer}
+.rev-prev{left:10px}.rev-next{right:10px}
+.gate{position:fixed;inset:0;display:flex;align-items:center;justify-content:center;background:#000;z-index:100}
+.gate-card{width:min(720px,92vw);background:rgba(255,255,255,.08);border:1px solid var(--line);border-radius:18px;padding:20px;text-align:center}
+.gate-options{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.gate-btn{padding:18px;border-radius:14px;border:1px solid var(--line);background:transparent;color:#fff;cursor:pointer;font-weight:700;font-family:'Playfair Display',serif}
+.hidden{display:none!important}
+</style>
 </head>
+
 <body>
+<header>
+  <div class="container nav">
+    <a class="brand" href="index.html"><img src="assets/bllogo.png" alt="logo"/> BAYT LILI</a>
+    <button class="hamburger"><span></span><span></span><span></span></button>
+    <nav class="menu">
+      <a href="index.html">Home</a><a href="booking.html">Booking</a><a href="index.html#gallery">Gallery</a><a href="rates.html">Rates</a><a href="index.html#contact">Contact</a>
+    </nav>
+  </div>
+  <nav id="mobileMenu" class="mobile-menu"></nav>
+</header>
 
-  <!-- Header -->
-  <header>
-    <div class="container nav" style="padding:8px 0">
-      <a class="brand" href="index.html" aria-label="Bayt Lili — Home">
-        <img src="assets/bllogo.png" alt="Bayt Lili"/> BAYT LILI
-      </a>
-
-      <button class="hamburger" aria-label="Menu"><span></span><span></span><span></span></button>
-
-      <nav class="menu" aria-label="Primary">
-        <a href="index.html">Home</a>
-        <a href="booking.html">Booking</a>
-        <a href="index.html#gallery">Gallery</a>
-        <a href="rates.html">Rates</a>
-        <a href="index.html#contact">Contact</a>
-      </nav>
-    </div>
-    <nav id="mobileMenu" class="mobile-menu" aria-label="Mobile"></nav>
-  </header>
-
-  <!-- Gate -->
-  <div class="gate" id="gate">
-    <div class="gate-card">
-      <h2>What are you looking for?</h2>
-      <p>Select one to continue.</p>
-      <div class="gate-options">
-        <button class="gate-btn" data-choice="Filming">Filming / Photoshoot</button>
-        <button class="gate-btn" data-choice="Stay">Stay</button>
-      </div>
+<div class="gate" id="gate">
+  <div class="gate-card">
+    <h2>What are you looking for?</h2>
+    <div class="gate-options">
+      <button class="gate-btn" data-choice="Filming">Filming / Photoshoot</button>
+      <button class="gate-btn" data-choice="Stay">Stay</button>
     </div>
   </div>
+</div>
 
-  <div class="container hidden" id="main">
-    <h1>Booking Request</h1>
-    <p class="lede" id="lede">Tell us about your booking. We reply the same day.</p>
+<div class="container hidden" id="main">
+  <h1>Booking Request</h1>
+  <p class="lede" id="lede">Tell us about your booking. We reply the same day.</p>
 
-    <div class="card" id="filmingCard" style="display:none">
-      <form id="booking-form">
-        <!-- Row 1: Full name + Company/Brand -->
-        <div>
-          <label for="name">Full name *</label>
-          <input id="name" name="name" type="text" required placeholder="Your name"/>
-        </div>
-        <div>
-          <label for="company">Company / Brand *</label>
-          <input id="company" name="company" type="text" placeholder="Company or brand"/>
-        </div>
-
-        <!-- Row 2: Email + Phone -->
-        <div>
-          <label for="email">Email *</label>
-          <input id="email" name="email" type="email" required placeholder="name@email.com"/>
-        </div>
-        <div>
-          <label for="phone">Phone *</label>
-          <input id="phone" name="phone" type="tel" required placeholder="9715XXXXXXXX"/>
-        </div>
-
-        <!-- Hidden purpose (set by gate or query) -->
-        <input type="hidden" id="purpose" name="purpose" value="">
-
-        <!-- Days list -->
-        <div id="daysWrap" class="full"></div>
-
-        <div class="add-more">
-          <button type="button" id="addDayBtn">+ Add another day</button>
-        </div>
-
-        <!-- PRICE CARD -->
-        <div id="priceCard" class="price-card" style="display:none">
-          <div id="priceSummary" style="font-weight:700">Estimated Total: AED 0</div>
-          <small id="priceNotes">
-            Rate: AED <span id="rateVal">300</span>/hr.
-            <span id="minNote">Minimum: 6 hrs are billable</span>.
-            Refundable deposit: AED 5000.
-          </small>
-        </div>
-
-        <!-- ACTION BUTTONS -->
-        <div class="actions full" id="filmButtons" style="display:flex">
-          <button type="submit" class="btn" id="request-booking">Request Booking</button>
-          <a class="btn" id="whatsappDirect" href="#" target="_blank" rel="noopener">WhatsApp Us</a>
-        </div>
-
-        <p id="form-status" role="status"></p>
-      </form>
-    </div>
-
-    <!-- STAY -->
-    <div class="card" id="stayCard" style="display:none">
-      <div class="actions">
-        <a class="btn" id="whatsappStay" href="#" target="_blank" rel="noopener">WhatsApp Us</a>
-        <a class="btn" id="airbnbBtn" href="https://www.airbnb.com/rooms/1010972686934184319" target="_blank" rel="noopener">View on Airbnb</a>
+  <div class="card" id="stayCard" style="display:none">
+    <p class="lede">For stays, please check seasonal rates and book directly on Airbnb or message us on WhatsApp.</p>
+    <div class="stay-flex">
+      <div class="stay-left">
+        <a class="btn" id="whatsappStay" target="_blank">WhatsApp Us</a>
+        <a class="btn" id="airbnbBtn" href="https://www.airbnb.com/rooms/1010972686934184319" target="_blank">View on Airbnb</a>
       </div>
-      <img class="promo-img" src="assets/airbnb.png" alt="Airbnb" />
+      <div class="stay-right">
+        <img src="assets/airbnb.png" alt="Airbnb 1"/>
+        <img src="assets/airbnb2.png" alt="Airbnb 2"/>
+      </div>
     </div>
 
+    <section class="reviews">
+      <h2>Reviews</h2>
+      <div class="rev-wrap">
+        <button class="rev-btn rev-prev">‹</button>
+        <div class="rev-track" id="revTrack">
+          <div class="rev-item"><img src="assets/reviews/review1.png"></div>
+          <div class="rev-item"><img src="assets/reviews/review2.png"></div>
+          <div class="rev-item"><img src="assets/reviews/review3.png"></div>
+          <div class="rev-item"><img src="assets/reviews/review4.png"></div>
+          <div class="rev-item"><img src="assets/reviews/review5.png"></div>
+        </div>
+        <button class="rev-btn rev-next">›</button>
+      </div>
+    </section>
   </div>
+</div>
 
-  <script>
-    // ---------- Config ----------
-    const WHATSAPP_NUMBER = '971501589628';
-    const INSTAGRAM_URL   = 'https://instagram.com/baytlili';
-    const SHEETS_ENDPOINT = 'https://script.google.com/macros/s/AKfycbzP17hb9riNcRnWQ06dinxrqwII6CYjH247SV6xCnhd9bJV6nVBVANkVRA0QZA70OII/exec';
-
-    // Rate & minimum
-    const RATE_PER_HOUR = 300;
-    const MIN_HOURS_PER_DAY = 6;
-    const DAY_MIN_CHARGE = RATE_PER_HOUR * MIN_HOURS_PER_DAY;
-
-    // Header mobile menu (same as homepage)
-    (function(){
-      const btn = document.querySelector('.hamburger');
-      const mobile = document.getElementById('mobileMenu');
-      const desktop = document.querySelector('.menu');
-      function closeM(){ mobile.style.display='none'; }
-      function openM(){ mobile.style.display='block'; }
-      if(btn && mobile && desktop){
-        mobile.innerHTML = desktop.innerHTML;
-        btn.addEventListener('click', (e)=>{ e.stopPropagation(); (mobile.style.display==='block') ? closeM() : openM(); });
-        document.addEventListener('click', (e)=>{ if(!e.target.closest('header')) closeM(); });
-        window.addEventListener('resize', ()=>{ if(window.innerWidth>900) closeM(); });
-      }
-    })();
-
-    // Elements
-    const gate = document.getElementById('gate');
-    const main = document.getElementById('main');
-
-    const filmingCard = document.getElementById('filmingCard');
-    const stayCard = document.getElementById('stayCard');
-
-    const form = document.getElementById('booking-form');
-    const statusEl = document.getElementById('form-status');
-    const daysWrap = document.getElementById('daysWrap');
-
-    // Gate
-    gate.querySelectorAll('.gate-btn').forEach(btn=>{
-      btn.addEventListener('click', ()=> startWithChoice(btn.dataset.choice));
-    });
-
-    // Time helpers
-    function buildTimeOptions(minMinutesExclusive = -1, selectedVal = ''){
-      const opts = ['<option value="" disabled>Select time</option>'];
-      for (let m=0; m<24*60; m+=15){
-        if (m <= minMinutesExclusive) continue;
-        const hh = String(Math.floor(m/60)).padStart(2,'0');
-        const mm = String(m%60).padStart(2,'0');
-        const label = `${hh}:${mm}`;
-        const sel = (label === selectedVal) ? ' selected' : '';
-        opts.push(`<option value="${label}"${sel}>${label}</option>`);
-      }
-      return opts.join('');
-    }
-    function parseTime(t){ if(!t) return null; const [h,m]=t.split(':').map(Number); return h*60+(m||0); }
-    function computeHours(from,to){
-      const a=parseTime(from), b=parseTime(to);
-      if(a==null||b==null) return 0;
-      let diff=(b-a)/60;
-      if (diff < 0) return 0;
-      return Math.max(0, diff);
-    }
-
-    function makeDayRow(){
-      const row = document.createElement('div');
-      row.className = 'day';
-      row.innerHTML = `
-        <label>Date <input type="date" name="day_date" required></label>
-        <label>From <select name="day_from" required></select></label>
-        <label>To   <select name="day_to" required></select></label>
-        <button type="button" class="rem" aria-label="Remove day">Remove</button>
-      `;
-      const selFrom = row.querySelector('[name=day_from]');
-      const selTo   = row.querySelector('[name=day_to]');
-      selFrom.innerHTML = buildTimeOptions(-1);
-      selTo.innerHTML   = buildTimeOptions(-1);
-
-      selFrom.addEventListener('change', ()=>{
-        const min = parseTime(selFrom.value);
-        selTo.innerHTML = buildTimeOptions(min, '');
-        const firstOption = selTo.querySelector('option[value]:not([value=""])');
-        if (firstOption) selTo.value = firstOption.value;
-        updatePrice();
-      });
-      selTo.addEventListener('change', updatePrice);
-      row.querySelector('[name=day_date]').addEventListener('change', updatePrice);
-      row.querySelector('.rem').addEventListener('click', () => { row.remove(); updatePrice(); });
-      return row;
-    }
-
-    document.getElementById('addDayBtn').addEventListener('click', () => {
-      daysWrap.appendChild(makeDayRow());
-      updatePrice();
-    });
-
-    function ensureAtLeastOneDay(){
-      if(daysWrap.children.length === 0){
-        daysWrap.appendChild(makeDayRow());
-      }
-    }
-
-    function updatePrice(){
-      let totalHours = 0, totalPrice = 0, anyUnderMin = false, anyDayComplete=false;
-      [...daysWrap.children].forEach(row => {
-        const from = row.querySelector('[name=day_from]').value;
-        const to = row.querySelector('[name=day_to]').value;
-        const hrs = computeHours(from, to);
-        if (from && to) {
-          anyDayComplete = true;
-          if (hrs > 0 && hrs < MIN_HOURS_PER_DAY) anyUnderMin = true;
-        }
-        const billable = Math.max(hrs, MIN_HOURS_PER_DAY);
-        totalHours += hrs;
-        totalPrice += billable * RATE_PER_HOUR;
-      });
-
-      document.getElementById('priceCard').style.display = daysWrap.children.length ? '' : 'none';
-      document.getElementById('priceSummary').textContent =
-        `Estimated Total: AED ${isFinite(totalPrice)?Math.round(totalPrice):0} — Total Selected Hours: ${isFinite(totalHours)?totalHours.toFixed(2):'0'}`;
-
-      // Update notes
-      document.getElementById('rateVal').textContent = RATE_PER_HOUR;
-      const minNote = document.getElementById('minNote');
-      minNote.textContent = `Minimum: 6 hrs are billable`;
-      minNote.style.color = (anyDayComplete && anyUnderMin) ? 'crimson' : '#555';
-    }
-
-    // WhatsApp
-    function openWA(msg){
-      window.open(`https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(msg||'Hello Bayt Lili')}`,'_blank');
-    }
-    document.getElementById('whatsappStay').addEventListener('click', (e)=>{ e.preventDefault(); openWA('Hello Bayt Lili — I’m interested in a stay.'); });
-    document.getElementById('whatsappDirect').addEventListener('click', (e)=>{ e.preventDefault(); openWA('Hello Bayt Lili — I’d like to inquire about filming availability.'); });
-
-    // Success view (green message + 2 buttons + Airbnb image)
-    function showSuccessView(){
-      const html = `
-        <div class="success-wrap" role="status" aria-live="polite">
-          <div class="msg">Thank you! Your request has been received. We’ll get back to you shortly.</div>
-          <div class="buttons">
-            <a class="btn" href="https://wa.me/${WHATSAPP_NUMBER}" target="_blank" rel="noopener">WhatsApp Us</a>
-            <a class="btn" href="${INSTAGRAM_URL}" target="_blank" rel="noopener">Follow us on Instagram</a>
-          </div>
-          <img class="promo-img" src="assets/airbnb.png" alt="Airbnb" />
-        </div>`;
-      document.getElementById('main').innerHTML = html;
-    }
-
-    // Build summary for the sheet
-    function buildMessageFilming(){
-      const name = (document.getElementById('name').value||'-');
-      const email = (document.getElementById('email').value||'-');
-      const phone = (document.getElementById('phone').value||'-');
-      const company = (document.getElementById('company').value||'-');
-
-      let total = 0, dayLines=[];
-      [...daysWrap.children].forEach((row,i)=>{
-        const date = row.querySelector('[name=day_date]').value || '-';
-        const from = row.querySelector('[name=day_from]').value || '-';
-        const to   = row.querySelector('[name=day_to]').value || '-';
-        const hrs  = computeHours(from,to);
-        const bill = Math.max(hrs, MIN_HOURS_PER_DAY);
-        const price = bill * RATE_PER_HOUR;
-        total += price;
-        dayLines.push(`Day ${i+1}: ${date} — ${from}-${to} (hrs ${hrs.toFixed(2)}, billable ${bill.toFixed(2)}, AED ${Math.round(price)})`);
-      });
-
-      return [
-        'Booking Request — Filming',
-        `Name: ${name}`, `Company: ${company}`, `Email: ${email}`, `Phone: ${phone}`,
-        '', ...dayLines, '',
-        `Estimated Total: AED ${Math.round(total)} (rate AED ${RATE_PER_HOUR}/hr; ${MIN_HOURS_PER_DAY}h min/day)`
-      ].join('\n');
-    }
-
-    // Submit
-    form.addEventListener('submit', async (e) => {
-      e.preventDefault();
-
-      const purpose = document.getElementById('purpose').value;
-      if (purpose !== 'Filming') return;
-
-      const name    = (document.getElementById('name').value||'').trim();
-      const email   = (document.getElementById('email').value||'').trim();
-      const phone   = (document.getElementById('phone').value||'').trim();
-      const company = (document.getElementById('company').value||'').trim();
-
-      if (!name || !email || !phone) {
-        statusEl.textContent = 'Please fill in Name, Email, and Phone.';
-        statusEl.style.color = 'crimson';
-        return;
-      }
-      if (!company) {
-        statusEl.textContent = 'Please enter your Company / Brand.';
-        statusEl.style.color = 'crimson';
-        return;
-      }
-      if (daysWrap.children.length === 0) {
-        statusEl.textContent = 'Please add at least one day.';
-        statusEl.style.color = 'crimson';
-        return;
-      }
-
-      const params = new URLSearchParams();
-      params.set('name', name);
-      params.set('email', email);
-      params.set('phone', phone);
-      params.set('inquiry', 'Filming / Shoot');
-      params.set('message', buildMessageFilming());
-      params.set('pageUrl', window.location.href);
-      params.set('userAgent', navigator.userAgent);
-
-      const submitBtn = document.getElementById('request-booking');
-      submitBtn.disabled = true;
-      submitBtn.textContent = 'Sending…';
-      statusEl.textContent = '';
-
-      try {
-        await fetch(SHEETS_ENDPOINT, {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/x-www-form-urlencoded;charset=UTF-8' },
-          body: params.toString()
-        });
-
-        // Reset and show success-only view
-        form.reset();
-        daysWrap.innerHTML = '';
-        showSuccessView();
-      } catch (err) {
-        statusEl.textContent = 'Network error. Please try again.';
-        statusEl.style.color = 'crimson';
-        submitBtn.disabled = false;
-        submitBtn.textContent = 'Request Booking';
-      }
-    });
-
-    // Wire WA links
-    document.getElementById('whatsappStay').href   = `https://wa.me/${WHATSAPP_NUMBER}`;
-    document.getElementById('whatsappDirect').href = `https://wa.me/${WHATSAPP_NUMBER}`;
-
-    // Prefill from query params
-    const qp = new URLSearchParams(window.location.search);
-    const prePhone = qp.get('phone') || '';
-    const preDate  = qp.get('date')  || '';
-    const preFrom  = qp.get('from')  || '';
-    const preTo    = qp.get('to')    || '';
-
-    function startWithChoice(choice){
-      document.getElementById('purpose').value = choice;
-      main.classList.remove('hidden');
-      gate.style.display = 'none';
-
-      // Hide the lede if they choose Stay
-      const lede = document.getElementById('lede');
-      if (choice === 'Filming') {
-        if (lede) lede.style.display = '';
-        filmingCard.style.display = '';
-        stayCard.style.display = 'none';
-        ensureAtLeastOneDay();
-        updatePrice();
-      } else {
-        if (lede) lede.style.display = 'none';
-        filmingCard.style.display = 'none';
-        stayCard.style.display = '';
-      }
-    }
-
-    (function prefillFromQuery(){
-      if (prePhone || preDate || preFrom || preTo){
-        startWithChoice('Filming');
-        // Phone: store without '+' (9715XXXXXXXX)
-        if (prePhone){
-          const cleaned = prePhone.startsWith('+') ? prePhone.slice(1) : prePhone;
-          document.getElementById('phone').value = cleaned;
-        }
-
-        ensureAtLeastOneDay();
-        const row = daysWrap.children[0];
-        const dateEl = row.querySelector('[name=day_date]');
-        const fromEl = row.querySelector('[name=day_from]');
-        const toEl   = row.querySelector('[name=day_to]');
-
-        if (preDate){ dateEl.value = preDate; }
-        fromEl.innerHTML = buildTimeOptions(-1, preFrom || '');
-        const min = preFrom ? parseTime(preFrom) : -1;
-        toEl.innerHTML   = buildTimeOptions(min, preTo || '');
-
-        if (preFrom) fromEl.value = preFrom;
-        if (preTo)   toEl.value   = preTo;
-
-        updatePrice();
-        document.getElementById('name').focus({preventScroll:true});
-      }
-    })();
-  </script>
+<script>
+const WHATSAPP_NUMBER='971501589628';
+const gate=document.getElementById('gate'),main=document.getElementById('main'),stay=document.getElementById('stayCard');
+document.querySelectorAll('.gate-btn').forEach(b=>b.onclick=()=>start(b.dataset.choice));
+function start(c){main.classList.remove('hidden');gate.style.display='none';if(c==='Stay'){stay.style.display='';initRev();}else{main.innerHTML=`<div class="success-wrap"><div class="msg">Filming form will go here later.</div></div>`}}
+function initRev(){const t=document.getElementById('revTrack'),p=document.querySelector('.rev-prev'),n=document.querySelector('.rev-next');if(!t)return;const step=()=>Math.min(t.clientWidth*0.9,600);p.onclick=()=>t.scrollBy({left:-step(),behavior:'smooth'});n.onclick=()=>t.scrollBy({left:step(),behavior:'smooth'})}
+document.getElementById('whatsappStay').href=`https://wa.me/${WHATSAPP_NUMBER}`;
+</script>
 </body>
 </html>
