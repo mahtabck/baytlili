@@ -7,7 +7,7 @@
   <meta name="description" content="Book Bayt Lili for filming, photoshoots, or stays. Submit your request or message us on WhatsApp.">
   <link rel="icon" type="image/png" href="assets/favicon.png"/>
 
-  <!-- Fonts (homepage set + Ranade for section titles) -->
+  <!-- Fonts -->
   <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700;800&family=Plus+Jakarta+Sans:wght@400;500;600;700&family=Ranade:wght@600;700&display=swap" rel="stylesheet">
 
   <style>
@@ -47,7 +47,7 @@
 
     .container{width:min(900px,92vw); margin:0 auto; padding:clamp(24px,5vw,48px) 0}
 
-    /* ---------- Header (identical to homepage) ---------- */
+    /* ---------- Header ---------- */
     header{
       position:sticky; top:0; z-index:50;
       background:#000000f0; border-bottom:1px solid rgba(255,255,255,0.2);
@@ -80,14 +80,9 @@
     h1{
       font-family:'Ranade','Plus Jakarta Sans',sans-serif!important;
       margin:18px 0 8px; font-size:clamp(26px,4.4vw,40px);
-      scroll-margin-top: calc(var(--header-h) + 12px);
     }
     p.lede{color:var(--muted); margin:0 0 18px; font-family:'Plus Jakarta Sans',sans-serif}
-
-    .card{
-      background:var(--card); border:1px solid var(--line);
-      border-radius:16px; padding:18px;
-    }
+    .card{background:var(--card); border:1px solid var(--line); border-radius:16px; padding:18px;}
 
     /* ---------- Buttons ---------- */
     .btn{
@@ -99,62 +94,47 @@
     }
     .btn:hover{opacity:.92}
 
-    /* ---------- Filming form ---------- */
-    form{display:grid; grid-template-columns:1fr 1fr; gap:14px}
-    .full{grid-column:1 / -1}
-    label{font-size:.95rem; opacity:.95; display:block; font-family:'Plus Jakarta Sans',sans-serif}
-    input, select, textarea{
-      width:100%; padding:12px 12px; margin-top:6px;
-      border-radius:10px; border:1px solid var(--line);
-      background:rgba(255,255,255,.92); color:#111; font-size:16px;
-      font-family:'Plus Jakarta Sans', sans-serif;
-      height:var(--control-h);
-    }
-    textarea{min-height:120px; height:auto; resize:vertical}
-    input[type="date"]{-webkit-appearance:none; appearance:none; line-height:calc(var(--control-h) - 2px); padding-top:0; padding-bottom:0}
-    select{ line-height:calc(var(--control-h) - 2px); }
-    .day{display:grid; grid-template-columns: 1.2fr .9fr .9fr auto; gap:10px; align-items:end; margin-top:6px;}
-    .day .rem{
-      background:transparent; color:#fff; border:1px solid var(--line); border-radius:10px; padding:.65em .8em; cursor:pointer;
-      font-family:'Plus Jakarta Sans', sans-serif; height:var(--control-h);
-    }
-    .add-more{margin-top:6px}
-    .add-more button{
-      background:transparent; color:#fff; border:1px solid var(--line);
-      border-radius:999px; padding:.6em 1em; cursor:pointer; font-weight:600;
-      font-family:'Plus Jakarta Sans', sans-serif; height:var(--control-h);
-    }
-    .price-card{
-      grid-column:1/-1; background:var(--price-bg); color:var(--price-text);
-      border:1px solid var(--price-border); border-radius:14px;
-      padding:14px 16px; margin-top:6px; font-family:'Plus Jakarta Sans',sans-serif;
-    }
-    .price-card small{color:#555}
-    .actions{display:flex; gap:10px; flex-wrap:wrap; margin-top:12px}
-    #form-status{margin-top:8px;font-size:.95rem;font-family:'Plus Jakarta Sans',sans-serif}
+    /* ---------- Stay Section ---------- */
+    #stayCard .lede{ margin-top:0; margin-bottom:14px; }
+    .stay-actions{ display:flex; gap:12px; flex-wrap:wrap; margin-bottom:14px; }
+    @media (max-width:640px){ .stay-actions{ flex-direction:column; } .stay-actions .btn{ width:100% } }
 
-    /* ---------- Gate overlay ---------- */
-    .gate{
-      position:fixed; inset:0; z-index:100; display:flex; align-items:center; justify-content:center; background:#000;
+    /* Airbnb images side by side */
+    .stay-images{
+      display:grid;
+      grid-template-columns:repeat(2, minmax(0, 1fr));
+      gap:12px;
+      max-width:980px;
+      margin:8px 0 0 0;
     }
-    .gate-card{
-      width:min(720px,92vw); background:rgba(255,255,255,.08);
-      border:1px solid var(--line); border-radius:18px; padding:20px; text-align:center;
-      font-family:'Plus Jakarta Sans',sans-serif;
+    .stay-images img{
+      width:100%;
+      height:auto;
+      border-radius:16px;
+      border:1px solid rgba(255,255,255,.15);
+      background:rgba(255,255,255,.06);
+      display:block;
     }
-    .gate h2{margin:0 0 10px; font-family:'BaytLili','Playfair Display',serif}
-    .gate-options{display:grid; grid-template-columns:1fr 1fr; gap:12px}
-    .gate-btn{
-      padding:18px 16px; border-radius:14px; border:1px solid var(--line);
-      background:transparent; color:#fff; cursor:pointer; font-weight:700; letter-spacing:.02em;
-      font-family:'Playfair Display', serif; font-size:18px;
-    }
-    .gate-btn:hover{opacity:.92}
-    @media (max-width:700px){ .gate-options{grid-template-columns:1fr} }
 
-    .hidden{ display:none !important; }
+    /* ✅ Make Airbnb images slightly smaller only on full-screen desktop */
+    @media (min-width:1200px) {
+      .stay-images img {
+        max-width:85%;
+        margin:0 auto;
+      }
+    }
 
-    /* ---------- Success view (after submit) ---------- */
+    /* ---------- Reviews ---------- */
+    .reviews{margin-top:22px}
+    .reviews h2{font-family:'BaytLili','Playfair Display',serif;margin:0 0 10px}
+    .rev-wrap{position:relative; overflow:hidden; border:1px solid var(--line); border-radius:16px; padding:8px; background:rgba(255,255,255,.06)}
+    .rev-track{display:flex; gap:10px; overflow:hidden; scroll-behavior:smooth}
+    .rev-item img{display:block; height:auto; max-height:300px; border-radius:12px}
+    @media (max-width:640px){ .rev-item img{ max-height:200px; } }
+    .rev-btn{position:absolute; top:50%; transform:translateY(-50%); background:#ffffff; color:#111; border:1px solid var(--btn-border); width:32px; height:32px; border-radius:999px; display:flex; align-items:center; justify-content:center; font-weight:700; cursor:pointer}
+    .rev-prev{left:10px} .rev-next{right:10px}
+
+    /* ---------- Success Box ---------- */
     .success-wrap{ margin:40px auto; }
     .success-card{
       background:var(--card); border:1px solid var(--line);
@@ -165,473 +145,47 @@
       margin-bottom:16px;
     }
     .success-card .buttons{ display:flex; justify-content:center; gap:10px; flex-wrap:wrap; }
-
-    /* ---------- STAY (reworked to satisfy your rules) ---------- */
-    #stayCard .lede{ margin-top:0; margin-bottom:14px; }
-    .stay-actions{ display:flex; gap:12px; flex-wrap:wrap; margin-bottom:14px; }
-    @media (max-width:640px){
-      .stay-actions{ flex-direction:column; }
-      .stay-actions .btn{ width:100% }
-    }
-
-    /* ✅ Two images side-by-side ALWAYS; scale with container.
-       - Full desktop: slightly larger (container up to 980px)
-       - Narrow desktop: they shrink but remain side-by-side
-       - Mobile: still side-by-side, each gets 1/2 width
-    */
-    .stay-images{
-      display:grid;
-      grid-template-columns:repeat(2, minmax(0, 1fr));
-      gap:12px;
-      max-width:980px;     /* larger on wide desktop */
-      margin:8px 0 0 0;    /* align left under buttons */
-    }
-    .stay-images img{
-      width:100%;
-      height:auto;         /* keep original shape/ratio */
-      border-radius:16px;
-      border:1px solid rgba(255,255,255,.15);
-      background:rgba(255,255,255,.06);
-      display:block;
-    }
-    /* No mobile override -> remains 2 columns on phones as you wanted */
-
-    /* ---------- Reviews carousel (already smaller) ---------- */
-    .reviews{margin-top:22px}
-    .reviews h2{font-family:'BaytLili','Playfair Display',serif;margin:0 0 10px}
-    .rev-wrap{position:relative; overflow:hidden; border:1px solid var(--line); border-radius:16px; padding:8px; background:rgba(255,255,255,.06)}
-    .rev-track{display:flex; gap:10px; overflow:hidden; scroll-behavior:smooth}
-    .rev-item img{display:block; height:auto; max-height:300px; border-radius:12px}
-    @media (max-width:640px){ .rev-item img{ max-height:200px; } }
-    .rev-btn{position:absolute; top:50%; transform:translateY(-50%); background:#ffffff; color:#111; border:1px solid var(--btn-border); width:32px; height:32px; border-radius:999px; display:flex; align-items:center; justify-content:center; font-weight:700; cursor:pointer}
-    .rev-prev{left:10px} .rev-next{right:10px}
   </style>
 </head>
+
 <body>
-
-  <!-- Header -->
   <header>
-    <div class="container nav" style="padding:8px 0">
-      <a class="brand" href="index.html" aria-label="Bayt Lili — Home">
-        <img src="assets/bllogo.png" alt="Bayt Lili"/> BAYT LILI
-      </a>
-
+    <div class="container nav">
+      <a class="brand" href="index.html"><img src="assets/bllogo.png" alt="Bayt Lili"/> BAYT LILI</a>
       <button class="hamburger" aria-label="Menu"><span></span><span></span><span></span></button>
-
-      <nav class="menu" aria-label="Primary">
-        <a href="index.html">Home</a>
-        <a href="booking.html">Booking</a>
-        <a href="index.html#gallery">Gallery</a>
-        <a href="rates.html">Rates</a>
-        <a href="index.html#contact">Contact</a>
-      </nav>
+      <nav class="menu"><a href="index.html">Home</a><a href="booking.html">Booking</a><a href="index.html#gallery">Gallery</a><a href="rates.html">Rates</a><a href="index.html#contact">Contact</a></nav>
     </div>
-    <nav id="mobileMenu" class="mobile-menu" aria-label="Mobile"></nav>
+    <nav id="mobileMenu" class="mobile-menu"></nav>
   </header>
 
-  <!-- Gate -->
-  <div class="gate" id="gate">
-    <div class="gate-card">
-      <h2>What are you looking for?</h2>
-      <div class="gate-options">
-        <button class="gate-btn" data-choice="Filming">Filming / Photoshoot</button>
-        <button class="gate-btn" data-choice="Stay">Stay</button>
-      </div>
+  <div class="container" id="stayCard">
+    <p class="lede">For stays, please check seasonal rates and book directly on Airbnb or message us on WhatsApp.</p>
+    <div class="stay-actions">
+      <a class="btn" href="https://wa.me/971501589628" target="_blank">WhatsApp Us</a>
+      <a class="btn" href="https://www.airbnb.com/rooms/1010972686934184319" target="_blank">View on Airbnb</a>
     </div>
+
+    <!-- Airbnb images -->
+    <div class="stay-images">
+      <img src="assets/airbnb.png" alt="Airbnb 1">
+      <img src="assets/airbnb2.png" alt="Airbnb 2">
+    </div>
+
+    <!-- Reviews -->
+    <section class="reviews">
+      <h2>Reviews</h2>
+      <div class="rev-wrap">
+        <button class="rev-btn rev-prev" aria-label="Previous">‹</button>
+        <div class="rev-track" id="revTrack">
+          <div class="rev-item"><img src="assets/review1.png" alt="Review 1"></div>
+          <div class="rev-item"><img src="assets/review2.png" alt="Review 2"></div>
+          <div class="rev-item"><img src="assets/review3.png" alt="Review 3"></div>
+          <div class="rev-item"><img src="assets/review4.png" alt="Review 4"></div>
+          <div class="rev-item"><img src="assets/review5.png" alt="Review 5"></div>
+        </div>
+        <button class="rev-btn rev-next" aria-label="Next">›</button>
+      </div>
+    </section>
   </div>
-
-  <div class="container hidden" id="main">
-    <h1>Booking Request</h1>
-    <p class="lede" id="lede">Tell us about your booking. We reply the same day.</p>
-
-    <!-- FILMING -->
-    <div class="card" id="filmingCard" style="display:none">
-      <form id="booking-form">
-        <div>
-          <label for="name">Full name *</label>
-          <input id="name" name="name" type="text" required placeholder="Your name"/>
-        </div>
-        <div>
-          <label for="company">Company / Brand *</label>
-          <input id="company" name="company" type="text" placeholder="Company or brand"/>
-        </div>
-
-        <div>
-          <label for="email">Email *</label>
-          <input id="email" name="email" type="email" required placeholder="name@email.com"/>
-        </div>
-        <div>
-          <label for="phone">Phone *</label>
-          <input id="phone" name="phone" type="tel" required placeholder="9715XXXXXXXX"/>
-        </div>
-
-        <input type="hidden" id="purpose" name="purpose" value="">
-
-        <div id="daysWrap" class="full"></div>
-
-        <div class="add-more">
-          <button type="button" id="addDayBtn">+ Add another day</button>
-        </div>
-
-        <div id="priceCard" class="price-card" style="display:none">
-          <div id="priceSummary" style="font-weight:700">Estimated Total: AED 0</div>
-          <small id="priceNotes">
-            Rate: AED <span id="rateVal">300</span>/hr.
-            <span id="minNote">Min: 6 hrs are billable</span>.
-            Refundable deposit: AED 5,000.
-          </small>
-        </div>
-
-        <div class="actions full" id="filmButtons" style="display:flex">
-          <button type="submit" class="btn" id="request-booking">Request Booking</button>
-          <a class="btn" id="whatsappDirect" href="#" target="_blank" rel="noopener">WhatsApp Us</a>
-        </div>
-
-        <p id="form-status" role="status"></p>
-      </form>
-    </div>
-
-    <!-- STAY -->
-    <div class="card" id="stayCard" style="display:none">
-      <p class="lede">For stays, please check seasonal rates and book directly on Airbnb or message us on WhatsApp.</p>
-
-      <div class="stay-actions">
-        <a class="btn" id="whatsappStay" href="#" target="_blank" rel="noopener">WhatsApp Us</a>
-        <a class="btn" id="airbnbBtn" href="https://www.airbnb.com/rooms/1010972686934184319" target="_blank" rel="noopener">View on Airbnb</a>
-      </div>
-
-      <!-- Airbnb images: always two side-by-side, scale with width -->
-      <div class="stay-images">
-        <img src="assets/airbnb.png" alt="Airbnb 1">
-        <img src="assets/airbnb2.png" alt="Airbnb 2">
-      </div>
-
-      <!-- Reviews -->
-      <section class="reviews">
-        <h2>Reviews</h2>
-        <div class="rev-wrap">
-          <button class="rev-btn rev-prev" aria-label="Previous">‹</button>
-          <div class="rev-track" id="revTrack">
-            <div class="rev-item"><img src="assets/review1.png" alt="Review 1"></div>
-            <div class="rev-item"><img src="assets/review2.png" alt="Review 2"></div>
-            <div class="rev-item"><img src="assets/review3.png" alt="Review 3"></div>
-            <div class="rev-item"><img src="assets/review4.png" alt="Review 4"></div>
-            <div class="rev-item"><img src="assets/review5.png" alt="Review 5"></div>
-          </div>
-          <button class="rev-btn rev-next" aria-label="Next">›</button>
-        </div>
-      </section>
-    </div>
-
-  </div>
-
-  <script>
-    // ---------- Config ----------
-    const WHATSAPP_NUMBER = '971501589628';
-    const INSTAGRAM_URL   = 'https://instagram.com/baytlili';
-    const SHEETS_ENDPOINT = 'https://script.google.com/macros/s/AKfycbw3ovdG31xmwUmpintksLOGuenjDF4tO-ZbqJbihQweSswhWxj6643z2-L-nFl7FMEG/exec';
-
-    const RATE_PER_HOUR = 300;
-    const MIN_HOURS_PER_DAY = 6;
-    const AED = new Intl.NumberFormat('en-US', { maximumFractionDigits: 0 });
-
-    (function(){
-      const btn = document.querySelector('.hamburger');
-      const mobile = document.getElementById('mobileMenu');
-      const desktop = document.querySelector('.menu');
-      function closeM(){ mobile.style.display='none'; }
-      function openM(){ mobile.style.display='block'; }
-      if(btn && mobile && desktop){
-        mobile.innerHTML = desktop.innerHTML;
-        btn.addEventListener('click', (e)=>{ e.stopPropagation(); (mobile.style.display==='block') ? closeM() : openM(); });
-        document.addEventListener('click', (e)=>{ if(!e.target.closest('header')) closeM(); });
-        window.addEventListener('resize', ()=>{ if(window.innerWidth>900) closeM(); });
-      }
-    })();
-
-    const gate = document.getElementById('gate');
-    const main = document.getElementById('main');
-    const filmingCard = document.getElementById('filmingCard');
-    const stayCard = document.getElementById('stayCard');
-    const form = document.getElementById('booking-form');
-    const statusEl = document.getElementById('form-status');
-    const daysWrap = document.getElementById('daysWrap');
-
-    document.querySelectorAll('.gate-btn').forEach(btn=>{
-      btn.addEventListener('click', ()=> startWithChoice(btn.dataset.choice));
-    });
-
-    function buildTimeOptions(minMinutesExclusive = -1, selectedVal = ''){
-      const opts = ['<option value="" disabled>Select time</option>'];
-      for (let m=0; m<24*60; m+=15){
-        if (m <= minMinutesExclusive) continue;
-        const hh = String(Math.floor(m/60)).padStart(2,'0');
-        const mm = String(m%60).padStart(2,'0');
-        const label = `${hh}:${mm}`;
-        const sel = (label === selectedVal) ? ' selected' : '';
-        opts.push(`<option value="${label}"${sel}>${label}</option>`);
-      }
-      return opts.join('');
-    }
-    function parseTime(t){ if(!t) return null; const [h,m]=t.split(':').map(Number); return h*60+(m||0); }
-    function computeHours(from,to){
-      const a=parseTime(from), b=parseTime(to);
-      if(a==null||b==null) return 0;
-      let diff=(b-a)/60;
-      if (diff < 0) return 0;
-      return Math.max(0, diff);
-    }
-
-    function makeDayRow(){
-      const row = document.createElement('div');
-      row.className = 'day';
-      row.innerHTML = `
-        <label>Date <input type="date" name="day_date"></label>
-        <label>From <select name="day_from" required></select></label>
-        <label>To   <select name="day_to" required></select></label>
-        <button type="button" class="rem" aria-label="Remove day">Remove</button>
-      `;
-      const selFrom = row.querySelector('[name=day_from]');
-      const selTo   = row.querySelector('[name=day_to]');
-      selFrom.innerHTML = buildTimeOptions(-1);
-      selTo.innerHTML   = buildTimeOptions(-1);
-
-      selFrom.addEventListener('change', ()=>{
-        const min = parseTime(selFrom.value);
-        selTo.innerHTML = buildTimeOptions(min, '');
-        const firstOption = selTo.querySelector('option[value]:not([value=""])');
-        if (firstOption) selTo.value = firstOption.value;
-        updatePrice();
-      });
-      selTo.addEventListener('change', updatePrice);
-      row.querySelector('[name=day_date]').addEventListener('change', updatePrice);
-      row.querySelector('.rem').addEventListener('click', () => { row.remove(); updatePrice(); });
-      return row;
-    }
-
-    document.getElementById('addDayBtn').addEventListener('click', () => {
-      daysWrap.appendChild(makeDayRow());
-      updatePrice();
-    });
-
-    function ensureAtLeastOneDay(){
-      if(daysWrap.children.length === 0){
-        daysWrap.appendChild(makeDayRow());
-      }
-    }
-
-    function updatePrice(){
-      let totalHours = 0, totalPrice = 0, anyUnderMin = false, anyDayComplete=false;
-      [...daysWrap.children].forEach(row => {
-        const from = row.querySelector('[name=day_from]').value;
-        const to = row.querySelector('[name=day_to]').value;
-        const hrs = computeHours(from, to);
-        if (from && to) {
-          anyDayComplete = true;
-          if (hrs > 0 && hrs < MIN_HOURS_PER_DAY) anyUnderMin = true;
-        }
-        const billable = Math.max(hrs, MIN_HOURS_PER_DAY);
-        totalHours += hrs;
-        totalPrice += billable * RATE_PER_HOUR;
-      });
-
-      document.getElementById('priceCard').style.display = daysWrap.children.length ? '' : 'none';
-      document.getElementById('priceSummary').textContent =
-        `Estimated Total: AED ${isFinite(totalPrice)? AED.format(Math.round(totalPrice)) : 0} — Total Selected Hours: ${isFinite(totalHours)?totalHours.toFixed(2):'0'}`;
-
-      const minNote = document.getElementById('minNote');
-      minNote.textContent = `Min: 6 hrs are billable`;
-      minNote.style.color = (anyDayComplete && anyUnderMin) ? 'crimson' : '#555';
-    }
-
-    function buildLinesFromForm(){
-      const name = (document.getElementById('name').value||'').trim();
-      const email = (document.getElementById('email').value||'').trim();
-      const phone = (document.getElementById('phone').value||'').trim();
-      const company = (document.getElementById('company').value||'').trim();
-      let dayLines=[];
-      [...daysWrap.children].forEach((row,i)=>{
-        const date = row.querySelector('[name=day_date]').value || '';
-               const from = row.querySelector('[name=day_from]').value || '';
-        const to   = row.querySelector('[name=day_to]').value || '';
-        if(from || to || date){
-          dayLines.push(`Day ${i+1}: ${date||'-'} — ${from||'-'} to ${to||'-'}`);
-        }
-      });
-      return {name,email,phone,company,dayLines};
-    }
-
-    function buildMessageFilmingForSheet(){
-      const {name,email,phone,company,dayLines} = buildLinesFromForm();
-      let total = 0;
-      [...daysWrap.children].forEach(row=>{
-        const hrs  = computeHours(row.querySelector('[name=day_from]').value,
-                                  row.querySelector('[name=day_to]').value);
-        const bill = Math.max(hrs, MIN_HOURS_PER_DAY);
-        total += bill * RATE_PER_HOUR;
-      });
-      return [
-        'Booking Request — Filming',
-        `Name: ${name||'-'}`, `Company: ${company||'-'}`, `Email: ${email||'-'}`, `Phone: ${phone||'-'}`,
-        '', ...(dayLines.length?dayLines:['No days selected']), '',
-        `Estimated Total: AED ${AED.format(Math.round(total))} (rate AED ${RATE_PER_HOUR}/hr; ${MIN_HOURS_PER_DAY}h min/day)`
-      ].join('\n');
-    }
-
-    function buildWAString(){
-      const {name,email,phone,company,dayLines} = buildLinesFromForm();
-      return [
-        'Hello Bayt Lili — Filming inquiry',
-        name?`Name: ${name}`:null,
-        company?`Company: ${company}`:null,
-        email?`Email: ${email}`:null,
-        phone?`Phone: ${phone}`:null,
-        dayLines.length?dayLines.join(' | '):null
-      ].filter(Boolean).join(' • ');
-    }
-
-    function openWA(msg){ window.open(`https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(msg)}`,'_blank'); }
-    document.getElementById('whatsappStay').addEventListener('click', (e)=>{ e.preventDefault(); openWA('Hello Bayt Lili — I’m interested in a stay.'); });
-    document.getElementById('whatsappDirect').addEventListener('click', (e)=>{ e.preventDefault(); openWA(buildWAString()); });
-
-    function showSuccessView(){
-      const html = `
-        <div class="success-wrap">
-          <div class="card success-card" role="status" aria-live="polite">
-            <div class="msg">Thank you! Your request has been received. We’ll get back to you shortly.</div>
-            <div class="buttons">
-              <a class="btn" href="https://wa.me/${WHATSAPP_NUMBER}" target="_blank" rel="noopener">WhatsApp Us</a>
-              <a class="btn" href="${INSTAGRAM_URL}" target="_blank" rel="noopener">Follow us on Instagram</a>
-              <a class="btn" href="index.html">Return to Homepage</a>
-            </div>
-          </div>
-        </div>`;
-      document.getElementById('main').innerHTML = html;
-    }
-
-    form.addEventListener('submit', async (e) => {
-      e.preventDefault();
-      const purpose = document.getElementById('purpose').value;
-      if (purpose !== 'Filming') return;
-
-      const name    = (document.getElementById('name').value||'').trim();
-      const email   = (document.getElementById('email').value||'').trim();
-      const phone   = (document.getElementById('phone').value||'').trim();
-      const company = (document.getElementById('company').value||'').trim();
-
-      if (!name || !email || !phone) { statusEl.textContent = 'Please fill in Name, Email, and Phone.'; statusEl.style.color = 'crimson'; return; }
-      if (!company) { statusEl.textContent = 'Please enter your Company / Brand.'; statusEl.style.color = 'crimson'; return; }
-      if (daysWrap.children.length === 0) { statusEl.textContent = 'Please add at least one day (From/To).'; statusEl.style.color = 'crimson'; return; }
-      for (const row of daysWrap.children) {
-        const from = row.querySelector('[name=day_from]').value;
-        const to   = row.querySelector('[name=day_to]').value;
-        if (!from || !to) { statusEl.textContent = 'Please select From and To for each day.'; statusEl.style.color = 'crimson'; return; }
-      }
-
-      const submitBtn = document.getElementById('request-booking');
-      submitBtn.disabled = true; submitBtn.textContent = 'Sending…'; statusEl.textContent = '';
-
-      const message = buildMessageFilmingForSheet();
-      const notifyPayload = {
-        type: 'filming',
-        name, email, phone, company,
-        lines: buildLinesFromForm().dayLines,
-        waText: buildWAString(),
-        rate: 300, minHours: 6,
-        pageUrl: window.location.href, userAgent: navigator.userAgent
-      };
-
-      try {
-        const params = new URLSearchParams();
-        params.set('name', name);
-        params.set('email', email);
-        params.set('phone', phone);
-        params.set('inquiry', 'Filming / Shoot');
-        params.set('message', message);
-        params.set('pageUrl', window.location.href);
-        params.set('userAgent', navigator.userAgent);
-        params.set('notify', '1');
-        params.set('notifyPayload', JSON.stringify(notifyPayload));
-
-        await fetch(SHEETS_ENDPOINT, {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/x-www-form-urlencoded;charset=UTF-8' },
-          body: params.toString()
-        });
-
-        form.reset();
-        daysWrap.innerHTML = '';
-        showSuccessView();
-      } catch (err) {
-        statusEl.textContent = 'Network error. Please try again.';
-        statusEl.style.color = 'crimson';
-        submitBtn.disabled = false;
-        submitBtn.textContent = 'Request Booking';
-      }
-    });
-
-    document.getElementById('whatsappStay').href   = `https://wa.me/${WHATSAPP_NUMBER}`;
-    document.getElementById('whatsappDirect').href = `https://wa.me/${WHATSAPP_NUMBER}`;
-
-    const qp = new URLSearchParams(window.location.search);
-    const prePhone = qp.get('phone') || '';
-    const preDate  = qp.get('date')  || '';
-    const preFrom  = qp.get('from')  || '';
-    const preTo    = qp.get('to')    || '';
-
-    function startWithChoice(choice){
-      document.getElementById('purpose').value = choice;
-      main.classList.remove('hidden');
-      gate.style.display = 'none';
-
-      const lede = document.getElementById('lede');
-      if (choice === 'Filming') {
-        if (lede) lede.style.display = '';
-        filmingCard.style.display = '';
-        stayCard.style.display = 'none';
-        ensureAtLeastOneDay();
-        updatePrice();
-      } else {
-        if (lede) lede.style.display = 'none';
-        filmingCard.style.display = 'none';
-        stayCard.style.display = '';
-        initReviews();
-      }
-    }
-
-    (function prefillFromQuery(){
-      if (prePhone || preDate || preFrom || preTo){
-        startWithChoice('Filming');
-        if (prePhone){
-          const cleaned = prePhone.startsWith('+') ? prePhone.slice(1) : prePhone;
-          document.getElementById('phone').value = cleaned;
-        }
-        ensureAtLeastOneDay();
-        const row = daysWrap.children[0];
-        const dateEl = row.querySelector('[name=day_date]');
-        const fromEl = row.querySelector('[name=day_from]');
-        const toEl   = row.querySelector('[name=day_to]');
-        if (preDate){ dateEl.value = preDate; }
-        fromEl.innerHTML = buildTimeOptions(-1, preFrom || '');
-        const min = preFrom ? parseTime(preFrom) : -1;
-        toEl.innerHTML   = buildTimeOptions(min, preTo || '');
-        if (preFrom) fromEl.value = preFrom;
-        if (preTo)   toEl.value   = preTo;
-        updatePrice();
-        document.getElementById('name').focus({preventScroll:true});
-      }
-    })();
-
-    function initReviews(){
-      const track = document.getElementById('revTrack');
-      if(!track) return;
-      const prev = document.querySelector('.rev-prev');
-      const next = document.querySelector('.rev-next');
-      const step = () => Math.min(track.clientWidth * 0.9, 600);
-      prev.addEventListener('click', ()=> track.scrollBy({left:-step(), behavior:'smooth'}));
-      next.addEventListener('click', ()=> track.scrollBy({left: step(), behavior:'smooth'}));
-    }
-    initReviews();
-  </script>
 </body>
 </html>
