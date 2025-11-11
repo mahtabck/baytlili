@@ -1,29 +1,26 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="utf-8"/>
-  <meta name="viewport" content="width=device-width, initial-scale=1"/>
-  <title>Book Bayt Lili</title>
-  <meta name="description" content="Book Bayt Lili for filming, photoshoots, or stays. Submit your request or message us on WhatsApp.">
-  <link rel="icon" type="image/png" href="assets/favicon.png"/>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Rates — Bayt Lili</title>
+  <meta name="description" content="Bayt Lili pricing for filming, photoshoots, and stays.">
+  <link rel="icon" type="image/png" href="assets/favicon.png" />
+  <link rel="apple-touch-icon" href="assets/favicon.png" />
 
-  <!-- Fonts (homepage set + Ranade for section titles) -->
-  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700;800&family=Plus+Jakarta+Sans:wght@400;500;600;700&family=Ranade:wght@600;700&display=swap" rel="stylesheet">
+  <!-- Same fonts as homepage header + Ranade for page title -->
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700;800&family=Plus+Jakarta+Sans:wght@400;500;600;700&family=Ranade:wght@700&display=swap" rel="stylesheet">
 
   <style>
     :root{
-      --text:#fff; --muted:#eaeaea;
-      --line: rgba(255,255,255,.30);
-      --card: rgba(255,255,255,.10);
+      --text:#ffffff;
+      --muted:#ededed;
+      --line: rgba(255,255,255,.42);
+      --panel-stroke: rgba(255,255,255,.14);
+      --header-h: 56px;
       --btn-border: rgba(255,255,255,.7);
-      --price-bg:#fff; --price-text:#1b1b1b; --price-border:rgba(0,0,0,.08);
-      --control-h: 44px;
-      --header-h: 56px; /* match homepage */
-
-      /* === STAY photo sizing (desktop) === */
-      --stay-photo-w: 320px;   /* width */
-      --stay-photo-h: 568px;   /* 320 * 16/9 ≈ 568  (9:16 portrait) */
-      --reviews-scale: 0.72;   /* (kept in case you want a smaller reviews area later) */
+      --radius: 10px;
+      --cta-w: 1200px;
     }
 
     @font-face{
@@ -37,45 +34,35 @@
     html,body{height:100%}
     body{
       margin:0; color:var(--text);
-      font-family:'Playfair Display', serif; line-height:1.5;
-      background:#000; scroll-behavior:smooth;
-      -webkit-font-smoothing:antialiased; -moz-osx-font-smoothing:grayscale;
+      line-height:1.45; font-family:'Playfair Display', serif;
+      scroll-behavior:smooth; background:#000;
     }
+
+    /* Background (match site look) */
     body::before{
       content:""; position:fixed; inset:0;
-      background:url('assets/lightbg.png') center 35%/cover no-repeat fixed; z-index:-2;
+      background:url('assets/bgpic.png') center 30%/cover no-repeat fixed; z-index:-2;
     }
     body::after{
       content:""; position:fixed; inset:0;
-      background:rgba(0,0,0,.28); z-index:-1;
+      background:rgba(0,0,0,0.24); z-index:-1;
     }
 
-    /* Base page container (content cards) */
-    .container{width:min(900px,92vw); margin:0 auto; padding:clamp(24px,5vw,48px) 0}
+    .container{width:min(1200px,92vw);margin-inline:auto}
+    .pad{padding:clamp(24px,4.5vw,64px) 0}
 
-    /* ---------- Header (uniform with homepage) ---------- */
+    /* ====== HEADER (copied exactly from homepage) ====== */
     header{
       position:sticky; top:0; z-index:50;
       background:#000000f0; border-bottom:1px solid rgba(255,255,255,0.2);
       min-height:var(--header-h); backdrop-filter:saturate(1.1) blur(6px);
     }
-    header .container.nav{ width:min(1100px, 92vw); } /* brand & menu further apart like homepage */
-
     .nav{display:flex;align-items:center;justify-content:space-between;gap:16px;padding:8px 0}
-    .brand{
-      display:flex;align-items:center;gap:10px;color:#fff;
-      font-family:'BaytLili','Playfair Display',serif;
-      letter-spacing:.12em;font-variant:small-caps;white-space:nowrap;
-      text-decoration:none;
-    }
+    .brand{display:flex;align-items:center;gap:10px;color:#fff;font-family:'BaytLili','Playfair Display',serif;letter-spacing:.12em;font-variant:small-caps;text-decoration:none;}
     .brand img{height:34px}
-    .menu{display:flex;align-items:center;gap:24px}
-    .menu a{
-      color:#fff;text-decoration:none;white-space:nowrap;
-      font-weight:700; position:relative; padding:6px 2px;
-      font-family:'Playfair Display', serif;
-    }
-    .menu a::after{content:""; position:absolute; left:0; right:0; bottom:-4px; height:1px; background:transparent; transition:background .2s ease}
+    .menu{display:flex;align-items:center;gap:20px}
+    .menu a{color:#fff;text-decoration:none;position:relative;padding:6px 2px;font-family:'Playfair Display',serif;font-weight:700;}
+    .menu a::after{content:"";position:absolute;left:0;right:0;bottom:-4px;height:1px;background:transparent;transition:background .2s}
     .menu a:hover::after{background:rgba(255,255,255,.7)}
     .hamburger{display:none;border:1px solid rgba(255,255,255,.35);height:34px;width:36px;border-radius:8px;padding:6px;flex-direction:column;gap:4px;justify-content:center;align-items:center;background:transparent;}
     .hamburger span{width:18px;height:2px;background:#fff;border-radius:1px}
@@ -84,301 +71,118 @@
     .mobile-menu a:last-child{border-bottom:none}
     @media (max-width:900px){.menu{display:none}.hamburger{display:flex}}
 
-    /* ---------- Page content ---------- */
+    /* ====== PAGE CONTENT (Rates) ====== */
+    main{padding:clamp(24px,4.5vw,64px) 0}
     h1{
-      font-family:'Ranade','Plus Jakarta Sans',sans-serif!important;
-      margin:18px 0 8px; font-size:clamp(26px,4.4vw,40px);
-      scroll-margin-top: calc(var(--header-h) + 12px);
+      font-family:'Ranade', 'Plus Jakarta Sans', sans-serif;
+      font-weight:700;
+      font-size:clamp(30px,5vw,48px);
+      margin:0 0 8px;
+      letter-spacing:.01em;
+      text-shadow:0 3px 10px rgba(0,0,0,.35);
     }
-    p.lede{color:var(--muted); margin:0 0 18px; font-family:'Plus Jakarta Sans',sans-serif}
+    p.lede{margin:0 0 18px;color:var(--muted)}
 
     .card{
-      background:var(--card); border:1px solid var(--line);
-      border-radius:16px; padding:18px;
+      background:rgba(255,255,255,.10);
+      border:1px solid var(--panel-stroke);
+      border-radius:14px;
+      padding:18px;
+      backdrop-filter:blur(4px);
     }
 
-    /* ---------- Buttons ---------- */
+    .rate{
+      display:flex;align-items:baseline;justify-content:space-between;gap:12px;
+      border-bottom:1px dashed rgba(255,255,255,.28);
+      padding-bottom:10px;margin-bottom:10px;
+    }
+    .rate:last-child{border-bottom:none;margin-bottom:0;padding-bottom:0}
+    .rate .title{font-weight:700}
+    .rate .value{font-weight:600}
+
+    .actions{display:flex;flex-wrap:wrap;gap:10px;margin-top:12px}
+
+    /* Buttons — EXACTLY the same visual spec as homepage */
     .btn{
-      display:inline-flex; align-items:center; justify-content:center; gap:.5em;
-      padding:.75em 1.1em; border-radius:999px; border:1px solid var(--btn-border);
-      background:#fff; color:#111; font-weight:700; letter-spacing:.02em;
-      cursor:pointer; text-decoration:none; font-family:'Playfair Display', serif;
-      height:var(--control-h); font-size:16px; min-width: 180px;
+      display:inline-flex;align-items:center;justify-content:center;
+      border:1px solid var(--btn-border);
+      font-weight:700;border-radius:12px;
+      height:40px;padding:0 20px;background:#fff;color:#111;
+      font-family:'Playfair Display',serif;text-decoration:none;font-size:16px;
     }
     .btn:hover{opacity:.92}
+    @media (max-width:768px){.btn{height:36px;padding:0 16px;font-size:15px;border-radius:10px}}
 
-    /* ---------- Filming form ---------- */
-    form{display:grid; grid-template-columns:1fr 1fr; gap:14px}
-    .full{grid-column:1 / -1}
-    label{font-size:.95rem; opacity:.95; display:block; font-family:'Plus Jakarta Sans',sans-serif}
-    input, select, textarea{
-      width:100%; padding:12px 12px; margin-top:6px;
-      border-radius:10px; border:1px solid var(--line);
-      background:rgba(255,255,255,.92); color:#111; font-size:16px;
-      font-family:'Plus Jakarta Sans', sans-serif;
-      height:var(--control-h);
-    }
-    textarea{min-height:120px; height:auto; resize:vertical}
-    input[type="date"]{-webkit-appearance:none; appearance:none; line-height:calc(var(--control-h) - 2px); padding-top:0; padding-bottom:0}
-    select{ line-height:calc(var(--control-h) - 2px); }
-    .day{display:grid; grid-template-columns: 1.2fr .9fr .9fr auto; gap:10px; align-items:end; margin-top:6px;}
-    .day .rem{
-      background:transparent; color:#fff; border:1px solid var(--line); border-radius:10px; padding:.65em .8em; cursor:pointer;
-      font-family:'Plus Jakarta Sans', sans-serif; height:var(--control-h);
-    }
-    .add-more{margin-top:6px}
-    .add-more button{
-      background:transparent; color:#fff; border:1px solid var(--line);
-      border-radius:999px; padding:.6em 1em; cursor:pointer; font-weight:600;
-      font-family:'Plus Jakarta Sans', sans-serif; height:var(--control-h);
-    }
-    .price-card{
-      grid-column:1/-1; background:var(--price-bg); color:var(--price-text);
-      border:1px solid var(--price-border); border-radius:14px;
-      padding:14px 16px; margin-top:6px; font-family:'Plus Jakarta Sans',sans-serif;
-    }
-    .price-card small{color:#555}
-    .actions{display:flex; gap:10px; flex-wrap:wrap; margin-top:12px}
-    #form-status{margin-top:8px;font-size:.95rem;font-family:'Plus Jakarta Sans',sans-serif}
-
-    /* ---------- Gate overlay ---------- */
-    .gate{
-      position:fixed; inset:0; z-index:100; display:flex; align-items:center; justify-content:center;
-      background:#000;
-    }
-    .gate-card{
-      width:min(720px,92vw); background:rgba(255,255,255,.08);
-      border:1px solid var(--line); border-radius:18px; padding:20px; text-align:center;
-      font-family:'Plus Jakarta Sans',sans-serif;
-    }
-    .gate h2{margin:0 0 10px; font-family:'BaytLili','Playfair Display',serif}
-    .gate-options{display:grid; grid-template-columns:1fr 1fr; gap:12px}
-    .gate-btn{
-      padding:18px 16px; border-radius:14px; border:1px solid var(--line);
-      background:transparent; color:#fff; cursor:pointer; font-weight:700; letter-spacing:.02em;
-      font-family:'Playfair Display', serif; font-size:18px;
-    }
-    .gate-btn:hover{opacity:.92}
-    @media (max-width:700px){ .gate-options{grid-template-columns:1fr} }
-
-    .hidden{ display:none !important; }
-
-    /* ---------- Success view (after submit) ---------- */
-    .success-wrap{ margin:40px auto; }
-    .success-card{
-      background:var(--card);
-      border:1px solid var(--line);
-      border-radius:16px;
-      padding:18px;
-      text-align:center;
-    }
-    .success-card .msg{
-      color: limegreen; font-weight:700; font-family:'Plus Jakarta Sans',sans-serif; font-size: clamp(18px,2.6vw,22px);
-      margin-bottom:16px;
-    }
-    .success-card .buttons{ display:flex; justify-content:center; gap:10px; flex-wrap:wrap; }
-
-    /* ---------- STAY (photo left, vertical reviews right on desktop) ---------- */
-    #stayCard .lede{ margin-top:0; margin-bottom:14px; }
-    .stay-actions{
-      display:flex; gap:12px; flex-wrap:wrap;
-      margin-bottom: 26px; /* extra space under the buttons */
-    }
-    @media (max-width:640px){
-      .stay-actions{ flex-direction:column; }
-      .stay-actions .btn{ width:100% }
-    }
-
-    .stay-grid{ display:block; } /* stacked by default */
-
-    .stay-photo{
-      width:100%;
-      max-width:720px; /* full width on smaller screens */
-    }
-    .stay-photo img{
-      width:100%;
-      height:auto;
-      border-radius:16px;
-      border:1px solid rgba(255,255,255,.15);
-      background:rgba(255,255,255,.06);
-      display:block;
-      /* natural ratio on mobile; desktop overrides below */
-    }
-
-    /* Vertical reviews list (NO box) */
-    .reviews{margin-top:22px}
-    .rev-vert{
-      /* no border/background/padding -> clean, no box */
-      display:flex;
-      flex-direction:column;
-      gap:10px;
-      overflow-y:auto;
-      max-height:360px; /* cap on small screens only */
-    }
-    .rev-vert img{
-      width:100%;
-      height:auto;
-      border-radius:12px;
-      display:block;
-    }
-
-    /* ---------- Desktop full-screen layout (photo 9:16, reviews same height) ---------- */
-    @media (min-width:1100px){
-      .stay-grid{
-        display:grid;
-        grid-template-columns: var(--stay-photo-w) 1fr; /* fixed photo + flexible reviews */
-        gap: 36px;
-        align-items:start;
+    /* Mobile background tweak (same as homepage) */
+    @media (max-width:900px){
+      body::before{
+        background-position:center top !important;
+        background-size:cover !important;
+        background-repeat:no-repeat !important;
+        background-attachment:scroll !important;
+        background-color:#000;
       }
-      .stay-photo{ max-width: var(--stay-photo-w); }
-      .stay-photo img{
-        width: var(--stay-photo-w);
-        height: var(--stay-photo-h);
-        aspect-ratio: 9 / 16;   /* tall portrait */
-        object-fit: cover;      /* keep crop feel */
-      }
-      .reviews{ margin-top:0; }
-      .rev-vert{
-        height: var(--stay-photo-h);   /* EXACT same visible height as photo */
-        max-height: none;              /* override mobile cap */
-      }
-    }
-
-    @media (min-width:1300px){
-      .stay-grid{ gap: 40px; }
     }
   </style>
 </head>
-<body>
 
-  <!-- Header -->
+<body>
+  <!-- ====== HEADER (exact) ====== -->
   <header>
     <div class="container nav">
-      <a class="brand" href="index.html" aria-label="Bayt Lili — Home">
-        <img src="assets/bllogo.png" alt="Bayt Lili"/> BAYT LILI
+      <a href="index.html" class="brand">
+        <img src="assets/bllogo.png" alt="Bayt Lili logo"/> BAYT LILI
       </a>
-
       <button class="hamburger" aria-label="Menu"><span></span><span></span><span></span></button>
-
-      <nav class="menu" aria-label="Primary">
+      <nav class="menu">
         <a href="index.html">Home</a>
         <a href="booking.html">Booking</a>
-        <a href="index.html#gallery">Gallery</a>
-        <a href="rates.html">Rates</a>
-        <a href="index.html#contact">Contact</a>
+        <a href="gallery.html">Gallery</a>
+        <a href="rates.html" aria-current="page">Rates</a>
+        <a href="contact.html">Contact</a>
       </nav>
     </div>
-    <nav id="mobileMenu" class="mobile-menu" aria-label="Mobile"></nav>
+    <nav id="mobileMenu" class="mobile-menu"></nav>
   </header>
 
-  <!-- Gate -->
-  <div class="gate" id="gate">
-    <div class="gate-card">
-      <h2>What are you looking for?</h2>
-      <div class="gate-options">
-        <button class="gate-btn" data-choice="Filming">Filming / Photoshoot</button>
-        <button class="gate-btn" data-choice="Stay">Stay</button>
+  <!-- ====== MAIN ====== -->
+  <main class="container">
+    <h1>Rates</h1>
+    <p class="lede">Transparent, simple pricing. For custom requests, please contact us.</p>
+
+    <div class="card">
+      <div class="rate">
+        <div class="title">Filming / Photoshoot</div>
+        <div class="value">AED 300 per hour</div>
       </div>
-    </div>
-  </div>
-
-  <div class="container hidden" id="main">
-    <h1>Booking Request</h1>
-    <p class="lede" id="lede">Tell us about your booking. We reply the same day.</p>
-
-    <!-- FILMING -->
-    <div class="card" id="filmingCard" style="display:none">
-      <form id="booking-form">
-        <!-- Row 1: Full name + Company/Brand -->
-        <div>
-          <label for="name">Full name *</label>
-          <input id="name" name="name" type="text" required placeholder="Your name"/>
-        </div>
-        <div>
-          <label for="company">Company / Brand *</label>
-          <input id="company" name="company" type="text" placeholder="Company or brand"/>
-        </div>
-
-        <!-- Row 2: Email + Phone -->
-        <div>
-          <label for="email">Email *</label>
-          <input id="email" name="email" type="email" required placeholder="name@email.com"/>
-        </div>
-        <div>
-          <label for="phone">Phone *</label>
-          <input id="phone" name="phone" type="tel" required placeholder="9715XXXXXXXX"/>
-        </div>
-
-        <!-- Hidden purpose (set by gate or query) -->
-        <input type="hidden" id="purpose" name="purpose" value="">
-
-        <!-- Days list -->
-        <div id="daysWrap" class="full"></div>
-
-        <div class="add-more">
-          <button type="button" id="addDayBtn">+ Add another day</button>
-        </div>
-
-        <!-- PRICE CARD -->
-        <div id="priceCard" class="price-card" style="display:none">
-          <div id="priceSummary" style="font-weight:700">Estimated Total: AED 0</div>
-          <small id="priceNotes">
-            Rate: AED <span id="rateVal">300</span>/hr.
-            <span id="minNote">Min: 6 hrs are billable</span>.
-            Refundable deposit: AED 5,000.
-          </small>
-        </div>
-
-        <!-- ACTION BUTTONS -->
-        <div class="actions full" id="filmButtons" style="display:flex">
-          <button type="submit" class="btn" id="request-booking">Request Booking</button>
-          <a class="btn" id="whatsappDirect" href="#" target="_blank" rel="noopener">WhatsApp Us</a>
-        </div>
-
-        <p id="form-status" role="status"></p>
-      </form>
-    </div>
-
-    <!-- STAY -->
-    <div class="card" id="stayCard" style="display:none">
-      <p class="lede">For stays, please check seasonal rates and book directly on Airbnb or message us on WhatsApp.</p>
-
-      <div class="stay-actions">
-        <a class="btn" id="whatsappStay" href="#" target="_blank" rel="noopener">WhatsApp Us</a>
-        <a class="btn" id="airbnbBtn" href="https://www.airbnb.com/rooms/1010972686934184319" target="_blank" rel="noopener">View on Airbnb</a>
+      <div class="rate">
+        <div class="title">Minimum charge</div>
+        <div class="value">6 hours (AED 1,800) per day</div>
+      </div>
+      <div class="rate">
+        <div class="title">Refundable deposit</div>
+        <div class="value">AED 5,000</div>
+      </div>
+      <div class="rate">
+        <div class="title">Overtime</div>
+        <div class="value">Billed at AED 300/hr</div>
+      </div>
+      <div class="rate">
+        <div class="title">Stays</div>
+        <div class="value">Daily Airbnb rates</div>
       </div>
 
-      <!-- Desktop grid: photo left, vertical reviews right (no box) -->
-      <div class="stay-grid">
-        <div class="stay-photo">
-          <img src="assets/airbnb.png" alt="Airbnb">
-        </div>
-
-        <section class="reviews">
-          <div class="rev-vert" id="revVert">
-            <img src="assets/review1.png" alt="Review 1">
-            <img src="assets/review2.png" alt="Review 2">
-            <img src="assets/review3.png" alt="Review 3">
-            <img src="assets/review4.png" alt="Review 4">
-            <img src="assets/review5.png" alt="Review 5">
-          </div>
-        </section>
+      <div class="actions">
+        <a class="btn" href="booking.html">Book Now</a>
+        <a class="btn" href="https://instagram.com/baytlili" target="_blank" rel="noopener">Instagram</a>
+        <a class="btn" href="index.html">Go Home</a>
       </div>
     </div>
+  </main>
 
-  </div>
-
+  <!-- ====== SCRIPTS (exact mobile menu behavior from homepage) ====== -->
   <script>
-    // ---------- Config ----------
-    const WHATSAPP_NUMBER = '971501589628';
-    const INSTAGRAM_URL   = 'https://instagram.com/baytlili';
-    const SHEETS_ENDPOINT = 'https://script.google.com/macros/s/AKfycbw3ovdG31xmwUmpintksLOGuenjDF4tO-ZbqJbihQweSswhWxj6643z2-L-nFl7FMEG/exec';
-
-    const RATE_PER_HOUR = 300;
-    const MIN_HOURS_PER_DAY = 6;
-    const AED = new Intl.NumberFormat('en-US', { maximumFractionDigits: 0 });
-
-    // Header mobile menu
+    // Mobile menu
     (function(){
       const btn = document.querySelector('.hamburger');
       const mobile = document.getElementById('mobileMenu');
@@ -390,302 +194,6 @@
         btn.addEventListener('click', (e)=>{ e.stopPropagation(); (mobile.style.display==='block') ? closeM() : openM(); });
         document.addEventListener('click', (e)=>{ if(!e.target.closest('header')) closeM(); });
         window.addEventListener('resize', ()=>{ if(window.innerWidth>900) closeM(); });
-      }
-    })();
-
-    const gate = document.getElementById('gate');
-    const main = document.getElementById('main');
-    const filmingCard = document.getElementById('filmingCard');
-    const stayCard = document.getElementById('stayCard');
-    const form = document.getElementById('booking-form');
-    const statusEl = document.getElementById('form-status');
-    const daysWrap = document.getElementById('daysWrap');
-
-    document.querySelectorAll('.gate-btn').forEach(btn=>{
-      btn.addEventListener('click', ()=> startWithChoice(btn.dataset.choice));
-    });
-
-    function buildTimeOptions(minMinutesExclusive = -1, selectedVal = ''){
-      const opts = ['<option value="" disabled>Select time</option>'];
-      for (let m=0; m<24*60; m+=15){
-        if (m <= minMinutesExclusive) continue;
-        const hh = String(Math.floor(m/60)).padStart(2,'0');
-        const mm = String(m%60).padStart(2,'0');
-        const label = `${hh}:${mm}`;
-        const sel = (label === selectedVal) ? ' selected' : '';
-        opts.push(`<option value="${label}"${sel}>${label}</option>`);
-      }
-      return opts.join('');
-    }
-    function parseTime(t){ if(!t) return null; const [h,m]=t.split(':').map(Number); return h*60+(m||0); }
-    function computeHours(from,to){
-      const a=parseTime(from), b=parseTime(to);
-      if(a==null||b==null) return 0;
-      let diff=(b-a)/60;
-      if (diff < 0) return 0;
-      return Math.max(0, diff);
-    }
-
-    function makeDayRow(){
-      const row = document.createElement('div');
-      row.className = 'day';
-      row.innerHTML = `
-        <label>Date <input type="date" name="day_date"></label>
-        <label>From <select name="day_from" required></select></label>
-        <label>To   <select name="day_to" required></select></label>
-        <button type="button" class="rem" aria-label="Remove day">Remove</button>
-      `;
-      const selFrom = row.querySelector('[name=day_from]');
-      const selTo   = row.querySelector('[name=day_to]');
-      selFrom.innerHTML = buildTimeOptions(-1);
-      selTo.innerHTML   = buildTimeOptions(-1);
-
-      selFrom.addEventListener('change', ()=>{
-        const min = parseTime(selFrom.value);
-        selTo.innerHTML = buildTimeOptions(min, '');
-        const firstOption = selTo.querySelector('option[value]:not([value=""])');
-        if (firstOption) selTo.value = firstOption.value;
-        updatePrice();
-      });
-      selTo.addEventListener('change', updatePrice);
-      row.querySelector('[name=day_date]').addEventListener('change', updatePrice);
-      row.querySelector('.rem').addEventListener('click', () => { row.remove(); updatePrice(); });
-      return row;
-    }
-
-    document.getElementById('addDayBtn').addEventListener('click', () => {
-      daysWrap.appendChild(makeDayRow());
-      updatePrice();
-    });
-
-    function ensureAtLeastOneDay(){
-      if(daysWrap.children.length === 0){
-        daysWrap.appendChild(makeDayRow());
-      }
-    }
-
-    function updatePrice(){
-      let totalHours = 0, totalPrice = 0, anyUnderMin = false, anyDayComplete=false;
-      [...daysWrap.children].forEach(row => {
-        const from = row.querySelector('[name=day_from]').value;
-        const to = row.querySelector('[name=day_to]').value;
-        const hrs = computeHours(from, to);
-        if (from && to) {
-          anyDayComplete = true;
-          if (hrs > 0 && hrs < MIN_HOURS_PER_DAY) anyUnderMin = true;
-        }
-        const billable = Math.max(hrs, MIN_HOURS_PER_DAY);
-        totalHours += hrs;
-        totalPrice += billable * RATE_PER_HOUR;
-      });
-
-      document.getElementById('priceCard').style.display = daysWrap.children.length ? '' : 'none';
-      document.getElementById('priceSummary').textContent =
-        `Estimated Total: AED ${isFinite(totalPrice)? AED.format(Math.round(totalPrice)) : 0} — Total Selected Hours: ${isFinite(totalHours)?totalHours.toFixed(2):'0'}`;
-
-      const minNote = document.getElementById('minNote');
-      minNote.textContent = `Min: 6 hrs are billable`;
-      minNote.style.color = (anyDayComplete && anyUnderMin) ? 'crimson' : '#555';
-    }
-
-    function buildLinesFromForm(){
-      const name = (document.getElementById('name').value||'').trim();
-      const email = (document.getElementById('email').value||'').trim();
-      const phone = (document.getElementById('phone').value||'').trim();
-      const company = (document.getElementById('company').value||'').trim();
-      let dayLines=[];
-      [...daysWrap.children].forEach((row,i)=>{
-        const date = row.querySelector('[name=day_date]').value || '';
-        const from = row.querySelector('[name=day_from]').value || '';
-        const to   = row.querySelector('[name=day_to]').value || '';
-        if(from || to || date){
-          dayLines.push(`Day ${i+1}: ${date||'-'} — ${from||'-'} to ${to||'-'}`);
-        }
-      });
-      return {name,email,phone,company,dayLines};
-    }
-
-    function buildMessageFilmingForSheet(){
-      const {name,email,phone,company,dayLines} = buildLinesFromForm();
-      let total = 0;
-      [...daysWrap.children].forEach(row=>{
-        const hrs  = computeHours(row.querySelector('[name=day_from]').value,
-                                  row.querySelector('[name=day_to]').value);
-        const bill = Math.max(hrs, MIN_HOURS_PER_DAY);
-        total += bill * RATE_PER_HOUR;
-      });
-      return [
-        'Booking Request — Filming',
-        `Name: ${name||'-'}`, `Company: ${company||'-'}`, `Email: ${email||'-'}`, `Phone: ${phone||'-'}`,
-        '', ...(dayLines.length?dayLines:['No days selected']), '',
-        `Estimated Total: AED ${AED.format(Math.round(total))} (rate AED ${RATE_PER_HOUR}/hr; ${MIN_HOURS_PER_DAY}h min/day)`
-      ].join('\n');
-    }
-
-    function buildWAString(){
-      const {name,email,phone,company,dayLines} = buildLinesFromForm();
-      return [
-        'Hello Bayt Lili — Filming inquiry',
-        name?`Name: ${name}`:null,
-        company?`Company: ${company}`:null,
-        email?`Email: ${email}`:null,
-        phone?`Phone: ${phone}`:null,
-        dayLines.length?dayLines.join(' | '):null
-      ].filter(Boolean).join(' • ');
-    }
-
-    function openWA(msg){ window.open(`https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(msg)}`,'_blank'); }
-    document.getElementById('whatsappStay').addEventListener('click', (e)=>{ e.preventDefault(); openWA('Hello Bayt Lili — I’m interested in a stay.'); });
-    document.getElementById('whatsappDirect').addEventListener('click', (e)=>{ e.preventDefault(); openWA(buildWAString()); });
-
-    function showSuccessView(){
-      const html = `
-        <div class="success-wrap">
-          <div class="card success-card" role="status" aria-live="polite">
-            <div class="msg">Thank you! Your request has been received. We’ll get back to you shortly.</div>
-            <div class="buttons">
-              <a class="btn" href="https://wa.me/${WHATSAPP_NUMBER}" target="_blank" rel="noopener">WhatsApp Us</a>
-              <a class="btn" href="${INSTAGRAM_URL}" target="_blank" rel="noopener">Follow us on Instagram</a>
-              <a class="btn" href="index.html">Return to Homepage</a>
-            </div>
-          </div>
-        </div>`;
-      document.getElementById('main').innerHTML = html;
-    }
-
-    form.addEventListener('submit', async (e) => {
-      e.preventDefault();
-      const purpose = document.getElementById('purpose').value;
-      if (purpose !== 'Filming') return;
-
-      const name    = (document.getElementById('name').value||'').trim();
-      const email   = (document.getElementById('email').value||'').trim();
-      const phone   = (document.getElementById('phone').value||'').trim();
-      const company = (document.getElementById('company').value||'').trim();
-
-      if (!name || !email || !phone) {
-        statusEl.textContent = 'Please fill in Name, Email, and Phone.';
-        statusEl.style.color = 'crimson';
-        return;
-      }
-      if (!company) {
-        statusEl.textContent = 'Please enter your Company / Brand.';
-        statusEl.style.color = 'crimson';
-        return;
-      }
-      if (daysWrap.children.length === 0) {
-        statusEl.textContent = 'Please add at least one day (From/To).';
-        statusEl.style.color = 'crimson';
-        return;
-      }
-      for (const row of daysWrap.children) {
-        const from = row.querySelector('[name=day_from]').value;
-        const to   = row.querySelector('[name=day_to]').value;
-        if (!from || !to) {
-          statusEl.textContent = 'Please select From and To for each day.';
-          statusEl.style.color = 'crimson';
-          return;
-        }
-      }
-
-      const submitBtn = document.getElementById('request-booking');
-      submitBtn.disabled = true;
-      submitBtn.textContent = 'Sending…';
-      statusEl.textContent = '';
-
-      const message = buildMessageFilmingForSheet();
-      const notifyPayload = {
-        type: 'filming',
-        name, email, phone, company,
-        lines: buildLinesFromForm().dayLines,
-        waText: buildWAString(),
-        rate: RATE_PER_HOUR, minHours: MIN_HOURS_PER_DAY,
-        pageUrl: window.location.href, userAgent: navigator.userAgent
-      };
-
-      try {
-        const params = new URLSearchParams();
-        params.set('name', name);
-        params.set('email', email);
-        params.set('phone', phone);
-        params.set('inquiry', 'Filming / Shoot');
-        params.set('message', message);
-        params.set('pageUrl', window.location.href);
-        params.set('userAgent', navigator.userAgent);
-        params.set('notify', '1');
-        params.set('notifyPayload', JSON.stringify(notifyPayload));
-
-        await fetch(SHEETS_ENDPOINT, {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/x-www-form-urlencoded;charset=UTF-8' },
-          body: params.toString()
-        });
-
-        form.reset();
-        daysWrap.innerHTML = '';
-        showSuccessView();
-      } catch (err) {
-        statusEl.textContent = 'Network error. Please try again.';
-        statusEl.style.color = 'crimson';
-        const submitBtn2 = document.getElementById('request-booking');
-        submitBtn2.disabled = false;
-        submitBtn2.textContent = 'Request Booking';
-      }
-    });
-
-    document.getElementById('whatsappStay').href   = `https://wa.me/${WHATSAPP_NUMBER}`;
-    document.getElementById('whatsappDirect').href = `https://wa.me/${WHATSAPP_NUMBER}`;
-
-    const qp = new URLSearchParams(window.location.search);
-    const prePhone = qp.get('phone') || '';
-    const preDate  = qp.get('date')  || '';
-    const preFrom  = qp.get('from')  || '';
-    const preTo    = qp.get('to')    || '';
-
-    function startWithChoice(choice){
-      document.getElementById('purpose').value = choice;
-      main.classList.remove('hidden');
-      gate.style.display = 'none';
-
-      const lede = document.getElementById('lede');
-      if (choice === 'Filming') {
-        if (lede) lede.style.display = '';
-        filmingCard.style.display = '';
-        stayCard.style.display = 'none';
-        ensureAtLeastOneDay();
-        updatePrice();
-      } else {
-        if (lede) lede.style.display = 'none'; // hide the top sentence only for Stay
-        filmingCard.style.display = 'none';
-        stayCard.style.display = '';
-        // vertical reviews need no JS
-      }
-    }
-
-    (function prefillFromQuery(){
-      if (prePhone || preDate || preFrom || preTo){
-        startWithChoice('Filming');
-        if (prePhone){
-          const cleaned = prePhone.startsWith('+') ? prePhone.slice(1) : prePhone;
-          document.getElementById('phone').value = cleaned;
-        }
-
-        ensureAtLeastOneDay();
-        const row = daysWrap.children[0];
-        const dateEl = row.querySelector('[name=day_date]');
-        const fromEl = row.querySelector('[name=day_from]');
-        const toEl   = row.querySelector('[name=day_to]');
-
-        if (preDate){ dateEl.value = preDate; }
-        fromEl.innerHTML = buildTimeOptions(-1, preFrom || '');
-        const min = preFrom ? parseTime(preFrom) : -1;
-        toEl.innerHTML   = buildTimeOptions(min, preTo || '');
-
-        if (preFrom) fromEl.value = preFrom;
-        if (preTo)   toEl.value   = preTo;
-
-        updatePrice();
-        document.getElementById('name').focus({preventScroll:true});
       }
     })();
   </script>
