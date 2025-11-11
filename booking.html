@@ -398,6 +398,7 @@
       }
     })();
 
+    // ----- Cached DOM refs (single declarations; no duplicates) -----
     const gate = document.getElementById('gate');
     const main = document.getElementById('main');
     const filmingCard = document.getElementById('filmingCard');
@@ -406,10 +407,12 @@
     const statusEl = document.getElementById('form-status');
     const daysWrap = document.getElementById('daysWrap');
 
+    // Gate choice buttons
     document.querySelectorAll('.gate-btn').forEach(btn=>{
       btn.addEventListener('click', ()=> startWithChoice(btn.dataset.choice));
     });
 
+    // ----- Helpers -----
     function buildTimeOptions(minMinutesExclusive = -1, selectedVal = ''){
       const opts = ['<option value="" disabled>Select time</option>'];
       for (let m=0; m<24*60; m+=15){
@@ -558,7 +561,7 @@
       document.getElementById('main').innerHTML = html;
     }
 
-    const form = document.getElementById('booking-form');
+    // ----- Form submit -----
     form.addEventListener('submit', async (e) => {
       e.preventDefault();
       const purpose = document.getElementById('purpose').value;
@@ -569,7 +572,6 @@
       const phone   = (document.getElementById('phone').value||'').trim();
       const company = (document.getElementById('company').value||'').trim();
 
-      const statusEl = document.getElementById('form-status');
       if (!name || !email || !phone) {
         statusEl.textContent = 'Please fill in Name, Email, and Phone.';
         statusEl.style.color = 'crimson';
@@ -580,7 +582,6 @@
         statusEl.style.color = 'crimson';
         return;
       }
-      const daysWrap = document.getElementById('daysWrap');
       if (daysWrap.children.length === 0) {
         statusEl.textContent = 'Please add at least one day (From/To).';
         statusEl.style.color = 'crimson';
@@ -630,17 +631,17 @@
         });
 
         form.reset();
-        document.getElementById('daysWrap').innerHTML = '';
+        daysWrap.innerHTML = '';
         showSuccessView();
       } catch (err) {
         statusEl.textContent = 'Network error. Please try again.';
         statusEl.style.color = 'crimson';
-        const submitBtn2 = document.getElementById('request-booking');
-        submitBtn2.disabled = false;
-        submitBtn2.textContent = 'Request Booking';
+        submitBtn.disabled = false;
+        submitBtn.textContent = 'Request Booking';
       }
     });
 
+    // ----- Prefill / Gate control -----
     document.getElementById('whatsappStay').href   = `https://wa.me/${WHATSAPP_NUMBER}`;
     document.getElementById('whatsappDirect').href = `https://wa.me/${WHATSAPP_NUMBER}`;
 
@@ -650,29 +651,26 @@
     const preFrom  = qp.get('from')  || '';
     const preTo    = qp.get('to')    || '';
 
-    function ensureAtLeastOneDay(){ if(document.getElementById('daysWrap').children.length===0){ document.getElementById('daysWrap').appendChild(makeDayRow()); } }
-
     function startWithChoice(choice){
       document.getElementById('purpose').value = choice;
-      document.getElementById('main').classList.remove('hidden');
-      document.getElementById('gate').style.display = 'none';
+      main.classList.remove('hidden');
+      gate.style.display = 'none';
 
       const lede = document.getElementById('lede');
       if (choice === 'Filming') {
         if (lede) lede.style.display = '';
-        document.getElementById('filmingCard').style.display = '';
-        document.getElementById('stayCard').style.display = 'none';
+        filmingCard.style.display = '';
+        stayCard.style.display = 'none';
         ensureAtLeastOneDay();
         updatePrice();
       } else {
-        if (lede) lede.style.display = 'none';
-        document.getElementById('filmingCard').style.display = 'none';
-        document.getElementById('stayCard').style.display = '';
+        if (lede) lede.style.display = 'none'; // hide the top sentence only for Stay
+        filmingCard.style.display = 'none';
+        stayCard.style.display = '';
       }
     }
 
     (function prefillFromQuery(){
-      const daysWrap = document.getElementById('daysWrap');
       if (prePhone || preDate || preFrom || preTo){
         startWithChoice('Filming');
         if (prePhone){
