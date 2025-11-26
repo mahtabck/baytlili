@@ -184,7 +184,7 @@
 
         <div id="priceCard" class="price-card" style="display:none">
           <div id="priceSummary" style="font-weight:700">Estimated Total: AED 0</div>
-          <small id="priceNotes">Rate: AED <span id="rateVal">300</span>/hr. <span id="minNote">Min: 6 hrs are billable</span>. Refundable deposit: AED 5,000.</small>
+          <small id="priceNotes">Rate: AED <span id="rateVal">250</span>/hr. <span id="minNote">Min: 6 hrs are billable</span>. Refundable deposit: AED 5,000.</small>
         </div>
 
         <div class="actions full" id="filmButtons" style="display:flex">
@@ -228,7 +228,7 @@
     const WHATSAPP_NUMBER='971501589628';
     const INSTAGRAM_URL='https://instagram.com/baytlili';
     const SHEETS_ENDPOINT='https://script.google.com/macros/s/AKfycbw3ovdG31xmwUmpintksLOGuenjDF4tO-ZbqJbihQweSswhWxj6643z2-L-nFl7FMEG/exec';
-    const RATE_PER_HOUR=300, MIN_HOURS_PER_DAY=6; const AED=new Intl.NumberFormat('en-US',{maximumFractionDigits:0});
+    const RATE_PER_HOUR=250, MIN_HOURS_PER_DAY=6; const AED=new Intl.NumberFormat('en-US',{maximumFractionDigits:0});
 
     // Mobile menu
     (function(){
@@ -329,7 +329,7 @@
         'Booking Request — Filming',
         `Name: ${name||'-'}`,`Company: ${company||'-'}`,`Email: ${email||'-'}`,`Phone: ${phone||'-'}`,
         '',...(dayLines.length?dayLines:['No days selected']),'',
-        `Estimated Total: AED ${new Intl.NumberFormat('en-US',{maximumFractionDigits:0}).format(Math.round(total))} (rate AED 300/hr; 6h min/day)`
+        `Estimated Total: AED ${new Intl.NumberFormat('en-US',{maximumFractionDigits:0}).format(Math.round(total))} (rate AED 250/hr; 6h min/day)`
       ].join('\n');
     }
 
@@ -378,7 +378,7 @@
       submitBtn.disabled=true; submitBtn.textContent='Sending…'; statusEl.textContent='';
 
       const message=buildMessageFilmingForSheet();
-      const notifyPayload={type:'filming',...buildLinesFromForm(),waText:buildWAString(),rate:300,minHours:6,pageUrl:location.href,userAgent:navigator.userAgent};
+      const notifyPayload={type:'filming',...buildLinesFromForm(),waText:buildWAString(),rate:250,minHours:6,pageUrl:location.href,userAgent:navigator.userAgent};
 
       try{
         const params=new URLSearchParams();
